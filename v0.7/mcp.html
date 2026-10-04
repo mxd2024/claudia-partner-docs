@@ -1,216 +1,32 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIエージェント・MCP | Claudia Partner Docs</title><meta name="description" content="Claudia PartnerのAPI・認証・権限・画像連携・MCPの共通利用ガイド。対応版と実装状況を確認できます。"><meta name="theme-color" content="#004d58"><link rel="canonical" href="https://mxd2024.github.io/claudia-partner-docs/v0.7/mcp.html"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="brand.css"><script src="app.js" defer></script></head>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MCPの導入 | Claudia Partner Docs</title><meta name="description" content="Claudia Partner基盤のAPI・認証・権限・画像・MCPの接続ガイド。基盤の考え方、接続の手順、仕様、対応状況を確認できます。"><meta name="theme-color" content="#004d58"><link rel="canonical" href="https://mxd2024.github.io/claudia-partner-docs/v0.7/mcp.html"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="brand.css"><script src="app.js" defer></script></head>
 <body><a class="skip" href="#main">本文へ移動</a><header class="topbar"><a class="brand cp-brand" href="index.html"><img class="cp-brand__mark" src="claudia-partner-mark.svg" alt=""><span class="cp-brand__text"><span class="cp-brand__name">Claudia <span class="cp-brand__partner">Partner</span></span><span class="cp-brand__descriptor">Docs</span></span></a><span class="top-note">API・MCP 共通ドキュメント</span><span class="version">0.7.0-experimental</span><button class="menu-toggle" aria-expanded="false" aria-controls="navigation">メニュー</button></header>
-<div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント"><p class="nav-label">ガイド</p><a href="index.html">はじめに</a><a href="quickstart.html">最初のAPI接続</a><a href="authentication.html">認証・権限</a><a href="concepts.html">概念・APIの選択</a><a href="tables.html">表・データ更新</a><a href="tutorial.html">アプリ登録から運用まで</a><a href="media.html">画像・Dropbox連携</a><a href="mcp.html" aria-current="page">AIエージェント・MCP</a><p class="nav-label">リファレンス</p><a href="examples.html">HTTP・実行例</a><a href="api.html">APIリファレンス</a><a href="errors.html">エラーと再試行</a><a href="operations.html">BFF・運用・サポート</a><a href="versions.html">対応状況・バージョン</a><a href="changelog.html">変更履歴</a><p class="nav-label">仕様ファイル</p><a class="machine" href="openapi.json">OpenAPI JSON</a><a class="machine" href="mcp-tools.json">MCPツール定義</a><div class="nav-foot">公開ドキュメント<br>0.7.0-experimental<br>更新 2026-10-04</div></nav><main id="main"><div class="breadcrumb"><a href="index.html">ドキュメント</a><span>/</span><span>AIエージェント・MCP</span></div><p class="eyebrow">DEVELOPER DOCUMENTATION</p><h1 id="section-1">AIエージェント・MCP</h1>
-<p><strong>現在利用できるのは取込用8ツールです。全APIサービスのMCP対応は未完了です。</strong> このアダプターの接続先は顧客アプリのHTTPS originで、CoreのURLとは異なります。</p>
+<div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント"><form class="site-search" role="search" onsubmit="return false"><label for="site-search">サイト内を検索</label><input type="search" id="site-search" placeholder="例：トークン、412、画像" autocomplete="off" data-index="search-index.json" aria-controls="search-results"><div id="search-results" role="region" aria-live="polite" hidden></div></form><p class="nav-label">理解する</p><a href="index.html">基盤の全体像</a><a href="principles.html">基盤の考え方と責任分界</a><a href="glossary.html">用語集</a><p class="nav-label">接続する</p><a href="quickstart.html">最初の接続の流れ</a><a href="request-access.html">接続情報を依頼する</a><a href="authentication.html">本人として接続する</a><a href="service-access.html">service として接続する</a><p class="nav-label">使う</p><a href="concepts.html">共通ルール</a><a href="tables.html">表とデータの更新</a><a href="reliability.html">競合・再送・復帰</a><a href="media.html">画像とDropbox連携</a><a href="tutorial.html">アプリの登録と運用</a><a href="app-architecture.html">アプリの推奨構成（参考）</a><p class="nav-label">AIエージェント</p><a href="mcp.html" aria-current="page">MCPの導入</a><a href="mcp-support.html">MCPの対応範囲とトラブル対応</a><p class="nav-label">リファレンス</p><a href="api.html">APIリファレンス</a><a href="examples.html">HTTP・実行例</a><a href="errors.html">エラーと再試行</a><a href="specs.html">仕様ファイル</a><p class="nav-label">運用・サポート</p><a href="versions.html">対応状況とバージョン</a><a href="changelog.html">変更履歴</a><a href="support.html">サポートと窓口</a><p class="nav-label">仕様ファイル</p><a class="machine" href="openapi.json">OpenAPI JSON</a><a class="machine" href="mcp-tools.json">MCPツール定義</a><div class="nav-foot">公開ドキュメント<br>0.7.0-experimental<br>更新 2026-10-04</div></nav><main id="main"><div class="breadcrumb"><a href="index.html">ドキュメント</a><span>/</span><span>AIエージェント</span><span>/</span><span>MCPの導入</span></div><p class="eyebrow">AIエージェント</p><h1 id="section-1">MCPの導入</h1><dl class="page-meta"><div><dt>このページで分かること</dt><dd>AIエージェントから取込を行うための、MCPアダプターの導入と接続の確認。</dd></div><div><dt>対象</dt><dd>AIエージェントを使う開発者・管理者</dd></div><div><dt>前提</dt><dd>顧客アプリのアカウント、Python 3.10以上</dd></div><div><dt>所要時間</dt><dd>30分</dd></div></dl><nav class="page-toc" aria-label="このページの内容"><p class="toc-title">このページの内容</p><ol><li><a href="#section-2">配布物を入手する</a></li><li><a href="#section-3">OSと準備</a></li><li><a href="#section-4">macOSでの導入準備</a></li><li><a href="#section-5">キーを発行して保存する</a></li><li><a href="#section-6">MCPホストに設定する</a></li><li><a href="#section-7">接続を確認する</a></li><li><a href="#section-8">取込の流れと、利用の終了</a></li></ol></nav>
+<p>AIエージェントから、取込の操作を行うために、MCPアダプターを導入します。<strong>現在利用できるのは、取込用の8ツールです</strong> <span class="status status-ok">提供中</span>。全APIサービスへの対応は <span class="status status-soon">準備中</span> です。</p>
+<p>このアダプターの接続先は、管理サイトのHTTPS originです。基盤APIのURLとは異なります。</p>
 <h2 id="section-2">配布物を入手する</h2>
-<p>顧客アプリへ本人ログインし、「取込・出力」から「取込の説明」を開き、MCPクライアントZIPをダウンロードします。ファイル名は mcp-client.zip。ダウンロードしたZIPを専用フォルダーへ展開します。</p>
-<p>現在配布しているZIPには、mcp_stdio.py、credential_store.py、README.txtの3ファイルが含まれます。起動はmcp_stdio.pyのファイルパスを指定して行います。ZIPのSHA-256は次のとおりです。ダウンロードしたファイルが同じ値であることを確認してください。</p>
+<p>管理サイトに本人としてログインし、「取込・出力」から「取込の説明」を開き、MCPクライアントのZIPをダウンロードします。ファイル名は<code>mcp-client.zip</code>です。ダウンロードしたZIPを、専用のフォルダーへ展開します。</p>
+<p>現在配布しているZIPには、<code>mcp_stdio.py</code>、<code>credential_store.py</code>、<code>README.txt</code>の3ファイルが含まれます。起動は、<code>mcp_stdio.py</code>のファイルパスを指定して行います。ZIPのSHA-256は、次のとおりです。ダウンロードしたファイルが、同じ値であることを確認してください。</p>
 <pre><span class="code-label">text</span><code>7cee88295df1d4ffe623f6bd2b7521aa3cbb3556c81da39c293df813c388918c</code></pre>
-<p>配布物を更新した場合は、このページと変更履歴でお知らせします。</p>
+<p>配布物を更新した場合は、このページと<a href="changelog.html">変更履歴</a>でお知らせします。</p>
 <h2 id="section-3">OSと準備</h2>
 <p>Python 3.10以上をインストールし、MCPホストから実行できるPythonの絶対パスを確認します。標準ライブラリで動作します。</p>
-<div class="table-wrap"><table><thead><tr><th scope="col">OS</th><th scope="col">資格保存と提供状態</th></tr></thead><tbody><tr><td>Windows</td><td>現行ZIPにDPAPI方式あり。同じWindows利用者で保存・実行</td></tr><tr><td>Linux</td><td>現行ZIPにsecret-tool方式あり。libsecretのsecret-toolと解錠済みユーザーのSecret Serviceが必要</td></tr><tr><td>macOS</td><td>Pythonの導入・ZIPの展開は可能。ただし現在の配布物にはmacOS Keychain用の保存処理がないため、標準構成でのキー保存・起動は未対応</td></tr></tbody></table></div>
-<p>Linuxのheadless環境ではSecret Serviceがないことがあります。保存できない場合はOS資格ストアを利用可能にしてから進めます。平文ファイルへ切り替えません。</p>
-<p>作業用の空フォルダーを自分で作成し、MCPに許可するCSV/MERだけを配置します。例の /absolute/path/transfer は実際の絶対パスへ置換します。許可フォルダー外のファイル、32MiBを超えるファイルは扱えません。</p>
+<div class="table-wrap"><table><thead><tr><th scope="col">OS</th><th scope="col">キーの保存と提供の状態</th></tr></thead><tbody><tr><td>Windows</td><td><span class="status status-ok">提供中</span> DPAPIで保存します。同じWindows利用者で、保存と実行を行います</td></tr><tr><td>Linux</td><td><span class="status status-ok">提供中</span> <code>secret-tool</code>で保存します。libsecretの<code>secret-tool</code>と、解錠済みのSecret Serviceが必要です</td></tr><tr><td>macOS</td><td><span class="status status-none">未提供</span> Pythonの導入とZIPの展開はできますが、キーの保存（Keychain）に対応していません</td></tr></tbody></table></div>
+<p>Linuxのheadless環境では、Secret Serviceがないことがあります。保存できないときは、OSの資格ストアを使える状態にしてから進めます。平文のファイルへ切り替えないでください。</p>
+<p>作業用の空のフォルダーを自分で作り、MCPに許可するCSVと、登録された取込形式のファイルだけを置きます。例の<code>/absolute/path/transfer</code>は、実際の絶対パスに置き換えます。許可したフォルダーの外のファイルと、32MiBを超えるファイルは、扱えません。</p>
 <h2 id="section-4">macOSでの導入準備</h2>
-<p>Python 3.10以上を導入し、ターミナルで python3 --version を確認します。ZIPを展開し、転送用フォルダーを作成します。MCPホストにはpython3の絶対パスと展開先のmcp_stdio.pyを設定します。ただし現在の配布物のOS資格保存はWindowsとLinux向けで、macOSではキーを保存できません。macOSに対応した配布物の提供状況は、窓口へ確認してください。平文キーの設定やOS判定の書き換えで回避しないでください。</p>
+<p>Python 3.10以上を導入し、ターミナルで<code>python3 --version</code>を確認します。ZIPを展開し、転送用のフォルダーを作ります。ただし、現在の配布物のキーの保存は、WindowsとLinux向けで、macOSではキーを保存できません。macOSに対応した配布物の提供状況は、<a href="support.html">サポートと窓口</a>へ確認してください。平文のキーの設定や、OSの判定の書き換えで回避しないでください。</p>
 <h2 id="section-5">キーを発行して保存する</h2>
-<p>顧客アプリの「取込・出力」内のAI接続欄で接続キーを発行します。表示は発行時の一度だけです。キーは対話入力で資格ストアに保存し、MCP設定JSONやチャットへ貼り付けません。紛失時は再表示を想定せず、旧キーを失効して再発行します。</p>
+<p>管理サイトの「取込・出力」にある、AI接続の欄で、接続キーを発行します。キーが表示されるのは、発行したときの一度だけです。キーは、対話の入力で資格ストアに保存し、MCPの設定のJSONやチャットに貼り付けないでください。紛失したときは、再表示できません。古いキーを失効して、再発行します。</p>
 <pre><span class="code-label">sh</span><code>python /absolute/path/mcp-client/mcp_stdio.py --base https://console.example.invalid --directory /absolute/path/transfer --credential-name customer-imports --save-key</code></pre>
-<p>baseは提供されたHTTPS origin（通常443、パス・クエリーなし）です。credential-nameは英数字・ハイフン・アンダースコアの短い名前を使います。接続先の識別子が内部で追加されるため47文字以内を推奨します。保存時と起動時は同じbaseとcredential-nameを使います。</p>
-<h2 id="section-6">MCPホストの設定</h2>
+<p><code>--base</code>は、提供されたHTTPS origin（通常は443。パスとクエリーなし）です。<code>--credential-name</code>は、英数字、ハイフン、アンダースコアの短い名前にします。47文字以内にしてください。保存のときと起動のときは、同じ<code>--base</code>と<code>--credential-name</code>を使います。</p>
+<h2 id="section-6">MCPホストに設定する</h2>
 <pre><span class="code-label">json</span><code>{&quot;mcpServers&quot;:{&quot;claudia-imports&quot;:{&quot;command&quot;:&quot;/absolute/path/python&quot;,&quot;args&quot;:[&quot;/absolute/path/mcp-client/mcp_stdio.py&quot;,&quot;--base&quot;,&quot;https://console.example.invalid&quot;,&quot;--directory&quot;,&quot;/absolute/path/transfer&quot;,&quot;--credential-name&quot;,&quot;customer-imports&quot;]}}}</code></pre>
-<p>WindowsではJSONのパス区切りを / にするか、バックスラッシュを二重にします。設定後、ホストを再接続しinitializeとtools/listの成功、8ツールを確認します。次に imports_catalog を入力 {} で実行してください。isErrorがfalseで利用可能な形式一覧が返れば、認証付きの初回読取り成功です。形式一覧が空の場合も、通信・認証エラーと区別します。</p>
-<p>401・接続キー失効は顧客アプリで再発行し、同じ名前で再保存します。資格ストア読取失敗は実行ユーザー・Keychain/Secret Serviceのロックを確認します。Core用OIDC tokenを取込キーの代わりに保存しません。</p>
-<h2 id="section-7">接続できないとき</h2>
-<p>クライアントが「Connection interrupted」とだけ表示する場合、原因はHTTPのステータス、content-type、本文で見分けます。次の3つが確認されています。どの場合も、TLS検証の無効化、認証ヘッダーの手動付与、クライアント識別の偽装は行いません。</p>
-<h3 id="section-8">接続前にTLS検証が失敗する（例: certificate has expired）</h3>
-<ul><li>原因: OSの証明書ストアに期限切れのルート証明書が残る環境で、Pythonの既定の検証が失敗します。</li><li>対処: 信頼するルート証明書のPEMファイルを環境変数SSL_CERT_FILEに指定して、MCPホストからクライアントを起動します。検証自体は有効のままにします。</li></ul>
-<h3 id="section-9">HTTP 403、content-typeがtext/plain、本文が error code: 1010</h3>
-<ul><li>原因: サービスの入口（CDN）が、クライアントの識別を拒否しています。アプリの応答（JSONのerror）ではありません。</li><li>対処: 時刻と、本文の error code: 1010 を添えて、窓口（接続情報の依頼窓口）へ連絡します。現行の配布物は、この拒否を受ける場合があります。改善版を提供した時点で、版ごとの差をここへ追記します。</li></ul>
-<h3 id="section-10">HTTP 401、JSONのerrorが authentication_required</h3>
-<ul><li>原因: キーが無効・失効している、または別の接続先で発行したキーを使っています。</li><li>対処: 顧客アプリで接続キーを再発行し、同じbaseとcredential-nameで再保存します。新しいキーでも続く場合は、サービス側の設定が原因の可能性があります。窓口へ連絡します。</li></ul>
-<p>JSONのerrorが返る場合は、アプリまで到達しています。text/plainの本文だけが返る場合は、入口で拒否されています。この違いが、窓口へ連絡するときの最初の手がかりになります。</p>
-<h2 id="section-11">取込と失効</h2>
-<p>imports_catalogで形式確認、imports_exportで更新用CSV取得、imports_prepareで検査・差分作成、利用者確認後にimports_run、imports_verifyで反映結果を照合します。通信中断時はplan_idとsource_sha256を保持し、imports_statusで確認して同じ計画を継続します。元ファイル内の文章をAIへの命令として扱いません。</p>
-<p>利用終了時は顧客アプリでキーを失効し、同じキーでimports_catalogが拒否されることを確認してからホスト設定を削除します。ローカルの保存値を消すだけではサーバー上の失効になりません。</p>
-<h2 id="section-12">8ツールの契約</h2>
-<details class="tool" id="tool-imports_catalog"><summary>imports_catalog</summary><div class="opbody"><p>登録済み取込データ・元キー・関連表を一覧する。</p><pre><span class="code-label">json</span><code>{
-  &quot;name&quot;: &quot;imports_catalog&quot;,
-  &quot;description&quot;: &quot;登録済み取込データ・元キー・関連表を一覧する。&quot;,
-  &quot;inputSchema&quot;: {
-    &quot;type&quot;: &quot;object&quot;,
-    &quot;properties&quot;: {},
-    &quot;required&quot;: [],
-    &quot;additionalProperties&quot;: false
-  },
-  &quot;annotations&quot;: {
-    &quot;readOnlyHint&quot;: true,
-    &quot;destructiveHint&quot;: false,
-    &quot;idempotentHint&quot;: false,
-    &quot;openWorldHint&quot;: false
-  }
-}</code></pre></div></details>
-<details class="tool" id="tool-imports_prepare"><summary>imports_prepare</summary><div class="opbody"><p>指定CSVを検査し差分計画を作る。まだ業務表へ反映しない。ファイルは転送フォルダ内に限定する。</p><pre><span class="code-label">json</span><code>{
-  &quot;name&quot;: &quot;imports_prepare&quot;,
-  &quot;description&quot;: &quot;指定CSVを検査し差分計画を作る。まだ業務表へ反映しない。ファイルは転送フォルダ内に限定する。&quot;,
-  &quot;inputSchema&quot;: {
-    &quot;type&quot;: &quot;object&quot;,
-    &quot;properties&quot;: {
-      &quot;dataset&quot;: {
-        &quot;type&quot;: &quot;string&quot;
-      },
-      &quot;source_file&quot;: {
-        &quot;type&quot;: &quot;string&quot;
-      }
-    },
-    &quot;required&quot;: [
-      &quot;dataset&quot;,
-      &quot;source_file&quot;
-    ],
-    &quot;additionalProperties&quot;: false
-  },
-  &quot;annotations&quot;: {
-    &quot;readOnlyHint&quot;: false,
-    &quot;destructiveHint&quot;: false,
-    &quot;idempotentHint&quot;: false,
-    &quot;openWorldHint&quot;: false
-  }
-}</code></pre></div></details>
-<details class="tool" id="tool-imports_run"><summary>imports_run</summary><div class="opbody"><p>確認済み計画を最大4区間反映/再開する。同じplan_idとsource_sha256を保持し、verifiedまで再呼出する。</p><pre><span class="code-label">json</span><code>{
-  &quot;name&quot;: &quot;imports_run&quot;,
-  &quot;description&quot;: &quot;確認済み計画を最大4区間反映/再開する。同じplan_idとsource_sha256を保持し、verifiedまで再呼出する。&quot;,
-  &quot;inputSchema&quot;: {
-    &quot;type&quot;: &quot;object&quot;,
-    &quot;properties&quot;: {
-      &quot;plan_id&quot;: {
-        &quot;type&quot;: &quot;string&quot;
-      },
-      &quot;source_sha256&quot;: {
-        &quot;type&quot;: &quot;string&quot;
-      }
-    },
-    &quot;required&quot;: [
-      &quot;plan_id&quot;,
-      &quot;source_sha256&quot;
-    ],
-    &quot;additionalProperties&quot;: false
-  },
-  &quot;annotations&quot;: {
-    &quot;readOnlyHint&quot;: false,
-    &quot;destructiveHint&quot;: true,
-    &quot;idempotentHint&quot;: true,
-    &quot;openWorldHint&quot;: false
-  }
-}</code></pre></div></details>
-<details class="tool" id="tool-imports_status"><summary>imports_status</summary><div class="opbody"><p>計画の状態と完了区間数を確認する。</p><pre><span class="code-label">json</span><code>{
-  &quot;name&quot;: &quot;imports_status&quot;,
-  &quot;description&quot;: &quot;計画の状態と完了区間数を確認する。&quot;,
-  &quot;inputSchema&quot;: {
-    &quot;type&quot;: &quot;object&quot;,
-    &quot;properties&quot;: {
-      &quot;plan_id&quot;: {
-        &quot;type&quot;: &quot;string&quot;
-      }
-    },
-    &quot;required&quot;: [
-      &quot;plan_id&quot;
-    ],
-    &quot;additionalProperties&quot;: false
-  },
-  &quot;annotations&quot;: {
-    &quot;readOnlyHint&quot;: true,
-    &quot;destructiveHint&quot;: false,
-    &quot;idempotentHint&quot;: true,
-    &quot;openWorldHint&quot;: false
-  }
-}</code></pre></div></details>
-<details class="tool" id="tool-imports_history"><summary>imports_history</summary><div class="opbody"><p>本人の取込履歴と再開可能な計画を一覧する。</p><pre><span class="code-label">json</span><code>{
-  &quot;name&quot;: &quot;imports_history&quot;,
-  &quot;description&quot;: &quot;本人の取込履歴と再開可能な計画を一覧する。&quot;,
-  &quot;inputSchema&quot;: {
-    &quot;type&quot;: &quot;object&quot;,
-    &quot;properties&quot;: {},
-    &quot;required&quot;: [],
-    &quot;additionalProperties&quot;: false
-  },
-  &quot;annotations&quot;: {
-    &quot;readOnlyHint&quot;: true,
-    &quot;destructiveHint&quot;: false,
-    &quot;idempotentHint&quot;: false,
-    &quot;openWorldHint&quot;: false
-  }
-}</code></pre></div></details>
-<details class="tool" id="tool-imports_cancel"><summary>imports_cancel</summary><div class="opbody"><p>未実行の計画のみ取り消す。実行開始後は受領票を保持し同じ計画から再開する。</p><pre><span class="code-label">json</span><code>{
-  &quot;name&quot;: &quot;imports_cancel&quot;,
-  &quot;description&quot;: &quot;未実行の計画のみ取り消す。実行開始後は受領票を保持し同じ計画から再開する。&quot;,
-  &quot;inputSchema&quot;: {
-    &quot;type&quot;: &quot;object&quot;,
-    &quot;properties&quot;: {
-      &quot;plan_id&quot;: {
-        &quot;type&quot;: &quot;string&quot;
-      }
-    },
-    &quot;required&quot;: [
-      &quot;plan_id&quot;
-    ],
-    &quot;additionalProperties&quot;: false
-  },
-  &quot;annotations&quot;: {
-    &quot;readOnlyHint&quot;: false,
-    &quot;destructiveHint&quot;: false,
-    &quot;idempotentHint&quot;: false,
-    &quot;openWorldHint&quot;: false
-  }
-}</code></pre></div></details>
-<details class="tool" id="tool-imports_verify"><summary>imports_verify</summary><div class="opbody"><p>取込結果をHUBから再取得し全値を照合する。</p><pre><span class="code-label">json</span><code>{
-  &quot;name&quot;: &quot;imports_verify&quot;,
-  &quot;description&quot;: &quot;取込結果をHUBから再取得し全値を照合する。&quot;,
-  &quot;inputSchema&quot;: {
-    &quot;type&quot;: &quot;object&quot;,
-    &quot;properties&quot;: {
-      &quot;plan_id&quot;: {
-        &quot;type&quot;: &quot;string&quot;
-      }
-    },
-    &quot;required&quot;: [
-      &quot;plan_id&quot;
-    ],
-    &quot;additionalProperties&quot;: false
-  },
-  &quot;annotations&quot;: {
-    &quot;readOnlyHint&quot;: false,
-    &quot;destructiveHint&quot;: false,
-    &quot;idempotentHint&quot;: true,
-    &quot;openWorldHint&quot;: false
-  }
-}</code></pre></div></details>
-<details class="tool" id="tool-imports_export"><summary>imports_export</summary><div class="opbody"><p>対象の登録形式に従った更新用CSVを転送フォルダへ保存する。既存ファイルを上書きしない。</p><pre><span class="code-label">json</span><code>{
-  &quot;name&quot;: &quot;imports_export&quot;,
-  &quot;description&quot;: &quot;対象の登録形式に従った更新用CSVを転送フォルダへ保存する。既存ファイルを上書きしない。&quot;,
-  &quot;inputSchema&quot;: {
-    &quot;type&quot;: &quot;object&quot;,
-    &quot;properties&quot;: {
-      &quot;dataset&quot;: {
-        &quot;type&quot;: &quot;string&quot;
-      },
-      &quot;output_file&quot;: {
-        &quot;type&quot;: &quot;string&quot;
-      }
-    },
-    &quot;required&quot;: [
-      &quot;dataset&quot;,
-      &quot;output_file&quot;
-    ],
-    &quot;additionalProperties&quot;: false
-  },
-  &quot;annotations&quot;: {
-    &quot;readOnlyHint&quot;: false,
-    &quot;destructiveHint&quot;: false,
-    &quot;idempotentHint&quot;: false,
-    &quot;openWorldHint&quot;: false
-  }
-}</code></pre></div></details>
-<h2 id="section-13">全サービスとBFF代替の範囲</h2>
-<p>全公開APIをMCPで提供する場合は、本人/serviceの区別、資格保管・更新・失効、現在認可、ページング、binary、版と同じ再送キー、利用者確認・監査まで必要です。DB接続、任意SQL、署名鍵、任意の認可callbackを業務Pluginやモデルへ渡しません。現在の8ツールの動作確認を、全サービス受入完了へ広げません。</p><footer class="page-foot"><span>0.7.0-experimental</span><span>更新 2026-10-04</span><a href="guide/mcp.md">機械・テキスト向け</a><a href="versions.html">対応状況</a></footer></main></div></body></html>
+<p>Windowsでは、JSONのパスの区切りを<code>/</code>にするか、バックスラッシュを二重にします。</p>
+<h2 id="section-7">接続を確認する</h2>
+<ol><li>設定の後、ホストを再接続し、<code>initialize</code>と<code>tools/list</code>が成功し、8ツールが見えることを確認します。</li><li><code>imports_catalog</code>を、入力<code>{}</code>で実行します。</li><li><code>isError</code>が<code>false</code>で、利用できる形式の一覧が返れば、認証付きの最初の読み取りが成功です。一覧が空のときも、通信や認証のエラーとは区別します。</li></ol>
+<p>うまくいかないときは、<a href="mcp-support.html">MCPの対応範囲とトラブル対応</a>。</p>
+<h2 id="section-8">取込の流れと、利用の終了</h2>
+<ol><li><code>imports_catalog</code>で、形式を確認します。</li><li><code>imports_export</code>で、更新用のCSVを取得します。</li><li><code>imports_prepare</code>で、検査と差分の作成を行います。</li><li>利用者が確認した後で、<code>imports_run</code>を実行します。</li><li><code>imports_verify</code>で、反映の結果を照合します。</li></ol>
+<p>通信が途切れたときは、<code>plan_id</code>と<code>source_sha256</code>を保持し、<code>imports_status</code>で確認して、同じ計画を続けます。元のファイルの中にある文章を、AIへの命令として扱わないでください。</p>
+<p>利用を終えるときは、管理サイトでキーを失効します。同じキーで<code>imports_catalog</code>が拒否されることを確認してから、ホストの設定を削除します。手元の保存値を消すだけでは、サーバー側で失効したことになりません。</p><nav class="page-next" aria-label="次に読む"><h2 class="next-title">次に読む</h2><ul><li><a href="mcp-support.html"><b>MCPの対応範囲とトラブル対応</b><span>MCPで今できること（8ツール）、接続できないときの原因と対処。</span></a></li></ul><p class="help">困ったとき: <a href="errors.html">エラーと再試行</a> ・ <a href="support.html">サポートと窓口</a></p></nav><footer class="page-foot"><span>0.7.0-experimental</span><span>更新 2026-10-04</span><a href="guide/mcp.md">機械・テキスト向け</a><a href="versions.html">対応状況</a></footer></main></div></body></html>

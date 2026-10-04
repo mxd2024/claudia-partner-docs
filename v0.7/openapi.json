@@ -22,7 +22,7 @@
         "tags": [
           "business"
         ],
-        "x-availability": "implemented; deployment-specific",
+        "x-availability": "提供中（環境による）",
         "parameters": [],
         "responses": {
           "200": {
@@ -324,9 +324,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -356,8 +353,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/jobs": {
@@ -376,7 +373,7 @@
         "tags": [
           "business"
         ],
-        "x-availability": "implemented; deployment-specific",
+        "x-availability": "提供中（環境による）",
         "parameters": [
           {
             "name": "id",
@@ -846,9 +843,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -878,8 +872,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       },
       "post": {
         "security": [
@@ -896,7 +890,7 @@
         "tags": [
           "business"
         ],
-        "x-availability": "implemented; deployment-specific",
+        "x-availability": "提供中（環境による）",
         "parameters": [
           {
             "name": "Idempotency-Key",
@@ -1244,9 +1238,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -1281,8 +1272,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/jobs/{id}": {
@@ -1301,7 +1292,7 @@
         "tags": [
           "business"
         ],
-        "x-availability": "implemented; deployment-specific",
+        "x-availability": "提供中（環境による）",
         "parameters": [
           {
             "name": "id",
@@ -1692,9 +1683,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -1724,8 +1712,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       },
       "delete": {
         "security": [
@@ -1742,7 +1730,7 @@
         "tags": [
           "business"
         ],
-        "x-availability": "implemented; deployment-specific",
+        "x-availability": "提供中（環境による）",
         "parameters": [
           {
             "name": "id",
@@ -1963,9 +1951,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -2001,8 +1986,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       },
       "patch": {
         "security": [
@@ -2019,7 +2004,7 @@
         "tags": [
           "business"
         ],
-        "x-availability": "implemented; deployment-specific",
+        "x-availability": "提供中（環境による）",
         "parameters": [
           {
             "name": "id",
@@ -2366,9 +2351,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -2404,8 +2386,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/jobs/export": {
@@ -2424,7 +2406,7 @@
         "tags": [
           "business"
         ],
-        "x-availability": "implemented; deployment-specific",
+        "x-availability": "提供中（環境による）",
         "parameters": [
           {
             "name": "id",
@@ -2894,9 +2876,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -2926,8 +2905,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/jobs/count": {
@@ -2946,7 +2925,7 @@
         "tags": [
           "business"
         ],
-        "x-availability": "implemented; deployment-specific",
+        "x-availability": "提供中（環境による）",
         "parameters": [
           {
             "name": "id",
@@ -3177,9 +3156,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -3209,8 +3185,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/invoices/{id}": {
@@ -3229,7 +3205,7 @@
         "tags": [
           "business"
         ],
-        "x-availability": "implemented; deployment-specific",
+        "x-availability": "提供中（環境による）",
         "parameters": [
           {
             "name": "id",
@@ -3466,9 +3442,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -3498,8 +3471,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/contacts/{id}/erasure": {
@@ -3518,7 +3491,7 @@
         "tags": [
           "business"
         ],
-        "x-availability": "implemented; deployment-specific",
+        "x-availability": "提供中（環境による）",
         "parameters": [
           {
             "name": "id",
@@ -3742,9 +3715,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -3774,8 +3744,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/proposals/{id}": {
@@ -3794,7 +3764,7 @@
         "tags": [
           "business"
         ],
-        "x-availability": "implemented; deployment-specific",
+        "x-availability": "提供中（環境による）",
         "parameters": [
           {
             "name": "id",
@@ -4092,9 +4062,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -4124,8 +4091,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/ai/sessions/{id}": {
@@ -4144,7 +4111,7 @@
         "tags": [
           "business"
         ],
-        "x-availability": "implemented; deployment-specific",
+        "x-availability": "提供中（環境による）",
         "parameters": [
           {
             "name": "id",
@@ -4379,9 +4346,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -4411,8 +4375,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/tables/{collection}/rows/{rowId}": {
@@ -4431,7 +4395,7 @@
         "tags": [
           "tables"
         ],
-        "x-availability": "experimental; optional foundations composition",
+        "x-availability": "試験提供（環境による）",
         "description": "v1の行を1件取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在の表利用権と列権限で処理する。v1の行version、表revision、schema_version、共有viewの版を区別する。",
         "parameters": [
           {
@@ -4607,9 +4571,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -4639,8 +4600,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/tables": {
@@ -4659,7 +4620,7 @@
         "tags": [
           "tables"
         ],
-        "x-availability": "experimental; optional foundations composition",
+        "x-availability": "試験提供（環境による）",
         "description": "v1の利用可能な表を一覧取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在の表利用権と列権限で処理する。v1の行version、表revision、schema_version、共有viewの版を区別する。",
         "parameters": [],
         "responses": {
@@ -4831,9 +4792,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -4863,8 +4821,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/tables/{collection}": {
@@ -4883,7 +4841,7 @@
         "tags": [
           "tables"
         ],
-        "x-availability": "experimental; optional foundations composition",
+        "x-availability": "試験提供（環境による）",
         "description": "v1の表定義と列の権限を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在の表利用権と列権限で処理する。v1の行version、表revision、schema_version、共有viewの版を区別する。",
         "parameters": [
           {
@@ -5050,9 +5008,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -5082,8 +5037,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       },
       "put": {
         "security": [
@@ -5100,7 +5055,7 @@
         "tags": [
           "tables"
         ],
-        "x-availability": "experimental; optional foundations composition",
+        "x-availability": "試験提供（環境による）",
         "description": "v1の表定義を作成・更新。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在の表利用権と列権限で処理する。v1の行version、表revision、schema_version、共有viewの版を区別する。",
         "parameters": [
           {
@@ -5352,9 +5307,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -5390,8 +5342,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/tables/{collection}/query": {
@@ -5410,7 +5362,7 @@
         "tags": [
           "tables"
         ],
-        "x-availability": "experimental; optional foundations composition",
+        "x-availability": "試験提供（環境による）",
         "description": "v1の行を検索。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在の表利用権と列権限で処理する。v1の行version、表revision、schema_version、共有viewの版を区別する。",
         "parameters": [
           {
@@ -5652,9 +5604,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -5684,8 +5633,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/tables/{collection}/batch": {
@@ -5704,7 +5653,7 @@
         "tags": [
           "tables"
         ],
-        "x-availability": "experimental; optional foundations composition",
+        "x-availability": "試験提供（環境による）",
         "description": "v1の行を一括作成・更新・削除。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在の表利用権と列権限で処理する。v1の行version、表revision、schema_version、共有viewの版を区別する。",
         "parameters": [
           {
@@ -5983,9 +5932,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -6019,8 +5965,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/tables/{collection}/views": {
@@ -6039,7 +5985,7 @@
         "tags": [
           "tables"
         ],
-        "x-availability": "experimental; optional foundations composition",
+        "x-availability": "試験提供（環境による）",
         "description": "v1の共有ビューを取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在の表利用権と列権限で処理する。v1の行version、表revision、schema_version、共有viewの版を区別する。",
         "parameters": [
           {
@@ -6206,9 +6152,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -6238,8 +6181,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       },
       "put": {
         "security": [
@@ -6256,7 +6199,7 @@
         "tags": [
           "tables"
         ],
-        "x-availability": "experimental; optional foundations composition",
+        "x-availability": "試験提供（環境による）",
         "description": "v1の共有ビューを保存。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在の表利用権と列権限で処理する。v1の行version、表revision、schema_version、共有viewの版を区別する。",
         "parameters": [
           {
@@ -6497,9 +6440,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -6534,8 +6474,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/tables/{collection}/changes": {
@@ -6554,7 +6494,7 @@
         "tags": [
           "tables"
         ],
-        "x-availability": "experimental; optional foundations composition",
+        "x-availability": "試験提供（環境による）",
         "description": "v1の表の変更版を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在の表利用権と列権限で処理する。v1の行version、表revision、schema_version、共有viewの版を区別する。",
         "parameters": [
           {
@@ -6721,9 +6661,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -6753,8 +6690,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/tables/{collection}/import": {
@@ -6773,7 +6710,7 @@
         "tags": [
           "tables"
         ],
-        "x-availability": "experimental; optional foundations composition",
+        "x-availability": "試験提供（環境による）",
         "description": "v1のCSVを検査・反映。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在の表利用権と列権限で処理する。v1の行version、表revision、schema_version、共有viewの版を区別する。",
         "parameters": [
           {
@@ -7016,9 +6953,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -7052,8 +6986,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/tables/{collection}/export": {
@@ -7072,7 +7006,7 @@
         "tags": [
           "tables"
         ],
-        "x-availability": "experimental; optional foundations composition",
+        "x-availability": "試験提供（環境による）",
         "description": "v1のCSVを取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在の表利用権と列権限で処理する。v1の行version、表revision、schema_version、共有viewの版を区別する。",
         "parameters": [
           {
@@ -7275,9 +7209,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -7308,8 +7239,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/tables": {
@@ -7328,7 +7259,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "v2の利用可能な表を一覧取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -7505,9 +7436,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -7536,8 +7464,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/table-trash-policy": {
@@ -7556,7 +7484,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "表ごみ箱の保持期間を確認。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [],
         "responses": {
@@ -7714,9 +7642,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": true,
@@ -7756,8 +7681,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/table-trash": {
@@ -7776,7 +7701,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "ごみ箱の表を一覧取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -7953,9 +7878,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": true,
@@ -7995,8 +7917,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/tables/{collection}/lifecycle": {
@@ -8015,7 +7937,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "表の状態と依存先を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -8182,9 +8104,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": true,
@@ -8224,8 +8143,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       },
       "post": {
         "security": [
@@ -8242,7 +8161,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "表をごみ箱へ移動・復元。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -8482,9 +8401,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -8528,8 +8444,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/row-trash-policy": {
@@ -8548,7 +8464,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "行ごみ箱の保持期間を確認。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [],
         "responses": {
@@ -8706,9 +8622,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -8741,8 +8654,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/tables/{collection}/trash": {
@@ -8761,7 +8674,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "ごみ箱の行を一覧取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -8946,9 +8859,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -8981,8 +8891,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/tables/{collection}/trash/{trashId}/restore": {
@@ -9001,7 +8911,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "ごみ箱の行を復元。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -9269,9 +9179,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -9308,8 +9215,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/tables/{collection}": {
@@ -9328,7 +9235,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "v2の表定義と現在の列権限を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -9495,9 +9402,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -9530,8 +9434,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       },
       "put": {
         "security": [
@@ -9548,7 +9452,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "v2の表定義を作成・更新。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -9834,9 +9738,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -9875,8 +9776,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/tables/{collection}/rows/{rowId}": {
@@ -9895,7 +9796,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "v2の行を1件取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -10071,9 +9972,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -10106,8 +10004,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/tables/{collection}/query": {
@@ -10126,7 +10024,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "v2の行を検索。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -10359,9 +10257,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -10394,8 +10289,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/tables/{collection}/batch": {
@@ -10414,7 +10309,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "v2の行を一括変更。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -10743,9 +10638,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -10783,8 +10675,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/tables/{collection}/import": {
@@ -10803,7 +10695,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "v2の型付き行を一括取込。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -11044,9 +10936,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -11084,8 +10973,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/tables/{collection}/changes": {
@@ -11104,7 +10993,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "v2の可視範囲の変更版を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -11271,9 +11160,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -11306,8 +11192,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/tables/{collection}/export": {
@@ -11326,7 +11212,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "v2のCSVを取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -11529,9 +11415,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -11565,8 +11448,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/tables/{collection}/export-records": {
@@ -11585,7 +11468,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "v2の出力権限でJSON行を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -11788,9 +11671,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -11824,8 +11704,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/tables/{collection}/aggregate": {
@@ -11844,7 +11724,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "v2の行をグループ集計。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -12047,9 +11927,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -12082,8 +11959,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/number-series/{series}/{period}": {
@@ -12102,7 +11979,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "案件の採番設定を更新。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -12361,9 +12238,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -12402,8 +12276,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/cases": {
@@ -12422,7 +12296,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "案件台帳に新規採番して登録。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -12654,9 +12528,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -12693,8 +12564,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/cases/import": {
@@ -12713,7 +12584,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "既存の案件番号を取込。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -12945,9 +12816,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -12985,8 +12853,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/cases/query": {
@@ -13005,7 +12873,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "案件台帳を検索。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [],
         "requestBody": {
@@ -13199,9 +13067,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -13234,8 +13099,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/cases/{rowId}": {
@@ -13254,7 +13119,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "案件台帳を1件取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -13422,9 +13287,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -13457,8 +13319,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/cases/{rowId}/cancel": {
@@ -13477,7 +13339,7 @@
         "tags": [
           "workspaces"
         ],
-        "x-availability": "experimental; optional same-transaction workspace module",
+        "x-availability": "試験提供（環境による）",
         "description": "案件を取消。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -13718,9 +13580,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -13757,8 +13616,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/tables/{collection}/access": {
@@ -13777,7 +13636,7 @@
         "tags": [
           "workspace-sockets"
         ],
-        "x-availability": "experimental; requires additive pinned workspace_socket schema and host socket option",
+        "x-availability": "試験提供（環境による）",
         "description": "表の関連・所属方式を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -13944,9 +13803,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": true,
@@ -13979,8 +13835,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       },
       "put": {
         "security": [
@@ -13997,7 +13853,7 @@
         "tags": [
           "workspace-sockets"
         ],
-        "x-availability": "experimental; requires additive pinned workspace_socket schema and host socket option",
+        "x-availability": "試験提供（環境による）",
         "description": "表の関連・所属方式を設定。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -14267,9 +14123,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -14307,8 +14160,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/tables/{collection}/members/{scopeId}": {
@@ -14327,7 +14180,7 @@
         "tags": [
           "workspace-sockets"
         ],
-        "x-availability": "experimental; requires additive pinned workspace_socket schema and host socket option",
+        "x-availability": "試験提供（環境による）",
         "description": "対象範囲の所属者を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -14503,9 +14356,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": true,
@@ -14538,8 +14388,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/tables/{collection}/members/{scopeId}/{actorId}": {
@@ -14558,7 +14408,7 @@
         "tags": [
           "workspace-sockets"
         ],
-        "x-availability": "experimental; requires additive pinned workspace_socket schema and host socket option",
+        "x-availability": "試験提供（環境による）",
         "description": "対象範囲の所属者を設定。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -14827,9 +14677,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -14867,8 +14714,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/tables/{collection}/events": {
@@ -14887,7 +14734,7 @@
         "tags": [
           "workspace-sockets"
         ],
-        "x-availability": "experimental; requires additive pinned workspace_socket schema and host socket option",
+        "x-availability": "試験提供（環境による）",
         "description": "関連表の変更イベントを取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -15090,9 +14937,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -15125,8 +14969,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/transactions": {
@@ -15145,7 +14989,7 @@
         "tags": [
           "workspace-sockets"
         ],
-        "x-availability": "experimental; requires additive pinned workspace_socket schema and host socket option",
+        "x-availability": "試験提供（環境による）",
         "description": "複数表の変更を同じトランザクションで反映。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
@@ -15378,9 +15222,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -15418,8 +15259,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/assets/{namespace}/{resourceType}/{resourceId}/policy": {
@@ -15438,7 +15279,7 @@
         "tags": [
           "assets"
         ],
-        "x-availability": "experimental; optional assets composition",
+        "x-availability": "試験提供（環境による）",
         "parameters": [
           {
             "name": "namespace",
@@ -15790,8 +15631,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/assets/{namespace}/{resourceType}/{resourceId}": {
@@ -15810,7 +15651,7 @@
         "tags": [
           "assets"
         ],
-        "x-availability": "experimental; optional assets composition",
+        "x-availability": "試験提供（環境による）",
         "parameters": [
           {
             "name": "namespace",
@@ -16200,8 +16041,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}": {
@@ -16220,7 +16061,7 @@
         "tags": [
           "assets"
         ],
-        "x-availability": "experimental; optional assets composition",
+        "x-availability": "試験提供（環境による）",
         "parameters": [
           {
             "name": "namespace",
@@ -16577,8 +16418,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}/content": {
@@ -16597,7 +16438,7 @@
         "tags": [
           "assets"
         ],
-        "x-availability": "experimental; optional assets composition",
+        "x-availability": "試験提供（環境による）",
         "parameters": [
           {
             "name": "namespace",
@@ -16946,8 +16787,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       },
       "put": {
         "security": [
@@ -16964,7 +16805,7 @@
         "tags": [
           "assets"
         ],
-        "x-availability": "experimental; optional assets composition",
+        "x-availability": "試験提供（環境による）",
         "parameters": [
           {
             "name": "namespace",
@@ -17431,8 +17272,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}/thumbnail": {
@@ -17451,7 +17292,7 @@
         "tags": [
           "assets"
         ],
-        "x-availability": "experimental; optional assets composition",
+        "x-availability": "試験提供（環境による）",
         "parameters": [
           {
             "name": "namespace",
@@ -17800,8 +17641,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}/reference": {
@@ -17820,7 +17661,7 @@
         "tags": [
           "assets"
         ],
-        "x-availability": "experimental; optional assets composition",
+        "x-availability": "試験提供（環境による）",
         "parameters": [
           {
             "name": "namespace",
@@ -18280,8 +18121,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}/check": {
@@ -18300,7 +18141,7 @@
         "tags": [
           "assets"
         ],
-        "x-availability": "experimental; optional assets composition",
+        "x-availability": "試験提供（環境による）",
         "parameters": [
           {
             "name": "namespace",
@@ -18676,8 +18517,8 @@
           "safe_to_repeat": false,
           "result_check": "GET /v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId} で状態を確認。専用の再送識別子・応答再生保証なし。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/service-clients": {
@@ -18696,7 +18537,7 @@
         "tags": [
           "service-access"
         ],
-        "x-availability": "optional Core service/access management module; check deployment version; not a production readiness claim",
+        "x-availability": "環境による",
         "description": "サービス資格を一覧取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理操作は登録済みMFA本人、機械操作は専用audienceのservice資格を使う。人のJWTを機械経路へ流用しない。changeはversion必須で、rotateのみjwkが必要。",
         "parameters": [
           {
@@ -18873,9 +18714,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -18904,8 +18742,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       },
       "post": {
         "security": [
@@ -18922,7 +18760,7 @@
         "tags": [
           "service-access"
         ],
-        "x-availability": "optional Core service/access management module; check deployment version; not a production readiness claim",
+        "x-availability": "環境による",
         "description": "サービス資格を申請。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理操作は登録済みMFA本人、機械操作は専用audienceのservice資格を使う。人のJWTを機械経路へ流用しない。changeはversion必須で、rotateのみjwkが必要。",
         "parameters": [
           {
@@ -19153,9 +18991,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -19194,8 +19029,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/service-clients/{clientId}/permissions": {
@@ -19214,7 +19049,7 @@
         "tags": [
           "service-access"
         ],
-        "x-availability": "optional Core service/access management module; check deployment version; not a production readiness claim",
+        "x-availability": "環境による",
         "description": "同じサービスIDの許可範囲を更新。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理操作は登録済みMFA本人、機械操作は専用audienceのservice資格を使う。人のJWTを機械経路へ流用しない。changeはversion必須で、rotateのみjwkが必要。",
         "parameters": [
           {
@@ -19445,9 +19280,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -19477,8 +19309,8 @@
           "safe_to_repeat": false,
           "result_check": "GET /v2/service-clients/{clientId} で現在版・状態・対象値を確認。版は競合検出であり応答再生キーではない。未確定ならrequest_idで照会し、最新版を自動採用して再送しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/service-clients/{clientId}": {
@@ -19497,7 +19329,7 @@
         "tags": [
           "service-access"
         ],
-        "x-availability": "optional Core service/access management module; check deployment version; not a production readiness claim",
+        "x-availability": "環境による",
         "description": "サービス資格の利用を終了。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理操作は登録済みMFA本人、機械操作は専用audienceのservice資格を使う。人のJWTを機械経路へ流用しない。changeはversion必須で、rotateのみjwkが必要。",
         "parameters": [
           {
@@ -19728,9 +19560,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -19760,8 +19589,8 @@
           "safe_to_repeat": false,
           "result_check": "GET /v2/service-clients/{clientId} で現在版・状態・対象値を確認。版は競合検出であり応答再生キーではない。未確定ならrequest_idで照会し、最新版を自動採用して再送しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       },
       "get": {
         "security": [
@@ -19778,7 +19607,7 @@
         "tags": [
           "service-access"
         ],
-        "x-availability": "optional Core service/access management module; check deployment version; not a production readiness claim",
+        "x-availability": "環境による",
         "description": "サービス資格の状態と版を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理操作は登録済みMFA本人、機械操作は専用audienceのservice資格を使う。人のJWTを機械経路へ流用しない。changeはversion必須で、rotateのみjwkが必要。",
         "parameters": [
           {
@@ -19945,9 +19774,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -19982,8 +19808,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/access/subjects": {
@@ -20002,7 +19828,7 @@
         "tags": [
           "service-access"
         ],
-        "x-availability": "optional Core service/access management module; check deployment version; not a production readiness claim",
+        "x-availability": "環境による",
         "description": "権限管理対象の本人IDを一覧取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理操作は登録済みMFA本人、機械操作は専用audienceのservice資格を使う。人のJWTを機械経路へ流用しない。changeはversion必須で、rotateのみjwkが必要。",
         "parameters": [
           {
@@ -20179,9 +20005,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -20210,8 +20033,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/access/tables": {
@@ -20230,7 +20053,7 @@
         "tags": [
           "service-access"
         ],
-        "x-availability": "optional Core service/access management module; check deployment version; not a production readiness claim",
+        "x-availability": "環境による",
         "description": "権限管理対象の表を一覧取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理操作は登録済みMFA本人、機械操作は専用audienceのservice資格を使う。人のJWTを機械経路へ流用しない。changeはversion必須で、rotateのみjwkが必要。",
         "parameters": [
           {
@@ -20406,9 +20229,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -20437,8 +20257,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/access/tables/{collection}": {
@@ -20457,7 +20277,7 @@
         "tags": [
           "service-access"
         ],
-        "x-availability": "optional Core service/access management module; check deployment version; not a production readiness claim",
+        "x-availability": "環境による",
         "description": "権限設定用の表定義を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理操作は登録済みMFA本人、機械操作は専用audienceのservice資格を使う。人のJWTを機械経路へ流用しない。changeはversion必須で、rotateのみjwkが必要。",
         "parameters": [
           {
@@ -20623,9 +20443,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -20654,8 +20471,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/access/grants/{subjectId}/{collection}": {
@@ -20674,7 +20491,7 @@
         "tags": [
           "service-access"
         ],
-        "x-availability": "optional Core service/access management module; check deployment version; not a production readiness claim",
+        "x-availability": "環境による",
         "description": "本人の表利用権を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理操作は登録済みMFA本人、機械操作は専用audienceのservice資格を使う。人のJWTを機械経路へ流用しない。changeはversion必須で、rotateのみjwkが必要。",
         "parameters": [
           {
@@ -20849,9 +20666,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -20880,8 +20694,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       },
       "put": {
         "security": [
@@ -20898,7 +20712,7 @@
         "tags": [
           "service-access"
         ],
-        "x-availability": "optional Core service/access management module; check deployment version; not a production readiness claim",
+        "x-availability": "環境による",
         "description": "本人の表利用権を設定。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理操作は登録済みMFA本人、機械操作は専用audienceのservice資格を使う。人のJWTを機械経路へ流用しない。changeはversion必須で、rotateのみjwkが必要。",
         "parameters": [
           {
@@ -21173,9 +20987,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -21205,8 +21016,8 @@
           "safe_to_repeat": false,
           "result_check": "GET /v2/access/grants/{subjectId}/{collection} で現在版・状態・対象値を確認。版は競合検出であり応答再生キーではない。未確定ならrequest_idで照会し、最新版を自動採用して再送しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/service-clients/{clientId}/{action}": {
@@ -21225,7 +21036,7 @@
         "tags": [
           "service-access"
         ],
-        "x-availability": "optional Core service/access management module; check deployment version; not a production readiness claim",
+        "x-availability": "環境による",
         "description": "サービス資格の承認・登録・更新・停止・再開・失効。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理操作は登録済みMFA本人、機械操作は専用audienceのservice資格を使う。人のJWTを機械経路へ流用しない。changeはversion必須で、rotateのみjwkが必要。",
         "parameters": [
           {
@@ -21471,9 +21282,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -21509,8 +21317,8 @@
           "safe_to_repeat": false,
           "result_check": "GET /v2/service-clients/{clientId} で現在版・状態・対象値を確認。版は競合検出であり応答再生キーではない。未確定ならrequest_idで照会し、最新版を自動採用して再送しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/service/activate": {
@@ -21527,7 +21335,7 @@
         "tags": [
           "service-access"
         ],
-        "x-availability": "optional Core service/access management module; check deployment version; not a production readiness claim",
+        "x-availability": "環境による",
         "description": "サービス自身が鍵所持を証明して有効化。登録されたserviceのJWT・現在の状態・対象表/列/行/CRUD/期限を検査する。人のJWTは使えない。 管理操作は登録済みMFA本人、機械操作は専用audienceのservice資格を使う。人のJWTを機械経路へ流用しない。changeはversion必須で、rotateのみjwkが必要。",
         "parameters": [],
         "requestBody": {
@@ -21755,7 +21563,7 @@
           "safe_to_repeat": false,
           "result_check": "GET /v2/service-clients/{clientId}（人の管理権限で照合） で状態を確認。専用の再送識別子・応答再生保証なし。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
         "x-rate-limit": "同時2要求。client単位rpm=1..120（承認設定）。上限に達したら429。"
       }
     },
@@ -21773,7 +21581,7 @@
         "tags": [
           "service-access"
         ],
-        "x-availability": "optional Core service/access management module; check deployment version; not a production readiness claim",
+        "x-availability": "環境による",
         "description": "サービスの許可範囲で行を取得。登録されたserviceのJWT・現在の状態・対象表/列/行/CRUD/期限を検査する。人のJWTは使えない。 管理操作は登録済みMFA本人、機械操作は専用audienceのservice資格を使う。人のJWTを機械経路へ流用しない。changeはversion必須で、rotateのみjwkが必要。",
         "parameters": [
           {
@@ -22031,7 +21839,7 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
         "x-rate-limit": "同時2要求。client単位rpm=1..120（承認設定）。上限に達したら429。"
       }
     },
@@ -22049,7 +21857,7 @@
         "tags": [
           "service-access"
         ],
-        "x-availability": "optional Core service/access management module; check deployment version; not a production readiness claim",
+        "x-availability": "環境による",
         "description": "サービスの許可範囲で行を一括変更。登録されたserviceのJWT・現在の状態・対象表/列/行/CRUD/期限を検査する。人のJWTは使えない。 管理操作は登録済みMFA本人、機械操作は専用audienceのservice資格を使う。人のJWTを機械経路へ流用しない。changeはversion必須で、rotateのみjwkが必要。",
         "parameters": [
           {
@@ -22320,7 +22128,7 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
         "x-rate-limit": "同時2要求。client単位rpm=1..120（承認設定）。上限に達したら429。"
       }
     },
@@ -22569,9 +22377,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -22604,9 +22409,9 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-availability": "implemented; deployment-specific",
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-availability": "提供中（環境による）",
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/media/{collection}/{rowId}/{field}/policy": {
@@ -22841,9 +22646,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -22876,9 +22678,9 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-availability": "implemented; deployment-specific",
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-availability": "提供中（環境による）",
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/media/{collection}/{rowId}/{field}/{assetId}": {
@@ -23122,9 +22924,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -23157,9 +22956,9 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-availability": "implemented; deployment-specific",
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-availability": "提供中（環境による）",
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       },
       "delete": {
         "security": [
@@ -23468,9 +23267,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -23508,9 +23304,9 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-availability": "implemented; deployment-specific",
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-availability": "提供中（環境による）",
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/media/{collection}/{rowId}/{field}/{assetId}/content": {
@@ -23755,9 +23551,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -23790,9 +23583,9 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-availability": "implemented; deployment-specific",
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-availability": "提供中（環境による）",
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       },
       "put": {
         "security": [
@@ -24154,9 +23947,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -24194,9 +23984,9 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-availability": "implemented; deployment-specific",
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-availability": "提供中（環境による）",
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/media/{collection}/{rowId}/{field}/{assetId}/thumbnail": {
@@ -24441,9 +24231,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -24476,9 +24263,9 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-availability": "implemented; deployment-specific",
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-availability": "提供中（環境による）",
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/media/{collection}/{rowId}/{field}/{assetId}/reference": {
@@ -24841,9 +24628,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -24881,9 +24665,9 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-availability": "implemented; deployment-specific",
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-availability": "提供中（環境による）",
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/assets/workspaces/{collection}/{rowId}/{field}": {
@@ -25131,9 +24915,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -25166,9 +24947,9 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-availability": "implemented; deployment-specific",
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-availability": "提供中（環境による）",
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/assets/workspaces/{collection}/{rowId}/{field}/policy": {
@@ -25403,9 +25184,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -25438,9 +25216,9 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-availability": "implemented; deployment-specific",
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-availability": "提供中（環境による）",
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/assets/workspaces/{collection}/{rowId}/{field}/{assetId}": {
@@ -25684,9 +25462,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -25719,9 +25494,9 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-availability": "implemented; deployment-specific",
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-availability": "提供中（環境による）",
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       },
       "delete": {
         "security": [
@@ -26030,9 +25805,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -26070,9 +25842,9 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-availability": "implemented; deployment-specific",
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-availability": "提供中（環境による）",
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/assets/workspaces/{collection}/{rowId}/{field}/{assetId}/content": {
@@ -26317,9 +26089,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -26352,9 +26121,9 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-availability": "implemented; deployment-specific",
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-availability": "提供中（環境による）",
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       },
       "put": {
         "security": [
@@ -26716,9 +26485,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -26756,9 +26522,9 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-availability": "implemented; deployment-specific",
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-availability": "提供中（環境による）",
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/assets/workspaces/{collection}/{rowId}/{field}/{assetId}/thumbnail": {
@@ -27003,9 +26769,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -27038,9 +26801,9 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-availability": "implemented; deployment-specific",
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-availability": "提供中（環境による）",
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v1/assets/workspaces/{collection}/{rowId}/{field}/{assetId}/reference": {
@@ -27375,9 +27138,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -27415,9 +27175,9 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-availability": "implemented; deployment-specific",
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-availability": "提供中（環境による）",
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/access/deletions/{subjectId}/{collection}": {
@@ -27436,7 +27196,7 @@
         "tags": [
           "workspace-access"
         ],
-        "x-availability": "optional additive workspace_access schema and host access option",
+        "x-availability": "環境による",
         "description": "本人の行削除範囲を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理権限は業務行の閲覧権を付与しない。人物対応は明示された本人IDと人物行を使い、名前や行所有者から推測しない。",
         "parameters": [
           {
@@ -27619,9 +27379,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -27650,8 +27407,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       },
       "put": {
         "security": [
@@ -27668,7 +27425,7 @@
         "tags": [
           "workspace-access"
         ],
-        "x-availability": "optional additive workspace_access schema and host access option",
+        "x-availability": "環境による",
         "description": "本人の行削除範囲を設定。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理権限は業務行の閲覧権を付与しない。人物対応は明示された本人IDと人物行を使い、名前や行所有者から推測しない。",
         "parameters": [
           {
@@ -27940,9 +27697,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -27975,8 +27729,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/access/people/{collection}": {
@@ -27995,7 +27749,7 @@
         "tags": [
           "workspace-access"
         ],
-        "x-availability": "optional additive workspace_access schema and host access option",
+        "x-availability": "環境による",
         "description": "人物表の登録状態を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理権限は業務行の閲覧権を付与しない。人物対応は明示された本人IDと人物行を使い、名前や行所有者から推測しない。",
         "parameters": [
           {
@@ -28169,9 +27923,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -28200,8 +27951,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       },
       "put": {
         "security": [
@@ -28218,7 +27969,7 @@
         "tags": [
           "workspace-access"
         ],
-        "x-availability": "optional additive workspace_access schema and host access option",
+        "x-availability": "環境による",
         "description": "人物表を登録。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理権限は業務行の閲覧権を付与しない。人物対応は明示された本人IDと人物行を使い、名前や行所有者から推測しない。",
         "parameters": [
           {
@@ -28479,9 +28230,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -28514,8 +28262,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/access/people/{collection}/bindings/{subjectId}": {
@@ -28534,7 +28282,7 @@
         "tags": [
           "workspace-access"
         ],
-        "x-availability": "optional additive workspace_access schema and host access option",
+        "x-availability": "環境による",
         "description": "本人IDと人物行の対応を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理権限は業務行の閲覧権を付与しない。人物対応は明示された本人IDと人物行を使い、名前や行所有者から推測しない。",
         "parameters": [
           {
@@ -28717,9 +28465,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -28748,8 +28493,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       },
       "put": {
         "security": [
@@ -28766,7 +28511,7 @@
         "tags": [
           "workspace-access"
         ],
-        "x-availability": "optional additive workspace_access schema and host access option",
+        "x-availability": "環境による",
         "description": "本人IDと人物行の対応を設定。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理権限は業務行の閲覧権を付与しない。人物対応は明示された本人IDと人物行を使い、名前や行所有者から推測しない。",
         "parameters": [
           {
@@ -29039,9 +28784,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -29074,8 +28816,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/access/people/{collection}/rows/{personId}/members": {
@@ -29094,7 +28836,7 @@
         "tags": [
           "workspace-access"
         ],
-        "x-availability": "optional additive workspace_access schema and host access option",
+        "x-availability": "環境による",
         "description": "人物行の所属者を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理権限は業務行の閲覧権を付与しない。人物対応は明示された本人IDと人物行を使い、名前や行所有者から推測しない。",
         "parameters": [
           {
@@ -29304,9 +29046,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -29335,8 +29074,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       },
       "put": {
         "security": [
@@ -29353,7 +29092,7 @@
         "tags": [
           "workspace-access"
         ],
-        "x-availability": "optional additive workspace_access schema and host access option",
+        "x-availability": "環境による",
         "description": "人物行の所属者を設定。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理権限は業務行の閲覧権を付与しない。人物対応は明示された本人IDと人物行を使い、名前や行所有者から推測しない。",
         "parameters": [
           {
@@ -29633,9 +29372,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -29668,8 +29404,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/people/{collection}/me": {
@@ -29688,7 +29424,7 @@
         "tags": [
           "workspace-access"
         ],
-        "x-availability": "optional additive workspace_access schema and host access option",
+        "x-availability": "環境による",
         "description": "本人に対応する人物行を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理権限は業務行の閲覧権を付与しない。人物対応は明示された本人IDと人物行を使い、名前や行所有者から推測しない。",
         "parameters": [
           {
@@ -29863,9 +29599,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -29896,8 +29629,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/tables/{collection}/subjects/query": {
@@ -29916,7 +29649,7 @@
         "tags": [
           "workspace-access"
         ],
-        "x-availability": "optional additive workspace_access schema and host access option",
+        "x-availability": "環境による",
         "description": "行に対応する本人IDを検索。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理権限は業務行の閲覧権を付与しない。人物対応は明示された本人IDと人物行を使い、名前や行所有者から推測しない。",
         "parameters": [
           {
@@ -30145,9 +29878,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -30178,8 +29908,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/data-migrations": {
@@ -30219,7 +29949,7 @@
             }
           }
         ],
-        "x-availability": "Optional app_import, app_registry and workspace_lifecycle modules with host apps option.",
+        "x-availability": "環境による",
         "description": "データ移行の一覧を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリとCSV契約・接続要件・移行の操作。計画を確認してからfingerprintを変えず適用する。空のcsvは対象アプリの取込形式を明示的に無効化する。",
         "responses": {
           "200": {
@@ -30437,9 +30167,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -30468,8 +30195,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/data-migrations/{migrationId}/preview": {
@@ -30499,7 +30226,7 @@
             }
           }
         ],
-        "x-availability": "Optional app_import, app_registry and workspace_lifecycle modules with host apps option.",
+        "x-availability": "環境による",
         "description": "移行前後の行を比較。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリとCSV契約・接続要件・移行の操作。計画を確認してからfingerprintを変えず適用する。空のcsvは対象アプリの取込形式を明示的に無効化する。",
         "requestBody": {
           "required": true,
@@ -30778,9 +30505,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -30809,8 +30533,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/data-migrations/plan": {
@@ -30830,7 +30554,7 @@
           "app-packages"
         ],
         "parameters": [],
-        "x-availability": "Optional app_import, app_registry and workspace_lifecycle modules with host apps option.",
+        "x-availability": "環境による",
         "description": "データ移行計画を作成。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリとCSV契約・接続要件・移行の操作。計画を確認してからfingerprintを変えず適用する。空のcsvは対象アプリの取込形式を明示的に無効化する。",
         "requestBody": {
           "required": true,
@@ -31625,9 +31349,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -31663,8 +31384,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/data-migrations/begin": {
@@ -31684,7 +31405,7 @@
           "app-packages"
         ],
         "parameters": [],
-        "x-availability": "Optional app_import, app_registry and workspace_lifecycle modules with host apps option.",
+        "x-availability": "環境による",
         "description": "確認済みデータ移行を開始。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリとCSV契約・接続要件・移行の操作。計画を確認してからfingerprintを変えず適用する。空のcsvは対象アプリの取込形式を明示的に無効化する。",
         "requestBody": {
           "required": true,
@@ -32313,9 +32034,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -32352,8 +32070,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ主体・移行ID・本文・fingerprintで再送すると既存jobを返す。GET /v2/data-migrations/{migrationId} でも状態を確認。変更した入力やfingerprintでは再送しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/data-migrations/{migrationId}": {
@@ -32383,7 +32101,7 @@
             }
           }
         ],
-        "x-availability": "Optional app_import, app_registry and workspace_lifecycle modules with host apps option.",
+        "x-availability": "環境による",
         "description": "データ移行の進捗を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリとCSV契約・接続要件・移行の操作。計画を確認してからfingerprintを変えず適用する。空のcsvは対象アプリの取込形式を明示的に無効化する。",
         "responses": {
           "200": {
@@ -32683,9 +32401,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -32714,8 +32429,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/data-migrations/{migrationId}/next": {
@@ -32754,7 +32469,7 @@
             }
           }
         ],
-        "x-availability": "Optional app_import, app_registry and workspace_lifecycle modules with host apps option.",
+        "x-availability": "環境による",
         "description": "データ移行を次の区間へ進める。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリとCSV契約・接続要件・移行の操作。計画を確認してからfingerprintを変えず適用する。空のcsvは対象アプリの取込形式を明示的に無効化する。",
         "requestBody": {
           "required": true,
@@ -33136,9 +32851,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -33171,8 +32883,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/data-migrations/{migrationId}/commit": {
@@ -33211,7 +32923,7 @@
             }
           }
         ],
-        "x-availability": "Optional app_import, app_registry and workspace_lifecycle modules with host apps option.",
+        "x-availability": "環境による",
         "description": "検証済みデータ移行を確定。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリとCSV契約・接続要件・移行の操作。計画を確認してからfingerprintを変えず適用する。空のcsvは対象アプリの取込形式を明示的に無効化する。",
         "requestBody": {
           "required": true,
@@ -33595,9 +33307,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -33630,8 +33339,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/data-migrations/{migrationId}/cancel": {
@@ -33661,7 +33370,7 @@
             }
           }
         ],
-        "x-availability": "Optional app_import, app_registry and workspace_lifecycle modules with host apps option.",
+        "x-availability": "環境による",
         "description": "データ移行を中止。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリとCSV契約・接続要件・移行の操作。計画を確認してからfingerprintを変えず適用する。空のcsvは対象アプリの取込形式を明示的に無効化する。",
         "requestBody": {
           "required": true,
@@ -33908,9 +33617,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -33940,8 +33646,8 @@
           "safe_to_repeat": false,
           "result_check": "GET /v2/data-migrations/{migrationId} で現在版・状態・対象値を確認。版は競合検出であり応答再生キーではない。未確定ならrequest_idで照会し、最新版を自動採用して再送しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/app-adoptions/plan": {
@@ -33961,7 +33667,7 @@
           "app-packages"
         ],
         "parameters": [],
-        "x-availability": "Optional app_import, app_registry and workspace_lifecycle modules with host apps option.",
+        "x-availability": "環境による",
         "description": "既存アプリ台帳の採用を計画。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリとCSV契約・接続要件・移行の操作。計画を確認してからfingerprintを変えず適用する。空のcsvは対象アプリの取込形式を明示的に無効化する。",
         "requestBody": {
           "required": true,
@@ -34446,9 +34152,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -34477,8 +34180,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/app-adoptions/apply": {
@@ -34508,7 +34211,7 @@
             }
           }
         ],
-        "x-availability": "Optional app_import, app_registry and workspace_lifecycle modules with host apps option.",
+        "x-availability": "環境による",
         "description": "確認済みの既存アプリ台帳を採用。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリとCSV契約・接続要件・移行の操作。計画を確認してからfingerprintを変えず適用する。空のcsvは対象アプリの取込形式を明示的に無効化する。",
         "requestBody": {
           "required": true,
@@ -35192,9 +34895,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -35232,8 +34932,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ主体・移行ID・本文・fingerprintで再送しadoption受領を確認。入力を変更した再送は拒否される。対象アプリのGETでも状態を照合する。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/apps/{appId}/requirements/plan": {
@@ -35262,7 +34962,7 @@
             }
           }
         ],
-        "x-availability": "Optional app_import, app_registry and workspace_lifecycle modules with host apps option.",
+        "x-availability": "環境による",
         "description": "アプリ接続要件の変更を計画。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリとCSV契約・接続要件・移行の操作。計画を確認してからfingerprintを変えず適用する。空のcsvは対象アプリの取込形式を明示的に無効化する。",
         "requestBody": {
           "required": true,
@@ -35746,9 +35446,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -35777,8 +35474,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/apps/{appId}/requirements/apply": {
@@ -35816,7 +35513,7 @@
             }
           }
         ],
-        "x-availability": "Optional app_import, app_registry and workspace_lifecycle modules with host apps option.",
+        "x-availability": "環境による",
         "description": "確認済みアプリ接続要件を適用。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリとCSV契約・接続要件・移行の操作。計画を確認してからfingerprintを変えず適用する。空のcsvは対象アプリの取込形式を明示的に無効化する。",
         "requestBody": {
           "required": true,
@@ -36477,9 +36174,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -36519,8 +36213,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/import-profiles": {
@@ -36559,7 +36253,7 @@
             }
           }
         ],
-        "x-availability": "Optional app_import, app_registry and workspace_lifecycle modules with host apps option.",
+        "x-availability": "環境による",
         "description": "本人が利用可能な取込形式を一覧取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリとCSV契約・接続要件・移行の操作。計画を確認してからfingerprintを変えず適用する。空のcsvは対象アプリの取込形式を明示的に無効化する。",
         "responses": {
           "200": {
@@ -36819,9 +36513,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": false,
           "mfa_when_lifecycle_enabled": false,
@@ -36851,8 +36542,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/tables/{collection}/import-profile": {
@@ -36890,7 +36581,7 @@
             }
           }
         ],
-        "x-availability": "Optional app_import, app_registry and workspace_lifecycle modules with host apps option.",
+        "x-availability": "環境による",
         "description": "版付きCSV契約で行を取込。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリとCSV契約・接続要件・移行の操作。計画を確認してからfingerprintを変えず適用する。空のcsvは対象アプリの取込形式を明示的に無効化する。",
         "requestBody": {
           "required": true,
@@ -37310,9 +37001,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -37348,8 +37036,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/app-packages/{appId}": {
@@ -37378,7 +37066,7 @@
             }
           }
         ],
-        "x-availability": "Optional app_import, app_registry and workspace_lifecycle modules with host apps option.",
+        "x-availability": "環境による",
         "description": "アプリとCSV契約を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリとCSV契約・接続要件・移行の操作。計画を確認してからfingerprintを変えず適用する。空のcsvは対象アプリの取込形式を明示的に無効化する。",
         "responses": {
           "200": {
@@ -37922,9 +37610,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -37953,8 +37638,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/app-packages/plan": {
@@ -37974,7 +37659,7 @@
           "app-packages"
         ],
         "parameters": [],
-        "x-availability": "Optional app_import, app_registry and workspace_lifecycle modules with host apps option.",
+        "x-availability": "環境による",
         "description": "アプリとCSV契約の変更を計画。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリとCSV契約・接続要件・移行の操作。計画を確認してからfingerprintを変えず適用する。空のcsvは対象アプリの取込形式を明示的に無効化する。",
         "requestBody": {
           "required": true,
@@ -38698,9 +38383,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -38736,8 +38418,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/app-packages/apply": {
@@ -38767,7 +38449,7 @@
             }
           }
         ],
-        "x-availability": "Optional app_import, app_registry and workspace_lifecycle modules with host apps option.",
+        "x-availability": "環境による",
         "description": "確認済みアプリとCSV契約を適用。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリとCSV契約・接続要件・移行の操作。計画を確認してからfingerprintを変えず適用する。空のcsvは対象アプリの取込形式を明示的に無効化する。",
         "requestBody": {
           "required": true,
@@ -39580,9 +39262,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -39622,8 +39301,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/organization/overview": {
@@ -39643,7 +39322,7 @@
           "organization"
         ],
         "parameters": [],
-        "x-availability": "Optional organization schema in a contract-dedicated Core database; current MFA management authority required.",
+        "x-availability": "環境による",
         "description": "専用環境の容量とアプリ件数を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 専用環境に固定した管理情報のみ。業務値やIdP資格は返さない。不明な容量・契約指標はnullまたはnot_connected。設定変更は通知を送らない。",
         "responses": {
           "200": {
@@ -39900,9 +39579,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -39931,8 +39607,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/organization/settings": {
@@ -39952,7 +39628,7 @@
           "organization"
         ],
         "parameters": [],
-        "x-availability": "Optional organization schema in a contract-dedicated Core database; current MFA management authority required.",
+        "x-availability": "環境による",
         "description": "組織設定を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 専用環境に固定した管理情報のみ。業務値やIdP資格は返さない。不明な容量・契約指標はnullまたはnot_connected。設定変更は通知を送らない。",
         "responses": {
           "200": {
@@ -40146,9 +39822,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -40177,8 +39850,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/organization/settings/plan": {
@@ -40198,7 +39871,7 @@
           "organization"
         ],
         "parameters": [],
-        "x-availability": "Optional organization schema in a contract-dedicated Core database; current MFA management authority required.",
+        "x-availability": "環境による",
         "description": "組織設定の変更を計画。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 専用環境に固定した管理情報のみ。業務値やIdP資格は返さない。不明な容量・契約指標はnullまたはnot_connected。設定変更は通知を送らない。",
         "requestBody": {
           "required": true,
@@ -40552,9 +40225,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -40583,8 +40253,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/organization/settings/apply": {
@@ -40614,7 +40284,7 @@
             }
           }
         ],
-        "x-availability": "Optional organization schema in a contract-dedicated Core database; current MFA management authority required.",
+        "x-availability": "環境による",
         "description": "確認済み組織設定を適用。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 専用環境に固定した管理情報のみ。業務値やIdP資格は返さない。不明な容量・契約指標はnullまたはnot_connected。設定変更は通知を送らない。",
         "requestBody": {
           "required": true,
@@ -40950,9 +40620,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -40985,8 +40652,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/organization/activity": {
@@ -41006,7 +40673,7 @@
           "organization"
         ],
         "parameters": [],
-        "x-availability": "Optional organization schema in a contract-dedicated Core database; current MFA management authority required.",
+        "x-availability": "環境による",
         "description": "確定操作の履歴を検索。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 専用環境に固定した管理情報のみ。業務値やIdP資格は返さない。不明な容量・契約指標はnullまたはnot_connected。設定変更は通知を送らない。",
         "requestBody": {
           "required": true,
@@ -41378,9 +41045,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -41409,8 +41073,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/app-policy": {
@@ -41430,8 +41094,8 @@
           "apps"
         ],
         "parameters": [],
-        "x-availability": "experimental; optional app registry and requirements composition",
-        "description": "アプリごみ箱の保持期間を確認。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリ台帳の計画・適用・状態遷移。画面プログラムの配備を自動実行する契約ではない。",
+        "x-availability": "試験提供（環境による）",
+        "description": "アプリごみ箱の保持期間を確認。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリ台帳の計画・適用・状態遷移。画面プログラムの環境を自動実行する契約ではない。",
         "responses": {
           "200": {
             "description": "Success; fields are projected using current authorization.",
@@ -41584,9 +41248,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -41615,8 +41276,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/apps": {
@@ -41657,8 +41318,8 @@
             }
           }
         ],
-        "x-availability": "experimental; optional app registry and requirements composition",
-        "description": "登録アプリを一覧取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリ台帳の計画・適用・状態遷移。画面プログラムの配備を自動実行する契約ではない。",
+        "x-availability": "試験提供（環境による）",
+        "description": "登録アプリを一覧取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリ台帳の計画・適用・状態遷移。画面プログラムの環境を自動実行する契約ではない。",
         "responses": {
           "200": {
             "description": "Success; fields are projected using current authorization.",
@@ -41811,9 +41472,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -41842,8 +41500,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/apps/{appId}": {
@@ -41873,8 +41531,8 @@
             }
           }
         ],
-        "x-availability": "experimental; optional app registry and requirements composition",
-        "description": "アプリの状態と定義を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリ台帳の計画・適用・状態遷移。画面プログラムの配備を自動実行する契約ではない。",
+        "x-availability": "試験提供（環境による）",
+        "description": "アプリの状態と定義を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリ台帳の計画・適用・状態遷移。画面プログラムの環境を自動実行する契約ではない。",
         "responses": {
           "200": {
             "description": "Success; fields are projected using current authorization.",
@@ -42027,9 +41685,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -42058,8 +41713,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/apps/plan": {
@@ -42079,8 +41734,8 @@
           "apps"
         ],
         "parameters": [],
-        "x-availability": "experimental; optional app registry and requirements composition",
-        "description": "アプリ登録・更新を計画。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリ台帳の計画・適用・状態遷移。画面プログラムの配備を自動実行する契約ではない。",
+        "x-availability": "試験提供（環境による）",
+        "description": "アプリ登録・更新を計画。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリ台帳の計画・適用・状態遷移。画面プログラムの環境を自動実行する契約ではない。",
         "requestBody": {
           "required": true,
           "content": {
@@ -42325,9 +41980,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -42363,8 +42015,8 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/apps/apply": {
@@ -42394,8 +42046,8 @@
             }
           }
         ],
-        "x-availability": "experimental; optional app registry and requirements composition",
-        "description": "確認済みアプリ定義を適用。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリ台帳の計画・適用・状態遷移。画面プログラムの配備を自動実行する契約ではない。",
+        "x-availability": "試験提供（環境による）",
+        "description": "確認済みアプリ定義を適用。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリ台帳の計画・適用・状態遷移。画面プログラムの環境を自動実行する契約ではない。",
         "requestBody": {
           "required": true,
           "content": {
@@ -42701,9 +42353,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -42743,8 +42392,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/apps/{appId}/state": {
@@ -42783,8 +42432,8 @@
             }
           }
         ],
-        "x-availability": "experimental; optional app registry and requirements composition",
-        "description": "アプリを停止・再開・切離し・ごみ箱移動・復元。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリ台帳の計画・適用・状態遷移。画面プログラムの配備を自動実行する契約ではない。",
+        "x-availability": "試験提供（環境による）",
+        "description": "アプリを停止・再開・切離し・ごみ箱移動・復元。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 アプリ台帳の計画・適用・状態遷移。画面プログラムの環境を自動実行する契約ではない。",
         "requestBody": {
           "required": true,
           "content": {
@@ -43058,9 +42707,6 @@
           "actor_types": [
             "human"
           ],
-          "client_ids": [
-            "hub-spa"
-          ],
           "authentication": "current_identity",
           "mfa": true,
           "mfa_when_lifecycle_enabled": true,
@@ -43093,8 +42739,8 @@
           "safe_to_repeat": true,
           "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "モジュール内の同時2要求。固定rpmは未設定。上流の制限は環境設定による。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "同時2要求まで。固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/v2/session/logout": {
@@ -43114,7 +42760,7 @@
           "identity"
         ],
         "parameters": [],
-        "x-availability": "optional identity lifecycle composition",
+        "x-availability": "環境による",
         "description": "本人セッションを失効。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 本人と現在セッションの境界を維持する。",
         "requestBody": {
           "required": true,
@@ -43372,8 +43018,8 @@
           "safe_to_repeat": true,
           "result_check": "同じセッションとattempt_idで再送し失効受領を確認する。別attempt_idを自動発行しない。"
         },
-        "x-error-coverage": "操作条件とモジュールの既知の拒否コード。実際に発生する組合せは対象・状態・有効モジュールに依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "固定rpmは本契約では未確定。配備側の制限と429を確認する。"
+        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
+        "x-rate-limit": "固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。"
       }
     },
     "/health/live": {
@@ -43384,7 +43030,7 @@
           "health"
         ],
         "parameters": [],
-        "x-availability": "implemented; fixed health endpoint",
+        "x-availability": "提供中",
         "description": "プロセスの応答を確認。認証不要。固定の稼働状態だけを返す。 認証不要の固定状態応答。業務データを返さない。",
         "responses": {
           "200": {
@@ -43422,7 +43068,7 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-rate-limit": "Coreのhealth専用レート制限はなし。上流proxyの制限は配備設定による。",
+        "x-rate-limit": "この確認用のルートに、専用のレート制限はありません。環境側の制限はあります。",
         "x-error-coverage": "正常応答200 {alive:true}。業務用Problemコードの対象外。通信・上流エラーは別。"
       }
     },
@@ -43434,8 +43080,8 @@
           "health"
         ],
         "parameters": [],
-        "x-availability": "implemented; fixed health endpoint",
-        "description": "Coreと依存先の準備状態を確認。認証不要。固定の稼働状態だけを返す。 認証不要の固定状態応答。業務データを返さない。",
+        "x-availability": "提供中",
+        "description": "基盤と依存先の準備状態を確認。認証不要。固定の稼働状態だけを返す。 認証不要の固定状態応答。業務データを返さない。",
         "responses": {
           "200": {
             "description": "Success; fields are projected using current authorization.",
@@ -43457,7 +43103,7 @@
             }
           },
           "503": {
-            "description": "依存先またはCoreが準備未完了。Problem形式ではない。",
+            "description": "依存先または基盤が準備未完了。Problem形式ではない。",
             "content": {
               "application/json": {
                 "schema": {
@@ -43476,7 +43122,7 @@
             }
           }
         },
-        "summary": "Coreと依存先の準備状態を確認",
+        "summary": "基盤と依存先の準備状態を確認",
         "x-required-authority": {
           "actor_types": [],
           "authentication": "none",
@@ -43491,7 +43137,7 @@
           "safe_to_repeat": true,
           "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
         },
-        "x-rate-limit": "Coreのhealth専用レート制限はなし。上流proxyの制限は配備設定による。",
+        "x-rate-limit": "この確認用のルートに、専用のレート制限はありません。環境側の制限はあります。",
         "x-error-coverage": "200 {ready:true} / 503 {ready:false}。503はapplication/jsonで業務用Problemコードを持たない。通信・上流エラーは別。"
       }
     }
@@ -43506,7 +43152,7 @@
       "humanOidc": {
         "type": "openIdConnect",
         "openIdConnectUrl": "https://idp.example.invalid/realms/customer/.well-known/openid-configuration",
-        "description": "本人用Authorization Code + PKCE(S256)。環境版OpenAPIを生成して実issuerへ置換し、登録済みclient_id/redirect_uriを使用。scope=openid。ID tokenをCoreへ送らない。"
+        "description": "本人用Authorization Code + PKCE(S256)。環境版OpenAPIを生成して実issuerへ置換し、登録済みclient_id/redirect_uriを使用。scope=openid。ID tokenを基盤へ送らない。"
       },
       "serviceOAuth": {
         "type": "oauth2",
@@ -43585,7 +43231,6 @@
               "STATE_CONFLICT",
               "PROPOSAL_CONFLICT",
               "DUPLICATE",
-              "STALE_SOURCE",
               "AUTHORITY_CONFLICT",
               "IDEMPOTENCY_IN_PROGRESS",
               "LOCK_BUSY",
@@ -48524,7 +48169,6 @@
     "STATE_CONFLICT": 409,
     "PROPOSAL_CONFLICT": 409,
     "DUPLICATE": 409,
-    "STALE_SOURCE": 409,
     "AUTHORITY_CONFLICT": 409,
     "IDEMPOTENCY_IN_PROGRESS": 409,
     "LOCK_BUSY": 409,
@@ -48553,21 +48197,20 @@
   "servers": [
     {
       "url": "{baseUrl}",
-      "description": "環境管理者が交付したCore HTTPS originへ置換。既定値は接続不能な説明用予約ドメイン。",
+      "description": "環境管理者が交付した基盤 HTTPS originへ置換。既定値は接続不能な説明用予約ドメイン。",
       "variables": {
         "baseUrl": {
           "default": "https://api.example.invalid",
-          "description": "末尾スラッシュなしのCore HTTPS origin。顧客アプリ/BFF/IdPのURLとは別。"
+          "description": "末尾スラッシュなしの、基盤のHTTPS origin。アプリや認証サービスのURLとは別。"
         }
       }
     }
   ],
   "x-language-policy": "ガイド・操作説明は日本語。プロトコル名・JSON識別子は原表記。schema内の既存技術補足は英語を併記する。",
   "x-availability-legend": {
-    "implemented": "ソースに実装済み。稼働サイトでの提供を保証しない。",
-    "experimental": "試験契約。配布版を固定して受入する。",
-    "optional": "ホストが指定モジュールを有効化した環境のみ。",
-    "deployment-specific": "利用環境の対応表と現在権限で確認する。"
+    "提供中": "提供しています。環境での有効化と、権限は必要です。",
+    "試験提供": "試験の段階です。仕様は変更されることがあります。利用する版を固定してください。",
+    "環境による": "環境ごとに有効かどうかが異なります。環境管理者に確認してください。"
   },
   "tags": [
     {
@@ -48657,7 +48300,6 @@
     "STATE_CONFLICT": "documented_operation_response",
     "PROPOSAL_CONFLICT": "documented_operation_response",
     "DUPLICATE": "documented_operation_response",
-    "STALE_SOURCE": "other_core_contract_not_mapped_to_public_operation",
     "AUTHORITY_CONFLICT": "documented_operation_response",
     "IDEMPOTENCY_IN_PROGRESS": "documented_operation_response",
     "LOCK_BUSY": "documented_operation_response",

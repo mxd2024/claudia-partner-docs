@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>接続情報を依頼する | Claudia Partner Docs</title><meta name="description" content="Claudia Partner基盤のAPI・認証・権限・画像・MCPの接続ガイド。基盤の考え方、接続の手順、仕様、対応状況を確認できます。"><meta name="theme-color" content="#004d58"><link rel="canonical" href="https://mxd2024.github.io/claudia-partner-docs/v0.7/request-access.html"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="brand.css"><script src="app.js" defer></script></head>
+<body><a class="skip" href="#main">本文へ移動</a><header class="topbar"><a class="brand cp-brand" href="index.html"><img class="cp-brand__mark" src="claudia-partner-mark.svg" alt=""><span class="cp-brand__text"><span class="cp-brand__name">Claudia <span class="cp-brand__partner">Partner</span></span><span class="cp-brand__descriptor">Docs</span></span></a><span class="top-note">API・MCP 共通ドキュメント</span><span class="version">0.7.0-experimental</span><button class="menu-toggle" aria-expanded="false" aria-controls="navigation">メニュー</button></header>
+<div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント"><form class="site-search" role="search" onsubmit="return false"><label for="site-search">サイト内を検索</label><input type="search" id="site-search" placeholder="例：トークン、412、画像" autocomplete="off" data-index="search-index.json" aria-controls="search-results"><div id="search-results" role="region" aria-live="polite" hidden></div></form><p class="nav-label">理解する</p><a href="index.html">基盤の全体像</a><a href="principles.html">基盤の考え方と責任分界</a><a href="glossary.html">用語集</a><p class="nav-label">接続する</p><a href="quickstart.html">最初の接続の流れ</a><a href="request-access.html" aria-current="page">接続情報を依頼する</a><a href="authentication.html">本人として接続する</a><a href="service-access.html">service として接続する</a><p class="nav-label">使う</p><a href="concepts.html">共通ルール</a><a href="tables.html">表とデータの更新</a><a href="reliability.html">競合・再送・復帰</a><a href="media.html">画像とDropbox連携</a><a href="tutorial.html">アプリの登録と運用</a><a href="app-architecture.html">アプリの推奨構成（参考）</a><p class="nav-label">AIエージェント</p><a href="mcp.html">MCPの導入</a><a href="mcp-support.html">MCPの対応範囲とトラブル対応</a><p class="nav-label">リファレンス</p><a href="api.html">APIリファレンス</a><a href="examples.html">HTTP・実行例</a><a href="errors.html">エラーと再試行</a><a href="specs.html">仕様ファイル</a><p class="nav-label">運用・サポート</p><a href="versions.html">対応状況とバージョン</a><a href="changelog.html">変更履歴</a><a href="support.html">サポートと窓口</a><p class="nav-label">仕様ファイル</p><a class="machine" href="openapi.json">OpenAPI JSON</a><a class="machine" href="mcp-tools.json">MCPツール定義</a><div class="nav-foot">公開ドキュメント<br>0.7.0-experimental<br>更新 2026-10-04</div></nav><main id="main"><div class="breadcrumb"><a href="index.html">ドキュメント</a><span>/</span><span>接続する</span><span>/</span><span>接続情報を依頼する</span></div><p class="eyebrow">接続する</p><h1 id="section-1">接続情報を依頼する</h1><dl class="page-meta"><div><dt>このページで分かること</dt><dd>接続に必要な情報、依頼の方法、受け取った後の確認。</dd></div><div><dt>対象</dt><dd>初めて接続する開発者</dd></div><div><dt>所要時間</dt><dd>依頼 10分（回答は翌営業日を目標）</dd></div></dl>
+<p>基盤に接続するには、環境ごとの情報が必要です。これらを、このサイトから推測せず、環境管理者から受け取ります。</p>
+<h2 id="section-2">受け取る情報</h2>
+<div class="table-wrap"><table><thead><tr><th scope="col">項目</th><th scope="col">内容</th><th scope="col">使う場面</th></tr></thead><tbody><tr><td>基盤</td><td>HTTPS origin、API版、有効な機能</td><td>すべての呼び出し</td></tr><tr><td>認証サービス</td><td>issuer、認証方式、必要なMFA</td><td>ログイン、トークンの取得</td></tr><tr><td>本人用のクライアント</td><td>登録済みのclient_id、redirect_uri、scope</td><td>本人としての接続</td></tr><tr><td>本人</td><td>ログイン方法、利用する組織、必要な表の権限</td><td>本人としての接続</td></tr><tr><td>検証用の表</td><td>collection、現在のschema_version、許可する操作、検証用の行</td><td>最初の読み書き</td></tr><tr><td>証明書</td><td>公開の認証局、または管理者が交付した検証用の証明書</td><td>TLSの検証</td></tr></tbody></table></div>
+<p>基盤のURL、アプリのURL、認証サービスのURLは、それぞれ別です。このサイトは、仕様の配信先であり、APIのサーバーではありません。</p>
+<h2 id="section-3">依頼する</h2>
+<p>開発・検証用の接続は、環境管理者が受け付けます。受付の手段は、メールです。</p>
+<p><strong>現在の受付メール：morita@meta-xdesign.com</strong></p>
+<p>一次回答は、<strong>受信の翌営業日までを目標</strong>とします。保証付きのSLAではありません。一次回答は、受付の確認、不足している情報の確認、対応の見込みの連絡です。接続情報の発行の完了を意味しません。利用の開始日は、申請の内容を確認した後に回答します。</p>
+<h3 id="section-4">依頼メールの雛形</h3>
+<pre><span class="code-label">text</span><code>件名：【開発接続申請】環境名／利用目的
+
+依頼者・所属：
+返信先：
+対象環境（不明なら用途を記載）：
+利用目的：
+利用区分：本人 / service / MCPの取込（管理サイトのアカウント）
+必要な表・操作（閲覧、登録、更新など）：
+利用開始希望日・利用終了日：
+検証用データの希望：
+登録済みclient_id（ある場合）：
+redirect_uri（本人用クライアントを新規登録する場合）：
+補足：</code></pre>
+<p>パスワード、アクセストークン、リフレッシュトークン、秘密鍵、cookieは、依頼のメールに書かないでください。接続先、設定、資格の渡し方は、本人と許可の範囲を確認して案内します。</p>
+<h2 id="section-5">受け取った後に確認すること</h2>
+<ul><li>基盤のURLが、HTTPSである。</li><li>受け取ったclient_idとredirect_uriが、ログインの設定と一致している。</li><li>検証用の表の名前と、許可される操作が分かっている。</li></ul>
+<p>次は、<a href="authentication.html">本人として接続する</a>、または<a href="service-access.html">serviceとして接続する</a>へ進みます。</p><nav class="page-next" aria-label="次に読む"><h2 class="next-title">次に読む</h2><ul><li><a href="authentication.html"><b>本人として接続する</b><span>本人のログイン（OIDC + PKCE）から、最初の GET /v1/me が200になるまで。更新・失効の扱い。</span></a></li><li><a href="service-access.html"><b>service として接続する</b><span>人の操作を介さない処理の接続。申請から、許可された操作の成功まで。</span></a></li></ul><p class="help">困ったとき: <a href="errors.html">エラーと再試行</a> ・ <a href="support.html">サポートと窓口</a></p></nav><footer class="page-foot"><span>0.7.0-experimental</span><span>更新 2026-10-04</span><a href="guide/request-access.md">機械・テキスト向け</a><a href="versions.html">対応状況</a></footer></main></div></body></html>

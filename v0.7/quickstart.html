@@ -1,43 +1,22 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>最初のAPI接続 | Claudia Partner Docs</title><meta name="description" content="Claudia PartnerのAPI・認証・権限・画像連携・MCPの共通利用ガイド。対応版と実装状況を確認できます。"><meta name="theme-color" content="#004d58"><link rel="canonical" href="https://mxd2024.github.io/claudia-partner-docs/v0.7/quickstart.html"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="brand.css"><script src="app.js" defer></script></head>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>最初の接続の流れ | Claudia Partner Docs</title><meta name="description" content="Claudia Partner基盤のAPI・認証・権限・画像・MCPの接続ガイド。基盤の考え方、接続の手順、仕様、対応状況を確認できます。"><meta name="theme-color" content="#004d58"><link rel="canonical" href="https://mxd2024.github.io/claudia-partner-docs/v0.7/quickstart.html"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><link rel="stylesheet" href="brand.css"><script src="app.js" defer></script></head>
 <body><a class="skip" href="#main">本文へ移動</a><header class="topbar"><a class="brand cp-brand" href="index.html"><img class="cp-brand__mark" src="claudia-partner-mark.svg" alt=""><span class="cp-brand__text"><span class="cp-brand__name">Claudia <span class="cp-brand__partner">Partner</span></span><span class="cp-brand__descriptor">Docs</span></span></a><span class="top-note">API・MCP 共通ドキュメント</span><span class="version">0.7.0-experimental</span><button class="menu-toggle" aria-expanded="false" aria-controls="navigation">メニュー</button></header>
-<div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント"><p class="nav-label">ガイド</p><a href="index.html">はじめに</a><a href="quickstart.html" aria-current="page">最初のAPI接続</a><a href="authentication.html">認証・権限</a><a href="concepts.html">概念・APIの選択</a><a href="tables.html">表・データ更新</a><a href="tutorial.html">アプリ登録から運用まで</a><a href="media.html">画像・Dropbox連携</a><a href="mcp.html">AIエージェント・MCP</a><p class="nav-label">リファレンス</p><a href="examples.html">HTTP・実行例</a><a href="api.html">APIリファレンス</a><a href="errors.html">エラーと再試行</a><a href="operations.html">BFF・運用・サポート</a><a href="versions.html">対応状況・バージョン</a><a href="changelog.html">変更履歴</a><p class="nav-label">仕様ファイル</p><a class="machine" href="openapi.json">OpenAPI JSON</a><a class="machine" href="mcp-tools.json">MCPツール定義</a><div class="nav-foot">公開ドキュメント<br>0.7.0-experimental<br>更新 2026-10-04</div></nav><main id="main"><div class="breadcrumb"><a href="index.html">ドキュメント</a><span>/</span><span>最初のAPI接続</span></div><p class="eyebrow">DEVELOPER DOCUMENTATION</p><h1 id="section-1">最初のAPI接続</h1>
-<p>対象は API 0.7.0-experimental。初回は人の本人資格で GET /v1/me の200を確認します。service用資格では、人用APIへの拒否が正しい動作です。</p>
-<h2 id="section-2">1. 接続情報を受け取る</h2>
-<p>このページ末尾のメール窓口へ「開発接続情報と検証用データ」を依頼し、次を確認してください。これらを公開資料から推測しません。</p>
-<div class="table-wrap"><table><thead><tr><th scope="col">項目</th><th scope="col">必要な値</th></tr></thead><tbody><tr><td>Core</td><td>HTTPS origin、API版、有効モジュール</td></tr><tr><td>IdP</td><td>issuer、discovery URL、認証方式、必要なMFA</td></tr><tr><td>本人用クライアント</td><td>登録済みclient_id、redirect_uri、scope、対象audience</td></tr><tr><td>本人</td><td>ログイン方法、利用組織、必要な表利用権</td></tr><tr><td>検証用表</td><td>collection、現在schema_version、許可する操作、検証行</td></tr><tr><td>証明書</td><td>公開CA、または管理者が交付した検証CAと照合用SHA</td></tr></tbody></table></div>
-<p>Core、顧客アプリ/BFF、IdPは別の接続先です。インターネット上の本サイトは仕様の配信先で、APIサーバーではありません。</p>
-<h2 id="section-3">2. 本人のaccess tokenを取得する</h2>
-<p><a href="authentication.html">認証手順</a>のAuthorization Code + PKCEを実施します。通常は提供された顧客アプリ/BFFのログインを利用し、資格はそのBFFが保持します。直接APIを試す開発用クライアントは、事前に登録済みのredirect_uriを使います。ID tokenをAPI資格として送らないでください。</p>
-<h2 id="section-4">3. GET /v1/meを呼ぶ</h2>
-<p><a href="examples.html">完全なHTTP例</a>の「本人を確認」を利用します。Authorizationは取得したaccess_tokenに置換します。200と本人id、permissions、capabilities、sessionの期限を確認します。返る権限配列が空でも本人確認の成功であり、表操作の許可を意味しません。</p>
-<p>401ならissuer・audience・client・期限・セッションを確認し、403なら現在権限とMFAを確認します。署名検査や認可を無効にして接続を通しません。</p>
-<h2 id="section-5">4. 表一覧から検索へ</h2>
-<p>v1表は GET /v1/tables、v2表は GET /v2/tables を使います。一覧で得たcollectionのdefinitionを取得し、読み取れる列・検索可能な列・schema_versionを確認してqueryへ進みます。<a href="tables.html">表の操作</a>、<a href="examples.html">実行例</a>、<a href="tutorial.html">通し手順</a>を参照してください。</p>
-<h2 id="section-6">service接続の場合</h2>
-<p>管理者の申請・承認・provision後、private_key_jwtでclient_credentialsを取得します。初回activate後に許可済み POST /v2/service/tables/{collection}/query の200を確認します。GET /v1/meは人専用のため拒否を確認します。環境の認証入口により401 TOKEN_INVALID、または403の認可拒否になり得るため、実際のHTTPとcodeを記録します。人として接続できたことを成功条件にしません。</p>
-<h2 id="section-7">文書版と検証範囲</h2>
-<p><a href="../manifest.json">manifest</a>で公開ファイルを照合できます。文書の例は合成データです。実際に接続できるかは、環境ごとに初回接続で確認してください。macOSでのMCP利用など、未対応の項目は<a href="versions.html">対応状況</a>にまとめています。</p>
-<h2 id="section-8">ログイン直後の反映待ち</h2>
-<p>新しい本人セッションは収集・DB反映の完了まで GET /v1/me が401 TOKEN_INVALIDになる場合があります。現collectorは<strong>1回の処理完了後に15秒待機</strong>します。固定15秒周期ではなく、収集・DB処理時間が加わります。外部収集に28秒の期限はありますが、全工程を包含する期限ではありません。<strong>ログインから利用可能になるまでの保証上限・SLAは未定義</strong>です。15秒、28秒、43秒以内の成功を保証しません。</p>
-<p>正常に完了した新規ログイン直後で、同じ資格の GET /v1/me だけがTOKEN_INVALIDの場合に限り、回数と経過時間を限定して待機できます。クライアント待機枠の例は0.5秒間隔・最大20秒です。これは成功保証ではありません。20秒を超えたら待機を終了し、時刻・code・request_idを記録して環境管理者へ確認します。全401や変更操作を自動再送する規則ではなく、TOKEN_EXPIRED、明示失効、403、TLS/署名エラーには適用しません。</p>
-<p>Coreのchecked_atの鮮度は5秒以内、reconciled_atは60秒以内を要求します。これらは古い認可情報を拒否する条件であり、新セッションの反映時間の約束ではありません。</p>
-<h2 id="section-9">接続情報の依頼窓口</h2>
-<p>開発・検証用の接続申請は、提供者側の環境管理者（サービス責任者）が受け付けます。受付手段はメールです。</p>
-<p><strong>現在の受付メール：morita@meta-xdesign.com</strong></p>
-<p>一次回答は<strong>受信の翌営業日までを目標</strong>とします。保証付きのSLAではありません。一次回答は受付確認・不足情報の確認・対応見込みの連絡であり、接続情報の発行完了を意味しません。利用開始日は申請内容を確認した後に回答します。</p>
-<h3 id="section-10">依頼メールの雛形</h3>
-<pre><span class="code-label">text</span><code>件名：【開発接続申請】環境名／利用目的
-
-依頼者・所属：
-返信先：
-対象環境（不明なら用途を記載）：
-利用目的：
-利用区分：本人 / service
-必要な表・操作（閲覧、登録、更新など）：
-利用開始希望日・利用終了日：
-検証用データの希望：
-登録済みclient_id（ある場合）：
-redirect_uri（本人用クライアントを新規登録する場合）：
-補足：</code></pre>
-<p>パスワード、access/refresh token、秘密鍵、cookieを依頼メールに記載しないでください。接続先・設定・資格の交付方法は、本人と許可範囲を確認して案内します。</p><footer class="page-foot"><span>0.7.0-experimental</span><span>更新 2026-10-04</span><a href="guide/quickstart.md">機械・テキスト向け</a><a href="versions.html">対応状況</a></footer></main></div></body></html>
+<div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント"><form class="site-search" role="search" onsubmit="return false"><label for="site-search">サイト内を検索</label><input type="search" id="site-search" placeholder="例：トークン、412、画像" autocomplete="off" data-index="search-index.json" aria-controls="search-results"><div id="search-results" role="region" aria-live="polite" hidden></div></form><p class="nav-label">理解する</p><a href="index.html">基盤の全体像</a><a href="principles.html">基盤の考え方と責任分界</a><a href="glossary.html">用語集</a><p class="nav-label">接続する</p><a href="quickstart.html" aria-current="page">最初の接続の流れ</a><a href="request-access.html">接続情報を依頼する</a><a href="authentication.html">本人として接続する</a><a href="service-access.html">service として接続する</a><p class="nav-label">使う</p><a href="concepts.html">共通ルール</a><a href="tables.html">表とデータの更新</a><a href="reliability.html">競合・再送・復帰</a><a href="media.html">画像とDropbox連携</a><a href="tutorial.html">アプリの登録と運用</a><a href="app-architecture.html">アプリの推奨構成（参考）</a><p class="nav-label">AIエージェント</p><a href="mcp.html">MCPの導入</a><a href="mcp-support.html">MCPの対応範囲とトラブル対応</a><p class="nav-label">リファレンス</p><a href="api.html">APIリファレンス</a><a href="examples.html">HTTP・実行例</a><a href="errors.html">エラーと再試行</a><a href="specs.html">仕様ファイル</a><p class="nav-label">運用・サポート</p><a href="versions.html">対応状況とバージョン</a><a href="changelog.html">変更履歴</a><a href="support.html">サポートと窓口</a><p class="nav-label">仕様ファイル</p><a class="machine" href="openapi.json">OpenAPI JSON</a><a class="machine" href="mcp-tools.json">MCPツール定義</a><div class="nav-foot">公開ドキュメント<br>0.7.0-experimental<br>更新 2026-10-04</div></nav><main id="main"><div class="breadcrumb"><a href="index.html">ドキュメント</a><span>/</span><span>接続する</span><span>/</span><span>最初の接続の流れ</span></div><p class="eyebrow">接続する</p><h1 id="section-1">最初の接続の流れ</h1><dl class="page-meta"><div><dt>このページで分かること</dt><dd>最初のAPI呼び出しが成功するまでの3ステップと、各ステップで確認すること。</dd></div><div><dt>対象</dt><dd>初めて接続する開発者</dd></div><div><dt>所要時間</dt><dd>全体の見通し 3分</dd></div></dl><nav class="page-toc" aria-label="このページの内容"><p class="toc-title">このページの内容</p><ol><li><a href="#section-2">ステップ1　接続情報を依頼する</a></li><li><a href="#section-3">ステップ2　本人として接続する</a></li><li><a href="#section-4">ステップ3　最初の読み書きをする</a></li><li><a href="#section-5">うまくいかないとき</a></li><li><a href="#section-6">文書の例について</a></li></ol></nav>
+<p>最初のAPI呼び出しが成功するまでを、3つのステップで示します。各ステップの詳細は、リンク先のページにあります。</p>
+<h2 id="section-2">ステップ1　接続情報を依頼する</h2>
+<p>環境管理者に、接続先のURL、認証サービスの情報、本人用のクライアントなどを依頼します。受付の確認（一次回答）は、翌営業日を目標にしています。接続情報を受け取れる日は、申請の内容を確認した後に案内されます。</p>
+<p><strong>できたこと</strong>: 接続に必要な値が、すべてそろっている。</p>
+<p>詳しくは、<a href="request-access.html">接続情報を依頼する</a>。</p>
+<h2 id="section-3">ステップ2　本人として接続する</h2>
+<p>受け取った情報でログイン（OIDC + PKCE）し、アクセストークンを取得します。<code>GET /v1/me</code>を呼びます。</p>
+<p><strong>できたこと</strong>: <code>GET /v1/me</code>が、200で、本人のidと権限を返す。</p>
+<p>詳しくは、<a href="authentication.html">本人として接続する</a>。人の操作を介さない処理は、<a href="service-access.html">serviceとして接続する</a>。</p>
+<h2 id="section-4">ステップ3　最初の読み書きをする</h2>
+<p>表の一覧を取得し、定義を読み、検索へ進みます。次に、検証用の表で、行の追加と更新を試します。</p>
+<p><strong>できたこと</strong>: 検証用の表で、行を読み、書ける。</p>
+<p>詳しくは、<a href="tables.html">表とデータの更新</a>。</p>
+<h2 id="section-5">うまくいかないとき</h2>
+<div class="table-wrap"><table><thead><tr><th scope="col">症状</th><th scope="col">確認すること</th></tr></thead><tbody><tr><td>ログイン直後に、401（<code>TOKEN_INVALID</code>）になる</td><td>数秒から十数秒の反映待ちの可能性があります。<a href="authentication.html">本人として接続する</a>の「ログイン直後の反映待ち」を参照</td></tr><tr><td>401が続く</td><td>接続先、client_id、期限、セッションを確認</td></tr><tr><td>403</td><td>現在の権限と、MFAを確認</td></tr><tr><td>TLSの検証に失敗する</td><td>検証を無効にせず、環境管理者が交付した証明書を使う</td></tr></tbody></table></div>
+<p>エラーの一覧は、<a href="errors.html">エラーと再試行</a>。</p>
+<h2 id="section-6">文書の例について</h2>
+<p>文書の例は、合成のデータです。実際に接続できるかは、環境ごとに、最初の接続で確認してください。</p><nav class="page-next" aria-label="次に読む"><h2 class="next-title">次に読む</h2><ul><li><a href="request-access.html"><b>接続情報を依頼する</b><span>接続に必要な情報、依頼の方法、受け取った後の確認。</span></a></li><li><a href="authentication.html"><b>本人として接続する</b><span>本人のログイン（OIDC + PKCE）から、最初の GET /v1/me が200になるまで。更新・失効の扱い。</span></a></li><li><a href="tables.html"><b>表とデータの更新</b><span>表を読み、行を追加・更新・削除するまで。版と再送キーの使い方。</span></a></li></ul><p class="help">困ったとき: <a href="errors.html">エラーと再試行</a> ・ <a href="support.html">サポートと窓口</a></p></nav><footer class="page-foot"><span>0.7.0-experimental</span><span>更新 2026-10-04</span><a href="guide/quickstart.md">機械・テキスト向け</a><a href="versions.html">対応状況</a></footer></main></div></body></html>

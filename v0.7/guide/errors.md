@@ -15,250 +15,75 @@ HTTP statusだけで原因を決めず、応答のcodeとrequest_idを確認し�
 | 413 / 415 / 422 | 容量、媒体、値の検証で拒否 | 入力やファイルを訂正 |
 | 428 | 期待版・理由・再送キーなどが不足 | 対象操作の必須条件を確認 |
 | 429 | レート上限 | Retry-Afterがあれば従い、間隔を空ける |
-| 500 / 503 | 内部契約違反、依存停止、結果未確定 | request_idを記録。結果確認前の別操作再送を避ける |
+| 500 / 503 | 基盤側の問題、一時的な停止、結果未確定 | request_idを記録。結果確認前の別操作再送を避ける |
 | 507 | 管理容量の上限 | 環境管理者へ容量・保持方針を確認 |
 
 ## 通信が途切れた場合
 
-応答が届かなくても、書込み自体は完了していることがあります。同じ操作の識別子・Idempotency-Key・期待版を保存し、受領票、計画状態、最新データで結果を確認します。
+応答が届かなくても、書込み自体は完了していることがあります。同じ操作の識別子・Idempotency-Key・期待版を保存し、計画の状態や最新のデータで結果を確認します。
 
 OUTCOME_UNKNOWNなど結果未確定の応答は、単純な失敗として別の更新を作る根拠にはなりません。認証切れや権限変更がある場合も、再送時の現在権限で評価されます。
 
 ## 定義されているエラーコード
 
-以下は公開OpenAPIのコード表と操作への対応付けから生成しています。「その他」は未使用という断定ではありません。STALE_SOURCEは内部同期契約で使われ、現公開操作との対応はありません。DUPLICATE、EMPTY_PATCH、INVALID_TRANSITION、IDEMPOTENCY_IN_PROGRESSは、該当する公開操作の応答として記載しています。メディアを含む各機能には個別の条件もあるため、対象操作の応答と合わせて確認してください。
+以下は、公開OpenAPIのコード表と、操作への対応から生成しています。画像を含む各機能には、個別の条件もあります。対象の操作の応答と、合わせて確認してください。
 
-{
-  "ASSET_REASON_REQUIRED": {
-    "http": 428,
-    "usage": "documented_operation_response"
-  },
-  "ASSET_INVALID": {
-    "http": 400,
-    "usage": "documented_operation_response"
-  },
-  "ASSET_INVALID_IMAGE": {
-    "http": 400,
-    "usage": "documented_operation_response"
-  },
-  "ASSET_FORBIDDEN": {
-    "http": 403,
-    "usage": "documented_operation_response"
-  },
-  "ASSET_POLICY_DENIED": {
-    "http": 403,
-    "usage": "documented_operation_response"
-  },
-  "ASSET_NOT_FOUND": {
-    "http": 404,
-    "usage": "documented_operation_response"
-  },
-  "ASSET_NO_THUMBNAIL": {
-    "http": 404,
-    "usage": "documented_operation_response"
-  },
-  "ASSET_VERSION_CONFLICT": {
-    "http": 409,
-    "usage": "documented_operation_response"
-  },
-  "ASSET_IDEMPOTENCY_MISMATCH": {
-    "http": 409,
-    "usage": "documented_operation_response"
-  },
-  "ASSET_POLICY_CHANGED": {
-    "http": 409,
-    "usage": "documented_operation_response"
-  },
-  "ASSET_PRECONDITION_REQUIRED": {
-    "http": 428,
-    "usage": "documented_operation_response"
-  },
-  "ASSET_TOO_LARGE": {
-    "http": 413,
-    "usage": "documented_operation_response"
-  },
-  "ASSET_QUOTA_EXCEEDED": {
-    "http": 507,
-    "usage": "documented_operation_response"
-  },
-  "ASSET_DEPENDENCY_UNAVAILABLE": {
-    "http": 503,
-    "usage": "documented_operation_response"
-  },
-  "ASSET_BUSY": {
-    "http": 503,
-    "usage": "documented_operation_response"
-  },
-  "ASSET_CAPACITY": {
-    "http": 503,
-    "usage": "documented_operation_response"
-  },
-  "BAD_REQUEST": {
-    "http": 400,
-    "usage": "documented_operation_response"
-  },
-  "ETAG_MALFORMED": {
-    "http": 400,
-    "usage": "documented_operation_response"
-  },
-  "SELF_DECLARED_HEADER": {
-    "http": 400,
-    "usage": "documented_operation_response"
-  },
-  "AUTH_REQUIRED": {
-    "http": 401,
-    "usage": "documented_operation_response"
-  },
-  "TOKEN_INVALID": {
-    "http": 401,
-    "usage": "documented_operation_response"
-  },
-  "TOKEN_EXPIRED": {
-    "http": 401,
-    "usage": "documented_operation_response"
-  },
-  "FORBIDDEN_ROLE": {
-    "http": 403,
-    "usage": "documented_operation_response"
-  },
-  "FIELD_NOT_WRITABLE": {
-    "http": 403,
-    "usage": "documented_operation_response"
-  },
-  "SCOPE_VIOLATION": {
-    "http": 403,
-    "usage": "documented_operation_response"
-  },
-  "MFA_REQUIRED": {
-    "http": 403,
-    "usage": "documented_operation_response"
-  },
-  "REAUTH_REQUIRED": {
-    "http": 403,
-    "usage": "documented_operation_response"
-  },
-  "AI_MUST_USE_PROPOSALS": {
-    "http": 403,
-    "usage": "documented_operation_response"
-  },
-  "AI_SUSPENDED": {
-    "http": 403,
-    "usage": "documented_operation_response"
-  },
-  "NOT_FOUND": {
-    "http": 404,
-    "usage": "documented_operation_response"
-  },
-  "STATE_CONFLICT": {
-    "http": 409,
-    "usage": "documented_operation_response"
-  },
-  "PROPOSAL_CONFLICT": {
-    "http": 409,
-    "usage": "documented_operation_response"
-  },
-  "DUPLICATE": {
-    "http": 409,
-    "usage": "documented_operation_response"
-  },
-  "STALE_SOURCE": {
-    "http": 409,
-    "usage": "other_core_contract_not_mapped_to_public_operation"
-  },
-  "AUTHORITY_CONFLICT": {
-    "http": 409,
-    "usage": "documented_operation_response"
-  },
-  "IDEMPOTENCY_IN_PROGRESS": {
-    "http": 409,
-    "usage": "documented_operation_response"
-  },
-  "LOCK_BUSY": {
-    "http": 409,
-    "usage": "documented_operation_response"
-  },
-  "CURSOR_STALE": {
-    "http": 409,
-    "usage": "documented_operation_response"
-  },
-  "VERSION_CONFLICT": {
-    "http": 412,
-    "usage": "documented_operation_response"
-  },
-  "PAYLOAD_TOO_LARGE": {
-    "http": 413,
-    "usage": "documented_operation_response"
-  },
-  "UNSUPPORTED_MEDIA_TYPE": {
-    "http": 415,
-    "usage": "documented_operation_response"
-  },
-  "FIELD_UNKNOWN": {
-    "http": 422,
-    "usage": "documented_operation_response"
-  },
-  "FIELD_NOT_ALLOWED": {
-    "http": 422,
-    "usage": "documented_operation_response"
-  },
-  "FIELD_REQUIRED": {
-    "http": 422,
-    "usage": "documented_operation_response"
-  },
-  "EMPTY_PATCH": {
-    "http": 422,
-    "usage": "documented_operation_response"
-  },
-  "VALIDATION_FAILED": {
-    "http": 422,
-    "usage": "documented_operation_response"
-  },
-  "INVALID_TRANSITION": {
-    "http": 422,
-    "usage": "documented_operation_response"
-  },
-  "IDEMPOTENCY_MISMATCH": {
-    "http": 422,
-    "usage": "documented_operation_response"
-  },
-  "PRECONDITION_REQUIRED": {
-    "http": 428,
-    "usage": "documented_operation_response"
-  },
-  "IDEMPOTENCY_KEY_REQUIRED": {
-    "http": 428,
-    "usage": "documented_operation_response"
-  },
-  "RATE_LIMITED": {
-    "http": 429,
-    "usage": "documented_operation_response"
-  },
-  "AI_RATE_LIMITED": {
-    "http": 429,
-    "usage": "documented_operation_response"
-  },
-  "DEPENDENCY_UNAVAILABLE": {
-    "http": 503,
-    "usage": "documented_operation_response"
-  },
-  "MAINTENANCE": {
-    "http": 503,
-    "usage": "documented_operation_response"
-  },
-  "OUTCOME_UNKNOWN": {
-    "http": 503,
-    "usage": "documented_operation_response"
-  },
-  "TX_ABORT_UNCONFIRMED": {
-    "http": 503,
-    "usage": "documented_operation_response"
-  },
-  "TX_RETRY_EXHAUSTED": {
-    "http": 503,
-    "usage": "documented_operation_response"
-  },
-  "INTERNAL_CONTRACT_VIOLATION": {
-    "http": 500,
-    "usage": "documented_operation_response"
-  }
-}
+| HTTP | code | 意味と対応 |
+| --- | --- | --- |
+| 400 | `ASSET_INVALID` | APIの型・必須項目を確認する |
+| 400 | `ASSET_INVALID_IMAGE` | APIの型・必須項目を確認する |
+| 400 | `BAD_REQUEST` | APIの型・必須項目を確認する |
+| 400 | `ETAG_MALFORMED` | APIの型・必須項目を確認する |
+| 400 | `SELF_DECLARED_HEADER` | APIの型・必須項目を確認する |
+| 401 | `AUTH_REQUIRED` | 認証を更新する、または再ログインする |
+| 401 | `TOKEN_EXPIRED` | トークンの期限が切れています。更新または再ログインする |
+| 401 | `TOKEN_INVALID` | トークンが無効です。ログイン直後は反映待ちのことがあります。待機枠で再確認し、続くときは再ログインする |
+| 403 | `AI_MUST_USE_PROPOSALS` | 現在の権限とMFAを確認する |
+| 403 | `AI_SUSPENDED` | 現在の権限とMFAを確認する |
+| 403 | `ASSET_FORBIDDEN` | 現在の権限とMFAを確認する |
+| 403 | `ASSET_POLICY_DENIED` | 現在の権限とMFAを確認する |
+| 403 | `FIELD_NOT_WRITABLE` | 現在の権限とMFAを確認する |
+| 403 | `FORBIDDEN_ROLE` | 現在の権限とMFAを確認する |
+| 403 | `MFA_REQUIRED` | 現在の権限とMFAを確認する |
+| 403 | `REAUTH_REQUIRED` | 現在の権限とMFAを確認する |
+| 403 | `SCOPE_VIOLATION` | 現在の権限とMFAを確認する |
+| 404 | `ASSET_NOT_FOUND` | 対象の存在と権限を確認する（隠された対象を推測しない） |
+| 404 | `ASSET_NO_THUMBNAIL` | 対象の存在と権限を確認する（隠された対象を推測しない） |
+| 404 | `NOT_FOUND` | 対象の存在と権限を確認する（隠された対象を推測しない） |
+| 409 | `ASSET_IDEMPOTENCY_MISMATCH` | 状態を再取得し、同じ操作の結果を確認する |
+| 409 | `ASSET_POLICY_CHANGED` | 状態を再取得し、同じ操作の結果を確認する |
+| 409 | `ASSET_VERSION_CONFLICT` | 状態を再取得し、同じ操作の結果を確認する |
+| 409 | `AUTHORITY_CONFLICT` | 状態を再取得し、同じ操作の結果を確認する |
+| 409 | `CURSOR_STALE` | 一覧が変わり、`cursor`が使えません。蓄積したページを捨てて、最初から検索し直す |
+| 409 | `DUPLICATE` | 状態を再取得し、同じ操作の結果を確認する |
+| 409 | `IDEMPOTENCY_IN_PROGRESS` | 同じキーの操作が処理中です。待ってから、同じキーで結果を確認する |
+| 409 | `LOCK_BUSY` | 状態を再取得し、同じ操作の結果を確認する |
+| 409 | `PROPOSAL_CONFLICT` | 状態を再取得し、同じ操作の結果を確認する |
+| 409 | `STATE_CONFLICT` | 状態を再取得し、同じ操作の結果を確認する |
+| 412 | `VERSION_CONFLICT` | 期待した版と現在の版が一致しません。再取得し、差分を確認してから、操作を決め直す |
+| 413 | `ASSET_TOO_LARGE` | 入力やファイルを訂正する |
+| 413 | `PAYLOAD_TOO_LARGE` | 入力やファイルを訂正する |
+| 415 | `UNSUPPORTED_MEDIA_TYPE` | 入力やファイルを訂正する |
+| 422 | `EMPTY_PATCH` | 入力やファイルを訂正する |
+| 422 | `FIELD_NOT_ALLOWED` | 入力やファイルを訂正する |
+| 422 | `FIELD_REQUIRED` | 入力やファイルを訂正する |
+| 422 | `FIELD_UNKNOWN` | 入力やファイルを訂正する |
+| 422 | `IDEMPOTENCY_MISMATCH` | 入力やファイルを訂正する |
+| 422 | `INVALID_TRANSITION` | 入力やファイルを訂正する |
+| 422 | `VALIDATION_FAILED` | 入力やファイルを訂正する |
+| 428 | `ASSET_PRECONDITION_REQUIRED` | 必須の条件（版・理由・再送キー）を付ける |
+| 428 | `ASSET_REASON_REQUIRED` | 必須の条件（版・理由・再送キー）を付ける |
+| 428 | `IDEMPOTENCY_KEY_REQUIRED` | 必須の条件（版・理由・再送キー）を付ける |
+| 428 | `PRECONDITION_REQUIRED` | 必須の条件（版・理由・再送キー）を付ける |
+| 429 | `AI_RATE_LIMITED` | `Retry-After`に従い、間隔を空けて再試行する |
+| 429 | `RATE_LIMITED` | `Retry-After`に従い、間隔を空けて再試行する |
+| 500 | `INTERNAL_CONTRACT_VIOLATION` | `request_id`を記録する。結果を確認する前に、別の操作を再送しない |
+| 503 | `ASSET_BUSY` | `request_id`を記録する。結果を確認する前に、別の操作を再送しない |
+| 503 | `ASSET_CAPACITY` | `request_id`を記録する。結果を確認する前に、別の操作を再送しない |
+| 503 | `ASSET_DEPENDENCY_UNAVAILABLE` | `request_id`を記録する。結果を確認する前に、別の操作を再送しない |
+| 503 | `DEPENDENCY_UNAVAILABLE` | `request_id`を記録する。結果を確認する前に、別の操作を再送しない |
+| 503 | `MAINTENANCE` | `request_id`を記録する。結果を確認する前に、別の操作を再送しない |
+| 503 | `OUTCOME_UNKNOWN` | 操作が完了したか確認できません。同じキーと本文で結果を確認する。別のキーで再実行しない |
+| 503 | `TX_ABORT_UNCONFIRMED` | `request_id`を記録する。結果を確認する前に、別の操作を再送しない |
+| 503 | `TX_RETRY_EXHAUSTED` | `request_id`を記録する。結果を確認する前に、別の操作を再送しない |
+| 507 | `ASSET_QUOTA_EXCEEDED` | 環境管理者に、容量と保持の方針を確認する |

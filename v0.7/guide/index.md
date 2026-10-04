@@ -1,40 +1,61 @@
-# API・MCP 利用ガイド
+# Claudia Partner 基盤 ― API・MCP 利用ガイド
 
-Claudia Partner のデータ、権限、画像を、アプリケーションやAIエージェントから利用するための共通ドキュメントです。管理画面の操作とは独立して、接続に必要な仕様を確認できます。
+Claudia Partner 基盤は、社内のデータ、権限、画像を、アプリケーションとAIエージェントに共通の窓口で提供します。アプリやAIエージェントは、この基盤に接続し、利用者の権限の範囲で、表や行を読み書きします。
 
-> 対象は **0.7.0-experimental**。記載されたAPIは環境ごとに有効化されます。この説明サイトへのアクセスにログインは不要ですが、業務APIの利用には認証と権限が必要です。
+このガイドは、基盤との**界面**、つまり接続の契約と手順をまとめたものです。基盤の内部の仕組みは説明しません。
 
-初回は[最初のAPI接続](https://mxd2024.github.io/claudia-partner-docs/v0.7/quickstart.html)から進みます。[概念](https://mxd2024.github.io/claudia-partner-docs/v0.7/concepts.html)、[アプリ登録から運用まで](https://mxd2024.github.io/claudia-partner-docs/v0.7/tutorial.html)、[変更履歴](https://mxd2024.github.io/claudia-partner-docs/v0.7/changelog.html)も参照できます。
+> 対象は **0.7.0-experimental**（試験提供）です。仕様や提供条件は変更されることがあります。基盤の機能は、環境ごとに有効化されます。このサイトの閲覧にログインは不要ですが、基盤の利用には、認証と権限が必要です。
 
-## 目的から探す
+## 基盤が提供するもの
 
-| やりたいこと | 読む資料 |
+| 提供するもの | できること | 状態 |
+| --- | --- | --- |
+| データ | 表の定義、検索、行の追加・更新・削除、関連、ごみ箱と復元 | [環境による] |
+| 権限 | 本人とserviceの認可、表・列・行の権限、組織の管理 | [環境による] |
+| アプリ | アプリの登録、計画と適用、停止と再開 | [環境による] |
+| 画像 | 画像を行に関連付けて表示。管理された原本と、外部の原本への参照 | [環境による] |
+| AIエージェント（MCP） | 取込の操作（8ツール）。全APIサービスへの対応は準備中 | [提供中]（取込のみ） |
+
+「環境による」は、ご利用の環境で有効化されているかどうかを、環境管理者に確認する必要があることを示します。状態の読み方は[基盤の考え方と責任分界](https://mxd2024.github.io/claudia-partner-docs/v0.7/principles.html)を参照してください。
+
+## 想定する接続構成
+
+アプリやAIエージェントは、利用者の権限を確認する窓口である**基盤API**に、本人またはserviceとして接続します。ログインは、認証サービスが担います。接続の形は、次の3つです。
+
+```text
+A. 人が使うアプリ（本人のログイン）
+   利用者のブラウザー
+     --(画面操作)--> アプリのサーバー側（BFF。トークンを保持）
+     --(トークンを付けて呼び出す)--> 基盤API
+   ログイン: アプリのサーバー側が利用者を認証サービスへ案内し（OIDC Authorization Code + PKCE、MFA）、認可コードをトークンに交換する。
+
+B. サーバー処理（service接続）
+   あなたのサーバー処理（登録した鍵を持つ）
+     --(トークンを付けて呼び出す)--> 基盤API
+   トークンは、登録した鍵で署名した要求を、認証サービスに送って取得する。serviceは人向けAPI（GET /v1/me など）を使えない。
+
+C. AIエージェント（MCP）
+   AIエージェント（MCPホスト）
+     --(MCP)--> MCPアダプター（手元のPCで実行）
+     --(HTTPS・接続キー)--> 管理サイト（取込の窓口）
+     --(本人の権限で)--> 基盤API
+   MCPアダプターの接続先は、基盤APIのURLではなく、管理サイトのHTTPS origin。現在のMCPは取込用8ツール。
+
+基盤APIは、リクエストごとに、その時点の権限を確認する。
+```
+
+どの形でも、接続先のURL、資格、利用できる表は、環境ごとに環境管理者から受け取ります。このサイトには含まれません。
+
+## 読者別の入口
+
+| あなたは | 次に読むもの |
 | --- | --- |
-| アプリを接続し、本人の権限で利用する | [認証・権限](https://mxd2024.github.io/claudia-partner-docs/v0.7/authentication.html) |
-| 表を検索し、行を追加・更新する | [表・データ更新](https://mxd2024.github.io/claudia-partner-docs/v0.7/tables.html) |
-| デザイン画像やDropbox原本を関連付ける | [画像・Dropbox連携](https://mxd2024.github.io/claudia-partner-docs/v0.7/media.html) |
-| AIエージェントから業務操作を行う | [AIエージェント・MCP](https://mxd2024.github.io/claudia-partner-docs/v0.7/mcp.html) |
-| パス、入力、応答の仕様を調べる | [APIリファレンス](https://mxd2024.github.io/claudia-partner-docs/v0.7/api.html) |
-| エラーから復帰する | [エラーと再試行](https://mxd2024.github.io/claudia-partner-docs/v0.7/errors.html) |
+| 基盤を理解して、採用を判断したい | [基盤の考え方と責任分界](https://mxd2024.github.io/claudia-partner-docs/v0.7/principles.html) → [対応状況とバージョン](https://mxd2024.github.io/claudia-partner-docs/v0.7/versions.html) |
+| 初めて接続する | [最初の接続の流れ](https://mxd2024.github.io/claudia-partner-docs/v0.7/quickstart.html) → [接続情報を依頼する](https://mxd2024.github.io/claudia-partner-docs/v0.7/request-access.html) |
+| AIエージェントから使いたい | [MCPの導入](https://mxd2024.github.io/claudia-partner-docs/v0.7/mcp.html) |
+| 実装を進めている | [共通ルール](https://mxd2024.github.io/claudia-partner-docs/v0.7/concepts.html) → [表とデータの更新](https://mxd2024.github.io/claudia-partner-docs/v0.7/tables.html) → [APIリファレンス](https://mxd2024.github.io/claudia-partner-docs/v0.7/api.html) |
+| 用語を調べたい | [用語集](https://mxd2024.github.io/claudia-partner-docs/v0.7/glossary.html) |
 
-## 接続までの流れ
+## このサイトについて
 
-1. 環境管理者から、対象環境のHTTPS接続先、対応版、有効機能、認証方式を確認します。
-2. 本人ログインか、承認されたserviceによる接続かを決めます。管理権限と業務データの利用権限は別に確認します。
-3. [APIリファレンス](https://mxd2024.github.io/claudia-partner-docs/v0.7/api.html)で対象操作と入力・応答を確認し、合成データの環境で許可と拒否の両方を試します。
-4. 更新時の競合、認証更新、失効、通信中断からの再開を確認してから利用を開始します。
-
-APIの仕様は公開されていますが、接続先・資格・利用可能な表は契約する環境ごとに異なります。このサイトには個別環境の資格や顧客データを含めていません。
-
-## アプリとエージェントの共通基盤
-
-表・列・行の操作、添付、関連、サービス権限、組織管理を共通APIで扱います。MCPの対象もこれらすべての公開APIサービスです。現在のMCPアダプターの実装範囲は取込用8ツールで、全サービスへの対応は[対応状況](https://mxd2024.github.io/claudia-partner-docs/v0.7/versions.html)に区別して記載しています。
-
-## 仕様を取得する
-
-- [OpenAPI 3.1 JSON](https://mxd2024.github.io/claudia-partner-docs/v0.7/openapi.json)：機械可読な132操作の入力・応答・認証定義。
-- [全API一覧 JSON](https://mxd2024.github.io/claudia-partner-docs/v0.7/api-inventory.json)：実ルート132操作と機械仕様の整備状況。
-- [現行MCPツール定義 JSON](https://mxd2024.github.io/claudia-partner-docs/v0.7/mcp-tools.json)：取込アダプターの8ツール。
-- [このガイドのMarkdown](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/index.md)：AIやテキストツールからの参照用。
-
-このサイトは説明と仕様の配信専用です。ここへ業務データをアップロードしたり、アクセストークンを入力したりする必要はありません。
+このサイトは、説明と仕様の配信専用です。業務データをアップロードしたり、アクセストークンを入力したりする必要はありません。OpenAPIなどの機械可読な仕様は、[仕様ファイル](https://mxd2024.github.io/claudia-partner-docs/v0.7/specs.html)から入手できます。
