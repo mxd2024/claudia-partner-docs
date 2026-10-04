@@ -2,7 +2,7 @@
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>HTTP・実行例 | Claudia Partner Docs</title><meta name="description" content="Claudia PartnerのAPI・認証・権限・画像連携・MCPの共通利用ガイド。対応版と実装状況を確認できます。"><meta name="theme-color" content="#004d58"><link rel="canonical" href="https://mxd2024.github.io/claudia-partner-docs/v0.7/examples.html"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head>
 <body><a class="skip" href="#main">本文へ移動</a><header class="topbar"><a class="brand" href="index.html"><span class="mark" aria-hidden="true">CP</span>Claudia Partner <span style="font-weight:400">Docs</span></a><span class="top-note">API・MCP 共通ドキュメント</span><span class="version">0.7.0-experimental</span><button class="menu-toggle" aria-expanded="false" aria-controls="navigation">メニュー</button></header>
 <div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント"><p class="nav-label">ガイド</p><a href="index.html">はじめに</a><a href="quickstart.html">最初のAPI接続</a><a href="authentication.html">認証・権限</a><a href="concepts.html">概念・APIの選択</a><a href="tables.html">表・データ更新</a><a href="tutorial.html">アプリ登録から運用まで</a><a href="media.html">画像・Dropbox連携</a><a href="mcp.html">AIエージェント・MCP</a><p class="nav-label">リファレンス</p><a href="examples.html" aria-current="page">HTTP・実行例</a><a href="api.html">APIリファレンス</a><a href="errors.html">エラーと再試行</a><a href="operations.html">BFF・運用・サポート</a><a href="versions.html">対応状況・バージョン</a><a href="changelog.html">変更履歴</a><p class="nav-label">仕様ファイル</p><a class="machine" href="openapi.json">OpenAPI JSON</a><a class="machine" href="mcp-tools.json">MCPツール定義</a><div class="nav-foot">公開ドキュメント<br>0.7.0-experimental<br>更新 2026-10-04</div></nav><main id="main"><div class="breadcrumb"><a href="index.html">ドキュメント</a><span>/</span><span>HTTP・実行例</span></div><p class="eyebrow">DEVELOPER DOCUMENTATION</p><h1 id="section-1">HTTP・Python・JavaScript実行例</h1>
-<p>以下は合成データの完全な要求・応答例です。HTTPヘッダーとJSONは<a href="examples/public-requests.json">共通examples JSON</a>から生成し、OpenAPIのexamplesにも同じ内容を使用します。時刻、UUID、版、fingerprint、storeは説明用です。実行時には現在の取得結果へ置き換えてください。</p>
+<p>60例・56操作を掲載しています。app-packages 17、organization 5、workspace-access 10、assets 8の全操作へ追加しました。以下は合成データの要求・応答例です。HTTPヘッダーとJSONは<a href="examples/public-requests.json">共通examples JSON</a>から生成し、OpenAPIのexamplesにも同じ内容を使用します。時刻、UUID、版、fingerprint、storeは説明用です。実行時には現在の取得結果へ置き換えてください。</p>
 <p>成功応答の値は固定の期待値ではありません。表の権限や現在版に従い変化します。公開資料は検証用のデータ投入を自動的に行いません。<a href="tutorial.html">通し手順</a>に沿い、検証専用の表で実行してください。</p>
 <h2 id="section-2">サンプルの実行</h2>
 <p><a href="examples/request.py">Python</a>はPython 3.10以上の標準ライブラリ、<a href="examples/request.mjs">JavaScript</a>はNode.js 22以上で動作します。どちらも選択した1要求のみを送信し、自動再試行しません。examples JSONを同じフォルダーへ保存して、置換済みの要求ファイルを指定します。</p>
@@ -10,7 +10,7 @@
 node request.mjs --base https://api.example.invalid --request my-request.json</code></pre>
 <p>資格は環境変数CP_ACCESS_TOKEN、またはPythonの非表示対話入力で渡します。スクリプトや要求ファイルへ埋め込みません。CP_ACCESS_TOKENは<a href="authentication.html">認証手順</a>で取得したaccess_tokenです。baseは管理者交付のCore HTTPS originへ置き換えます。検証CAはPythonの --ca 引数、NodeのNODE_EXTRA_CA_CERTSで設定し、TLS検証を無効化しません。</p>
 <p>my-request.jsonは下の共通JSONから1件を選び、headers内のAuthorizationプレースホルダー以外の値、url、bodyを実環境向けに直したものです。書込はIdempotency-Keyと期待版を確認してから実行します。</p>
-<h2 id="example-me">本人を確認</h2><pre><span class="code-label">http</span><code>GET /v1/me HTTP/1.1
+<h2 id="example-me">本人を確認</h2><p></p><pre><span class="code-label">http</span><code>GET /v1/me HTTP/1.1
 Host: api.example.invalid
 Authorization: Bearer &lt;ACCESS_TOKEN&gt;
 Accept: application/json</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
@@ -30,7 +30,7 @@ Cache-Control: no-store
     &quot;idle_expires_at&quot;: &quot;2026-10-04T00:30:00Z&quot;
   }
 }</code></pre>
-<h2 id="example-tables">v1の表一覧</h2><pre><span class="code-label">http</span><code>GET /v1/tables HTTP/1.1
+<h2 id="example-tables">v1の表一覧</h2><p></p><pre><span class="code-label">http</span><code>GET /v1/tables HTTP/1.1
 Host: api.example.invalid
 Authorization: Bearer &lt;ACCESS_TOKEN&gt;
 Accept: application/json</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
@@ -48,7 +48,7 @@ Cache-Control: no-store
   ],
   &quot;role&quot;: &quot;designer&quot;
 }</code></pre>
-<h2 id="example-v1-query">v1の最初のページ</h2><pre><span class="code-label">http</span><code>POST /v1/tables/demo_tasks/query HTTP/1.1
+<h2 id="example-v1-query">v1の最初のページ</h2><p></p><pre><span class="code-label">http</span><code>POST /v1/tables/demo_tasks/query HTTP/1.1
 Host: api.example.invalid
 Authorization: Bearer &lt;ACCESS_TOKEN&gt;
 Accept: application/json
@@ -87,7 +87,7 @@ Cache-Control: no-store
   &quot;revision&quot;: 2,
   &quot;schema_version&quot;: 1
 }</code></pre>
-<h2 id="example-v1-batch">v1行を作成</h2><pre><span class="code-label">http</span><code>POST /v1/tables/demo_tasks/batch HTTP/1.1
+<h2 id="example-v1-batch">v1行を作成</h2><p></p><pre><span class="code-label">http</span><code>POST /v1/tables/demo_tasks/batch HTTP/1.1
 Host: api.example.invalid
 Authorization: Bearer &lt;ACCESS_TOKEN&gt;
 Accept: application/json
@@ -124,7 +124,7 @@ Cache-Control: no-store
   &quot;revision&quot;: 2,
   &quot;committed&quot;: true
 }</code></pre>
-<h2 id="example-v2-define">v2表を定義</h2><pre><span class="code-label">http</span><code>PUT /v2/tables/demo_tasks HTTP/1.1
+<h2 id="example-v2-define">v2表を定義</h2><p></p><pre><span class="code-label">http</span><code>PUT /v2/tables/demo_tasks HTTP/1.1
 Host: api.example.invalid
 Authorization: Bearer &lt;ACCESS_TOKEN&gt;
 Accept: application/json
@@ -161,7 +161,7 @@ Cache-Control: no-store
 {
   &quot;schema_version&quot;: 1
 }</code></pre>
-<h2 id="example-v2-create">v2行を作成</h2><pre><span class="code-label">http</span><code>POST /v2/tables/demo_tasks/batch HTTP/1.1
+<h2 id="example-v2-create">v2行を作成</h2><p></p><pre><span class="code-label">http</span><code>POST /v2/tables/demo_tasks/batch HTTP/1.1
 Host: api.example.invalid
 Authorization: Bearer &lt;ACCESS_TOKEN&gt;
 Accept: application/json
@@ -194,7 +194,7 @@ Cache-Control: no-store
   ],
   &quot;schema_version&quot;: 1
 }</code></pre>
-<h2 id="example-v2-query">v2行を検索</h2><pre><span class="code-label">http</span><code>POST /v2/tables/demo_tasks/query HTTP/1.1
+<h2 id="example-v2-query">v2行を検索</h2><p></p><pre><span class="code-label">http</span><code>POST /v2/tables/demo_tasks/query HTTP/1.1
 Host: api.example.invalid
 Authorization: Bearer &lt;ACCESS_TOKEN&gt;
 Accept: application/json
@@ -224,7 +224,7 @@ Cache-Control: no-store
   &quot;revision&quot;: &quot;sample-visible-revision&quot;,
   &quot;schema_version&quot;: 1
 }</code></pre>
-<h2 id="example-v2-update">v2行を更新</h2><pre><span class="code-label">http</span><code>POST /v2/tables/demo_tasks/batch HTTP/1.1
+<h2 id="example-v2-update">v2行を更新</h2><p></p><pre><span class="code-label">http</span><code>POST /v2/tables/demo_tasks/batch HTTP/1.1
 Host: api.example.invalid
 Authorization: Bearer &lt;ACCESS_TOKEN&gt;
 Accept: application/json
@@ -258,7 +258,7 @@ Cache-Control: no-store
   ],
   &quot;schema_version&quot;: 1
 }</code></pre>
-<h2 id="example-v2-delete">v2行をごみ箱へ</h2><pre><span class="code-label">http</span><code>POST /v2/tables/demo_tasks/batch HTTP/1.1
+<h2 id="example-v2-delete">v2行をごみ箱へ</h2><p></p><pre><span class="code-label">http</span><code>POST /v2/tables/demo_tasks/batch HTTP/1.1
 Host: api.example.invalid
 Authorization: Bearer &lt;ACCESS_TOKEN&gt;
 Accept: application/json
@@ -290,7 +290,7 @@ Cache-Control: no-store
   ],
   &quot;schema_version&quot;: 1
 }</code></pre>
-<h2 id="example-v2-restore">行をごみ箱から復元</h2><pre><span class="code-label">http</span><code>POST /v2/tables/demo_tasks/trash/22222222-2222-4222-8222-222222222222/restore HTTP/1.1
+<h2 id="example-v2-restore">行をごみ箱から復元</h2><p></p><pre><span class="code-label">http</span><code>POST /v2/tables/demo_tasks/trash/22222222-2222-4222-8222-222222222222/restore HTTP/1.1
 Host: api.example.invalid
 Authorization: Bearer &lt;ACCESS_TOKEN&gt;
 Accept: application/json
@@ -311,7 +311,7 @@ Cache-Control: no-store
   &quot;trash_id&quot;: &quot;22222222-2222-4222-8222-222222222222&quot;,
   &quot;schema_version&quot;: 1
 }</code></pre>
-<h2 id="example-relation">子表の親所属を設定</h2><pre><span class="code-label">http</span><code>PUT /v2/tables/demo_lines/access HTTP/1.1
+<h2 id="example-relation">子表の親所属を設定</h2><p></p><pre><span class="code-label">http</span><code>PUT /v2/tables/demo_lines/access HTTP/1.1
 Host: api.example.invalid
 Authorization: Bearer &lt;ACCESS_TOKEN&gt;
 Accept: application/json
@@ -332,7 +332,7 @@ Cache-Control: no-store
 {
   &quot;version&quot;: 1
 }</code></pre>
-<h2 id="example-grant">本人へ表利用権を設定</h2><pre><span class="code-label">http</span><code>PUT /v2/access/grants/11111111-1111-4111-8111-111111111111/demo_tasks HTTP/1.1
+<h2 id="example-grant">本人へ表利用権を設定</h2><p></p><pre><span class="code-label">http</span><code>PUT /v2/access/grants/11111111-1111-4111-8111-111111111111/demo_tasks HTTP/1.1
 Host: api.example.invalid
 Authorization: Bearer &lt;ACCESS_TOKEN&gt;
 Accept: application/json
@@ -368,7 +368,7 @@ Cache-Control: no-store
     &quot;expires_at&quot;: &quot;2026-10-05T00:00:00Z&quot;
   }
 }</code></pre>
-<h2 id="example-app-plan">アプリ登録計画</h2><pre><span class="code-label">http</span><code>POST /v2/apps/plan HTTP/1.1
+<h2 id="example-app-plan">アプリ登録計画</h2><p></p><pre><span class="code-label">http</span><code>POST /v2/apps/plan HTTP/1.1
 Host: api.example.invalid
 Authorization: Bearer &lt;ACCESS_TOKEN&gt;
 Accept: application/json
@@ -424,7 +424,7 @@ Cache-Control: no-store
     }
   ]
 }</code></pre>
-<h2 id="example-app-apply">確認したアプリ計画を反映</h2><pre><span class="code-label">http</span><code>POST /v2/apps/apply HTTP/1.1
+<h2 id="example-app-apply">確認したアプリ計画を反映</h2><p></p><pre><span class="code-label">http</span><code>POST /v2/apps/apply HTTP/1.1
 Host: api.example.invalid
 Authorization: Bearer &lt;ACCESS_TOKEN&gt;
 Accept: application/json
@@ -514,7 +514,7 @@ Cache-Control: no-store
   &quot;deleted_at&quot;: null,
   &quot;restore_until&quot;: null
 }</code></pre>
-<h2 id="example-app-stop">アプリを停止</h2><pre><span class="code-label">http</span><code>POST /v2/apps/demo_app/state HTTP/1.1
+<h2 id="example-app-stop">アプリを停止</h2><p></p><pre><span class="code-label">http</span><code>POST /v2/apps/demo_app/state HTTP/1.1
 Host: api.example.invalid
 Authorization: Bearer &lt;ACCESS_TOKEN&gt;
 Accept: application/json
@@ -572,7 +572,7 @@ Cache-Control: no-store
   &quot;deleted_at&quot;: null,
   &quot;restore_until&quot;: null
 }</code></pre>
-<h2 id="example-service-query">serviceの許可済み表を取得</h2><pre><span class="code-label">http</span><code>POST /v2/service/tables/demo_tasks/query HTTP/1.1
+<h2 id="example-service-query">serviceの許可済み表を取得</h2><p></p><pre><span class="code-label">http</span><code>POST /v2/service/tables/demo_tasks/query HTTP/1.1
 Host: api.example.invalid
 Authorization: Bearer &lt;ACCESS_TOKEN&gt;
 Accept: application/json
@@ -600,7 +600,7 @@ Cache-Control: no-store
   ],
   &quot;next_after&quot;: null
 }</code></pre>
-<h2 id="example-media-reference">外部原本への画像参照</h2><pre><span class="code-label">http</span><code>POST /v2/media/demo_tasks/11111111-1111-4111-8111-111111111111/picture/22222222-2222-4222-8222-222222222222/reference HTTP/1.1
+<h2 id="example-media-reference">外部原本への画像参照</h2><p></p><pre><span class="code-label">http</span><code>POST /v2/media/demo_tasks/11111111-1111-4111-8111-111111111111/picture/22222222-2222-4222-8222-222222222222/reference HTTP/1.1
 Host: api.example.invalid
 Authorization: Bearer &lt;ACCESS_TOKEN&gt;
 Accept: application/json
@@ -632,7 +632,7 @@ Cache-Control: no-store
   &quot;sha256&quot;: &quot;bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb&quot;,
   &quot;preview&quot;: &quot;ready&quot;
 }</code></pre>
-<h2 id="example-if-match">If-Matchで既存案件を更新</h2><pre><span class="code-label">http</span><code>PATCH /v1/jobs/11111111-1111-4111-8111-111111111111 HTTP/1.1
+<h2 id="example-if-match">If-Matchで既存案件を更新</h2><p></p><pre><span class="code-label">http</span><code>PATCH /v1/jobs/11111111-1111-4111-8111-111111111111 HTTP/1.1
 Host: api.example.invalid
 Authorization: Bearer &lt;ACCESS_TOKEN&gt;
 Accept: application/json
@@ -651,7 +651,7 @@ Cache-Control: no-store
   &quot;id&quot;: &quot;11111111-1111-4111-8111-111111111111&quot;,
   &quot;version&quot;: &quot;2&quot;
 }</code></pre>
-<h2 id="example-conflict">古い版で更新すると412</h2><pre><span class="code-label">http</span><code>PATCH /v1/jobs/11111111-1111-4111-8111-111111111111 HTTP/1.1
+<h2 id="example-conflict">古い版で更新すると412</h2><p></p><pre><span class="code-label">http</span><code>PATCH /v1/jobs/11111111-1111-4111-8111-111111111111 HTTP/1.1
 Host: api.example.invalid
 Authorization: Bearer &lt;ACCESS_TOKEN&gt;
 Accept: application/json
@@ -673,7 +673,7 @@ Cache-Control: no-store
   &quot;code&quot;: &quot;VERSION_CONFLICT&quot;,
   &quot;request_id&quot;: &quot;33333333-3333-4333-8333-333333333333&quot;
 }</code></pre>
-<h2 id="example-auth-required">資格なしは401</h2><pre><span class="code-label">http</span><code>GET /v1/me HTTP/1.1
+<h2 id="example-auth-required">資格なしは401</h2><p></p><pre><span class="code-label">http</span><code>GET /v1/me HTTP/1.1
 Host: api.example.invalid
 Accept: application/json</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 401
 Content-Type: application/problem+json
@@ -686,4 +686,1544 @@ Cache-Control: no-store
   &quot;status&quot;: 401,
   &quot;code&quot;: &quot;AUTH_REQUIRED&quot;,
   &quot;request_id&quot;: &quot;33333333-3333-4333-8333-333333333333&quot;
-}</code></pre><footer class="page-foot"><span>0.7.0-experimental</span><span>更新 2026-10-04</span><a href="guide/examples.md">機械・テキスト向け</a><a href="versions.html">対応状況</a></footer></main></div></body></html>
+}</code></pre>
+<h2 id="example-app-packages-migrationList">データ移行の一覧を取得</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>GET /v2/data-migrations HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;items&quot;: [
+    {
+      &quot;id&quot;: &quot;44444444-4444-4444-8444-444444444444&quot;,
+      &quot;app&quot;: &quot;demo_app&quot;,
+      &quot;state&quot;: &quot;scanning&quot;,
+      &quot;revision&quot;: 1,
+      &quot;created_at&quot;: &quot;2026-10-04T00:00:00Z&quot;,
+      &quot;is_owner&quot;: true
+    }
+  ]
+}</code></pre>
+<h2 id="example-app-packages-migrationPreview">移行前後の行を比較</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>POST /v2/data-migrations/44444444-4444-4444-8444-444444444444/preview HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Content-Type: application/json
+
+{
+  &quot;collection&quot;: &quot;demo_tasks&quot;
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;collection&quot;: &quot;demo_tasks&quot;,
+  &quot;items&quot;: [
+    {
+      &quot;id&quot;: &quot;22222222-2222-4222-8222-222222222222&quot;,
+      &quot;before&quot;: {
+        &quot;title&quot;: &quot;合成データ&quot;
+      },
+      &quot;after_values&quot;: {
+        &quot;title&quot;: &quot;合成データ&quot;
+      },
+      &quot;error&quot;: null
+    }
+  ]
+}</code></pre>
+<h2 id="example-app-packages-migrationPlan">データ移行計画を作成</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>POST /v2/data-migrations/plan HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Content-Type: application/json
+
+{
+  &quot;migration_id&quot;: &quot;44444444-4444-4444-8444-444444444444&quot;,
+  &quot;package&quot;: {
+    &quot;manifest&quot;: {
+      &quot;id&quot;: &quot;demo_app&quot;,
+      &quot;version&quot;: 1,
+      &quot;name&quot;: &quot;検証アプリ&quot;,
+      &quot;datasets&quot;: [
+        {
+          &quot;id&quot;: &quot;demo_tasks&quot;,
+          &quot;mode&quot;: &quot;owned&quot;,
+          &quot;definition&quot;: {
+            &quot;label&quot;: &quot;作業&quot;,
+            &quot;fields&quot;: [
+              {
+                &quot;id&quot;: &quot;title&quot;,
+                &quot;label&quot;: &quot;件名&quot;,
+                &quot;type&quot;: &quot;text&quot;,
+                &quot;required&quot;: true,
+                &quot;read&quot;: [
+                  &quot;staff&quot;
+                ],
+                &quot;write&quot;: [
+                  &quot;staff&quot;
+                ],
+                &quot;searchable&quot;: true,
+                &quot;choices&quot;: []
+              }
+            ],
+            &quot;export_roles&quot;: [
+              &quot;staff&quot;
+            ]
+          }
+        }
+      ],
+      &quot;dependencies&quot;: []
+    },
+    &quot;csv&quot;: [
+      {
+        &quot;collection&quot;: &quot;demo_tasks&quot;,
+        &quot;key_fields&quot;: [
+          &quot;title&quot;
+        ]
+      }
+    ]
+  },
+  &quot;transforms&quot;: [
+    {
+      &quot;collection&quot;: &quot;demo_tasks&quot;,
+      &quot;fields&quot;: [
+        {
+          &quot;target&quot;: &quot;title&quot;,
+          &quot;source&quot;: &quot;title&quot;,
+          &quot;convert&quot;: &quot;identity&quot;
+        }
+      ]
+    }
+  ],
+  &quot;reason&quot;: &quot;列定義の移行を検証&quot;
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;fingerprint&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;,
+  &quot;migration&quot;: {
+    &quot;migration_id&quot;: &quot;44444444-4444-4444-8444-444444444444&quot;,
+    &quot;package&quot;: {
+      &quot;manifest&quot;: {
+        &quot;id&quot;: &quot;demo_app&quot;,
+        &quot;version&quot;: 1,
+        &quot;name&quot;: &quot;検証アプリ&quot;,
+        &quot;datasets&quot;: [
+          {
+            &quot;id&quot;: &quot;demo_tasks&quot;,
+            &quot;mode&quot;: &quot;owned&quot;,
+            &quot;definition&quot;: {
+              &quot;label&quot;: &quot;作業&quot;,
+              &quot;fields&quot;: [
+                {
+                  &quot;id&quot;: &quot;title&quot;,
+                  &quot;label&quot;: &quot;件名&quot;,
+                  &quot;type&quot;: &quot;text&quot;,
+                  &quot;required&quot;: true,
+                  &quot;read&quot;: [
+                    &quot;staff&quot;
+                  ],
+                  &quot;write&quot;: [
+                    &quot;staff&quot;
+                  ],
+                  &quot;searchable&quot;: true,
+                  &quot;choices&quot;: []
+                }
+              ],
+              &quot;export_roles&quot;: [
+                &quot;staff&quot;
+              ]
+            }
+          }
+        ],
+        &quot;dependencies&quot;: []
+      },
+      &quot;csv&quot;: [
+        {
+          &quot;collection&quot;: &quot;demo_tasks&quot;,
+          &quot;key_fields&quot;: [
+            &quot;title&quot;
+          ]
+        }
+      ]
+    },
+    &quot;transforms&quot;: [
+      {
+        &quot;collection&quot;: &quot;demo_tasks&quot;,
+        &quot;fields&quot;: [
+          {
+            &quot;target&quot;: &quot;title&quot;,
+            &quot;source&quot;: &quot;title&quot;,
+            &quot;convert&quot;: &quot;identity&quot;
+          }
+        ]
+      }
+    ],
+    &quot;reason&quot;: &quot;列定義の移行を検証&quot;
+  },
+  &quot;tables&quot;: [
+    {
+      &quot;collection&quot;: &quot;demo_tasks&quot;,
+      &quot;version&quot;: 1,
+      &quot;count&quot;: 1
+    }
+  ]
+}</code></pre>
+<h2 id="example-app-packages-migrationBegin">確認済みデータ移行を開始</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>POST /v2/data-migrations/begin HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Content-Type: application/json
+
+{
+  &quot;migration&quot;: {
+    &quot;migration_id&quot;: &quot;44444444-4444-4444-8444-444444444444&quot;,
+    &quot;package&quot;: {
+      &quot;manifest&quot;: {
+        &quot;id&quot;: &quot;demo_app&quot;,
+        &quot;version&quot;: 1,
+        &quot;name&quot;: &quot;検証アプリ&quot;,
+        &quot;datasets&quot;: [
+          {
+            &quot;id&quot;: &quot;demo_tasks&quot;,
+            &quot;mode&quot;: &quot;owned&quot;,
+            &quot;definition&quot;: {
+              &quot;label&quot;: &quot;作業&quot;,
+              &quot;fields&quot;: [
+                {
+                  &quot;id&quot;: &quot;title&quot;,
+                  &quot;label&quot;: &quot;件名&quot;,
+                  &quot;type&quot;: &quot;text&quot;,
+                  &quot;required&quot;: true,
+                  &quot;read&quot;: [
+                    &quot;staff&quot;
+                  ],
+                  &quot;write&quot;: [
+                    &quot;staff&quot;
+                  ],
+                  &quot;searchable&quot;: true,
+                  &quot;choices&quot;: []
+                }
+              ],
+              &quot;export_roles&quot;: [
+                &quot;staff&quot;
+              ]
+            }
+          }
+        ],
+        &quot;dependencies&quot;: []
+      },
+      &quot;csv&quot;: [
+        {
+          &quot;collection&quot;: &quot;demo_tasks&quot;,
+          &quot;key_fields&quot;: [
+            &quot;title&quot;
+          ]
+        }
+      ]
+    },
+    &quot;transforms&quot;: [
+      {
+        &quot;collection&quot;: &quot;demo_tasks&quot;,
+        &quot;fields&quot;: [
+          {
+            &quot;target&quot;: &quot;title&quot;,
+            &quot;source&quot;: &quot;title&quot;,
+            &quot;convert&quot;: &quot;identity&quot;
+          }
+        ]
+      }
+    ],
+    &quot;reason&quot;: &quot;列定義の移行を検証&quot;
+  },
+  &quot;fingerprint&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;id&quot;: &quot;44444444-4444-4444-8444-444444444444&quot;,
+  &quot;state&quot;: &quot;scanning&quot;,
+  &quot;revision&quot;: 1,
+  &quot;app&quot;: &quot;demo_app&quot;,
+  &quot;reason&quot;: &quot;列定義の移行を検証&quot;,
+  &quot;targets&quot;: [
+    {
+      &quot;collection&quot;: &quot;demo_tasks&quot;,
+      &quot;source_count&quot;: 1,
+      &quot;scanned&quot;: 0,
+      &quot;cursor&quot;: null,
+      &quot;done&quot;: false
+    }
+  ],
+  &quot;verified&quot;: 0,
+  &quot;errors&quot;: [],
+  &quot;error_count&quot;: 0,
+  &quot;response&quot;: null
+}</code></pre>
+<h2 id="example-app-packages-migrationGet">データ移行の進捗を取得</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>GET /v2/data-migrations/44444444-4444-4444-8444-444444444444 HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;id&quot;: &quot;44444444-4444-4444-8444-444444444444&quot;,
+  &quot;state&quot;: &quot;scanning&quot;,
+  &quot;revision&quot;: 1,
+  &quot;app&quot;: &quot;demo_app&quot;,
+  &quot;reason&quot;: &quot;列定義の移行を検証&quot;,
+  &quot;targets&quot;: [
+    {
+      &quot;collection&quot;: &quot;demo_tasks&quot;,
+      &quot;source_count&quot;: 1,
+      &quot;scanned&quot;: 0,
+      &quot;cursor&quot;: null,
+      &quot;done&quot;: false
+    }
+  ],
+  &quot;verified&quot;: 0,
+  &quot;errors&quot;: [],
+  &quot;error_count&quot;: 0,
+  &quot;response&quot;: null
+}</code></pre>
+<h2 id="example-app-packages-migrationNext">データ移行を次の区間へ進める</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>POST /v2/data-migrations/44444444-4444-4444-8444-444444444444/next HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Idempotency-Key: demo-request-20261004-01
+Content-Type: application/json
+
+{
+  &quot;revision&quot;: 1
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;id&quot;: &quot;44444444-4444-4444-8444-444444444444&quot;,
+  &quot;state&quot;: &quot;verifying&quot;,
+  &quot;revision&quot;: 2,
+  &quot;app&quot;: &quot;demo_app&quot;,
+  &quot;reason&quot;: &quot;列定義の移行を検証&quot;,
+  &quot;targets&quot;: [
+    {
+      &quot;collection&quot;: &quot;demo_tasks&quot;,
+      &quot;source_count&quot;: 1,
+      &quot;scanned&quot;: 1,
+      &quot;cursor&quot;: &quot;22222222-2222-4222-8222-222222222222&quot;,
+      &quot;done&quot;: true
+    }
+  ],
+  &quot;verified&quot;: 0,
+  &quot;errors&quot;: [],
+  &quot;error_count&quot;: 0,
+  &quot;response&quot;: null
+}</code></pre>
+<h2 id="example-app-packages-migrationCommit">検証済みデータ移行を確定</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>POST /v2/data-migrations/44444444-4444-4444-8444-444444444444/commit HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Idempotency-Key: demo-request-20261004-01
+Content-Type: application/json
+
+{
+  &quot;revision&quot;: 3
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;id&quot;: &quot;44444444-4444-4444-8444-444444444444&quot;,
+  &quot;state&quot;: &quot;committed&quot;,
+  &quot;revision&quot;: 4,
+  &quot;app&quot;: &quot;demo_app&quot;,
+  &quot;reason&quot;: &quot;列定義の移行を検証&quot;,
+  &quot;targets&quot;: [
+    {
+      &quot;collection&quot;: &quot;demo_tasks&quot;,
+      &quot;source_count&quot;: 1,
+      &quot;scanned&quot;: 1,
+      &quot;cursor&quot;: &quot;22222222-2222-4222-8222-222222222222&quot;,
+      &quot;done&quot;: true
+    }
+  ],
+  &quot;verified&quot;: 1,
+  &quot;errors&quot;: [],
+  &quot;error_count&quot;: 0,
+  &quot;response&quot;: {
+    &quot;id&quot;: &quot;demo_app&quot;
+  }
+}</code></pre>
+<h2 id="example-app-packages-migrationCancel">データ移行を中止</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>POST /v2/data-migrations/44444444-4444-4444-8444-444444444444/cancel HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Content-Type: application/json
+
+{
+  &quot;revision&quot;: 1,
+  &quot;reason&quot;: &quot;移行計画を見直す&quot;
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;id&quot;: &quot;44444444-4444-4444-8444-444444444444&quot;,
+  &quot;state&quot;: &quot;cancelled&quot;,
+  &quot;revision&quot;: 2
+}</code></pre>
+<h2 id="example-app-packages-adoptionPlan">既存アプリ台帳の採用を計画</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>POST /v2/app-adoptions/plan HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Content-Type: application/json
+
+{
+  &quot;migration_id&quot;: &quot;44444444-4444-4444-8444-444444444444&quot;,
+  &quot;source_fingerprint&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;,
+  &quot;apps&quot;: [
+    {
+      &quot;package&quot;: {
+        &quot;manifest&quot;: {
+          &quot;id&quot;: &quot;demo_app&quot;,
+          &quot;version&quot;: 1,
+          &quot;name&quot;: &quot;検証アプリ&quot;,
+          &quot;datasets&quot;: [
+            {
+              &quot;id&quot;: &quot;demo_tasks&quot;,
+              &quot;mode&quot;: &quot;owned&quot;,
+              &quot;definition&quot;: {
+                &quot;label&quot;: &quot;作業&quot;,
+                &quot;fields&quot;: [
+                  {
+                    &quot;id&quot;: &quot;title&quot;,
+                    &quot;label&quot;: &quot;件名&quot;,
+                    &quot;type&quot;: &quot;text&quot;,
+                    &quot;required&quot;: true,
+                    &quot;read&quot;: [
+                      &quot;staff&quot;
+                    ],
+                    &quot;write&quot;: [
+                      &quot;staff&quot;
+                    ],
+                    &quot;searchable&quot;: true,
+                    &quot;choices&quot;: []
+                  }
+                ],
+                &quot;export_roles&quot;: [
+                  &quot;staff&quot;
+                ]
+              }
+            }
+          ],
+          &quot;dependencies&quot;: []
+        },
+        &quot;csv&quot;: [
+          {
+            &quot;collection&quot;: &quot;demo_tasks&quot;,
+            &quot;key_fields&quot;: [
+              &quot;title&quot;
+            ]
+          }
+        ],
+        &quot;requirements&quot;: {
+          &quot;dependencies&quot;: [],
+          &quot;integrations&quot;: [],
+          &quot;service_clients&quot;: []
+        }
+      },
+      &quot;revision&quot;: 1,
+      &quot;state&quot;: &quot;active&quot;,
+      &quot;legacy_state&quot;: &quot;registered&quot;
+    }
+  ]
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;fingerprint&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;,
+  &quot;migration_id&quot;: &quot;44444444-4444-4444-8444-444444444444&quot;,
+  &quot;source_fingerprint&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;,
+  &quot;observed&quot;: {}
+}</code></pre>
+<h2 id="example-app-packages-adoptionApply">確認済みの既存アプリ台帳を採用</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>POST /v2/app-adoptions/apply HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Idempotency-Key: demo-request-20261004-01
+Content-Type: application/json
+
+{
+  &quot;migration&quot;: {
+    &quot;migration_id&quot;: &quot;44444444-4444-4444-8444-444444444444&quot;,
+    &quot;source_fingerprint&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;,
+    &quot;apps&quot;: [
+      {
+        &quot;package&quot;: {
+          &quot;manifest&quot;: {
+            &quot;id&quot;: &quot;demo_app&quot;,
+            &quot;version&quot;: 1,
+            &quot;name&quot;: &quot;検証アプリ&quot;,
+            &quot;datasets&quot;: [
+              {
+                &quot;id&quot;: &quot;demo_tasks&quot;,
+                &quot;mode&quot;: &quot;owned&quot;,
+                &quot;definition&quot;: {
+                  &quot;label&quot;: &quot;作業&quot;,
+                  &quot;fields&quot;: [
+                    {
+                      &quot;id&quot;: &quot;title&quot;,
+                      &quot;label&quot;: &quot;件名&quot;,
+                      &quot;type&quot;: &quot;text&quot;,
+                      &quot;required&quot;: true,
+                      &quot;read&quot;: [
+                        &quot;staff&quot;
+                      ],
+                      &quot;write&quot;: [
+                        &quot;staff&quot;
+                      ],
+                      &quot;searchable&quot;: true,
+                      &quot;choices&quot;: []
+                    }
+                  ],
+                  &quot;export_roles&quot;: [
+                    &quot;staff&quot;
+                  ]
+                }
+              }
+            ],
+            &quot;dependencies&quot;: []
+          },
+          &quot;csv&quot;: [
+            {
+              &quot;collection&quot;: &quot;demo_tasks&quot;,
+              &quot;key_fields&quot;: [
+                &quot;title&quot;
+              ]
+            }
+          ],
+          &quot;requirements&quot;: {
+            &quot;dependencies&quot;: [],
+            &quot;integrations&quot;: [],
+            &quot;service_clients&quot;: []
+          }
+        },
+        &quot;revision&quot;: 1,
+        &quot;state&quot;: &quot;active&quot;,
+        &quot;legacy_state&quot;: &quot;registered&quot;
+      }
+    ]
+  },
+  &quot;fingerprint&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;migration_id&quot;: &quot;44444444-4444-4444-8444-444444444444&quot;,
+  &quot;source_fingerprint&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;,
+  &quot;states&quot;: {
+    &quot;demo_app&quot;: &quot;active&quot;
+  },
+  &quot;apps&quot;: [
+    {
+      &quot;id&quot;: &quot;demo_app&quot;,
+      &quot;version&quot;: 1,
+      &quot;revision&quot;: 1,
+      &quot;state&quot;: &quot;active&quot;,
+      &quot;manifest&quot;: {
+        &quot;id&quot;: &quot;demo_app&quot;,
+        &quot;version&quot;: 1,
+        &quot;name&quot;: &quot;検証アプリ&quot;,
+        &quot;datasets&quot;: [
+          {
+            &quot;id&quot;: &quot;demo_tasks&quot;,
+            &quot;mode&quot;: &quot;owned&quot;,
+            &quot;definition&quot;: {
+              &quot;label&quot;: &quot;作業&quot;,
+              &quot;fields&quot;: [
+                {
+                  &quot;id&quot;: &quot;title&quot;,
+                  &quot;label&quot;: &quot;件名&quot;,
+                  &quot;type&quot;: &quot;text&quot;,
+                  &quot;required&quot;: true,
+                  &quot;read&quot;: [
+                    &quot;staff&quot;
+                  ],
+                  &quot;write&quot;: [
+                    &quot;staff&quot;
+                  ],
+                  &quot;searchable&quot;: true,
+                  &quot;choices&quot;: []
+                }
+              ],
+              &quot;export_roles&quot;: [
+                &quot;staff&quot;
+              ]
+            }
+          }
+        ],
+        &quot;dependencies&quot;: []
+      },
+      &quot;deleted_at&quot;: null,
+      &quot;restore_until&quot;: null
+    }
+  ]
+}</code></pre>
+<h2 id="example-app-packages-requirementsPlan">アプリ接続要件の変更を計画</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>POST /v2/apps/demo_app/requirements/plan HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Content-Type: application/json
+
+{
+  &quot;dependencies&quot;: [],
+  &quot;integrations&quot;: [],
+  &quot;service_clients&quot;: []
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;revision&quot;: 1,
+  &quot;before&quot;: {
+    &quot;dependencies&quot;: [],
+    &quot;integrations&quot;: [],
+    &quot;service_clients&quot;: []
+  },
+  &quot;requirements&quot;: {
+    &quot;dependencies&quot;: [],
+    &quot;integrations&quot;: [],
+    &quot;service_clients&quot;: []
+  },
+  &quot;blockers&quot;: [],
+  &quot;dependencies&quot;: [],
+  &quot;clients&quot;: [],
+  &quot;fingerprint&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;,
+  &quot;app_revision&quot;: 1,
+  &quot;state_after&quot;: &quot;active&quot;
+}</code></pre>
+<h2 id="example-app-packages-requirementsApply">確認済みアプリ接続要件を適用</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>POST /v2/apps/demo_app/requirements/apply HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Idempotency-Key: demo-request-20261004-01
+Content-Type: application/json
+
+{
+  &quot;requirements&quot;: {
+    &quot;dependencies&quot;: [],
+    &quot;integrations&quot;: [],
+    &quot;service_clients&quot;: []
+  },
+  &quot;fingerprint&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;id&quot;: &quot;demo_app&quot;,
+  &quot;version&quot;: 1,
+  &quot;revision&quot;: 1,
+  &quot;state&quot;: &quot;active&quot;,
+  &quot;manifest&quot;: {
+    &quot;id&quot;: &quot;demo_app&quot;,
+    &quot;version&quot;: 1,
+    &quot;name&quot;: &quot;検証アプリ&quot;,
+    &quot;datasets&quot;: [
+      {
+        &quot;id&quot;: &quot;demo_tasks&quot;,
+        &quot;mode&quot;: &quot;owned&quot;,
+        &quot;definition&quot;: {
+          &quot;label&quot;: &quot;作業&quot;,
+          &quot;fields&quot;: [
+            {
+              &quot;id&quot;: &quot;title&quot;,
+              &quot;label&quot;: &quot;件名&quot;,
+              &quot;type&quot;: &quot;text&quot;,
+              &quot;required&quot;: true,
+              &quot;read&quot;: [
+                &quot;staff&quot;
+              ],
+              &quot;write&quot;: [
+                &quot;staff&quot;
+              ],
+              &quot;searchable&quot;: true,
+              &quot;choices&quot;: []
+            }
+          ],
+          &quot;export_roles&quot;: [
+            &quot;staff&quot;
+          ]
+        }
+      }
+    ],
+    &quot;dependencies&quot;: []
+  },
+  &quot;deleted_at&quot;: null,
+  &quot;restore_until&quot;: null,
+  &quot;requirements&quot;: {
+    &quot;revision&quot;: 1,
+    &quot;before&quot;: {
+      &quot;dependencies&quot;: [],
+      &quot;integrations&quot;: [],
+      &quot;service_clients&quot;: []
+    },
+    &quot;requirements&quot;: {
+      &quot;dependencies&quot;: [],
+      &quot;integrations&quot;: [],
+      &quot;service_clients&quot;: []
+    },
+    &quot;blockers&quot;: [],
+    &quot;dependencies&quot;: [],
+    &quot;clients&quot;: []
+  }
+}</code></pre>
+<h2 id="example-app-packages-profiles">本人が利用可能な取込形式を一覧取得</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>GET /v2/import-profiles HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;items&quot;: [
+    {
+      &quot;contract_id&quot;: &quot;44444444-4444-4444-8444-444444444444&quot;,
+      &quot;kind&quot;: &quot;workspace-v1&quot;,
+      &quot;id&quot;: &quot;demo_tasks&quot;,
+      &quot;collection&quot;: &quot;demo_tasks&quot;,
+      &quot;label&quot;: &quot;作業&quot;,
+      &quot;definition&quot;: {
+        &quot;label&quot;: &quot;作業&quot;,
+        &quot;fields&quot;: [
+          {
+            &quot;id&quot;: &quot;title&quot;,
+            &quot;label&quot;: &quot;件名&quot;,
+            &quot;type&quot;: &quot;text&quot;,
+            &quot;required&quot;: true,
+            &quot;read&quot;: [
+              &quot;staff&quot;
+            ],
+            &quot;write&quot;: [
+              &quot;staff&quot;
+            ],
+            &quot;searchable&quot;: true,
+            &quot;choices&quot;: []
+          }
+        ],
+        &quot;export_roles&quot;: [
+          &quot;staff&quot;
+        ]
+      },
+      &quot;key_columns&quot;: [
+        &quot;title&quot;
+      ],
+      &quot;headers&quot;: [
+        &quot;title&quot;
+      ]
+    }
+  ]
+}</code></pre>
+<h2 id="example-app-packages-import">版付きCSV契約で行を取込</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>POST /v2/tables/demo_tasks/import-profile HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Idempotency-Key: demo-request-20261004-01
+Content-Type: application/json
+
+{
+  &quot;contract_id&quot;: &quot;44444444-4444-4444-8444-444444444444&quot;,
+  &quot;schema_version&quot;: 1,
+  &quot;expected_actor&quot;: &quot;11111111-1111-4111-8111-111111111111&quot;,
+  &quot;operations&quot;: [
+    {
+      &quot;action&quot;: &quot;create&quot;,
+      &quot;values&quot;: {
+        &quot;title&quot;: &quot;合成データ&quot;
+      },
+      &quot;status&quot;: &quot;committed&quot;
+    }
+  ]
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;rows&quot;: [
+    {
+      &quot;id&quot;: &quot;22222222-2222-4222-8222-222222222222&quot;,
+      &quot;version&quot;: 1,
+      &quot;deleted&quot;: false
+    }
+  ],
+  &quot;schema_version&quot;: 1
+}</code></pre>
+<h2 id="example-app-packages-get">アプリとCSV契約を取得</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>GET /v2/app-packages/demo_app HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;id&quot;: &quot;demo_app&quot;,
+  &quot;version&quot;: 1,
+  &quot;revision&quot;: 1,
+  &quot;state&quot;: &quot;active&quot;,
+  &quot;manifest&quot;: {
+    &quot;id&quot;: &quot;demo_app&quot;,
+    &quot;version&quot;: 1,
+    &quot;name&quot;: &quot;検証アプリ&quot;,
+    &quot;datasets&quot;: [
+      {
+        &quot;id&quot;: &quot;demo_tasks&quot;,
+        &quot;mode&quot;: &quot;owned&quot;,
+        &quot;definition&quot;: {
+          &quot;label&quot;: &quot;作業&quot;,
+          &quot;fields&quot;: [
+            {
+              &quot;id&quot;: &quot;title&quot;,
+              &quot;label&quot;: &quot;件名&quot;,
+              &quot;type&quot;: &quot;text&quot;,
+              &quot;required&quot;: true,
+              &quot;read&quot;: [
+                &quot;staff&quot;
+              ],
+              &quot;write&quot;: [
+                &quot;staff&quot;
+              ],
+              &quot;searchable&quot;: true,
+              &quot;choices&quot;: []
+            }
+          ],
+          &quot;export_roles&quot;: [
+            &quot;staff&quot;
+          ]
+        }
+      }
+    ],
+    &quot;dependencies&quot;: []
+  },
+  &quot;deleted_at&quot;: null,
+  &quot;restore_until&quot;: null,
+  &quot;csv&quot;: [
+    {
+      &quot;collection&quot;: &quot;demo_tasks&quot;,
+      &quot;key_fields&quot;: [
+        &quot;title&quot;
+      ]
+    }
+  ]
+}</code></pre>
+<h2 id="example-app-packages-plan">アプリとCSV契約の変更を計画</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>POST /v2/app-packages/plan HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Content-Type: application/json
+
+{
+  &quot;manifest&quot;: {
+    &quot;id&quot;: &quot;demo_app&quot;,
+    &quot;version&quot;: 1,
+    &quot;name&quot;: &quot;検証アプリ&quot;,
+    &quot;datasets&quot;: [
+      {
+        &quot;id&quot;: &quot;demo_tasks&quot;,
+        &quot;mode&quot;: &quot;owned&quot;,
+        &quot;definition&quot;: {
+          &quot;label&quot;: &quot;作業&quot;,
+          &quot;fields&quot;: [
+            {
+              &quot;id&quot;: &quot;title&quot;,
+              &quot;label&quot;: &quot;件名&quot;,
+              &quot;type&quot;: &quot;text&quot;,
+              &quot;required&quot;: true,
+              &quot;read&quot;: [
+                &quot;staff&quot;
+              ],
+              &quot;write&quot;: [
+                &quot;staff&quot;
+              ],
+              &quot;searchable&quot;: true,
+              &quot;choices&quot;: []
+            }
+          ],
+          &quot;export_roles&quot;: [
+            &quot;staff&quot;
+          ]
+        }
+      }
+    ],
+    &quot;dependencies&quot;: []
+  },
+  &quot;csv&quot;: [
+    {
+      &quot;collection&quot;: &quot;demo_tasks&quot;,
+      &quot;key_fields&quot;: [
+        &quot;title&quot;
+      ]
+    }
+  ]
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;fingerprint&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;,
+  &quot;app_fingerprint&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;,
+  &quot;revision&quot;: 0,
+  &quot;changes&quot;: [
+    {
+      &quot;id&quot;: &quot;demo_tasks&quot;,
+      &quot;mode&quot;: &quot;owned&quot;,
+      &quot;action&quot;: &quot;create&quot;,
+      &quot;version&quot;: 0
+    }
+  ],
+  &quot;csv_before&quot;: [],
+  &quot;csv_after&quot;: [
+    {
+      &quot;collection&quot;: &quot;demo_tasks&quot;,
+      &quot;key_fields&quot;: [
+        &quot;title&quot;
+      ]
+    }
+  ]
+}</code></pre>
+<h2 id="example-app-packages-apply">確認済みアプリとCSV契約を適用</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>POST /v2/app-packages/apply HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Idempotency-Key: demo-request-20261004-01
+Content-Type: application/json
+
+{
+  &quot;package&quot;: {
+    &quot;manifest&quot;: {
+      &quot;id&quot;: &quot;demo_app&quot;,
+      &quot;version&quot;: 1,
+      &quot;name&quot;: &quot;検証アプリ&quot;,
+      &quot;datasets&quot;: [
+        {
+          &quot;id&quot;: &quot;demo_tasks&quot;,
+          &quot;mode&quot;: &quot;owned&quot;,
+          &quot;definition&quot;: {
+            &quot;label&quot;: &quot;作業&quot;,
+            &quot;fields&quot;: [
+              {
+                &quot;id&quot;: &quot;title&quot;,
+                &quot;label&quot;: &quot;件名&quot;,
+                &quot;type&quot;: &quot;text&quot;,
+                &quot;required&quot;: true,
+                &quot;read&quot;: [
+                  &quot;staff&quot;
+                ],
+                &quot;write&quot;: [
+                  &quot;staff&quot;
+                ],
+                &quot;searchable&quot;: true,
+                &quot;choices&quot;: []
+              }
+            ],
+            &quot;export_roles&quot;: [
+              &quot;staff&quot;
+            ]
+          }
+        }
+      ],
+      &quot;dependencies&quot;: []
+    },
+    &quot;csv&quot;: [
+      {
+        &quot;collection&quot;: &quot;demo_tasks&quot;,
+        &quot;key_fields&quot;: [
+          &quot;title&quot;
+        ]
+      }
+    ]
+  },
+  &quot;fingerprint&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;id&quot;: &quot;demo_app&quot;,
+  &quot;version&quot;: 1,
+  &quot;revision&quot;: 1,
+  &quot;state&quot;: &quot;active&quot;,
+  &quot;manifest&quot;: {
+    &quot;id&quot;: &quot;demo_app&quot;,
+    &quot;version&quot;: 1,
+    &quot;name&quot;: &quot;検証アプリ&quot;,
+    &quot;datasets&quot;: [
+      {
+        &quot;id&quot;: &quot;demo_tasks&quot;,
+        &quot;mode&quot;: &quot;owned&quot;,
+        &quot;definition&quot;: {
+          &quot;label&quot;: &quot;作業&quot;,
+          &quot;fields&quot;: [
+            {
+              &quot;id&quot;: &quot;title&quot;,
+              &quot;label&quot;: &quot;件名&quot;,
+              &quot;type&quot;: &quot;text&quot;,
+              &quot;required&quot;: true,
+              &quot;read&quot;: [
+                &quot;staff&quot;
+              ],
+              &quot;write&quot;: [
+                &quot;staff&quot;
+              ],
+              &quot;searchable&quot;: true,
+              &quot;choices&quot;: []
+            }
+          ],
+          &quot;export_roles&quot;: [
+            &quot;staff&quot;
+          ]
+        }
+      }
+    ],
+    &quot;dependencies&quot;: []
+  },
+  &quot;deleted_at&quot;: null,
+  &quot;restore_until&quot;: null,
+  &quot;csv&quot;: [
+    {
+      &quot;collection&quot;: &quot;demo_tasks&quot;,
+      &quot;key_fields&quot;: [
+        &quot;title&quot;
+      ]
+    }
+  ]
+}</code></pre>
+<h2 id="example-organization-overview">専用環境の容量とアプリ件数を取得</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>GET /v2/organization/overview HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;as_of&quot;: &quot;2026-10-04T00:00:00Z&quot;,
+  &quot;data_api&quot;: &quot;available&quot;,
+  &quot;applications&quot;: {
+    &quot;active&quot;: 1,
+    &quot;stopped&quot;: 0,
+    &quot;detached&quot;: 0,
+    &quot;trashed&quot;: 0
+  },
+  &quot;defined_tables&quot;: 1,
+  &quot;storage&quot;: {
+    &quot;database_bytes&quot;: 10485760,
+    &quot;quota_bytes&quot;: null,
+    &quot;managed_object_bytes&quot;: null,
+    &quot;external_original_bytes&quot;: null,
+    &quot;backup_bytes&quot;: null
+  },
+  &quot;measurement_scope&quot;: &quot;dedicated_environment_database&quot;,
+  &quot;backup_state&quot;: &quot;not_connected&quot;,
+  &quot;contract_state&quot;: &quot;not_connected&quot;
+}</code></pre>
+<h2 id="example-organization-settings">組織設定を取得</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>GET /v2/organization/settings HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;version&quot;: 1,
+  &quot;values&quot;: {
+    &quot;organization_name&quot;: &quot;検証用組織&quot;,
+    &quot;contact_note&quot;: &quot;連絡先は別途交付&quot;
+  },
+  &quot;updated_at&quot;: &quot;2026-10-04T00:00:00Z&quot;
+}</code></pre>
+<h2 id="example-organization-settingsPlan">組織設定の変更を計画</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>POST /v2/organization/settings/plan HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Content-Type: application/json
+
+{
+  &quot;version&quot;: 1,
+  &quot;values&quot;: {
+    &quot;organization_name&quot;: &quot;検証用組織&quot;,
+    &quot;contact_note&quot;: &quot;連絡先は別途交付&quot;
+  },
+  &quot;reason&quot;: &quot;表示名を更新&quot;
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;before&quot;: {
+    &quot;version&quot;: 1,
+    &quot;values&quot;: {
+      &quot;organization_name&quot;: &quot;検証用組織&quot;,
+      &quot;contact_note&quot;: &quot;連絡先は別途交付&quot;
+    },
+    &quot;updated_at&quot;: &quot;2026-10-04T00:00:00Z&quot;
+  },
+  &quot;change&quot;: {
+    &quot;version&quot;: 1,
+    &quot;values&quot;: {
+      &quot;organization_name&quot;: &quot;検証用組織&quot;,
+      &quot;contact_note&quot;: &quot;連絡先は別途交付&quot;
+    },
+    &quot;reason&quot;: &quot;表示名を更新&quot;
+  },
+  &quot;fingerprint&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;
+}</code></pre>
+<h2 id="example-organization-settingsApply">確認済み組織設定を適用</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>POST /v2/organization/settings/apply HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Idempotency-Key: demo-request-20261004-01
+Content-Type: application/json
+
+{
+  &quot;change&quot;: {
+    &quot;version&quot;: 1,
+    &quot;values&quot;: {
+      &quot;organization_name&quot;: &quot;検証用組織&quot;,
+      &quot;contact_note&quot;: &quot;連絡先は別途交付&quot;
+    },
+    &quot;reason&quot;: &quot;表示名を更新&quot;
+  },
+  &quot;fingerprint&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;version&quot;: 2,
+  &quot;values&quot;: {
+    &quot;organization_name&quot;: &quot;検証用組織&quot;,
+    &quot;contact_note&quot;: &quot;連絡先は別途交付&quot;
+  },
+  &quot;updated_at&quot;: &quot;2026-10-04T00:00:00Z&quot;
+}</code></pre>
+<h2 id="example-organization-activity">確定操作の履歴を検索</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>POST /v2/organization/activity HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Content-Type: application/json
+
+{
+  &quot;limit&quot;: 20,
+  &quot;source&quot;: &quot;organization&quot;
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;items&quot;: [
+    {
+      &quot;source&quot;: &quot;organization&quot;,
+      &quot;sequence&quot;: &quot;1&quot;,
+      &quot;request_id&quot;: &quot;44444444-4444-4444-8444-444444444444&quot;,
+      &quot;actor&quot;: &quot;11111111-1111-4111-8111-111111111111&quot;,
+      &quot;client&quot;: &quot;hub-spa&quot;,
+      &quot;target&quot;: &quot;organization&quot;,
+      &quot;action&quot;: &quot;settings.apply&quot;,
+      &quot;reason&quot;: &quot;表示名を更新&quot;,
+      &quot;at&quot;: &quot;2026-10-04T00:00:00Z&quot;
+    }
+  ],
+  &quot;next_cursor&quot;: null,
+  &quot;until&quot;: &quot;2026-10-04T00:01:00Z&quot;,
+  &quot;sources&quot;: [
+    &quot;organization&quot;
+  ]
+}</code></pre>
+<h2 id="example-workspaceAccess-deleteGet">本人の行削除範囲を取得</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>GET /v2/access/deletions/11111111-1111-4111-8111-111111111111/demo_people HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;version&quot;: 0,
+  &quot;grant&quot;: null
+}</code></pre>
+<h2 id="example-workspaceAccess-deletePut">本人の行削除範囲を設定</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>PUT /v2/access/deletions/11111111-1111-4111-8111-111111111111/demo_people HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Idempotency-Key: demo-request-20261004-01
+Content-Type: application/json
+
+{
+  &quot;version&quot;: 0,
+  &quot;scope&quot;: &quot;own&quot;,
+  &quot;expires_at&quot;: &quot;2026-10-05T00:00:00Z&quot;,
+  &quot;reason&quot;: &quot;本人の行の削除を許可&quot;
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;version&quot;: 1,
+  &quot;grant&quot;: {
+    &quot;version&quot;: 1,
+    &quot;scope&quot;: &quot;own&quot;,
+    &quot;expires_at&quot;: &quot;2026-10-05T00:00:00Z&quot;,
+    &quot;source&quot;: &quot;explicit&quot;
+  }
+}</code></pre>
+<h2 id="example-workspaceAccess-rootGet">人物表の登録状態を取得</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>GET /v2/access/people/demo_people HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;version&quot;: 0,
+  &quot;root&quot;: null
+}</code></pre>
+<h2 id="example-workspaceAccess-rootPut">人物表を登録</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>PUT /v2/access/people/demo_people HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Idempotency-Key: demo-request-20261004-01
+Content-Type: application/json
+
+{
+  &quot;version&quot;: 0,
+  &quot;enabled&quot;: true,
+  &quot;reason&quot;: &quot;人物表として登録&quot;
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;version&quot;: 1,
+  &quot;root&quot;: {
+    &quot;collection&quot;: &quot;demo_people&quot;,
+    &quot;version&quot;: 1,
+    &quot;enabled&quot;: true
+  }
+}</code></pre>
+<h2 id="example-workspaceAccess-bindingGet">本人IDと人物行の対応を取得</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>GET /v2/access/people/demo_people/bindings/11111111-1111-4111-8111-111111111111 HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;version&quot;: 0,
+  &quot;binding&quot;: null
+}</code></pre>
+<h2 id="example-workspaceAccess-bindingPut">本人IDと人物行の対応を設定</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>PUT /v2/access/people/demo_people/bindings/11111111-1111-4111-8111-111111111111 HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Idempotency-Key: demo-request-20261004-01
+Content-Type: application/json
+
+{
+  &quot;version&quot;: 0,
+  &quot;person_id&quot;: &quot;22222222-2222-4222-8222-222222222222&quot;,
+  &quot;enabled&quot;: true,
+  &quot;expires_at&quot;: &quot;2026-10-05T00:00:00Z&quot;,
+  &quot;reason&quot;: &quot;検証用本人を人物行に対応付け&quot;
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;version&quot;: 1,
+  &quot;binding&quot;: {
+    &quot;person_id&quot;: &quot;22222222-2222-4222-8222-222222222222&quot;,
+    &quot;version&quot;: 1,
+    &quot;enabled&quot;: true,
+    &quot;expires_at&quot;: &quot;2026-10-05T00:00:00Z&quot;
+  }
+}</code></pre>
+<h2 id="example-workspaceAccess-membersGet">人物行の所属者を取得</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>GET /v2/access/people/demo_people/rows/22222222-2222-4222-8222-222222222222/members HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;items&quot;: [
+    {
+      &quot;actor&quot;: &quot;11111111-1111-4111-8111-111111111111&quot;,
+      &quot;version&quot;: 1,
+      &quot;enabled&quot;: true,
+      &quot;write&quot;: false,
+      &quot;expires_at&quot;: &quot;2026-10-05T00:00:00Z&quot;
+    }
+  ],
+  &quot;next_after&quot;: null
+}</code></pre>
+<h2 id="example-workspaceAccess-membersPut">人物行の所属者を設定</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>PUT /v2/access/people/demo_people/rows/22222222-2222-4222-8222-222222222222/members HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Idempotency-Key: demo-request-20261004-01
+Content-Type: application/json
+
+{
+  &quot;reason&quot;: &quot;閲覧所属を登録&quot;,
+  &quot;members&quot;: [
+    {
+      &quot;actor&quot;: &quot;11111111-1111-4111-8111-111111111111&quot;,
+      &quot;version&quot;: 0,
+      &quot;enabled&quot;: true,
+      &quot;write&quot;: false,
+      &quot;expires_at&quot;: &quot;2026-10-05T00:00:00Z&quot;
+    }
+  ]
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;items&quot;: [
+    {
+      &quot;actor&quot;: &quot;11111111-1111-4111-8111-111111111111&quot;,
+      &quot;version&quot;: 1,
+      &quot;enabled&quot;: true,
+      &quot;write&quot;: false,
+      &quot;expires_at&quot;: &quot;2026-10-05T00:00:00Z&quot;
+    }
+  ]
+}</code></pre>
+<h2 id="example-workspaceAccess-me">本人に対応する人物行を取得</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>GET /v2/people/demo_people/me HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;resolution&quot;: &quot;resolved&quot;,
+  &quot;person_id&quot;: &quot;22222222-2222-4222-8222-222222222222&quot;,
+  &quot;binding_version&quot;: 1
+}</code></pre>
+<h2 id="example-workspaceAccess-subjects">行に対応する本人IDを検索</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>POST /v2/tables/demo_people/subjects/query HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+Content-Type: application/json
+
+{
+  &quot;rows&quot;: [
+    {
+      &quot;id&quot;: &quot;22222222-2222-4222-8222-222222222222&quot;,
+      &quot;version&quot;: 1
+    }
+  ]
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;person_collection&quot;: &quot;demo_people&quot;,
+  &quot;items&quot;: [
+    {
+      &quot;row_id&quot;: &quot;22222222-2222-4222-8222-222222222222&quot;,
+      &quot;row_version&quot;: 1,
+      &quot;person_id&quot;: &quot;22222222-2222-4222-8222-222222222222&quot;
+    }
+  ]
+}</code></pre>
+<h2 id="example-asset-policy">資産の保存・参照方針を取得</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>GET /v1/assets/jobs/job/22222222-2222-4222-8222-222222222222/policy HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;contract_version&quot;: 1,
+  &quot;modes&quot;: [
+    &quot;managed_original&quot;,
+    &quot;external_reference&quot;
+  ],
+  &quot;max_managed_bytes&quot;: 8388608,
+  &quot;max_external_bytes&quot;: 33554432,
+  &quot;media_types&quot;: [
+    &quot;application/pdf&quot;,
+    &quot;image/png&quot;
+  ],
+  &quot;can_write&quot;: true
+}</code></pre>
+<h2 id="example-asset-list">資産の一覧取得</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>GET /v1/assets/jobs/job/22222222-2222-4222-8222-222222222222 HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;items&quot;: [
+    {
+      &quot;asset_id&quot;: &quot;55555555-5555-4555-8555-555555555555&quot;,
+      &quot;version&quot;: 1,
+      &quot;custody&quot;: &quot;external_reference&quot;,
+      &quot;sha256&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;,
+      &quot;size&quot;: 1024,
+      &quot;media_type&quot;: &quot;application/pdf&quot;,
+      &quot;thumbnail&quot;: false,
+      &quot;created_at&quot;: &quot;2026-10-04T00:00:00Z&quot;
+    }
+  ],
+  &quot;limit&quot;: 25,
+  &quot;offset&quot;: 0
+}</code></pre>
+<h2 id="example-asset-get">資産のメタデータを取得</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>GET /v1/assets/jobs/job/22222222-2222-4222-8222-222222222222/55555555-5555-4555-8555-555555555555 HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;asset_id&quot;: &quot;55555555-5555-4555-8555-555555555555&quot;,
+  &quot;version&quot;: 1,
+  &quot;custody&quot;: &quot;external_reference&quot;,
+  &quot;sha256&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;,
+  &quot;size&quot;: 1024,
+  &quot;media_type&quot;: &quot;application/pdf&quot;,
+  &quot;thumbnail&quot;: false,
+  &quot;created_at&quot;: &quot;2026-10-04T00:00:00Z&quot;
+}</code></pre>
+<h2 id="example-asset-content">資産の原本を取得</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。 この資産は1px PNGのmanaged_original。バイナリーをbase64で表記。</p><pre><span class="code-label">http</span><code>GET /v1/assets/jobs/job/22222222-2222-4222-8222-222222222222/55555555-5555-4555-8555-555555555555/content HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/octet-stream
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+ETag: &quot;1&quot;
+
+[binary: base64 decode]
+iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGD4DwABBAEAX+XDSwAAAABJRU5ErkJggg==</code></pre>
+<h2 id="example-asset-upload">資産の原本を保存</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>PUT /v1/assets/jobs/job/22222222-2222-4222-8222-222222222222/55555555-5555-4555-8555-555555555555/content HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+If-Match: &quot;0&quot;
+Idempotency-Key: demo-request-20261004-01
+Content-Type: application/octet-stream
+X-Asset-Media-Type: image/png
+
+[binary: base64 decode]
+iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGD4DwABBAEAX+XDSwAAAABJRU5ErkJggg==</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;asset_id&quot;: &quot;55555555-5555-4555-8555-555555555555&quot;,
+  &quot;version&quot;: 1,
+  &quot;custody&quot;: &quot;managed_original&quot;,
+  &quot;sha256&quot;: &quot;abc58d5127d7cdf313beb9ec8ee839860a9c6bfbc48c8b8eb6a3f7d8bb63de6f&quot;,
+  &quot;size&quot;: 70,
+  &quot;media_type&quot;: &quot;image/png&quot;,
+  &quot;thumbnail&quot;: true,
+  &quot;created_at&quot;: &quot;2026-10-04T00:00:00Z&quot;
+}</code></pre>
+<h2 id="example-asset-thumbnail">資産のサムネイルを取得</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。 この資産は1px PNGのmanaged_original。バイナリーをbase64で表記。</p><pre><span class="code-label">http</span><code>GET /v1/assets/jobs/job/22222222-2222-4222-8222-222222222222/55555555-5555-4555-8555-555555555555/thumbnail HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: image/png
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+ETag: &quot;1&quot;
+
+[binary: base64 decode]
+iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGNgYGD4DwABBAEAX+XDSwAAAABJRU5ErkJggg==</code></pre>
+<h2 id="example-asset-reference">資産の外部原本への参照を登録</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>POST /v1/assets/jobs/job/22222222-2222-4222-8222-222222222222/55555555-5555-4555-8555-555555555555/reference HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json
+If-Match: &quot;0&quot;
+Idempotency-Key: demo-request-20261004-01
+Content-Type: application/json
+
+{
+  &quot;relative_path&quot;: &quot;demo/reference.pdf&quot;,
+  &quot;media_type&quot;: &quot;application/pdf&quot;
+}</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;asset_id&quot;: &quot;55555555-5555-4555-8555-555555555555&quot;,
+  &quot;version&quot;: 1,
+  &quot;custody&quot;: &quot;external_reference&quot;,
+  &quot;sha256&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;,
+  &quot;size&quot;: 1024,
+  &quot;media_type&quot;: &quot;application/pdf&quot;,
+  &quot;thumbnail&quot;: false,
+  &quot;created_at&quot;: &quot;2026-10-04T00:00:00Z&quot;
+}</code></pre>
+<h2 id="example-asset-check">資産の外部原本の現在状態を照合</h2><p>合成例。各例は独立した前提状態。実API実行結果ではない。ID・版・期限を実値へ置換し、fingerprintは対応するplan応答をそのまま使う。</p><pre><span class="code-label">http</span><code>POST /v1/assets/jobs/job/22222222-2222-4222-8222-222222222222/55555555-5555-4555-8555-555555555555/check HTTP/1.1
+Host: api.example.invalid
+Authorization: Bearer &lt;ACCESS_TOKEN&gt;
+Accept: application/json</code></pre><pre><span class="code-label">http</span><code>HTTP/1.1 200
+Content-Type: application/json
+X-Request-Id: 44444444-4444-4444-8444-444444444444
+Cache-Control: no-store
+
+{
+  &quot;asset_id&quot;: &quot;55555555-5555-4555-8555-555555555555&quot;,
+  &quot;version&quot;: 1,
+  &quot;status&quot;: &quot;available&quot;,
+  &quot;sha256&quot;: &quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&quot;
+}</code></pre>
+<p>バイナリー例はbody_base64/response_base64で実バイトを表します。実行サンプルは送信時にdecodeし、バイナリー応答はbase64で表示します。JSON文字列を画像として送る形式ではありません。</p><footer class="page-foot"><span>0.7.0-experimental</span><span>更新 2026-10-04</span><a href="guide/examples.md">機械・テキスト向け</a><a href="versions.html">対応状況</a></footer></main></div></body></html>

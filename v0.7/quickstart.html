@@ -17,4 +17,10 @@
 <h2 id="section-6">service接続の場合</h2>
 <p>管理者の申請・承認・provision後、private_key_jwtでclient_credentialsを取得します。初回activate後に許可済み POST /v2/service/tables/{collection}/query の200を確認します。GET /v1/meは人専用のため拒否を確認します。環境の認証入口により401 TOKEN_INVALID、または403の認可拒否になり得るため、実際のHTTPとcodeを記録します。人として接続できたことを成功条件にしません。</p>
 <h2 id="section-7">文書版と検証範囲</h2>
-<p><a href="../manifest.json">manifest</a>で公開ファイルを照合できます。文書の例は合成データです。各環境の初回接続、macOS実機、独立した利用者による通し受入の結果は、文書の静的検査とは別です。<a href="versions.html">対応状況</a>で未確認を確認してください。</p><footer class="page-foot"><span>0.7.0-experimental</span><span>更新 2026-10-04</span><a href="guide/quickstart.md">機械・テキスト向け</a><a href="versions.html">対応状況</a></footer></main></div></body></html>
+<p><a href="../manifest.json">manifest</a>で公開ファイルを照合できます。文書の例は合成データです。各環境の初回接続、macOS実機、独立した利用者による通し受入の結果は、文書の静的検査とは別です。<a href="versions.html">対応状況</a>で未確認を確認してください。</p>
+<h2 id="section-8">ログイン直後の反映待ち</h2>
+<p>新しい本人セッションは収集・DB反映の完了まで GET /v1/me が401 TOKEN_INVALIDになる場合があります。現collectorは<strong>1回の処理完了後に15秒待機</strong>します。固定15秒周期ではなく、収集・DB処理時間が加わります。外部収集に28秒の期限はありますが、全工程を包含する期限ではありません。<strong>ログインから利用可能になるまでの保証上限・SLAは未定義</strong>です。15秒、28秒、43秒以内の成功を保証しません。</p>
+<p>正常に完了した新規ログイン直後で、同じ資格の GET /v1/me だけがTOKEN_INVALIDの場合に限り、回数と経過時間を限定して待機できます。クライアント待機枠の例は0.5秒間隔・最大20秒です。これは成功保証ではありません。20秒を超えたら待機を終了し、時刻・code・request_idを記録して環境管理者へ確認します。全401や変更操作を自動再送する規則ではなく、TOKEN_EXPIRED、明示失効、403、TLS/署名エラーには適用しません。</p>
+<p>Coreのchecked_atの鮮度は5秒以内、reconciled_atは60秒以内を要求します。これらは古い認可情報を拒否する条件であり、新セッションの反映時間の約束ではありません。</p>
+<h2 id="section-9">接続情報の依頼窓口</h2>
+<p>窓口の担当者、受付手段、受付時間、発行の目標時間は<strong>責任者による決定待ち・未確定</strong>です。暫定的に環境管理者へ、用途・接続対象環境・本人/サービスの区分・希望する操作と表・client_id/redirect_uri・希望期限・返答先を伝えてください。この一覧は依頼項目であり、受付済み・発行期限の保証ではありません。</p><footer class="page-foot"><span>0.7.0-experimental</span><span>更新 2026-10-04</span><a href="guide/quickstart.md">機械・テキスト向け</a><a href="versions.html">対応状況</a></footer></main></div></body></html>

@@ -11,5 +11,5 @@ assert(process.env.CP_ACCESS_TOKEN,'CP_ACCESS_TOKEN required');
 const headers=Object.fromEntries(Object.entries(s.headers??{}).filter(([k])=>!['authorization','host','cookie'].includes(k.toLowerCase())));
 headers.Authorization='Bearer '+process.env.CP_ACCESS_TOKEN;
 if(s.body!==undefined)headers['Content-Type']??='application/json';
-const response=await fetch(url,{method:s.method,headers,body:s.body===undefined?undefined:JSON.stringify(s.body),redirect:'error',signal:AbortSignal.timeout(30000)});
-console.log(response.status);console.log(await response.text());if(!response.ok)process.exitCode=1;
+const response=await fetch(url,{method:s.method,headers,body:s.body_base64?Buffer.from(s.body_base64,'base64'):s.body===undefined?undefined:JSON.stringify(s.body),redirect:'error',signal:AbortSignal.timeout(30000)});
+console.log(response.status);console.log(s.response_base64?Buffer.from(await response.arrayBuffer()).toString('base64'):await response.text());if(!response.ok)process.exitCode=1;

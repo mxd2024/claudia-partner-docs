@@ -26,65 +26,239 @@ OUTCOME_UNKNOWNなど結果未確定の応答は、単純な失敗として別�
 
 ## 定義されているエラーコード
 
-以下は公開OpenAPIのコード表から生成しています。メディアを含む各機能には個別の条件もあるため、対象操作の応答と合わせて確認してください。
+以下は公開OpenAPIのコード表と操作への対応付けから生成しています。「その他」は未使用という断定ではありません。STALE_SOURCEは内部同期契約で使われ、現公開操作との対応はありません。DUPLICATE、EMPTY_PATCH、INVALID_TRANSITION、IDEMPOTENCY_IN_PROGRESSは実装に使用箇所があり、該当する公開操作へ補いました。メディアを含む各機能には個別の条件もあるため、対象操作の応答と合わせて確認してください。
 
 {
-  "ASSET_REASON_REQUIRED": 428,
-  "ASSET_INVALID": 400,
-  "ASSET_INVALID_IMAGE": 400,
-  "ASSET_FORBIDDEN": 403,
-  "ASSET_POLICY_DENIED": 403,
-  "ASSET_NOT_FOUND": 404,
-  "ASSET_NO_THUMBNAIL": 404,
-  "ASSET_VERSION_CONFLICT": 409,
-  "ASSET_IDEMPOTENCY_MISMATCH": 409,
-  "ASSET_POLICY_CHANGED": 409,
-  "ASSET_PRECONDITION_REQUIRED": 428,
-  "ASSET_TOO_LARGE": 413,
-  "ASSET_QUOTA_EXCEEDED": 507,
-  "ASSET_DEPENDENCY_UNAVAILABLE": 503,
-  "ASSET_BUSY": 503,
-  "ASSET_CAPACITY": 503,
-  "BAD_REQUEST": 400,
-  "ETAG_MALFORMED": 400,
-  "SELF_DECLARED_HEADER": 400,
-  "AUTH_REQUIRED": 401,
-  "TOKEN_INVALID": 401,
-  "TOKEN_EXPIRED": 401,
-  "FORBIDDEN_ROLE": 403,
-  "FIELD_NOT_WRITABLE": 403,
-  "SCOPE_VIOLATION": 403,
-  "MFA_REQUIRED": 403,
-  "REAUTH_REQUIRED": 403,
-  "AI_MUST_USE_PROPOSALS": 403,
-  "AI_SUSPENDED": 403,
-  "NOT_FOUND": 404,
-  "STATE_CONFLICT": 409,
-  "PROPOSAL_CONFLICT": 409,
-  "DUPLICATE": 409,
-  "STALE_SOURCE": 409,
-  "AUTHORITY_CONFLICT": 409,
-  "IDEMPOTENCY_IN_PROGRESS": 409,
-  "LOCK_BUSY": 409,
-  "CURSOR_STALE": 409,
-  "VERSION_CONFLICT": 412,
-  "PAYLOAD_TOO_LARGE": 413,
-  "UNSUPPORTED_MEDIA_TYPE": 415,
-  "FIELD_UNKNOWN": 422,
-  "FIELD_NOT_ALLOWED": 422,
-  "FIELD_REQUIRED": 422,
-  "EMPTY_PATCH": 422,
-  "VALIDATION_FAILED": 422,
-  "INVALID_TRANSITION": 422,
-  "IDEMPOTENCY_MISMATCH": 422,
-  "PRECONDITION_REQUIRED": 428,
-  "IDEMPOTENCY_KEY_REQUIRED": 428,
-  "RATE_LIMITED": 429,
-  "AI_RATE_LIMITED": 429,
-  "DEPENDENCY_UNAVAILABLE": 503,
-  "MAINTENANCE": 503,
-  "OUTCOME_UNKNOWN": 503,
-  "TX_ABORT_UNCONFIRMED": 503,
-  "TX_RETRY_EXHAUSTED": 503,
-  "INTERNAL_CONTRACT_VIOLATION": 500
+  "ASSET_REASON_REQUIRED": {
+    "http": 428,
+    "usage": "documented_operation_response"
+  },
+  "ASSET_INVALID": {
+    "http": 400,
+    "usage": "documented_operation_response"
+  },
+  "ASSET_INVALID_IMAGE": {
+    "http": 400,
+    "usage": "documented_operation_response"
+  },
+  "ASSET_FORBIDDEN": {
+    "http": 403,
+    "usage": "documented_operation_response"
+  },
+  "ASSET_POLICY_DENIED": {
+    "http": 403,
+    "usage": "documented_operation_response"
+  },
+  "ASSET_NOT_FOUND": {
+    "http": 404,
+    "usage": "documented_operation_response"
+  },
+  "ASSET_NO_THUMBNAIL": {
+    "http": 404,
+    "usage": "documented_operation_response"
+  },
+  "ASSET_VERSION_CONFLICT": {
+    "http": 409,
+    "usage": "documented_operation_response"
+  },
+  "ASSET_IDEMPOTENCY_MISMATCH": {
+    "http": 409,
+    "usage": "documented_operation_response"
+  },
+  "ASSET_POLICY_CHANGED": {
+    "http": 409,
+    "usage": "documented_operation_response"
+  },
+  "ASSET_PRECONDITION_REQUIRED": {
+    "http": 428,
+    "usage": "documented_operation_response"
+  },
+  "ASSET_TOO_LARGE": {
+    "http": 413,
+    "usage": "documented_operation_response"
+  },
+  "ASSET_QUOTA_EXCEEDED": {
+    "http": 507,
+    "usage": "documented_operation_response"
+  },
+  "ASSET_DEPENDENCY_UNAVAILABLE": {
+    "http": 503,
+    "usage": "documented_operation_response"
+  },
+  "ASSET_BUSY": {
+    "http": 503,
+    "usage": "documented_operation_response"
+  },
+  "ASSET_CAPACITY": {
+    "http": 503,
+    "usage": "documented_operation_response"
+  },
+  "BAD_REQUEST": {
+    "http": 400,
+    "usage": "documented_operation_response"
+  },
+  "ETAG_MALFORMED": {
+    "http": 400,
+    "usage": "documented_operation_response"
+  },
+  "SELF_DECLARED_HEADER": {
+    "http": 400,
+    "usage": "documented_operation_response"
+  },
+  "AUTH_REQUIRED": {
+    "http": 401,
+    "usage": "documented_operation_response"
+  },
+  "TOKEN_INVALID": {
+    "http": 401,
+    "usage": "documented_operation_response"
+  },
+  "TOKEN_EXPIRED": {
+    "http": 401,
+    "usage": "documented_operation_response"
+  },
+  "FORBIDDEN_ROLE": {
+    "http": 403,
+    "usage": "documented_operation_response"
+  },
+  "FIELD_NOT_WRITABLE": {
+    "http": 403,
+    "usage": "documented_operation_response"
+  },
+  "SCOPE_VIOLATION": {
+    "http": 403,
+    "usage": "documented_operation_response"
+  },
+  "MFA_REQUIRED": {
+    "http": 403,
+    "usage": "documented_operation_response"
+  },
+  "REAUTH_REQUIRED": {
+    "http": 403,
+    "usage": "documented_operation_response"
+  },
+  "AI_MUST_USE_PROPOSALS": {
+    "http": 403,
+    "usage": "documented_operation_response"
+  },
+  "AI_SUSPENDED": {
+    "http": 403,
+    "usage": "documented_operation_response"
+  },
+  "NOT_FOUND": {
+    "http": 404,
+    "usage": "documented_operation_response"
+  },
+  "STATE_CONFLICT": {
+    "http": 409,
+    "usage": "documented_operation_response"
+  },
+  "PROPOSAL_CONFLICT": {
+    "http": 409,
+    "usage": "documented_operation_response"
+  },
+  "DUPLICATE": {
+    "http": 409,
+    "usage": "documented_operation_response"
+  },
+  "STALE_SOURCE": {
+    "http": 409,
+    "usage": "other_core_contract_not_mapped_to_public_operation"
+  },
+  "AUTHORITY_CONFLICT": {
+    "http": 409,
+    "usage": "documented_operation_response"
+  },
+  "IDEMPOTENCY_IN_PROGRESS": {
+    "http": 409,
+    "usage": "documented_operation_response"
+  },
+  "LOCK_BUSY": {
+    "http": 409,
+    "usage": "documented_operation_response"
+  },
+  "CURSOR_STALE": {
+    "http": 409,
+    "usage": "documented_operation_response"
+  },
+  "VERSION_CONFLICT": {
+    "http": 412,
+    "usage": "documented_operation_response"
+  },
+  "PAYLOAD_TOO_LARGE": {
+    "http": 413,
+    "usage": "documented_operation_response"
+  },
+  "UNSUPPORTED_MEDIA_TYPE": {
+    "http": 415,
+    "usage": "documented_operation_response"
+  },
+  "FIELD_UNKNOWN": {
+    "http": 422,
+    "usage": "documented_operation_response"
+  },
+  "FIELD_NOT_ALLOWED": {
+    "http": 422,
+    "usage": "documented_operation_response"
+  },
+  "FIELD_REQUIRED": {
+    "http": 422,
+    "usage": "documented_operation_response"
+  },
+  "EMPTY_PATCH": {
+    "http": 422,
+    "usage": "documented_operation_response"
+  },
+  "VALIDATION_FAILED": {
+    "http": 422,
+    "usage": "documented_operation_response"
+  },
+  "INVALID_TRANSITION": {
+    "http": 422,
+    "usage": "documented_operation_response"
+  },
+  "IDEMPOTENCY_MISMATCH": {
+    "http": 422,
+    "usage": "documented_operation_response"
+  },
+  "PRECONDITION_REQUIRED": {
+    "http": 428,
+    "usage": "documented_operation_response"
+  },
+  "IDEMPOTENCY_KEY_REQUIRED": {
+    "http": 428,
+    "usage": "documented_operation_response"
+  },
+  "RATE_LIMITED": {
+    "http": 429,
+    "usage": "documented_operation_response"
+  },
+  "AI_RATE_LIMITED": {
+    "http": 429,
+    "usage": "documented_operation_response"
+  },
+  "DEPENDENCY_UNAVAILABLE": {
+    "http": 503,
+    "usage": "documented_operation_response"
+  },
+  "MAINTENANCE": {
+    "http": 503,
+    "usage": "documented_operation_response"
+  },
+  "OUTCOME_UNKNOWN": {
+    "http": 503,
+    "usage": "documented_operation_response"
+  },
+  "TX_ABORT_UNCONFIRMED": {
+    "http": 503,
+    "usage": "documented_operation_response"
+  },
+  "TX_RETRY_EXHAUSTED": {
+    "http": 503,
+    "usage": "documented_operation_response"
+  },
+  "INTERNAL_CONTRACT_VIOLATION": {
+    "http": 500,
+    "usage": "documented_operation_response"
+  }
 }
