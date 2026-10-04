@@ -4,7 +4,7 @@
 
 現在のMCPで利用できるのは、取込用の8ツールです [提供中]。全APIサービスへの対応は [準備中] です。
 
-DBへの直接の接続、任意のSQL、署名鍵は、MCPの対象に含めません。現在の8ツールの動作を、全APIの提供として扱わないでください。導入の手順は、[MCPの導入](https://mxd2024.github.io/claudia-partner-docs/v0.7/mcp.html)。
+DBへの直接の接続、任意のSQL、署名鍵は、MCPの対象に含めません。現在の8ツールの動作を、全APIの提供として扱わないでください。導入の手順は、[MCPの導入](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/mcp.md)。
 
 ## 8ツールの契約
 
@@ -207,12 +207,12 @@ DBへの直接の接続、任意のSQL、署名鍵は、MCPの対象に含めま
 ### HTTP 403、content-typeが`text/plain`、本文が`error code: 1010`
 
 - 原因: 管理サイトに届く前の入口で、要求が拒否されています。管理サイトの応答（JSONの`error`）ではありません。
-- 対処: 時刻と、本文の`error code: 1010`を添えて、[サポートと窓口](https://mxd2024.github.io/claudia-partner-docs/v0.7/support.html)へ連絡します。現在の配布物は、この拒否を受けることがあります。改善した版を提供したときに、版ごとの違いを、ここへ追記します。
+- 対処: 時刻と、本文の`error code: 1010`を添えて、[サポートと窓口](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/support.md)へ連絡します。現在の配布物は、この拒否を受けることがあります。改善した版を提供したときに、版ごとの違いを、ここへ追記します。
 
 ### HTTP 401、JSONの`error`が`authentication_required`
 
 - 原因: キーが無効、または失効している。あるいは、別の接続先で発行したキーを使っています。
-- 対処: 管理サイトで接続キーを再発行し、同じ`--base`と`--credential-name`で、再保存します。新しいキーでも続くときは、サービス側の設定が原因の可能性があります。[サポートと窓口](https://mxd2024.github.io/claudia-partner-docs/v0.7/support.html)へ連絡します。
+- 対処: 管理サイトで接続キーを再発行し、同じ`--base`と`--credential-name`で、再保存します。新しいキーでも続くときは、サービス側の設定が原因の可能性があります。[サポートと窓口](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/support.md)へ連絡します。
 
 JSONの`error`が返るときは、アプリまで届いています。`text/plain`の本文だけが返るときは、入口で拒否されています。この違いが、連絡するときの、最初の手がかりになります。
 

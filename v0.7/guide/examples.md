@@ -2,7 +2,7 @@
 
 60の例（56操作）を載せています。すべて合成データの要求と応答です。HTTPヘッダーとJSONは[共通examples JSON](https://mxd2024.github.io/claudia-partner-docs/v0.7/examples/public-requests.json)から生成し、OpenAPIのexamplesにも同じ内容を使用します。時刻、UUID、版、fingerprint、storeは説明用です。実行時には現在の取得結果へ置き換えてください。
 
-成功応答の値は固定の期待値ではありません。表の権限や現在版に従い変化します。公開資料は検証用のデータ投入を自動的に行いません。[アプリの登録と運用](https://mxd2024.github.io/claudia-partner-docs/v0.7/tutorial.html)に沿い、検証専用の表で実行してください。
+成功応答の値は固定の期待値ではありません。表の権限や現在版に従い変化します。公開資料は検証用のデータ投入を自動的に行いません。[アプリの登録と運用](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/tutorial.md)に沿い、検証専用の表で実行してください。
 
 ## サンプルの実行
 
@@ -13,7 +13,7 @@ python request.py --base https://api.example.invalid --request my-request.json
 node request.mjs --base https://api.example.invalid --request my-request.json
 ```
 
-資格は環境変数CP_ACCESS_TOKEN、またはPythonの非表示対話入力で渡します。スクリプトや要求ファイルへ埋め込みません。CP_ACCESS_TOKENは[本人として接続する](https://mxd2024.github.io/claudia-partner-docs/v0.7/authentication.html)で取得したaccess_tokenです。baseは、環境管理者から受け取った、基盤のHTTPS originへ置き換えます。検証CAはPythonの --ca 引数、NodeのNODE_EXTRA_CA_CERTSで設定し、TLS検証を無効化しません。
+資格は環境変数CP_ACCESS_TOKEN、またはPythonの非表示対話入力で渡します。スクリプトや要求ファイルへ埋め込みません。CP_ACCESS_TOKENは[本人として接続する](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/authentication.md)で取得したaccess_tokenです。baseは、環境管理者から受け取った、基盤のHTTPS originへ置き換えます。検証CAはPythonの --ca 引数、NodeのNODE_EXTRA_CA_CERTSで設定し、TLS検証を無効化しません。
 
 my-request.jsonは下の共通JSONから1件を選び、headers内のAuthorizationプレースホルダー以外の値、url、bodyを実環境向けに直したものです。書込はIdempotency-Keyと期待版を確認してから実行します。
 

@@ -14,7 +14,7 @@ AIエージェントから、取込の操作を行うために、MCPアダプタ
 7cee88295df1d4ffe623f6bd2b7521aa3cbb3556c81da39c293df813c388918c
 ```
 
-配布物を更新した場合は、このページと[変更履歴](https://mxd2024.github.io/claudia-partner-docs/v0.7/changelog.html)でお知らせします。
+配布物を更新した場合は、このページと[変更履歴](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/changelog.md)でお知らせします。
 
 ## OSと準備
 
@@ -32,7 +32,7 @@ Linuxのheadless環境では、Secret Serviceがないことがあります。�
 
 ## macOSでの導入準備
 
-Python 3.10以上を導入し、ターミナルで`python3 --version`を確認します。ZIPを展開し、転送用のフォルダーを作ります。ただし、現在の配布物のキーの保存は、WindowsとLinux向けで、macOSではキーを保存できません。macOSに対応した配布物の提供状況は、[サポートと窓口](https://mxd2024.github.io/claudia-partner-docs/v0.7/support.html)へ確認してください。平文のキーの設定や、OSの判定の書き換えで回避しないでください。
+Python 3.10以上を導入し、ターミナルで`python3 --version`を確認します。ZIPを展開し、転送用のフォルダーを作ります。ただし、現在の配布物のキーの保存は、WindowsとLinux向けで、macOSではキーを保存できません。macOSに対応した配布物の提供状況は、[サポートと窓口](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/support.md)へ確認してください。平文のキーの設定や、OSの判定の書き換えで回避しないでください。
 
 ## キーを発行して保存する
 
@@ -58,7 +58,7 @@ Windowsでは、JSONのパスの区切りを`/`にするか、バックスラッ
 2. `imports_catalog`を、入力`{}`で実行します。
 3. `isError`が`false`で、利用できる形式の一覧が返れば、認証付きの最初の読み取りが成功です。一覧が空のときも、通信や認証のエラーとは区別します。
 
-うまくいかないときは、[MCPの対応範囲とトラブル対応](https://mxd2024.github.io/claudia-partner-docs/v0.7/mcp-support.html)。
+うまくいかないときは、[MCPの対応範囲とトラブル対応](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/mcp-support.md)。
 
 ## 取込の流れと、利用の終了
 

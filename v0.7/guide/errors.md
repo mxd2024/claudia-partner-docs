@@ -50,7 +50,7 @@ OUTCOME_UNKNOWNなど結果未確定の応答は、単純な失敗として別�
 | 404 | `ASSET_NOT_FOUND` | 対象の存在と権限を確認する（隠された対象を推測しない） |
 | 404 | `ASSET_NO_THUMBNAIL` | 対象の存在と権限を確認する（隠された対象を推測しない） |
 | 404 | `NOT_FOUND` | 対象の存在と権限を確認する（隠された対象を推測しない） |
-| 409 | `ASSET_IDEMPOTENCY_MISMATCH` | 状態を再取得し、同じ操作の結果を確認する |
+| 409 | `ASSET_IDEMPOTENCY_MISMATCH` | 同じキーで、本文を変えて送っています。本文を元に戻して再送するか、状態を確認してから、新しいキーで送る |
 | 409 | `ASSET_POLICY_CHANGED` | 状態を再取得し、同じ操作の結果を確認する |
 | 409 | `ASSET_VERSION_CONFLICT` | 状態を再取得し、同じ操作の結果を確認する |
 | 409 | `AUTHORITY_CONFLICT` | 状態を再取得し、同じ操作の結果を確認する |
@@ -68,7 +68,7 @@ OUTCOME_UNKNOWNなど結果未確定の応答は、単純な失敗として別�
 | 422 | `FIELD_NOT_ALLOWED` | 入力やファイルを訂正する |
 | 422 | `FIELD_REQUIRED` | 入力やファイルを訂正する |
 | 422 | `FIELD_UNKNOWN` | 入力やファイルを訂正する |
-| 422 | `IDEMPOTENCY_MISMATCH` | 入力やファイルを訂正する |
+| 422 | `IDEMPOTENCY_MISMATCH` | 同じキーで、本文を変えて送っています。本文を元に戻して再送するか、状態を確認してから、新しいキーで送る |
 | 422 | `INVALID_TRANSITION` | 入力やファイルを訂正する |
 | 422 | `VALIDATION_FAILED` | 入力やファイルを訂正する |
 | 428 | `ASSET_PRECONDITION_REQUIRED` | 必須の条件（版・理由・再送キー）を付ける |

@@ -1,41 +1,123 @@
 # アプリの登録と運用
 
-検証専用環境・検証データで実施する手順です。既存顧客データへそのまま適用しません。組織の管理者はMFAとcan_manage_access、表設計者は対象表のcan_design、利用者は必要なread/write/削除範囲を持つことを前提にします。[本人として接続する](https://mxd2024.github.io/claudia-partner-docs/v0.7/authentication.html)と、[HTTP・実行例](https://mxd2024.github.io/claudia-partner-docs/v0.7/examples.html)を先に確認してください。
+検証用の環境で、アプリを1つ登録し、データを操作し、止めて再開するまでを通しで行う手順です。既存の顧客データには、そのまま適用しないでください。
 
-## 1. 本人へ表の利用権を設定
+先に、[利用者として接続する](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/authentication.md)と、[HTTP・実行例](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/examples.md)を確認してください。
 
-管理者が `GET /v2/access/subjects` と `GET /v2/access/tables` で管理対象を確認し、`GET /v2/access/grants/{subjectId}/{collection}` の現在versionを取得します。PUTへ最新version、enabled、role、read_scope、write_scope、can_design、can_close、can_import、expires_atを送ります。初回version=0は現在grantがないことを取得して確認した場合だけ使います。expires_atは実施時点より未来の承認期限に置換します。
+## 登場人物
 
-権限変更APIにIdempotency-KeyやIf-Matchを勝手に追加条件として仮定しません。この経路は本文versionを使います。利用者の新しい要求で許可・拒否を確認します。削除範囲は別のdelete-scope契約であり、write_scopeだけで削除できるとは限りません。
+この手順には、次の人と処理が登場します。用語は[用語集](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/glossary.md)にもあります。
 
-## 2. アプリを計画して登録
+| 登場するもの | この手順での役割 | 必要な権限 |
+| --- | --- | --- |
+| 利用者 | 基盤にログインして、アプリのデータを作成・更新・削除する人 | 対象の表の読み取り・書き込み・削除の範囲 |
+| 組織の管理者 | あなたの組織で、利用者に表を使う権限を与え、アプリ定義を登録し、serviceを承認する人 | 管理権限（`manage_access`と`service_administrator`の両方）と、MFA |
+| 表の設計者 | アプリの表の設計を担う人。表の設計の権限を、持つ必要がある | 対象の表の`can_design` |
+| あなた（開発者） | 手順を実行し、アプリを登録して、結果を確認する | 手順ごとの実施者の権限 |
+| service | 人の操作を介さずに動く処理。最後に設定する | 組織の管理者の承認 |
 
-`POST /v2/apps/plan` にid、version、name、datasets、dependenciesを持つmanifestを送ります。ownedはアプリ所有表、sharedは既存共有表です。新規表にも事前の設計権が必要です。返ったchangesを確認し、同じmanifestと返されたfingerprintで `POST /v2/apps/apply` を実行します。Idempotency-Keyは必須です。例のaaaa…fingerprintを実際に送らないでください。
+## 全体の流れ
 
-`GET /v2/apps/{appId}` と各表のdefinitionで登録結果を確認します。planからapplyまでに前提が変わったら競合として再計画・再確認します。アプリの登録は、画面のプログラムのアップロードや、サーバーへの配置を行いません。
+| 手順 | 実施者 | 目的 |
+| --- | --- | --- |
+| 1. 利用者に権限を与える | 組織の管理者 | 利用者が、表を使えるようにする |
+| 2. アプリを計画して登録する | 組織の管理者（対象の表の`can_design`も必要） | アプリが使う表と依存先を、基盤に登録する |
+| 3. データを作成・取得・更新する | 利用者 | 登録した表を、利用者の権限で使う |
+| 4. 関連を設定する | 表の設計者（`can_design`を持つ利用者） | 表どうしの親子の関係を設定する |
+| 5. 削除と復元 | 利用者 | 行を削除し、ごみ箱から戻す |
+| 6. 停止と再開 | 組織の管理者 | アプリを止め、再開する |
+| 7. serviceを設定する | 組織の管理者と開発者 | 人の操作を介さない処理に、限られた権限を与える |
+| 8. 記録して終了する | あなた | 結果を記録する |
 
-## 3. 本人として作成・取得・更新
+## 1. 利用者に権限を与える
 
-利用者の資格へ切り替え、definitionのschema_versionと書ける列を確認します。`POST /v2/tables/{collection}/batch` のcreateにvaluesを送ると、基盤がidと所有者を決めます。返ったid/versionを保存します。queryで取得し、updateにはそのid/versionを指定します。作成・更新は別のIdempotency-Keyを使います。
+実施者: 組織の管理者
 
-412では[競合・再送・復帰](https://mxd2024.github.io/claudia-partner-docs/v0.7/reliability.html)に従って再取得・比較・利用者確認へ進みます。操作結果が不明なだけの場合は同じキー・本文を保持します。
+アプリのデータを使う利用者に、対象の表を使う権限を与えます。権限は、表ごと、利用者ごとに設定します。
 
-## 4. 関連を設定
+1. `GET /v2/access/subjects`で利用者の一覧を、`GET /v2/access/tables`で表の一覧を確認します。
+2. `GET /v2/access/grants/{subjectId}/{collection}`で、現在の権限と`version`を取得します。
+3. `PUT`で、最新の`version`、`enabled`、`role`、`read_scope`、`write_scope`、`can_design`、`can_close`、`can_import`、`expires_at`を送ります。
 
-子表に関連用の列を定義し、`PUT /v2/tables/{collection}/access` にmode、parent_collection、field、cardinalityを送ります。If-Matchは関連設定の現在version、Idempotency-Keyも必須です。親所属方式では親と子の現在権限を確認します。複数表を一括変更する /v2/transactions は最大8表・合計100行操作、既存親IDを使い、各表のschema_versionを指定します。
+- 初回の`version=0`は、現在の権限がないことを取得して確認した場合だけ使います。
+- `expires_at`は、実施する時点より未来の、承認の期限にします。
+- 権限の変更では、`Idempotency-Key`と`If-Match`を使いません。本文の`version`を使います。
+- 削除の範囲は、別の契約です。`write_scope`だけで削除できるとは限りません。
+- 設定した後、利用者の新しい要求で、許可と拒否を確認します。
+
+## 2. アプリを計画して登録する
+
+実施者: 組織の管理者。登録する表については、実施する利用者に、`can_design`（表の設計の権限）が必要です。
+
+登録の前に「計画」を作り、変更の内容を確認してから、同じ内容で「適用」します。
+
+1. `POST /v2/apps/plan`に、`id`、`version`、`name`、`datasets`、`dependencies`を持つmanifestを送ります。`owned`はアプリが所有する表、`shared`は既存の共有表です。新しい表を作るにも、事前に設計の権限が必要です。
+2. 返った`changes`を確認します。
+3. 同じmanifestと、返された`fingerprint`で、`POST /v2/apps/apply`を実行します。`Idempotency-Key`が必須です。例にある`aaaa…`の`fingerprint`を、実際には送らないでください。
+4. `GET /v2/apps/{appId}`と、各表のdefinitionで、登録の結果を確認します。
+
+計画と適用の間に前提が変わったときは、競合として、再計画と再確認を行います。アプリの登録は、画面のプログラムのアップロードや、サーバーへの配置を行いません。
+
+## 3. データを作成・取得・更新する
+
+実施者: 利用者
+
+ここからは、利用者の資格で操作します。
+
+1. definitionの`schema_version`と、書ける列を確認します。
+2. `POST /v2/tables/{collection}/batch`の`create`に`values`を送ります。`id`と所有者は、基盤が決めます。返った`id`と`version`を保存します。
+3. 検索（`query`）で取得します。
+4. `update`には、保存した`id`と`version`を指定します。
+
+作成と更新は、別の`Idempotency-Key`を使います。412が返ったときは、[競合・再送・復帰](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/reliability.md)に従い、再取得、比較、利用者への確認へ進みます。結果が不明なだけのときは、同じキーと本文を保持します。
+
+## 4. 関連を設定する
+
+実施者: 表の設計者（`can_design`を持つ利用者）
+
+子の表に、関連用の列を定義します。親と子の関係を、基盤に伝えます。
+
+- `PUT /v2/tables/{collection}/access`に、`mode`、`parent_collection`、`field`、`cardinality`を送ります。`If-Match`には関連設定の現在の`version`を、`Idempotency-Key`も指定します。
+- 親に所属する方式では、親と子の、現在の権限を確認します。
+- 複数の表を一括で変更する`POST /v2/transactions`は、最大8表、合計100行の操作です。既存の親の`id`を使い、各表の`schema_version`を指定します。
 
 ## 5. 削除と復元
 
-deleteには行のid/versionと必要なreasonを送ります。ごみ箱の保持期間が設定されていること、本人の削除範囲を先に確認します。`GET /v2/tables/{collection}/trash` でtrash_idと現在versionを取得し、`POST /v2/tables/{collection}/trash/{trashId}/restore` にそのversion、reason、Idempotency-Keyを渡します。rowIdとtrashIdを取り違えません。定義変更や期限切れ、現在権限による拒否は自動回避しません。
+実施者: 利用者
 
-## 6. 停止・再開
+1. ごみ箱の保持期間が設定されていることと、利用者の削除の範囲を、先に確認します。
+2. `delete`に、行の`id`と`version`、必要なら`reason`を送ります。
+3. `GET /v2/tables/{collection}/trash`で、`trash_id`と現在の`version`を取得します。
+4. `POST /v2/tables/{collection}/trash/{trashId}/restore`に、その`version`、`reason`、`Idempotency-Key`を渡します。
 
-`GET /v2/apps/{appId}` のrevisionを取得し、`POST /v2/apps/{appId}/state` へaction=stop、revision、reasonを送ります。別のキーで現在revisionを使いaction=resumeを送ると再開します。停止・再開は行CRUDとは別です。trash/restore/detachも同じ状態APIですが、保持期間・依存先・現在状態に従います。復元直後はstoppedになり、必要な確認後に明示再開します。
+`rowId`と`trashId`を取り違えないでください。定義の変更、期限切れ、現在の権限による拒否は、自動では回避しません。
 
-## 7. service資格を設定して範囲を確認
+## 6. 停止と再開
 
-[serviceとして接続する](https://mxd2024.github.io/claudia-partner-docs/v0.7/service-access.html)の手順に従い申請、承認、provision、private_key_jwt、activateを実施します。service queryの成功、許可外の列・表・操作の拒否、人用 /v1/me の拒否を確認します。writeを許可する場合はservice batch契約（最大50操作）を使い、本文の現在版とIdempotency-Keyを確認します。suspend/revoke後の旧資格拒否まで記録します。
+実施者: 組織の管理者
 
-## 8. 記録して終了
+停止と再開は、行の操作とは別の、アプリの状態の操作です。
 
-対象API版、環境、実施時刻、操作ID、HTTP/code/request_id、許可と拒否、再試行時の同じ操作識別子を記録します。資格・原本データは記録しません。
+1. `GET /v2/apps/{appId}`で、`revision`を取得します。
+2. `POST /v2/apps/{appId}/state`に、`Idempotency-Key`を付けて、`action=stop`、`revision`、`reason`を送ります。
+3. 再開は、別の`Idempotency-Key`と、現在の`revision`で、`action=resume`を送ります。停止と再開の、どちらも`reason`が必須です。
+
+`trash`、`restore`、`detach`も同じ状態のAPIですが、保持期間、依存先、現在の状態に従います。復元した直後は`stopped`になります。必要な確認の後に、明示的に再開します。
+
+## 7. serviceを設定する
+
+実施者: 組織の管理者と開発者
+
+[serviceとして接続する](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/service-access.md)の手順で、申請、承認、provision、`private_key_jwt`、activateを行います。
+
+確認すること:
+
+- serviceの検索（query）が成功する。
+- 許可されていない列、表、操作が、拒否される。
+- 人向けの`GET /v1/me`が、拒否される。
+- 書き込みを許可するときは、serviceのbatch（最大50操作）を使い、本文の現在の版と`Idempotency-Key`を確認する。
+- suspendまたはrevokeの後に、古い資格が拒否される。
+
+## 8. 記録して終了する
+
+対象のAPI版、環境、実施した時刻、操作ID、HTTPとcodeと`request_id`、許可と拒否、再試行したときの同じ操作の識別子を記録します。資格と原本のデータは、記録しません。

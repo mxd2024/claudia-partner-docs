@@ -4,7 +4,7 @@
 
 | 内容 | 窓口 |
 | --- | --- |
-| 接続情報の依頼（開発・検証用） | [接続情報を依頼する](https://mxd2024.github.io/claudia-partner-docs/v0.7/request-access.html)に、メールの窓口と雛形があります |
+| 接続情報の依頼（開発・検証用） | [接続情報を依頼する](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/request-access.md)に、メールの窓口と雛形があります |
 | 環境の障害、権限、接続先 | 環境管理者の窓口へ連絡します |
 | このドキュメントの誤記 | [公開Issueの窓口](https://github.com/mxd2024/claudia-partner-docs/issues)へ報告できます。接続先や資格は、Issueに書かないでください |
 
@@ -24,4 +24,4 @@
 
 ## 更新を受け入れるとき
 
-API版、ドキュメントの版、配布クライアントの版、実際の接続環境を、別々に記録します。更新の前に、[変更履歴](https://mxd2024.github.io/claudia-partner-docs/v0.7/changelog.html)と[対応状況とバージョン](https://mxd2024.github.io/claudia-partner-docs/v0.7/versions.html)を確認します。切り替える前に、隔離した検証データで、最初の認証、読み取り、書き込み、失効を確認してください。
+API版、ドキュメントの版、配布クライアントの版、実際の接続環境を、別々に記録します。更新の前に、[変更履歴](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/changelog.md)と[対応状況とバージョン](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/versions.md)を確認します。切り替える前に、隔離した検証データで、最初の認証、読み取り、書き込み、失効を確認してください。
