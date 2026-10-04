@@ -29,7 +29,7 @@ grant_type=authorization_code&client_id=<CLIENT_ID>&redirect_uri=<REGISTERED_RED
 
 refresh対応クライアントはtoken_endpointへ grant_type=refresh_token、client_id、refresh_tokenをform送信します。rotationでは返った新しいrefresh_tokenを安全に永続化してから次の利用へ進みます。同じ本人セッションの更新を直列化し、古いtokenの再利用を避けます。invalid_grantでは更新を繰り返さず再ログインへ戻します。期限はIdP設定と /v1/me の現在セッションを基準にします。
 
-POST /v1/auth/logout-self は本人用です。本文は {"attempt_id":"<UUID>"}、成功は {"status":"revoked","attempt_id":"<同じUUID>","request_id":"<UUID>"}。結果不明時には同じattempt_idを保持します。Idempotency-Keyヘッダーはこの経路の必須条件ではありません。
+POST /v2/session/logout は本人用です。本文は {"attempt_id":"<UUID>"}、成功は {"status":"revoked","attempt_id":"<同じUUID>","request_id":"<UUID>"}。結果不明時には同じattempt_idを保持します。Idempotency-Keyヘッダーはこの経路の必須条件ではありません。
 
 ## service: 申請から利用まで
 
