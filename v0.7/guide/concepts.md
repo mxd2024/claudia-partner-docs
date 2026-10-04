@@ -52,7 +52,7 @@ mfaは経路自体の条件、mfa_when_lifecycle_enabledとadministrative_sessio
 
 GET以外というだけでは変更操作とは限りません。検索・集計・計画POSTはread_or_planです。version/revisionは競合検出、fingerprintは確認済み計画との一致、Idempotency-Key/attempt_idは受領の識別に使います。移行開始・旧台帳採用はmigration_idと元の本文・fingerprintで既存結果を確認します。
 
-各操作のx-retry-policyに方式・識別子・結果確認方法を掲載します。次表は改訂2でIdempotency-Keyが未宣言だった28操作の整理です。workspace.importには実装で必須のヘッダーを補いました。
+各操作のx-retry-policyに方式・識別子・結果確認方法を掲載します。次表は、Idempotency-Keyの宣言がなかった28操作の整理です。workspace.importには実装で必須のヘッダーを補いました。
 
 table.query | read_or_plan | none | 同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。
 table.export | read_or_plan | none | 同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。

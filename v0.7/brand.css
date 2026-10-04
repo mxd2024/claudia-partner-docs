@@ -1,0 +1,10 @@
+/* Claudia Partner brand v1.0.0: based on the user-approved chat brand. */
+.cp-brand{display:inline-flex;align-items:center;gap:13px;color:var(--cp-brand-ink,#182d4c);text-decoration:none;flex-shrink:0}
+.cp-brand__mark{display:block;width:40px;height:35px;object-fit:contain;flex-shrink:0}
+.cp-brand__text{display:flex;flex-direction:column;gap:3px;min-width:0}
+.cp-brand__name{display:block;font-family:"Noto Sans JP","Yu Gothic UI","Meiryo",sans-serif;font-size:20px;font-weight:700;line-height:1.45;letter-spacing:-.6px;white-space:nowrap;color:inherit}
+.cp-brand__partner{font-weight:400}
+.cp-brand__descriptor{display:block;font-family:"Noto Sans JP","Yu Gothic UI","Meiryo",sans-serif;font-size:10px;font-weight:400;line-height:1.4;letter-spacing:.04em;color:inherit;opacity:.8}
+.cp-brand--dark{--cp-brand-ink:#fff}
+.cp-brand--stacked .cp-brand__name{font-size:18px}
+.cp-brand--stacked .cp-brand__partner{display:block;font-size:16px}

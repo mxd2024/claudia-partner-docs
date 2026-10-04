@@ -15,9 +15,9 @@ API 132 operations / OpenAPI 132 operations / MCP 8 import tools
 | Core API | 実ルート132操作。機能ごとに有効化が必要 |
 | OpenAPI | 132操作。実ルートと機械仕様を照合 |
 | MCP取込アダプター | 8ツールを実装。対応する顧客アプリの接続契約が必要 |
-| 全サービスMCP / BFF代替 | 対象として設計・受入を進行中 |
-| 外部原本の画像参照 | API・保存アダプターあり。配備と原本到達性の確認が必要 |
-| 正式本人セッション＋media Host | 統合配備の整備待ち |
+| 全サービスMCP / BFF代替 | 対象です（提供準備中） |
+| 外部原本の画像参照 | API・保存アダプターあり。利用には環境側の設定と、原本への到達性の確認が必要 |
+| 正式本人セッション＋media Host | 提供準備中 |
 | Dropboxフォルダー選択 / 共有URL解決 | 公開APIは未提供 |
 
 ## 管理アプリからのリンク
@@ -34,7 +34,7 @@ Markdown、OpenAPI、API一覧、MCPツール定義を同じ版に揃えて配�
 
 ## 状態の読み方
 
-implementedはソースに実装済み、experimentalは試験段階、optionalはHostでの有効化が必要、deployment-specificは配備ごとに提供状態が異なる意味です。文書へ掲載したことだけで稼働サイトへの配備を意味しません。
+implementedはソースに実装済み、experimentalは試験段階、optionalはHostでの有効化が必要、deployment-specificは配備ごとに提供状態が異なる意味です。文書へ掲載したことは、ご利用の環境で使えることを意味しません。
 
 ## ハッシュの意味
 

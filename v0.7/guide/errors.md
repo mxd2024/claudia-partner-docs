@@ -26,7 +26,7 @@ OUTCOME_UNKNOWNなど結果未確定の応答は、単純な失敗として別�
 
 ## 定義されているエラーコード
 
-以下は公開OpenAPIのコード表と操作への対応付けから生成しています。「その他」は未使用という断定ではありません。STALE_SOURCEは内部同期契約で使われ、現公開操作との対応はありません。DUPLICATE、EMPTY_PATCH、INVALID_TRANSITION、IDEMPOTENCY_IN_PROGRESSは実装に使用箇所があり、該当する公開操作へ補いました。メディアを含む各機能には個別の条件もあるため、対象操作の応答と合わせて確認してください。
+以下は公開OpenAPIのコード表と操作への対応付けから生成しています。「その他」は未使用という断定ではありません。STALE_SOURCEは内部同期契約で使われ、現公開操作との対応はありません。DUPLICATE、EMPTY_PATCH、INVALID_TRANSITION、IDEMPOTENCY_IN_PROGRESSは、該当する公開操作の応答として記載しています。メディアを含む各機能には個別の条件もあるため、対象操作の応答と合わせて確認してください。
 
 {
   "ASSET_REASON_REQUIRED": {
