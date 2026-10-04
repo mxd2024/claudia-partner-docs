@@ -42,6 +42,8 @@ Accept: application/json
 grant_type=authorization_code&client_id=<CLIENT_ID>&redirect_uri=<REGISTERED_REDIRECT_URI>&code=<CODE>&code_verifier=<VERIFIER>
 ```
 
+クライアントは、トークンの交換でクライアントシークレットを使わない、公開クライアント（public client）です。PKCEを使います。`scope`は、環境で渡された値（通常は`openid`）です。アクセストークンに必要な、追加の値は、認証サービスの設定が付けます。トークンを自作して、補うことはできません。`offline_access`を、一般の必須のscopeとして、追加しないでください。
+
 応答の`access_token`、`token_type`、`expires_in`を使います。リフレッシュトークンが発行されるかは、クライアントの設定によります。IDトークンは、利用者の情報を知るためのもので、基盤APIの呼び出しには使いません。
 
 ## 最初のAPI呼び出し
@@ -70,6 +72,12 @@ curl -sS -H "Authorization: Bearer $CP_ACCESS_TOKEN" -H "Accept: application/jso
 - ログイン直後の`GET /v1/me`に限って、回数と時間を決めて、待ってから再確認します。待機の枠の例は、0.5秒間隔で、最大20秒です。
 - 20秒を過ぎても成功しないときは、待つのをやめ、時刻、code、`request_id`を控えて、環境管理者に確認します。
 - `TOKEN_EXPIRED`、明示的な失効、403、TLSや署名のエラーでは、待ちません。変更の操作は、自動で再送しません。
+
+## MFAと再認証
+
+MFAが必要な操作では、アクセストークンが、MFAを完了した認証であること（`acr`）を、確認します。再認証が必要な操作は、最後に認証した時刻（`auth_time`）と、操作ごとの最大の経過時間で、判断されます。
+
+403で`MFA_REQUIRED`または`REAUTH_REQUIRED`が返ったときは、ログインの手順（認可コードフロー）を、最初から、やり直し、MFAを完了します。トークンの更新（リフレッシュ）では、代用できません。認可のURLに、`max_age`や`prompt=login`などを付けるだけでは、受理が保証されません。MFAと再認証の設定は、環境ごとの認証サービスで行います。具体的な手順は、環境管理者に確認してください。
 
 ## トークンの更新と、ログアウト
 
@@ -100,4 +108,4 @@ python configure-openapi.py --source openapi.json --profile environment.json --o
 
 ## 権限について
 
-管理者の権限（`can_manage_access`）と、表の読み取り・書き込み・設計の権限は、別です。表、列、行、期限は、操作のたびに確認されます。利用者を助けるAIも、利用者の権限を超えられません。詳しくは、[基盤の考え方と責任分界](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/principles.md)と、[MCPの導入](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/mcp.md)。
+管理権限（`manage_access`と`service_administrator`）と、表の読み取り・書き込み・設計の権限は、別です。表、列、行、期限は、操作のたびに確認されます。利用者を助けるAIも、利用者の権限を超えられません。詳しくは、[基盤の考え方と責任分界](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/principles.md)と、[MCPの導入](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/mcp.md)。

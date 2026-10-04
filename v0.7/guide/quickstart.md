@@ -2,7 +2,7 @@
 
 基盤に初めて接続するときの、全体の流れです。最初のAPI呼び出しが成功するまでを、3つのステップに分けて示します。
 
-接続の方法には、利用者としての接続と、serviceとしての接続があります。ここでは、利用者としての接続を例にします。利用者とserviceの違いは、[基盤の全体像](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/index.md)にあります。
+接続の方法には、利用者としての接続と、serviceとしての接続があります。ここでは、利用者としての接続を例にします。利用者とserviceの違いは、[用語集](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/glossary.md)にあります。
 
 ## ステップ1　接続情報を依頼する
 

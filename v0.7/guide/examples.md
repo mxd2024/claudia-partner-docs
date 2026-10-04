@@ -13,7 +13,7 @@ python request.py --base https://api.example.invalid --request my-request.json
 node request.mjs --base https://api.example.invalid --request my-request.json
 ```
 
-資格は環境変数CP_ACCESS_TOKEN、またはPythonの非表示対話入力で渡します。スクリプトや要求ファイルへ埋め込みません。CP_ACCESS_TOKENは[本人として接続する](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/authentication.md)で取得したaccess_tokenです。baseは、環境管理者から受け取った、基盤のHTTPS originへ置き換えます。検証CAはPythonの --ca 引数、NodeのNODE_EXTRA_CA_CERTSで設定し、TLS検証を無効化しません。
+資格は環境変数CP_ACCESS_TOKEN、またはPythonの非表示対話入力で渡します。スクリプトや要求ファイルへ埋め込みません。CP_ACCESS_TOKENは[利用者として接続する](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/authentication.md)で取得したaccess_tokenです。baseは、環境管理者から受け取った、基盤のHTTPS originへ置き換えます。検証CAはPythonの --ca 引数、NodeのNODE_EXTRA_CA_CERTSで設定し、TLS検証を無効化しません。
 
 my-request.jsonは下の共通JSONから1件を選び、headers内のAuthorizationプレースホルダー以外の値、url、bodyを実環境向けに直したものです。書込はIdempotency-Keyと期待版を確認してから実行します。
 

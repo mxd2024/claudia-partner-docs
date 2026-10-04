@@ -5,7 +5,7 @@
 <p>機械で読める仕様を、次のファイルで配信しています。ツールの連携や、AIが参照するときに使います。</p>
 <h2 id="section-2">ファイル</h2>
 <ul><li><a href="openapi.json">OpenAPI 3.1 JSON</a>：132操作の、入力・応答・認証の定義。</li><li><a href="api-inventory.json">全API一覧 JSON</a>：公開する132操作の一覧と、それぞれの提供状態。</li><li><a href="mcp-tools.json">現在のMCPツール定義 JSON</a>：取込アダプターの8ツール。</li><li><a href="guide/index.md">このガイドのMarkdown</a>：AIやテキストのツールが参照するための形式。</li><li><a href="examples/public-requests.json">実行例のJSON</a>：<a href="examples.html">HTTP・実行例</a>の元のデータ。</li></ul>
-<p>OpenAPIの接続先と認証のURLは、接続できない説明用の値です。環境に合わせた版の作り方は、<a href="authentication.html">本人として接続する</a>の「OpenAPIのツールから使う」を参照してください。</p>
+<p>OpenAPIの接続先と認証のURLは、接続できない説明用の値です。環境に合わせた版の作り方は、<a href="authentication.html">利用者として接続する</a>の「OpenAPIのツールから使う」を参照してください。</p>
 <h2 id="section-3">ファイルの整合を確認する</h2>
 <p><a href="../manifest.json">manifest</a>に、公開しているファイルのSHA-256を記載しています。取得したファイルは、manifestの<code>files</code>の値と照合できます。</p>
 <ul><li><code>files[&quot;v0.7/openapi.json&quot;]</code>は、公開用に題名や説明を整えた、配信ファイルそのもののSHA-256です。ダウンロードしたOpenAPIは、この値と照合します。</li><li><code>source_openapi_sha256</code>は、公開用に整える前の、元のOpenAPIの値です。配信ファイルとは、一致しません。</li><li>manifest自身は、自己参照を避けるため、<code>files</code>に含みません。</li><li>MCPクライアントのZIPのSHA-256は、manifestには含みません。<a href="mcp.html">MCPの導入</a>に載せています。</li></ul>

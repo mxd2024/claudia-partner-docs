@@ -23,7 +23,7 @@ GET /v2/tables/work_notes/rows/{rowId}</code></pre>
 <p>書き込みのbatchには、<code>Authorization</code>、<code>Content-Type</code>、<code>Idempotency-Key</code>を付けます。本文には、現在の<code>schema_version</code>と、操作ごとの<code>version</code>を指定します。</p>
 <ul><li>v1の新しい行のidは、クライアントが作ります。v2では、基盤が作ります。混同しないでください。</li><li>省略、<code>null</code>、空文字は、別の値として扱われます。</li></ul>
 <h2 id="section-4">ヘッダーの値は、どこから得るか</h2>
-<div class="table-wrap"><table><thead><tr><th scope="col">ヘッダー</th><th scope="col">値</th></tr></thead><tbody><tr><td><code>Idempotency-Key</code></td><td>書き込みの操作ごとに、新しく作る。8〜128文字の<code>-</code>、英数字、<code>_</code>。service申請では、UUID</td></tr><tr><td><code>X-Parent-Version</code>（画像の操作）</td><td>画像のpolicyで返る、親の行の版</td></tr><tr><td><code>If-Match</code>（画像の操作）</td><td><code>&quot;0&quot;</code>のように、版を二重引用符で囲む。新規は<code>&quot;0&quot;</code></td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th scope="col">ヘッダー</th><th scope="col">値</th></tr></thead><tbody><tr><td><code>Idempotency-Key</code></td><td>書き込みの操作ごとに、新しく作る。8〜128文字の<code>-</code>、英数字、<code>_</code>。service申請では、UUID</td></tr><tr><td><code>X-Parent-Version</code>（画像の操作）</td><td>画像のpolicyで返る、親の行の版</td></tr><tr><td><code>X-Schema-Version</code>（画像の操作）</td><td>表の定義の<code>schema_version</code>（policyや行の取得で得た値）</td></tr><tr><td><code>If-Match</code></td><td>次の操作が要求します。表の定義の更新（<code>PUT /v2/tables/{collection}</code>）、関連の設定（<code>PUT /v2/tables/{collection}/access</code>）、画像の操作、v1の案件の更新（<code>PATCH /v1/jobs/{id}</code>）。<code>&quot;0&quot;</code>のように、版を二重引用符で囲みます。画像の新規は<code>&quot;0&quot;</code>です</td></tr></tbody></table></div>
 <p>v2の行の更新と削除（batch）では、<code>If-Match</code>は使いません。本文の<code>version</code>に、取得した行の版を指定します。</p>
 <h2 id="section-5">版と再送のキー</h2>
 <p>更新の競合を防ぎ、二重の実行を防ぐために、次の値を使います。</p>

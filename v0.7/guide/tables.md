@@ -49,7 +49,8 @@ GET /v2/tables/work_notes/rows/{rowId}
 | --- | --- |
 | `Idempotency-Key` | 書き込みの操作ごとに、新しく作る。8〜128文字の`-`、英数字、`_`。service申請では、UUID |
 | `X-Parent-Version`（画像の操作） | 画像のpolicyで返る、親の行の版 |
-| `If-Match`（画像の操作） | `"0"`のように、版を二重引用符で囲む。新規は`"0"` |
+| `X-Schema-Version`（画像の操作） | 表の定義の`schema_version`（policyや行の取得で得た値） |
+| `If-Match` | 次の操作が要求します。表の定義の更新（`PUT /v2/tables/{collection}`）、関連の設定（`PUT /v2/tables/{collection}/access`）、画像の操作、v1の案件の更新（`PATCH /v1/jobs/{id}`）。`"0"`のように、版を二重引用符で囲みます。画像の新規は`"0"`です |
 
 v2の行の更新と削除（batch）では、`If-Match`は使いません。本文の`version`に、取得した行の版を指定します。
 

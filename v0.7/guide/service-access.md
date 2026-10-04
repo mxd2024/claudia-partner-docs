@@ -13,13 +13,15 @@ serviceは、組織の管理者の承認を受けて、動きます。承認さ�
 
 ## 全体の流れ
 
-1. あなたが、serviceの利用を申請します（公開鍵を添えます）。
+1. あなたが、申請の内容（公開鍵を含む）を決めます。組織の管理者が、serviceの利用を申請します。
 2. 組織の管理者が、申請を承認し、使える状態（provision）にします。
 3. あなたのサーバー処理が、秘密鍵で署名した要求を、認証サービスに送り、トークンを受け取ります。
 4. 初めて使うときに、有効化（activate）を行います。
 5. トークンを付けて、許可された操作を呼びます。
 
 ## 前提
+
+この手順は、`managed`方式のserviceを対象にします。申請、承認、provisionには、MFAを完了した管理者（`manage_access`と`service_administrator`の両方を持つ利用者）が必要です。申請者と承認者を分ける仕組みは、強制されません。業務の運用で分ける場合は、別に決めてください。利用者のJWTは、serviceのactivate、query、batchには、使えません。
 
 - 環境管理者から、接続情報を受け取っていること。
 - 組織の管理者が、MFA付きの利用者の資格で、service-clientsを操作できること。
@@ -44,14 +46,18 @@ Accept: application/json
 grant_type=client_credentials&client_id=<CLIENT_ID>&client_assertion_type=urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer&client_assertion=<SIGNED_JWT>
 ```
 
-5. **activateする（あなたのサーバー処理）。** `access_token`で、`POST /v2/service/activate`に`{}`を送ります。serviceの`access_token`の有効期間は、最大300秒です。更新は、新しい`jti`で、`client_credentials`を取得し直します。利用者用のリフレッシュトークンは、使いません。
+5. **activateする（あなたのサーバー処理）。** provisionが返す`audience`は、取得するアクセストークンの宛先（API）で、JWTの`aud`（`token_endpoint`）とは別の値です。JWTのヘッダーの`kid`は、登録した公開鍵の`kid`と一致させます（RS256）。 `access_token`で、`POST /v2/service/activate`に`{}`を送ります。serviceの`access_token`の有効期間は、最大300秒です。更新は、新しい`jti`で、`client_credentials`を取得し直します。利用者用のリフレッシュトークンは、使いません。
 6. **使う（あなたのサーバー処理）。** 許可された`POST /v2/service/tables/{collection}/query`を実行します。
 
 **期待する結果**: 許可された操作が、200で成功します。`GET /v1/me`は、人の利用者の専用なので、拒否されます。環境の認証の入口によって、401（`TOKEN_INVALID`）または403のどちらかになります。実際のHTTPとcodeを記録してください。「人として接続できた」ことを、成功の条件にしないでください。
 
-## 権限の変更
+## 世代と再開
 
-serviceの権限（表、列、操作）は、`PUT /v2/service-clients/{clientId}/permissions`で、**全置換**で更新します。省略した表、列、操作は、許可から外れます。有効なserviceは、同じJWTのままで、次の要求から、新しい設定に従います。通常の設定変更で、provisionやactivateを、やり直す必要はありません。
+初めて使うときは、provisionの後、service専用のアクセストークンで、activateします。rotate（鍵の更新）の後と、suspendからresumeの後も、新しい世代を反映するために、provisionとactivateが必要です。古い世代の資格は、使えません。revokedは、元に戻りません。
+
+## 権限の範囲（scopes）
+
+`rows`は、`{"kind":"all","values":{}}`で、すべての行です。`{"kind":"match","values":{…}}`は、指定した列の値が一致する行で、複数の列は、すべての一致（AND）が条件です。任意の条件式では、ありません。`custodian`は、createした行を保管する責任者の、有効な利用者のUUIDで、createを許可するときに、必要です。実行の主体は、監査の上でも、serviceのままです。利用者になりすますものでは、ありません。
 
 ## 権限の変更
 

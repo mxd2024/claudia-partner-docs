@@ -195,6 +195,23 @@ DBへの直接の接続、任意のSQL、署名鍵は、MCPの対象に含めま
 }
 ```
 
+## ツールの出力と状態
+
+ツールは、APIのJSONの結果を、MCPの`content[0].text`に、JSONの文字列として返します。
+
+| ツール | 出力と扱い |
+| --- | --- |
+| `imports_catalog` | 取込の形式の配列。`id`を、`dataset`に使います。`headers`、`key_columns`、`format`、`field_types`で、形式を確認します |
+| `imports_prepare` | 計画。`id`、`dataset`、`source_rows`、`created`・`updated`・`unchanged`の件数、`absent_retained`、`source_sha256`、`encoding`、`state`など。`imports_run`などの`plan_id`には、この`id`を渡します。差分を示して、反映してよいか確認します |
+| `imports_run` | 同じ`plan_id`と`source_sha256`で、最大4区間ずつ進めます。最後の区間の後は、自動で照合します |
+| `imports_status` | 計画の状態と、完了した区間の数を、取得し直します |
+| `imports_verify` | 全区間が完了した計画を、インフラの値と照合します。成功は`state=verified`です。未完了は`PLAN_INCOMPLETE`、不一致は`VERIFY_MISMATCH`です |
+| `imports_history` | 利用者の計画の配列（最新100件まで） |
+| `imports_cancel` | `prepared`の計画だけを、`cancelled`にします。実行した後は、取り消せず、`RESUME_REQUIRED`になります |
+| `imports_export` | 新しいファイルに保存して、`saved_file`と`bytes`を返します。既存のファイルは、上書きしません |
+
+状態は、通常、`prepared`、`running`、`verified`の順に進みます。実行の失敗は`failed`、実行前の取り消しは`cancelled`です。通信が切れただけで、失敗や未反映と決めず、`imports_status`で確認します。同じ計画と、同じ受領のキーを保持して、新しい計画を作って、二重に反映しないでください。
+
 ## 接続できないとき
 
 クライアントが「Connection interrupted」とだけ表示する場合、原因は、HTTPのステータス、content-type、本文で見分けます。次の原因が確認されています。どの場合も、TLS検証の無効化、認証ヘッダーの手動での付与、クライアントの識別の偽装は行いません。
@@ -207,7 +224,7 @@ DBへの直接の接続、任意のSQL、署名鍵は、MCPの対象に含めま
 ### HTTP 403、content-typeが`text/plain`、本文が`error code: 1010`
 
 - 原因: 管理サイトに届く前の入口で、要求が拒否されています。管理サイトの応答（JSONの`error`）ではありません。
-- 対処: 時刻と、本文の`error code: 1010`を添えて、[サポートと窓口](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/support.md)へ連絡します。現在の配布物は、この拒否を受けることがあります。改善した版を提供したときに、版ごとの違いを、ここへ追記します。
+- 対処: お客様の側では、回避できません。提供者側の入口の設定の修正が、必要です。時刻と、本文の`error code: 1010`を添えて、[サポートと窓口](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/support.md)へ連絡してください。修正版の提供日は、未定です。クライアントの識別を偽装したり、TLSの検証を無効にしたりして、回避しないでください。
 
 ### HTTP 401、JSONの`error`が`authentication_required`
 
@@ -218,4 +235,4 @@ JSONの`error`が返るときは、アプリまで届いています。`text/pla
 
 ### キーの保存や読み取りが失敗する
 
-実行しているユーザーと、Secret Serviceのロックを確認します。本人用のアクセストークンを、取込のキーの代わりに保存しないでください。
+実行しているユーザーと、Secret Serviceのロックを確認します。利用者用のアクセストークンを、取込のキーの代わりに保存しないでください。

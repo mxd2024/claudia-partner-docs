@@ -8,7 +8,7 @@
 <p><a href="examples/request.py">Python</a>はPython 3.10以上の標準ライブラリ、<a href="examples/request.mjs">JavaScript</a>はNode.js 22以上で動作します。どちらも選択した1要求のみを送信し、自動再試行しません。examples JSONを同じフォルダーへ保存して、置換済みの要求ファイルを指定します。</p>
 <pre><span class="code-label">sh</span><code>python request.py --base https://api.example.invalid --request my-request.json
 node request.mjs --base https://api.example.invalid --request my-request.json</code></pre>
-<p>資格は環境変数CP_ACCESS_TOKEN、またはPythonの非表示対話入力で渡します。スクリプトや要求ファイルへ埋め込みません。CP_ACCESS_TOKENは<a href="authentication.html">本人として接続する</a>で取得したaccess_tokenです。baseは、環境管理者から受け取った、基盤のHTTPS originへ置き換えます。検証CAはPythonの --ca 引数、NodeのNODE_EXTRA_CA_CERTSで設定し、TLS検証を無効化しません。</p>
+<p>資格は環境変数CP_ACCESS_TOKEN、またはPythonの非表示対話入力で渡します。スクリプトや要求ファイルへ埋め込みません。CP_ACCESS_TOKENは<a href="authentication.html">利用者として接続する</a>で取得したaccess_tokenです。baseは、環境管理者から受け取った、基盤のHTTPS originへ置き換えます。検証CAはPythonの --ca 引数、NodeのNODE_EXTRA_CA_CERTSで設定し、TLS検証を無効化しません。</p>
 <p>my-request.jsonは下の共通JSONから1件を選び、headers内のAuthorizationプレースホルダー以外の値、url、bodyを実環境向けに直したものです。書込はIdempotency-Keyと期待版を確認してから実行します。</p>
 <h2 id="example-me">本人を確認</h2><p></p><pre><span class="code-label">http</span><code>GET /v1/me HTTP/1.1
 Host: api.example.invalid

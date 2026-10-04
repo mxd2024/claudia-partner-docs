@@ -10,7 +10,7 @@
 - [このガイドのMarkdown](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/index.md)：AIやテキストのツールが参照するための形式。
 - [実行例のJSON](https://mxd2024.github.io/claudia-partner-docs/v0.7/examples/public-requests.json)：[HTTP・実行例](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/examples.md)の元のデータ。
 
-OpenAPIの接続先と認証のURLは、接続できない説明用の値です。環境に合わせた版の作り方は、[本人として接続する](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/authentication.md)の「OpenAPIのツールから使う」を参照してください。
+OpenAPIの接続先と認証のURLは、接続できない説明用の値です。環境に合わせた版の作り方は、[利用者として接続する](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/authentication.md)の「OpenAPIのツールから使う」を参照してください。
 
 ## ファイルの整合を確認する
 
