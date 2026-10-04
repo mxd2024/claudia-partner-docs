@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>認証・権限 | Claudia Partner Docs</title><meta name="description" content="Claudia PartnerのAPI・認証・権限・画像連携・MCPの共通利用ガイド。対応版と実装状況を確認できます。"><meta name="theme-color" content="#004d58"><link rel="canonical" href="https://mxd2024.github.io/claudia-partner-docs/v0.7/authentication.html"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head>
+<body><a class="skip" href="#main">本文へ移動</a><header class="topbar"><a class="brand" href="index.html"><span class="mark" aria-hidden="true">CP</span>Claudia Partner <span style="font-weight:400">Docs</span></a><span class="top-note">API・MCP 共通ドキュメント</span><span class="version">0.7.0-experimental</span><button class="menu-toggle" aria-expanded="false" aria-controls="navigation">メニュー</button></header>
+<div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント"><p class="nav-label">ガイド</p><a href="index.html">はじめに</a><a href="authentication.html" aria-current="page">認証・権限</a><a href="tables.html">表・データ更新</a><a href="media.html">画像・Dropbox連携</a><a href="mcp.html">AIエージェント・MCP</a><p class="nav-label">リファレンス</p><a href="api.html">APIリファレンス</a><a href="errors.html">エラーと再試行</a><a href="versions.html">対応状況・バージョン</a><p class="nav-label">仕様ファイル</p><a class="machine" href="openapi.json">OpenAPI JSON</a><a class="machine" href="mcp-tools.json">MCPツール定義</a><div class="nav-foot">公開ドキュメント<br>0.7.0-experimental<br>更新 2026-10-04</div></nav><main id="main"><div class="breadcrumb"><a href="index.html">ドキュメント</a><span>/</span><span>認証・権限</span></div><p class="eyebrow">DEVELOPER DOCUMENTATION</p><h1 id="section-1">認証・権限</h1>
+<p>APIは、呼出し元の本人・サービス・対象データ・現在の権限を確認します。画面やMCPでボタンを隠すことだけでは認可になりません。</p>
+<h2 id="section-2">本人ログインとservice接続</h2>
+<div class="table-wrap"><table><thead><tr><th scope="col">接続主体</th><th scope="col">使い方</th><th scope="col">確認するもの</th></tr></thead><tbody><tr><td>人</td><td>登録されたOIDCクライアントで本人ログイン</td><td>issuer、audience、本人、セッション、必要なMFA</td></tr><tr><td>service</td><td>登録・承認されたサービスの資格で利用</td><td>service ID、現在の状態、対象・CRUD・期限・鍵</td></tr><tr><td>本人を支援するAI</td><td>本人と呼出しサービスの関係を保つ接続</td><td>本人委任、実行範囲、確認条件、監査</td></tr></tbody></table></div>
+<p>AIの文章やリクエストヘッダーから、任意のactorやroleを名乗ることはできません。serviceの資格を人の資格の代わりに使うこともできません。</p>
+<h2 id="section-3">HTTPでの送信</h2>
+<p>APIの接続先は環境管理者から取得します。HTTPSの証明書を検証し、Bearer JWTをAuthorizationヘッダーで送ります。下記は書式の例で、値は実際の資格ではありません。</p>
+<pre><span class="code-label">http</span><code>GET /v1/me HTTP/1.1
+Host: api.example.com
+Authorization: Bearer &lt;管理されたクライアントが取得したJWT&gt;
+Accept: application/json</code></pre>
+<p>トークンをURL、モデルのプロンプト、ソースコード、ブラウザーの公開設定へ書きません。ブラウザー向けのBFFは資格をサーバー側で管理し、cookie・CSRF・Originの境界を守ります。</p>
+<h2 id="section-4">権限は操作のたびに確認される</h2>
+<p>管理操作の権限と、表・列・行を読む／更新する権限は別です。サービスの登録担当者に、対象業務の全データを読める権限が必要とは限りません。取得済みの一覧や過去の許可だけを根拠に、次の操作が成功するとは判断しないでください。</p>
+<p>権限外の情報は、存在を明かさない応答になる場合があります。403や404から、隠された対象の一覧を推測しないでください。</p>
+<h2 id="section-5">更新・失効・再ログイン</h2>
+<p>認証を仲介するクライアントは、資格の安全な保存、refreshの同時実行制御、更新結果の永続化、再起動後の復元を担当します。refresh token rotationを使う場合、古いトークンの再利用を避けます。</p>
+<p>logoutや管理者による失効後は、CoreとIdPの状態を確認します。認証切れを権限拡大や署名検査の無効化で回避しません。401は再認証へ、権限不足やMFA要求は返されたエラーコードに応じた操作へ案内します。</p>
+<p>有効時間、認証強度、アイドル判定は環境の設定に従います。AIの定期的な読取りを、人の業務活動と偽ってセッション延長に使わないでください。</p>
+<h2 id="section-6">AIエージェントがBFFの役割を担う場合</h2>
+<p>本人・serviceの区別、資格保管、更新・失効、現在の認可、競合制御、確認・監査を引き継ぎます。MCPのツール名やreadOnlyHintだけでは権限は付与されません。<a href="mcp.html">MCPの責務</a>も確認してください。</p><footer class="page-foot"><span>0.7.0-experimental</span><span>更新 2026-10-04</span><a href="guide/authentication.md">機械・テキスト向け</a><a href="versions.html">対応状況</a></footer></main></div></body></html>

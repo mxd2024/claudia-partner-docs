@@ -1,0 +1,2616 @@
+{
+  "version": 1,
+  "api_version": "0.7.0-experimental",
+  "route_count": 132,
+  "openapi_route_count": 123,
+  "mcp_scope": "all-public-api-services",
+  "current_mcp": "8 import-adapter tools; all-service implementation pending",
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/health/live",
+      "operation_id": "health.live",
+      "group": "health",
+      "schema_status": "schema_completion_required",
+      "openapi_pointer": null,
+      "request_headers": null,
+      "query_parameters": null,
+      "input_content_types": null,
+      "response_content_types": null
+    },
+    {
+      "method": "GET",
+      "path": "/health/ready",
+      "operation_id": "health.ready",
+      "group": "health",
+      "schema_status": "schema_completion_required",
+      "openapi_pointer": null,
+      "request_headers": null,
+      "query_parameters": null,
+      "input_content_types": null,
+      "response_content_types": null
+    },
+    {
+      "method": "GET",
+      "path": "/v1/ai/sessions/{id}",
+      "operation_id": "ai_session.get",
+      "group": "business",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1ai~1sessions~1{id}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}",
+      "operation_id": "asset.list",
+      "group": "assets",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "limit",
+          "required": false
+        },
+        {
+          "name": "offset",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}",
+      "operation_id": "asset.get",
+      "group": "assets",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1{assetId}/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "version",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}/check",
+      "operation_id": "asset.check",
+      "group": "assets",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1{assetId}~1check/post",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "version",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}/content",
+      "operation_id": "asset.content",
+      "group": "assets",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1{assetId}~1content/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "version",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/octet-stream",
+        "application/problem+json",
+        "application/json"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}/content",
+      "operation_id": "asset.upload",
+      "group": "assets",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1{assetId}~1content/put",
+      "request_headers": [
+        {
+          "name": "If-Match",
+          "required": true
+        },
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        },
+        {
+          "name": "X-Asset-Reason",
+          "required": false
+        },
+        {
+          "name": "X-Asset-Media-Type",
+          "required": false
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/octet-stream"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}/reference",
+      "operation_id": "asset.reference",
+      "group": "assets",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1{assetId}~1reference/post",
+      "request_headers": [
+        {
+          "name": "If-Match",
+          "required": true
+        },
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        },
+        {
+          "name": "X-Asset-Reason",
+          "required": false
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}/thumbnail",
+      "operation_id": "asset.thumbnail",
+      "group": "assets",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1{assetId}~1thumbnail/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "version",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "image/png",
+        "application/problem+json",
+        "application/json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/policy",
+      "operation_id": "asset.policy",
+      "group": "assets",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1policy/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "version",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/assets/workspaces/{collection}/{rowId}/{field}",
+      "operation_id": "media.1.list",
+      "group": "media",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1workspaces~1{collection}~1{rowId}~1{field}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/assets/workspaces/{collection}/{rowId}/{field}/{assetId}",
+      "operation_id": "media.1.delete",
+      "group": "media",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1workspaces~1{collection}~1{rowId}~1{field}~1{assetId}/delete",
+      "request_headers": [
+        {
+          "name": "If-Match",
+          "required": true
+        },
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        },
+        {
+          "name": "X-Parent-Version",
+          "required": true
+        },
+        {
+          "name": "X-Schema-Version",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/assets/workspaces/{collection}/{rowId}/{field}/{assetId}",
+      "operation_id": "media.1.get",
+      "group": "media",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1workspaces~1{collection}~1{rowId}~1{field}~1{assetId}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/assets/workspaces/{collection}/{rowId}/{field}/{assetId}/content",
+      "operation_id": "media.1.content",
+      "group": "media",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1workspaces~1{collection}~1{rowId}~1{field}~1{assetId}~1content/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/octet-stream",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/assets/workspaces/{collection}/{rowId}/{field}/{assetId}/content",
+      "operation_id": "media.1.put",
+      "group": "media",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1workspaces~1{collection}~1{rowId}~1{field}~1{assetId}~1content/put",
+      "request_headers": [
+        {
+          "name": "If-Match",
+          "required": true
+        },
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        },
+        {
+          "name": "X-Parent-Version",
+          "required": true
+        },
+        {
+          "name": "X-Schema-Version",
+          "required": true
+        },
+        {
+          "name": "X-Asset-Media-Type",
+          "required": true
+        },
+        {
+          "name": "X-Asset-Name",
+          "required": false
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/octet-stream"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/assets/workspaces/{collection}/{rowId}/{field}/{assetId}/reference",
+      "operation_id": "media.1.reference",
+      "group": "media",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1workspaces~1{collection}~1{rowId}~1{field}~1{assetId}~1reference/post",
+      "request_headers": [
+        {
+          "name": "If-Match",
+          "required": true
+        },
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        },
+        {
+          "name": "X-Parent-Version",
+          "required": true
+        },
+        {
+          "name": "X-Schema-Version",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/assets/workspaces/{collection}/{rowId}/{field}/{assetId}/thumbnail",
+      "operation_id": "media.1.thumbnail",
+      "group": "media",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1workspaces~1{collection}~1{rowId}~1{field}~1{assetId}~1thumbnail/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "image/png",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/assets/workspaces/{collection}/{rowId}/{field}/policy",
+      "operation_id": "media.1.policy",
+      "group": "media",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1workspaces~1{collection}~1{rowId}~1{field}~1policy/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/contacts/{id}/erasure",
+      "operation_id": "contact.erasure_status",
+      "group": "business",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1contacts~1{id}~1erasure/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/invoices/{id}",
+      "operation_id": "invoice.get",
+      "group": "business",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1invoices~1{id}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs",
+      "operation_id": "job.list",
+      "group": "business",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1jobs/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "id",
+          "required": false
+        },
+        {
+          "name": "job_number",
+          "required": false
+        },
+        {
+          "name": "customer_id",
+          "required": false
+        },
+        {
+          "name": "department_id",
+          "required": false
+        },
+        {
+          "name": "entry_route",
+          "required": false
+        },
+        {
+          "name": "status_code",
+          "required": false
+        },
+        {
+          "name": "limit",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/jobs",
+      "operation_id": "job.create",
+      "group": "business",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1jobs/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/jobs/{id}",
+      "operation_id": "job.delete",
+      "group": "business",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1jobs~1{id}/delete",
+      "request_headers": [
+        {
+          "name": "If-Match",
+          "required": true
+        },
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/{id}",
+      "operation_id": "job.get",
+      "group": "business",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1jobs~1{id}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/jobs/{id}",
+      "operation_id": "job.update",
+      "group": "business",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1jobs~1{id}/patch",
+      "request_headers": [
+        {
+          "name": "If-Match",
+          "required": true
+        },
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/merge-patch+json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/count",
+      "operation_id": "job.count",
+      "group": "business",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1jobs~1count/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "id",
+          "required": false
+        },
+        {
+          "name": "job_number",
+          "required": false
+        },
+        {
+          "name": "customer_id",
+          "required": false
+        },
+        {
+          "name": "department_id",
+          "required": false
+        },
+        {
+          "name": "entry_route",
+          "required": false
+        },
+        {
+          "name": "status_code",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/export",
+      "operation_id": "job.export",
+      "group": "business",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1jobs~1export/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "id",
+          "required": false
+        },
+        {
+          "name": "job_number",
+          "required": false
+        },
+        {
+          "name": "customer_id",
+          "required": false
+        },
+        {
+          "name": "department_id",
+          "required": false
+        },
+        {
+          "name": "entry_route",
+          "required": false
+        },
+        {
+          "name": "status_code",
+          "required": false
+        },
+        {
+          "name": "limit",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/me",
+      "operation_id": "identity.me",
+      "group": "business",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1me/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/proposals/{id}",
+      "operation_id": "proposal.get",
+      "group": "business",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1proposals~1{id}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tables",
+      "operation_id": "table.list",
+      "group": "tables",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1tables/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tables/{collection}",
+      "operation_id": "table.definition",
+      "group": "tables",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1tables~1{collection}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/tables/{collection}",
+      "operation_id": "table.define",
+      "group": "tables",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1tables~1{collection}/put",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        },
+        {
+          "name": "If-Match",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/tables/{collection}/batch",
+      "operation_id": "table.batch",
+      "group": "tables",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1tables~1{collection}~1batch/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tables/{collection}/changes",
+      "operation_id": "table.changes",
+      "group": "tables",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1tables~1{collection}~1changes/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/tables/{collection}/export",
+      "operation_id": "table.export",
+      "group": "tables",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1tables~1{collection}~1export/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/tables/{collection}/import",
+      "operation_id": "table.import",
+      "group": "tables",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1tables~1{collection}~1import/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": false
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/tables/{collection}/query",
+      "operation_id": "table.query",
+      "group": "tables",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1tables~1{collection}~1query/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tables/{collection}/rows/{rowId}",
+      "operation_id": "table.row",
+      "group": "tables",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1tables~1{collection}~1rows~1{rowId}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/tables/{collection}/views",
+      "operation_id": "table.views",
+      "group": "tables",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1tables~1{collection}~1views/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/tables/{collection}/views",
+      "operation_id": "table.view",
+      "group": "tables",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1tables~1{collection}~1views/put",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/access/deletions/{subjectId}/{collection}",
+      "operation_id": "workspaceAccess.deleteGet",
+      "group": "workspace-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1access~1deletions~1{subjectId}~1{collection}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v2/access/deletions/{subjectId}/{collection}",
+      "operation_id": "workspaceAccess.deletePut",
+      "group": "workspace-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1access~1deletions~1{subjectId}~1{collection}/put",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/access/grants/{subjectId}/{collection}",
+      "operation_id": "service.grantGet",
+      "group": "service-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1access~1grants~1{subjectId}~1{collection}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v2/access/grants/{subjectId}/{collection}",
+      "operation_id": "service.grantPut",
+      "group": "service-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1access~1grants~1{subjectId}~1{collection}/put",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/access/people/{collection}",
+      "operation_id": "workspaceAccess.rootGet",
+      "group": "workspace-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1access~1people~1{collection}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v2/access/people/{collection}",
+      "operation_id": "workspaceAccess.rootPut",
+      "group": "workspace-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1access~1people~1{collection}/put",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/access/people/{collection}/bindings/{subjectId}",
+      "operation_id": "workspaceAccess.bindingGet",
+      "group": "workspace-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1access~1people~1{collection}~1bindings~1{subjectId}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v2/access/people/{collection}/bindings/{subjectId}",
+      "operation_id": "workspaceAccess.bindingPut",
+      "group": "workspace-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1access~1people~1{collection}~1bindings~1{subjectId}/put",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/access/people/{collection}/rows/{personId}/members",
+      "operation_id": "workspaceAccess.membersGet",
+      "group": "workspace-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1access~1people~1{collection}~1rows~1{personId}~1members/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "limit",
+          "required": false
+        },
+        {
+          "name": "after",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v2/access/people/{collection}/rows/{personId}/members",
+      "operation_id": "workspaceAccess.membersPut",
+      "group": "workspace-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1access~1people~1{collection}~1rows~1{personId}~1members/put",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/access/subjects",
+      "operation_id": "service.subjects",
+      "group": "service-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1access~1subjects/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "limit",
+          "required": false
+        },
+        {
+          "name": "after",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/access/tables",
+      "operation_id": "service.tables",
+      "group": "service-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1access~1tables/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "limit",
+          "required": false
+        },
+        {
+          "name": "after",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/access/tables/{collection}",
+      "operation_id": "service.definition",
+      "group": "service-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1access~1tables~1{collection}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/app-adoptions/apply",
+      "operation_id": "app-packages.adoptionApply",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1app-adoptions~1apply/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/app-adoptions/plan",
+      "operation_id": "app-packages.adoptionPlan",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1app-adoptions~1plan/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/app-packages/{appId}",
+      "operation_id": "app-packages.get",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1app-packages~1{appId}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/app-packages/apply",
+      "operation_id": "app-packages.apply",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1app-packages~1apply/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/app-packages/plan",
+      "operation_id": "app-packages.plan",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1app-packages~1plan/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/app-policy",
+      "operation_id": "apps.policy",
+      "group": "apps",
+      "schema_status": "schema_completion_required",
+      "openapi_pointer": null,
+      "request_headers": null,
+      "query_parameters": null,
+      "input_content_types": null,
+      "response_content_types": null
+    },
+    {
+      "method": "GET",
+      "path": "/v2/apps",
+      "operation_id": "apps.list",
+      "group": "apps",
+      "schema_status": "schema_completion_required",
+      "openapi_pointer": null,
+      "request_headers": null,
+      "query_parameters": null,
+      "input_content_types": null,
+      "response_content_types": null
+    },
+    {
+      "method": "GET",
+      "path": "/v2/apps/{appId}",
+      "operation_id": "apps.get",
+      "group": "apps",
+      "schema_status": "schema_completion_required",
+      "openapi_pointer": null,
+      "request_headers": null,
+      "query_parameters": null,
+      "input_content_types": null,
+      "response_content_types": null
+    },
+    {
+      "method": "POST",
+      "path": "/v2/apps/{appId}/requirements/apply",
+      "operation_id": "app-packages.requirementsApply",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1apps~1{appId}~1requirements~1apply/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/apps/{appId}/requirements/plan",
+      "operation_id": "app-packages.requirementsPlan",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1apps~1{appId}~1requirements~1plan/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/apps/{appId}/state",
+      "operation_id": "apps.transition",
+      "group": "apps",
+      "schema_status": "schema_completion_required",
+      "openapi_pointer": null,
+      "request_headers": null,
+      "query_parameters": null,
+      "input_content_types": null,
+      "response_content_types": null
+    },
+    {
+      "method": "POST",
+      "path": "/v2/apps/apply",
+      "operation_id": "apps.apply",
+      "group": "apps",
+      "schema_status": "schema_completion_required",
+      "openapi_pointer": null,
+      "request_headers": null,
+      "query_parameters": null,
+      "input_content_types": null,
+      "response_content_types": null
+    },
+    {
+      "method": "POST",
+      "path": "/v2/apps/plan",
+      "operation_id": "apps.plan",
+      "group": "apps",
+      "schema_status": "schema_completion_required",
+      "openapi_pointer": null,
+      "request_headers": null,
+      "query_parameters": null,
+      "input_content_types": null,
+      "response_content_types": null
+    },
+    {
+      "method": "POST",
+      "path": "/v2/cases",
+      "operation_id": "workspace.caseCreate",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1cases/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/cases/{rowId}",
+      "operation_id": "workspace.caseGet",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1cases~1{rowId}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/cases/{rowId}/cancel",
+      "operation_id": "workspace.caseCancel",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1cases~1{rowId}~1cancel/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/cases/import",
+      "operation_id": "workspace.caseImport",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1cases~1import/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/cases/query",
+      "operation_id": "workspace.caseQuery",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1cases~1query/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/data-migrations",
+      "operation_id": "app-packages.migrationList",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1data-migrations/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "limit",
+          "required": false
+        },
+        {
+          "name": "after",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/data-migrations/{migrationId}",
+      "operation_id": "app-packages.migrationGet",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1data-migrations~1{migrationId}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/data-migrations/{migrationId}/cancel",
+      "operation_id": "app-packages.migrationCancel",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1data-migrations~1{migrationId}~1cancel/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/data-migrations/{migrationId}/commit",
+      "operation_id": "app-packages.migrationCommit",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1data-migrations~1{migrationId}~1commit/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/data-migrations/{migrationId}/next",
+      "operation_id": "app-packages.migrationNext",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1data-migrations~1{migrationId}~1next/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/data-migrations/{migrationId}/preview",
+      "operation_id": "app-packages.migrationPreview",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1data-migrations~1{migrationId}~1preview/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/data-migrations/begin",
+      "operation_id": "app-packages.migrationBegin",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1data-migrations~1begin/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/data-migrations/plan",
+      "operation_id": "app-packages.migrationPlan",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1data-migrations~1plan/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/import-profiles",
+      "operation_id": "app-packages.profiles",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1import-profiles/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "limit",
+          "required": false
+        },
+        {
+          "name": "after",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/media/{collection}/{rowId}/{field}",
+      "operation_id": "media.0.list",
+      "group": "media",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1media~1{collection}~1{rowId}~1{field}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v2/media/{collection}/{rowId}/{field}/{assetId}",
+      "operation_id": "media.0.delete",
+      "group": "media",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1media~1{collection}~1{rowId}~1{field}~1{assetId}/delete",
+      "request_headers": [
+        {
+          "name": "If-Match",
+          "required": true
+        },
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        },
+        {
+          "name": "X-Parent-Version",
+          "required": true
+        },
+        {
+          "name": "X-Schema-Version",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/media/{collection}/{rowId}/{field}/{assetId}",
+      "operation_id": "media.0.get",
+      "group": "media",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1media~1{collection}~1{rowId}~1{field}~1{assetId}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/media/{collection}/{rowId}/{field}/{assetId}/content",
+      "operation_id": "media.0.content",
+      "group": "media",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1media~1{collection}~1{rowId}~1{field}~1{assetId}~1content/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/octet-stream",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v2/media/{collection}/{rowId}/{field}/{assetId}/content",
+      "operation_id": "media.0.put",
+      "group": "media",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1media~1{collection}~1{rowId}~1{field}~1{assetId}~1content/put",
+      "request_headers": [
+        {
+          "name": "If-Match",
+          "required": true
+        },
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        },
+        {
+          "name": "X-Parent-Version",
+          "required": true
+        },
+        {
+          "name": "X-Schema-Version",
+          "required": true
+        },
+        {
+          "name": "X-Asset-Media-Type",
+          "required": true
+        },
+        {
+          "name": "X-Asset-Name",
+          "required": false
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/octet-stream"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/media/{collection}/{rowId}/{field}/{assetId}/reference",
+      "operation_id": "media.0.reference",
+      "group": "media",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1media~1{collection}~1{rowId}~1{field}~1{assetId}~1reference/post",
+      "request_headers": [
+        {
+          "name": "If-Match",
+          "required": true
+        },
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        },
+        {
+          "name": "X-Parent-Version",
+          "required": true
+        },
+        {
+          "name": "X-Schema-Version",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/media/{collection}/{rowId}/{field}/{assetId}/thumbnail",
+      "operation_id": "media.0.thumbnail",
+      "group": "media",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1media~1{collection}~1{rowId}~1{field}~1{assetId}~1thumbnail/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "image/png",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/media/{collection}/{rowId}/{field}/policy",
+      "operation_id": "media.0.policy",
+      "group": "media",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1media~1{collection}~1{rowId}~1{field}~1policy/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v2/number-series/{series}/{period}",
+      "operation_id": "workspace.series",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1number-series~1{series}~1{period}/put",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        },
+        {
+          "name": "If-Match",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/organization/activity",
+      "operation_id": "organization.activity",
+      "group": "organization",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1organization~1activity/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/organization/overview",
+      "operation_id": "organization.overview",
+      "group": "organization",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1organization~1overview/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/organization/settings",
+      "operation_id": "organization.settings",
+      "group": "organization",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1organization~1settings/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/organization/settings/apply",
+      "operation_id": "organization.settingsApply",
+      "group": "organization",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1organization~1settings~1apply/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/organization/settings/plan",
+      "operation_id": "organization.settingsPlan",
+      "group": "organization",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1organization~1settings~1plan/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/people/{collection}/me",
+      "operation_id": "workspaceAccess.me",
+      "group": "workspace-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1people~1{collection}~1me/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/row-trash-policy",
+      "operation_id": "workspace.trashPolicy",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1row-trash-policy/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/service-clients",
+      "operation_id": "service.list",
+      "group": "service-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1service-clients/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "limit",
+          "required": false
+        },
+        {
+          "name": "after",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/service-clients",
+      "operation_id": "service.create",
+      "group": "service-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1service-clients/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/v2/service-clients/{clientId}",
+      "operation_id": "service.delete",
+      "group": "service-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1service-clients~1{clientId}/delete",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/service-clients/{clientId}",
+      "operation_id": "service.get",
+      "group": "service-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1service-clients~1{clientId}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/service-clients/{clientId}/{action}",
+      "operation_id": "service.change",
+      "group": "service-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1service-clients~1{clientId}~1{action}/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v2/service-clients/{clientId}/permissions",
+      "operation_id": "service.permissions",
+      "group": "service-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1service-clients~1{clientId}~1permissions/put",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/service/activate",
+      "operation_id": "service.activate",
+      "group": "service-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1service~1activate/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/service/tables/{collection}/batch",
+      "operation_id": "service.batch",
+      "group": "service-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1service~1tables~1{collection}~1batch/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/service/tables/{collection}/query",
+      "operation_id": "service.query",
+      "group": "service-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1service~1tables~1{collection}~1query/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/session/logout",
+      "operation_id": "identity.logoutSelf",
+      "group": "identity",
+      "schema_status": "schema_completion_required",
+      "openapi_pointer": null,
+      "request_headers": null,
+      "query_parameters": null,
+      "input_content_types": null,
+      "response_content_types": null
+    },
+    {
+      "method": "GET",
+      "path": "/v2/table-trash",
+      "operation_id": "workspace.tableTrash",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1table-trash/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "limit",
+          "required": false
+        },
+        {
+          "name": "after",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/table-trash-policy",
+      "operation_id": "workspace.tableTrashPolicy",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1table-trash-policy/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/tables",
+      "operation_id": "workspace.catalog",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "limit",
+          "required": false
+        },
+        {
+          "name": "after",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/tables/{collection}",
+      "operation_id": "workspace.definition",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v2/tables/{collection}",
+      "operation_id": "workspace.define",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}/put",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        },
+        {
+          "name": "If-Match",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/tables/{collection}/access",
+      "operation_id": "workspace.socket.policy.get",
+      "group": "workspace-sockets",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}~1access/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v2/tables/{collection}/access",
+      "operation_id": "workspace.socket.policy.put",
+      "group": "workspace-sockets",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}~1access/put",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        },
+        {
+          "name": "If-Match",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/tables/{collection}/aggregate",
+      "operation_id": "workspace.aggregate",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}~1aggregate/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/tables/{collection}/batch",
+      "operation_id": "workspace.batch",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}~1batch/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/tables/{collection}/changes",
+      "operation_id": "workspace.changes",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}~1changes/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/tables/{collection}/events",
+      "operation_id": "workspace.socket.events",
+      "group": "workspace-sockets",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}~1events/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/tables/{collection}/export",
+      "operation_id": "workspace.export",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}~1export/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/tables/{collection}/export-records",
+      "operation_id": "workspace.exportRecords",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}~1export-records/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/tables/{collection}/import",
+      "operation_id": "workspace.import",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}~1import/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/tables/{collection}/import-profile",
+      "operation_id": "app-packages.import",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}~1import-profile/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/tables/{collection}/lifecycle",
+      "operation_id": "workspace.tableLifecycle",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}~1lifecycle/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/tables/{collection}/lifecycle",
+      "operation_id": "workspace.tableTransition",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}~1lifecycle/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/tables/{collection}/members/{scopeId}",
+      "operation_id": "workspace.socket.members",
+      "group": "workspace-sockets",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}~1members~1{scopeId}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/v2/tables/{collection}/members/{scopeId}/{actorId}",
+      "operation_id": "workspace.socket.member.put",
+      "group": "workspace-sockets",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}~1members~1{scopeId}~1{actorId}/put",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        },
+        {
+          "name": "If-Match",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/tables/{collection}/query",
+      "operation_id": "workspace.query",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}~1query/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/tables/{collection}/rows/{rowId}",
+      "operation_id": "workspace.row",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}~1rows~1{rowId}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/tables/{collection}/subjects/query",
+      "operation_id": "workspaceAccess.subjects",
+      "group": "workspace-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}~1subjects~1query/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v2/tables/{collection}/trash",
+      "operation_id": "workspace.rowTrash",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}~1trash/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "limit",
+          "required": false
+        },
+        {
+          "name": "after",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/tables/{collection}/trash/{trashId}/restore",
+      "operation_id": "workspace.rowRestore",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1tables~1{collection}~1trash~1{trashId}~1restore/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v2/transactions",
+      "operation_id": "workspace.socket.transaction",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1transactions/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
+    }
+  ]
+}

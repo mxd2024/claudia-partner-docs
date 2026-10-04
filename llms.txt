@@ -1,0 +1,12 @@
+# Claudia Partner Docs
+
+Public documentation for API 0.7.0-experimental. All API services are in MCP scope; only the 8-tool import adapter is currently implemented. Environment enablement and authorization remain required.
+
+- [はじめに](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/index.md)
+- [認証・権限](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/authentication.md)
+- [表・データ更新](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/tables.md)
+- [画像・Dropbox連携](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/media.md)
+- [AIエージェント・MCP](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/mcp.md)
+- [APIリファレンス](https://mxd2024.github.io/claudia-partner-docs/v0.7/openapi.json)
+- [エラーと再試行](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/errors.md)
+- [対応状況・バージョン](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/versions.md)

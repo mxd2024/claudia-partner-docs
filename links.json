@@ -1,0 +1,19 @@
+{
+  "format": 1,
+  "default_version": "v0.7",
+  "versions": {
+    "v0.7": {
+      "api_version": "0.7.0-experimental",
+      "links": {
+        "index": "https://mxd2024.github.io/claudia-partner-docs/v0.7/index.html",
+        "authentication": "https://mxd2024.github.io/claudia-partner-docs/v0.7/authentication.html",
+        "tables": "https://mxd2024.github.io/claudia-partner-docs/v0.7/tables.html",
+        "media": "https://mxd2024.github.io/claudia-partner-docs/v0.7/media.html",
+        "mcp": "https://mxd2024.github.io/claudia-partner-docs/v0.7/mcp.html",
+        "api": "https://mxd2024.github.io/claudia-partner-docs/v0.7/api.html",
+        "errors": "https://mxd2024.github.io/claudia-partner-docs/v0.7/errors.html",
+        "versions": "https://mxd2024.github.io/claudia-partner-docs/v0.7/versions.html"
+      }
+    }
+  }
+}

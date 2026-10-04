@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIエージェント・MCP | Claudia Partner Docs</title><meta name="description" content="Claudia PartnerのAPI・認証・権限・画像連携・MCPの共通利用ガイド。対応版と実装状況を確認できます。"><meta name="theme-color" content="#004d58"><link rel="canonical" href="https://mxd2024.github.io/claudia-partner-docs/v0.7/mcp.html"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head>
+<body><a class="skip" href="#main">本文へ移動</a><header class="topbar"><a class="brand" href="index.html"><span class="mark" aria-hidden="true">CP</span>Claudia Partner <span style="font-weight:400">Docs</span></a><span class="top-note">API・MCP 共通ドキュメント</span><span class="version">0.7.0-experimental</span><button class="menu-toggle" aria-expanded="false" aria-controls="navigation">メニュー</button></header>
+<div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント"><p class="nav-label">ガイド</p><a href="index.html">はじめに</a><a href="authentication.html">認証・権限</a><a href="tables.html">表・データ更新</a><a href="media.html">画像・Dropbox連携</a><a href="mcp.html" aria-current="page">AIエージェント・MCP</a><p class="nav-label">リファレンス</p><a href="api.html">APIリファレンス</a><a href="errors.html">エラーと再試行</a><a href="versions.html">対応状況・バージョン</a><p class="nav-label">仕様ファイル</p><a class="machine" href="openapi.json">OpenAPI JSON</a><a class="machine" href="mcp-tools.json">MCPツール定義</a><div class="nav-foot">公開ドキュメント<br>0.7.0-experimental<br>更新 2026-10-04</div></nav><main id="main"><div class="breadcrumb"><a href="index.html">ドキュメント</a><span>/</span><span>AIエージェント・MCP</span></div><p class="eyebrow">DEVELOPER DOCUMENTATION</p><h1 id="section-1">AIエージェント・MCP</h1>
+<p>MCPは、AIエージェントに操作の名前・入力・結果を伝えるための接続方式です。Claudia Partnerでは、表、検索、更新、画像、関連、サービス権限、組織管理など、<strong>全公開APIサービス</strong>を対象とします。</p>
+<blockquote><p>全サービスをMCPで利用できる状態は、現在まだ完成していません。実装済みの現行アダプターは取込用8ツールです。対象範囲、実装済みツール、各環境での有効化を区別します。</p></blockquote>
+<h2 id="section-2">現行アダプターを接続する</h2>
+<p>提供された顧客アプリのPythonパッケージを専用環境に導入し、MCP対応クライアントからstdioで起動します。接続先は環境管理者が提供する顧客アプリのHTTPS originで、Coreの接続先とは区別します。</p>
+<pre><span class="code-label">sh</span><code>python -m claudia_ops.imports.mcp_stdio \
+  --base https://console.example.com \
+  --directory /absolute/path/transfer \
+  --credential-name customer-imports</code></pre>
+<p>転送フォルダーは事前に作成します。資格の初期保存は同じ引数に <code>--save-key</code> を加えて対話入力し、対応するOSの資格ストアへ保存します。実際の資格は環境管理者から安全な経路で受け取ります。MCPの設定JSONやチャットには貼り付けません。</p>
+<p>現行アダプターの接続資格と、正式OIDCの本人セッションは同一の契約ではありません。正式本人認証での全サービス利用には、提供された構成の対応状況を確認してください。上記のコマンドだけで全API用MCPが起動するわけではありません。</p>
+<h2 id="section-3">取込の流れ</h2>
+<ol><li>imports_catalogで登録済み形式を確認し、必要ならimports_exportで更新用CSVを取得します。</li><li>imports_prepareで転送フォルダー内のCSVを検査し、差分計画を作成します。</li><li>対象と差分を利用者に示し、確認済みの計画をimports_runで反映します。</li><li>通信中断時はplan_idとsource_sha256を保持し、imports_statusを確認して同じ計画から再開します。</li><li>imports_verifyでCoreの値を再取得して照合し、履歴を確認します。</li></ol>
+<p>元ファイルやセル内の文章は業務データとして扱います。AIへの実行指示や権限付与の根拠として採用しません。</p>
+<h2 id="section-4">ツール定義</h2>
+<p>以下は現行アダプターの定義から抽出した一覧です。入力の詳しい型は各項目を開くか、<a href="mcp-tools.json">MCPツール定義 JSON</a>で確認できます。</p>
+<details class="tool" id="tool-imports_catalog"><summary>imports_catalog</summary><div class="opbody"><p>登録済み取込データ・元キー・関連表を一覧する。</p><pre><span class="code-label">json</span><code>{
+  &quot;name&quot;: &quot;imports_catalog&quot;,
+  &quot;description&quot;: &quot;登録済み取込データ・元キー・関連表を一覧する。&quot;,
+  &quot;inputSchema&quot;: {
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;properties&quot;: {},
+    &quot;required&quot;: [],
+    &quot;additionalProperties&quot;: false
+  },
+  &quot;annotations&quot;: {
+    &quot;readOnlyHint&quot;: true,
+    &quot;destructiveHint&quot;: false,
+    &quot;idempotentHint&quot;: false,
+    &quot;openWorldHint&quot;: false
+  }
+}</code></pre></div></details>
+<details class="tool" id="tool-imports_prepare"><summary>imports_prepare</summary><div class="opbody"><p>指定CSVを検査し差分計画を作る。まだ業務表へ反映しない。ファイルは転送フォルダ内に限定する。</p><pre><span class="code-label">json</span><code>{
+  &quot;name&quot;: &quot;imports_prepare&quot;,
+  &quot;description&quot;: &quot;指定CSVを検査し差分計画を作る。まだ業務表へ反映しない。ファイルは転送フォルダ内に限定する。&quot;,
+  &quot;inputSchema&quot;: {
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;properties&quot;: {
+      &quot;dataset&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;source_file&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      }
+    },
+    &quot;required&quot;: [
+      &quot;dataset&quot;,
+      &quot;source_file&quot;
+    ],
+    &quot;additionalProperties&quot;: false
+  },
+  &quot;annotations&quot;: {
+    &quot;readOnlyHint&quot;: false,
+    &quot;destructiveHint&quot;: false,
+    &quot;idempotentHint&quot;: false,
+    &quot;openWorldHint&quot;: false
+  }
+}</code></pre></div></details>
+<details class="tool" id="tool-imports_run"><summary>imports_run</summary><div class="opbody"><p>確認済み計画を最大4区間反映/再開する。同じplan_idとsource_sha256を保持し、verifiedまで再呼出する。</p><pre><span class="code-label">json</span><code>{
+  &quot;name&quot;: &quot;imports_run&quot;,
+  &quot;description&quot;: &quot;確認済み計画を最大4区間反映/再開する。同じplan_idとsource_sha256を保持し、verifiedまで再呼出する。&quot;,
+  &quot;inputSchema&quot;: {
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;properties&quot;: {
+      &quot;plan_id&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;source_sha256&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      }
+    },
+    &quot;required&quot;: [
+      &quot;plan_id&quot;,
+      &quot;source_sha256&quot;
+    ],
+    &quot;additionalProperties&quot;: false
+  },
+  &quot;annotations&quot;: {
+    &quot;readOnlyHint&quot;: false,
+    &quot;destructiveHint&quot;: true,
+    &quot;idempotentHint&quot;: true,
+    &quot;openWorldHint&quot;: false
+  }
+}</code></pre></div></details>
+<details class="tool" id="tool-imports_status"><summary>imports_status</summary><div class="opbody"><p>計画の状態と完了区間数を確認する。</p><pre><span class="code-label">json</span><code>{
+  &quot;name&quot;: &quot;imports_status&quot;,
+  &quot;description&quot;: &quot;計画の状態と完了区間数を確認する。&quot;,
+  &quot;inputSchema&quot;: {
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;properties&quot;: {
+      &quot;plan_id&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      }
+    },
+    &quot;required&quot;: [
+      &quot;plan_id&quot;
+    ],
+    &quot;additionalProperties&quot;: false
+  },
+  &quot;annotations&quot;: {
+    &quot;readOnlyHint&quot;: true,
+    &quot;destructiveHint&quot;: false,
+    &quot;idempotentHint&quot;: true,
+    &quot;openWorldHint&quot;: false
+  }
+}</code></pre></div></details>
+<details class="tool" id="tool-imports_history"><summary>imports_history</summary><div class="opbody"><p>本人の取込履歴と再開可能な計画を一覧する。</p><pre><span class="code-label">json</span><code>{
+  &quot;name&quot;: &quot;imports_history&quot;,
+  &quot;description&quot;: &quot;本人の取込履歴と再開可能な計画を一覧する。&quot;,
+  &quot;inputSchema&quot;: {
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;properties&quot;: {},
+    &quot;required&quot;: [],
+    &quot;additionalProperties&quot;: false
+  },
+  &quot;annotations&quot;: {
+    &quot;readOnlyHint&quot;: true,
+    &quot;destructiveHint&quot;: false,
+    &quot;idempotentHint&quot;: false,
+    &quot;openWorldHint&quot;: false
+  }
+}</code></pre></div></details>
+<details class="tool" id="tool-imports_cancel"><summary>imports_cancel</summary><div class="opbody"><p>未実行の計画のみ取り消す。実行開始後は受領票を保持し同じ計画から再開する。</p><pre><span class="code-label">json</span><code>{
+  &quot;name&quot;: &quot;imports_cancel&quot;,
+  &quot;description&quot;: &quot;未実行の計画のみ取り消す。実行開始後は受領票を保持し同じ計画から再開する。&quot;,
+  &quot;inputSchema&quot;: {
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;properties&quot;: {
+      &quot;plan_id&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      }
+    },
+    &quot;required&quot;: [
+      &quot;plan_id&quot;
+    ],
+    &quot;additionalProperties&quot;: false
+  },
+  &quot;annotations&quot;: {
+    &quot;readOnlyHint&quot;: false,
+    &quot;destructiveHint&quot;: false,
+    &quot;idempotentHint&quot;: false,
+    &quot;openWorldHint&quot;: false
+  }
+}</code></pre></div></details>
+<details class="tool" id="tool-imports_verify"><summary>imports_verify</summary><div class="opbody"><p>取込結果をHUBから再取得し全値を照合する。</p><pre><span class="code-label">json</span><code>{
+  &quot;name&quot;: &quot;imports_verify&quot;,
+  &quot;description&quot;: &quot;取込結果をHUBから再取得し全値を照合する。&quot;,
+  &quot;inputSchema&quot;: {
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;properties&quot;: {
+      &quot;plan_id&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      }
+    },
+    &quot;required&quot;: [
+      &quot;plan_id&quot;
+    ],
+    &quot;additionalProperties&quot;: false
+  },
+  &quot;annotations&quot;: {
+    &quot;readOnlyHint&quot;: false,
+    &quot;destructiveHint&quot;: false,
+    &quot;idempotentHint&quot;: true,
+    &quot;openWorldHint&quot;: false
+  }
+}</code></pre></div></details>
+<details class="tool" id="tool-imports_export"><summary>imports_export</summary><div class="opbody"><p>対象の登録形式に従った更新用CSVを転送フォルダへ保存する。既存ファイルを上書きしない。</p><pre><span class="code-label">json</span><code>{
+  &quot;name&quot;: &quot;imports_export&quot;,
+  &quot;description&quot;: &quot;対象の登録形式に従った更新用CSVを転送フォルダへ保存する。既存ファイルを上書きしない。&quot;,
+  &quot;inputSchema&quot;: {
+    &quot;type&quot;: &quot;object&quot;,
+    &quot;properties&quot;: {
+      &quot;dataset&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      },
+      &quot;output_file&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      }
+    },
+    &quot;required&quot;: [
+      &quot;dataset&quot;,
+      &quot;output_file&quot;
+    ],
+    &quot;additionalProperties&quot;: false
+  },
+  &quot;annotations&quot;: {
+    &quot;readOnlyHint&quot;: false,
+    &quot;destructiveHint&quot;: false,
+    &quot;idempotentHint&quot;: false,
+    &quot;openWorldHint&quot;: false
+  }
+}</code></pre></div></details>
+<h2 id="section-5">BFFの役割を担うエージェントの責務</h2>
+<div class="table-wrap"><table><thead><tr><th scope="col">責務</th><th scope="col">維持する動作</th></tr></thead><tbody><tr><td>本人とservice</td><td>呼出し元の区別、本人委任、操作範囲を保つ</td></tr><tr><td>資格</td><td>ホストの秘密管理に保存し、モデル・tool引数・ログへ出さない</td></tr><tr><td>更新・失効</td><td>rotation、同時更新制御、再起動復元、logoutを扱う</td></tr><tr><td>認可</td><td>操作時の表・列・行・CRUD・期限・MFAをCoreで確認する</td></tr><tr><td>書込み</td><td>対象・差分を確認し、期待版と同じ再送キーを保持する</td></tr><tr><td>監査</td><td>本人、service、request_id、対象、結果を結び付ける</td></tr></tbody></table></div>
+<p>エージェントへDB接続、任意SQL、署名鍵、任意の認可callbackを渡しません。readOnlyHintやdestructiveHintはクライアント向けの補助情報で、実際の認可や利用者の確認を代替しません。</p>
+<h2 id="section-6">全サービス対応に向けた確認</h2>
+<p>APIごとのtool/resource対応、入力・応答、ページング、画像などのbinary、権限、確認条件、再試行、実行証跡を対応付けます。取込の成功だけで、全API対応やBFF代替の受入完了とは判断しません。</p><footer class="page-foot"><span>0.7.0-experimental</span><span>更新 2026-10-04</span><a href="guide/mcp.md">機械・テキスト向け</a><a href="versions.html">対応状況</a></footer></main></div></body></html>
