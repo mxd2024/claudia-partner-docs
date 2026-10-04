@@ -6,13 +6,23 @@
       "api_version": "0.7.0-experimental",
       "links": {
         "index": "https://mxd2024.github.io/claudia-partner-docs/v0.7/index.html",
+        "quickstart": "https://mxd2024.github.io/claudia-partner-docs/v0.7/quickstart.html",
         "authentication": "https://mxd2024.github.io/claudia-partner-docs/v0.7/authentication.html",
+        "concepts": "https://mxd2024.github.io/claudia-partner-docs/v0.7/concepts.html",
         "tables": "https://mxd2024.github.io/claudia-partner-docs/v0.7/tables.html",
+        "tutorial": "https://mxd2024.github.io/claudia-partner-docs/v0.7/tutorial.html",
         "media": "https://mxd2024.github.io/claudia-partner-docs/v0.7/media.html",
         "mcp": "https://mxd2024.github.io/claudia-partner-docs/v0.7/mcp.html",
+        "examples": "https://mxd2024.github.io/claudia-partner-docs/v0.7/examples.html",
         "api": "https://mxd2024.github.io/claudia-partner-docs/v0.7/api.html",
         "errors": "https://mxd2024.github.io/claudia-partner-docs/v0.7/errors.html",
-        "versions": "https://mxd2024.github.io/claudia-partner-docs/v0.7/versions.html"
+        "operations": "https://mxd2024.github.io/claudia-partner-docs/v0.7/operations.html",
+        "versions": "https://mxd2024.github.io/claudia-partner-docs/v0.7/versions.html",
+        "changelog": "https://mxd2024.github.io/claudia-partner-docs/v0.7/changelog.html",
+        "openapi": "https://mxd2024.github.io/claudia-partner-docs/v0.7/openapi.json",
+        "mcp-tools": "https://mxd2024.github.io/claudia-partner-docs/v0.7/mcp-tools.json",
+        "api-inventory": "https://mxd2024.github.io/claudia-partner-docs/v0.7/api-inventory.json",
+        "examples_json": "https://mxd2024.github.io/claudia-partner-docs/v0.7/examples/public-requests.json"
       }
     }
   }

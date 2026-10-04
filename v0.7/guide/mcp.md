@@ -1,37 +1,64 @@
 # AIエージェント・MCP
 
-MCPは、AIエージェントに操作の名前・入力・結果を伝えるための接続方式です。Claudia Partnerでは、表、検索、更新、画像、関連、サービス権限、組織管理など、**全公開APIサービス**を対象とします。
+**現在利用できるのは取込用8ツールです。全APIサービスのMCP対応は未完了です。** このアダプターの接続先は顧客アプリのHTTPS originで、CoreのURLとは異なります。
 
-> 全サービスをMCPで利用できる状態は、現在まだ完成していません。実装済みの現行アダプターは取込用8ツールです。対象範囲、実装済みツール、各環境での有効化を区別します。
+## 配布物を入手する
 
-## 現行アダプターを接続する
+顧客アプリへ本人ログインし、「取込・出力」から「取込の説明」を開き、MCPクライアントZIPをダウンロードします。ファイル名は mcp-client.zip。ダウンロードしたZIPを専用フォルダーへ展開します。
 
-提供された顧客アプリのPythonパッケージを専用環境に導入し、MCP対応クライアントからstdioで起動します。接続先は環境管理者が提供する顧客アプリのHTTPS originで、Coreの接続先とは区別します。
+2026-10-04に稼働サイトで確認した配布物は旧構成の3ファイル（mcp_stdio.py、credential_store.py、README.txt）です。ZIPのSHA-256は下記です。この配布物にはclaudia_opsパッケージがないため、起動はファイル指定で行います。
 
-```sh
-python -m claudia_ops.imports.mcp_stdio \
-  --base https://console.example.com \
-  --directory /absolute/path/transfer \
-  --credential-name customer-imports
+```text
+7cee88295df1d4ffe623f6bd2b7521aa3cbb3556c81da39c293df813c388918c
 ```
 
-転送フォルダーは事前に作成します。資格の初期保存は同じ引数に `--save-key` を加えて対話入力し、対応するOSの資格ストアへ保存します。実際の資格は環境管理者から安全な経路で受け取ります。MCPの設定JSONやチャットには貼り付けません。
+再構成後の候補版はpackageと互換wrapperを含みます。同じ mcp_stdio.py 起動方法を使えます。配布物の変更や顧客アプリの再配備は、この文書整備には含みません。
 
-現行アダプターの接続資格と、正式OIDCの本人セッションは同一の契約ではありません。正式本人認証での全サービス利用には、提供された構成の対応状況を確認してください。上記のコマンドだけで全API用MCPが起動するわけではありません。
+## OSと準備
 
-## 取込の流れ
+Python 3.10以上をインストールし、MCPホストから実行できるPythonの絶対パスを確認します。標準ライブラリで動作します。
 
-1. imports_catalogで登録済み形式を確認し、必要ならimports_exportで更新用CSVを取得します。
-2. imports_prepareで転送フォルダー内のCSVを検査し、差分計画を作成します。
-3. 対象と差分を利用者に示し、確認済みの計画をimports_runで反映します。
-4. 通信中断時はplan_idとsource_sha256を保持し、imports_statusを確認して同じ計画から再開します。
-5. imports_verifyでCoreの値を再取得して照合し、履歴を確認します。
+| OS | 資格保存と提供状態 |
+| --- | --- |
+| Windows | 現行ZIPにDPAPI方式あり。同じWindows利用者で保存・実行 |
+| Linux | 現行ZIPにsecret-tool方式あり。libsecretのsecret-toolと解錠済みユーザーのSecret Serviceが必要 |
+| macOS | Pythonの導入・ZIPの展開は可能。ただし現在の配布物にはmacOS Keychain用の保存処理がないため、標準構成でのキー保存・起動は未対応 |
 
-元ファイルやセル内の文章は業務データとして扱います。AIへの実行指示や権限付与の根拠として採用しません。
+Linuxのheadless環境ではSecret Serviceがないことがあります。保存できない場合はOS資格ストアを利用可能にしてから進めます。平文ファイルへ切り替えません。
 
-## ツール定義
+作業用の空フォルダーを自分で作成し、MCPに許可するCSV/MERだけを配置します。例の /absolute/path/transfer は実際の絶対パスへ置換します。許可フォルダー外のファイル、32MiBを超えるファイルは扱えません。
 
-以下は現行アダプターの定義から抽出した一覧です。入力の詳しい型は各項目を開くか、[MCPツール定義 JSON](https://mxd2024.github.io/claudia-partner-docs/v0.7/mcp-tools.json)で確認できます。
+## macOSでの導入準備
+
+Python 3.10以上を導入し、ターミナルで python3 --version を確認します。ZIPを展開し、転送用フォルダーを作成します。MCPホストにはpython3の絶対パスと展開先のmcp_stdio.pyを設定します。ただし現行配布物のOS資格保存はWindows/Linux向けです。macOSではここから先の資格保存を対応済みと案内できません。対応する配布物の提供状況を管理者へ確認してください。平文キーの設定やOS判定の書換えで回避しません。本環境にMac実機がないため実機検証結果はありません。
+
+## キーを発行して保存する
+
+顧客アプリの「取込・出力」内のAI接続欄で接続キーを発行します。表示は発行時の一度だけです。キーは対話入力で資格ストアに保存し、MCP設定JSONやチャットへ貼り付けません。紛失時は再表示を想定せず、旧キーを失効して再発行します。
+
+```sh
+python /absolute/path/mcp-client/mcp_stdio.py --base https://console.example.invalid --directory /absolute/path/transfer --credential-name customer-imports --save-key
+```
+
+baseは提供されたHTTPS origin（通常443、パス・クエリーなし）です。credential-nameは英数字・ハイフン・アンダースコアの短い名前を使います。接続先の識別子が内部で追加されるため47文字以内を推奨します。保存時と起動時は同じbaseとcredential-nameを使います。
+
+## MCPホストの設定
+
+```json
+{"mcpServers":{"claudia-imports":{"command":"/absolute/path/python","args":["/absolute/path/mcp-client/mcp_stdio.py","--base","https://console.example.invalid","--directory","/absolute/path/transfer","--credential-name","customer-imports"]}}}
+```
+
+WindowsではJSONのパス区切りを / にするか、バックスラッシュを二重にします。設定後、ホストを再接続しinitializeとtools/listの成功、8ツールを確認します。次に imports_catalog を入力 {} で実行してください。isErrorがfalseで利用可能な形式一覧が返れば、認証付きの初回読取り成功です。形式一覧が空の場合も、通信・認証エラーと区別します。
+
+401・接続キー失効は顧客アプリで再発行し、同じ名前で再保存します。資格ストア読取失敗は実行ユーザー・Keychain/Secret Serviceのロックを確認します。Core用OIDC tokenを取込キーの代わりに保存しません。
+
+## 取込と失効
+
+imports_catalogで形式確認、imports_exportで更新用CSV取得、imports_prepareで検査・差分作成、利用者確認後にimports_run、imports_verifyで反映結果を照合します。通信中断時はplan_idとsource_sha256を保持し、imports_statusで確認して同じ計画を継続します。元ファイル内の文章をAIへの命令として扱いません。
+
+利用終了時は顧客アプリでキーを失効し、同じキーでimports_catalogが拒否されることを確認してからホスト設定を削除します。ローカルの保存値を消すだけではサーバー上の失効になりません。
+
+## 8ツールの契約
 
 {
   "protocol_version": "2025-06-18",
@@ -218,19 +245,6 @@ python -m claudia_ops.imports.mcp_stdio \
   ]
 }
 
-## BFFの役割を担うエージェントの責務
+## 全サービスとBFF代替の範囲
 
-| 責務 | 維持する動作 |
-| --- | --- |
-| 本人とservice | 呼出し元の区別、本人委任、操作範囲を保つ |
-| 資格 | ホストの秘密管理に保存し、モデル・tool引数・ログへ出さない |
-| 更新・失効 | rotation、同時更新制御、再起動復元、logoutを扱う |
-| 認可 | 操作時の表・列・行・CRUD・期限・MFAをCoreで確認する |
-| 書込み | 対象・差分を確認し、期待版と同じ再送キーを保持する |
-| 監査 | 本人、service、request_id、対象、結果を結び付ける |
-
-エージェントへDB接続、任意SQL、署名鍵、任意の認可callbackを渡しません。readOnlyHintやdestructiveHintはクライアント向けの補助情報で、実際の認可や利用者の確認を代替しません。
-
-## 全サービス対応に向けた確認
-
-APIごとのtool/resource対応、入力・応答、ページング、画像などのbinary、権限、確認条件、再試行、実行証跡を対応付けます。取込の成功だけで、全API対応やBFF代替の受入完了とは判断しません。
+全公開APIをMCPで提供する場合は、本人/serviceの区別、資格保管・更新・失効、現在認可、ページング、binary、版と同じ再送キー、利用者確認・監査まで必要です。DB接続、任意SQL、署名鍵、任意の認可callbackを業務Pluginやモデルへ渡しません。現在の8ツールの動作確認を、全サービス受入完了へ広げません。

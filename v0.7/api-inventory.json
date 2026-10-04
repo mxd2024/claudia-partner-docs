@@ -2,7 +2,7 @@
   "version": 1,
   "api_version": "0.7.0-experimental",
   "route_count": 132,
-  "openapi_route_count": 123,
+  "openapi_route_count": 132,
   "mcp_scope": "all-public-api-services",
   "current_mcp": "8 import-adapter tools; all-service implementation pending",
   "routes": [
@@ -11,24 +11,28 @@
       "path": "/health/live",
       "operation_id": "health.live",
       "group": "health",
-      "schema_status": "schema_completion_required",
-      "openapi_pointer": null,
-      "request_headers": null,
-      "query_parameters": null,
-      "input_content_types": null,
-      "response_content_types": null
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1health~1live/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json"
+      ]
     },
     {
       "method": "GET",
       "path": "/health/ready",
       "operation_id": "health.ready",
       "group": "health",
-      "schema_status": "schema_completion_required",
-      "openapi_pointer": null,
-      "request_headers": null,
-      "query_parameters": null,
-      "input_content_types": null,
-      "response_content_types": null
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1health~1ready/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json"
+      ]
     },
     {
       "method": "GET",
@@ -1244,36 +1248,54 @@
       "path": "/v2/app-policy",
       "operation_id": "apps.policy",
       "group": "apps",
-      "schema_status": "schema_completion_required",
-      "openapi_pointer": null,
-      "request_headers": null,
-      "query_parameters": null,
-      "input_content_types": null,
-      "response_content_types": null
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1app-policy/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
     },
     {
       "method": "GET",
       "path": "/v2/apps",
       "operation_id": "apps.list",
       "group": "apps",
-      "schema_status": "schema_completion_required",
-      "openapi_pointer": null,
-      "request_headers": null,
-      "query_parameters": null,
-      "input_content_types": null,
-      "response_content_types": null
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1apps/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "limit",
+          "required": false
+        },
+        {
+          "name": "after",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
     },
     {
       "method": "GET",
       "path": "/v2/apps/{appId}",
       "operation_id": "apps.get",
       "group": "apps",
-      "schema_status": "schema_completion_required",
-      "openapi_pointer": null,
-      "request_headers": null,
-      "query_parameters": null,
-      "input_content_types": null,
-      "response_content_types": null
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1apps~1{appId}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
     },
     {
       "method": "POST",
@@ -1319,36 +1341,61 @@
       "path": "/v2/apps/{appId}/state",
       "operation_id": "apps.transition",
       "group": "apps",
-      "schema_status": "schema_completion_required",
-      "openapi_pointer": null,
-      "request_headers": null,
-      "query_parameters": null,
-      "input_content_types": null,
-      "response_content_types": null
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1apps~1{appId}~1state/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
     },
     {
       "method": "POST",
       "path": "/v2/apps/apply",
       "operation_id": "apps.apply",
       "group": "apps",
-      "schema_status": "schema_completion_required",
-      "openapi_pointer": null,
-      "request_headers": null,
-      "query_parameters": null,
-      "input_content_types": null,
-      "response_content_types": null
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1apps~1apply/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
     },
     {
       "method": "POST",
       "path": "/v2/apps/plan",
       "operation_id": "apps.plan",
       "group": "apps",
-      "schema_status": "schema_completion_required",
-      "openapi_pointer": null,
-      "request_headers": null,
-      "query_parameters": null,
-      "input_content_types": null,
-      "response_content_types": null
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1apps~1plan/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
     },
     {
       "method": "POST",
@@ -2121,12 +2168,17 @@
       "path": "/v2/session/logout",
       "operation_id": "identity.logoutSelf",
       "group": "identity",
-      "schema_status": "schema_completion_required",
-      "openapi_pointer": null,
-      "request_headers": null,
-      "query_parameters": null,
-      "input_content_types": null,
-      "response_content_types": null
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1session~1logout/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ]
     },
     {
       "method": "GET",

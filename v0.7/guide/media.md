@@ -8,7 +8,7 @@
 
 | 保存方式 | 用途 | 解除した場合 |
 | --- | --- | --- |
-| managed | アプリが送った原本を管理ストアで保持 | メディアの状態・保持方針に従う |
+| managed_original | アプリが送った原本を管理ストアで保持 | メディアの状態・保持方針に従う |
 | external_reference | Dropbox等の原本を複製せず、業務行へ関連付ける | 関連の解除。外部原本は削除しない |
 
 外部原本の配置・整理・バックアップは原本の管理者が担当します。サムネイルや一時取得ファイルは、原本のバックアップにはなりません。
@@ -27,7 +27,7 @@ GET /v2/media/{collection}/{rowId}/{field}/{assetId}/thumbnail
 GET /v2/media/{collection}/{rowId}/{field}/{assetId}/content
 ```
 
-参照登録の本文例です。storeはpolicyにある値を使い、相対パスは対象ストア内に限定します。リクエストにはAPI仕様に従いIf-Match、Idempotency-Key、X-Parent-Version、X-Schema-Versionを付けます。
+[完全なヘッダー・要求・応答例](https://mxd2024.github.io/claudia-partner-docs/v0.7/examples.html)も参照してください。以下は参照登録の本文だけの例です。storeはpolicyにある値を使い、相対パスは対象ストア内に限定します。リクエストにはAPI仕様に従いIf-Match、Idempotency-Key、X-Parent-Version、X-Schema-Versionを付けます。
 
 ```json
 {

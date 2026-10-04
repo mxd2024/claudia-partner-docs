@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>表・データ更新 | Claudia Partner Docs</title><meta name="description" content="Claudia PartnerのAPI・認証・権限・画像連携・MCPの共通利用ガイド。対応版と実装状況を確認できます。"><meta name="theme-color" content="#004d58"><link rel="canonical" href="https://mxd2024.github.io/claudia-partner-docs/v0.7/tables.html"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head>
 <body><a class="skip" href="#main">本文へ移動</a><header class="topbar"><a class="brand" href="index.html"><span class="mark" aria-hidden="true">CP</span>Claudia Partner <span style="font-weight:400">Docs</span></a><span class="top-note">API・MCP 共通ドキュメント</span><span class="version">0.7.0-experimental</span><button class="menu-toggle" aria-expanded="false" aria-controls="navigation">メニュー</button></header>
-<div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント"><p class="nav-label">ガイド</p><a href="index.html">はじめに</a><a href="authentication.html">認証・権限</a><a href="tables.html" aria-current="page">表・データ更新</a><a href="media.html">画像・Dropbox連携</a><a href="mcp.html">AIエージェント・MCP</a><p class="nav-label">リファレンス</p><a href="api.html">APIリファレンス</a><a href="errors.html">エラーと再試行</a><a href="versions.html">対応状況・バージョン</a><p class="nav-label">仕様ファイル</p><a class="machine" href="openapi.json">OpenAPI JSON</a><a class="machine" href="mcp-tools.json">MCPツール定義</a><div class="nav-foot">公開ドキュメント<br>0.7.0-experimental<br>更新 2026-10-04</div></nav><main id="main"><div class="breadcrumb"><a href="index.html">ドキュメント</a><span>/</span><span>表・データ更新</span></div><p class="eyebrow">DEVELOPER DOCUMENTATION</p><h1 id="section-1">表・データ更新</h1>
+<div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント"><p class="nav-label">ガイド</p><a href="index.html">はじめに</a><a href="quickstart.html">最初のAPI接続</a><a href="authentication.html">認証・権限</a><a href="concepts.html">概念・APIの選択</a><a href="tables.html" aria-current="page">表・データ更新</a><a href="tutorial.html">アプリ登録から運用まで</a><a href="media.html">画像・Dropbox連携</a><a href="mcp.html">AIエージェント・MCP</a><p class="nav-label">リファレンス</p><a href="examples.html">HTTP・実行例</a><a href="api.html">APIリファレンス</a><a href="errors.html">エラーと再試行</a><a href="operations.html">BFF・運用・サポート</a><a href="versions.html">対応状況・バージョン</a><a href="changelog.html">変更履歴</a><p class="nav-label">仕様ファイル</p><a class="machine" href="openapi.json">OpenAPI JSON</a><a class="machine" href="mcp-tools.json">MCPツール定義</a><div class="nav-foot">公開ドキュメント<br>0.7.0-experimental<br>更新 2026-10-04</div></nav><main id="main"><div class="breadcrumb"><a href="index.html">ドキュメント</a><span>/</span><span>表・データ更新</span></div><p class="eyebrow">DEVELOPER DOCUMENTATION</p><h1 id="section-1">表・データ更新</h1>
 <p>Claudia Partnerには、v1の顧客定義表と、v2の業務表・案件を扱うAPIがあります。パスや版の意味が異なるため、利用するAPI系列を混ぜずに実装します。</p>
 <h2 id="section-2">読取りから始める</h2>
 <ol><li>利用可能な表の一覧を取得します。以下はv1の例です。</li><li>表定義を読み、表示用ラベルとは別に、安定したfield IDと型・権限を保持します。</li><li>検索条件・sort・cursorを指定して行を取得します。応答の列は現在の認可で投影されます。</li></ol>
@@ -9,21 +9,9 @@
 GET /v1/tables/work_notes
 POST /v1/tables/work_notes/query</code></pre>
 <p>上記のwork_notesは説明用の表名です。実際に使える表は対象環境の一覧で確認します。</p>
-<h2 id="section-3">v1の行を追加する例</h2>
-<p><code>POST /v1/tables/work_notes/batch</code> に送る本文の例です。表定義のschema_versionと、各行のversionを区別してください。</p>
-<pre><span class="code-label">json</span><code>{
-  &quot;schema_version&quot;: 1,
-  &quot;operations&quot;: [
-    {
-      &quot;action&quot;: &quot;create&quot;,
-      &quot;id&quot;: &quot;7e8ae625-37a4-49a6-8cc2-cda0e5ee11d1&quot;,
-      &quot;version&quot;: 0,
-      &quot;status&quot;: &quot;committed&quot;,
-      &quot;values&quot;: { &quot;summary&quot;: &quot;午前作業&quot; }
-    }
-  ]
-}</code></pre>
-<p>この例ではsummaryというtext欄が定義済みで、呼出し元に書込み権限があることを前提にします。UUIDは新規行ごとに生成します。省略値、null、空文字は別の値として扱います。</p>
+<h2 id="section-3">要求・応答の例</h2>
+<p><a href="examples.html">共通実行例</a>に、v1の表一覧・query・batch、v2の表定義・CRUD・復元、関連、If-Matchの完全なHTTP要求と応答を掲載しています。OpenAPIと同じJSONを使用します。</p>
+<p>書込みbatchには Authorization、Content-Type、Idempotency-Keyを付けます。本文には現在のschema_versionと操作ごとのversionを指定します。v1の新規行idはクライアントで生成、v2の新規行idはCoreが生成するため混同しません。省略値、null、空文字は別の値です。</p>
 <h2 id="section-4">版と再送を管理する</h2>
 <div class="table-wrap"><table><thead><tr><th scope="col">値</th><th scope="col">意味</th></tr></thead><tbody><tr><td>schema_version</td><td>列・型など表定義の版</td></tr><tr><td>行のversion</td><td>その行の更新競合を確認する版</td></tr><tr><td>If-Match</td><td>対象操作の仕様が要求する期待版</td></tr><tr><td>Idempotency-Key</td><td>同じ操作の再送を識別するキー</td></tr></tbody></table></div>
 <p>更新・削除は、取得した現在版と操作の内容を固定して送ります。通信が途切れたときは結果が未確定の可能性があります。同じ操作を別キーで作り直す前に、状態や受領票を確認します。412では対象を再取得し、差分を利用者に確認してから次の操作を決めます。</p>

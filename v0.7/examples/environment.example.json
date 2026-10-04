@@ -1,0 +1,7 @@
+{
+  "core_origin": "https://api.example.invalid",
+  "issuer": "https://idp.example.invalid/realms/customer",
+  "token_endpoint": "https://idp.example.invalid/realms/customer/protocol/openid-connect/token",
+  "client_id": "hub-spa",
+  "redirect_uri": "https://developer.example.invalid/callback"
+}

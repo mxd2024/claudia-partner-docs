@@ -4,6 +4,8 @@ Claudia Partner のデータ、権限、画像を、アプリケーションやA
 
 > 対象は **0.7.0-experimental**。記載されたAPIは環境ごとに有効化されます。この説明サイトへのアクセスにログインは不要ですが、業務APIの利用には認証と権限が必要です。
 
+初回は[最初のAPI接続](https://mxd2024.github.io/claudia-partner-docs/v0.7/quickstart.html)から進みます。[概念](https://mxd2024.github.io/claudia-partner-docs/v0.7/concepts.html)、[アプリ登録から運用まで](https://mxd2024.github.io/claudia-partner-docs/v0.7/tutorial.html)、[変更履歴](https://mxd2024.github.io/claudia-partner-docs/v0.7/changelog.html)も参照できます。
+
 ## 目的から探す
 
 | やりたいこと | 読む資料 |
@@ -30,7 +32,7 @@ APIの仕様は公開されていますが、接続先・資格・利用可能�
 
 ## 仕様を取得する
 
-- [OpenAPI 3.1 JSON](https://mxd2024.github.io/claudia-partner-docs/v0.7/openapi.json)：機械可読な123操作の入力・応答・認証定義。
+- [OpenAPI 3.1 JSON](https://mxd2024.github.io/claudia-partner-docs/v0.7/openapi.json)：機械可読な132操作の入力・応答・認証定義。
 - [全API一覧 JSON](https://mxd2024.github.io/claudia-partner-docs/v0.7/api-inventory.json)：実ルート132操作と機械仕様の整備状況。
 - [現行MCPツール定義 JSON](https://mxd2024.github.io/claudia-partner-docs/v0.7/mcp-tools.json)：取込アダプターの8ツール。
 - [このガイドのMarkdown](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/index.md)：AIやテキストツールからの参照用。

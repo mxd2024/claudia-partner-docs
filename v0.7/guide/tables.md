@@ -16,26 +16,11 @@ POST /v1/tables/work_notes/query
 
 上記のwork_notesは説明用の表名です。実際に使える表は対象環境の一覧で確認します。
 
-## v1の行を追加する例
+## 要求・応答の例
 
-`POST /v1/tables/work_notes/batch` に送る本文の例です。表定義のschema_versionと、各行のversionを区別してください。
+[共通実行例](https://mxd2024.github.io/claudia-partner-docs/v0.7/examples.html)に、v1の表一覧・query・batch、v2の表定義・CRUD・復元、関連、If-Matchの完全なHTTP要求と応答を掲載しています。OpenAPIと同じJSONを使用します。
 
-```json
-{
-  "schema_version": 1,
-  "operations": [
-    {
-      "action": "create",
-      "id": "7e8ae625-37a4-49a6-8cc2-cda0e5ee11d1",
-      "version": 0,
-      "status": "committed",
-      "values": { "summary": "午前作業" }
-    }
-  ]
-}
-```
-
-この例ではsummaryというtext欄が定義済みで、呼出し元に書込み権限があることを前提にします。UUIDは新規行ごとに生成します。省略値、null、空文字は別の値として扱います。
+書込みbatchには Authorization、Content-Type、Idempotency-Keyを付けます。本文には現在のschema_versionと操作ごとのversionを指定します。v1の新規行idはクライアントで生成、v2の新規行idはCoreが生成するため混同しません。省略値、null、空文字は別の値です。
 
 ## 版と再送を管理する
 
