@@ -4,7 +4,7 @@
   "version": "0.7.0-experimental",
   "version_path": "v0.7",
   "updated": "2026-10-04",
-  "documentation_revision": 3,
+  "documentation_revision": 4,
   "public_base_url": "https://mxd2024.github.io/claudia-partner-docs/",
   "source_openapi_sha256": "8b4b85fd4b19cf486b13d06db9671cee16e65a61ee27e536cc9ddcdf5348eb77",
   "files": {
@@ -37,7 +37,7 @@
     "v0.7/style.css": "e59b396eda07657bed6e92ce540078371ff783f68ccf9fbff13964f9ef8d0536",
     "v0.7/tables.html": "438e5b78fd0fc5d9e9d1bbdefa9c2efbb84db27aa3c6f6c3f3b30d627f6e7542",
     "v0.7/versions.html": "45afe0c0a1d9b9075a2349fe0f81ec98e0026c534ddc98464c895e26ee465096",
-    "v0.7/changelog.html": "1b2b23a194a6d07d9afacdc0f55236f079f8e07e2f4a4a4b9ba01b218697cd66",
+    "v0.7/changelog.html": "18f27e2e107042a4664e71eeeb37e0932d3045663024b38297326ff9ac5282bf",
     "v0.7/concepts.html": "be31a900906f64efa6d5e6d955ab6ac0850586fa8be8832016b2e2402b0595e3",
     "v0.7/examples.html": "be804957d5b401b921c29b756a2e7034fe7094fafc9de479da3987e321256c29",
     "v0.7/examples/configure-openapi.py": "954b6a34de1d032f600a82f06483f3246160bc1ef86c81579c0a5ca0478d9e6f",
@@ -45,14 +45,14 @@
     "v0.7/examples/public-requests.json": "02ea13a8b7047c0c623fff7eee6ed9fa890e108b2b81c70ae7ff9befba7efd33",
     "v0.7/examples/request.mjs": "b5d47716b95ad69e82883bff4c543ab56833dd6c3929bd7688a817eb050edb26",
     "v0.7/examples/request.py": "4e418d275636485692e2f72888228de982d711498c7ec4f982be4efcc381104a",
-    "v0.7/guide/changelog.md": "0b410aec3aaaf656523f02aa9a58aaca8f6f6efaca70c97d718f12e5c9ef17c4",
+    "v0.7/guide/changelog.md": "429349ba207b2cd4033fc25dffdd0148e7bf882b07c727c0a5bc63bc9e80adf5",
     "v0.7/guide/concepts.md": "6c71ee3d932484af7ee4721a85a0168ff649367230d4b51ca576f75c6a8ae700",
     "v0.7/guide/examples.md": "c347ddd3a2fe8725ffaf72b50823ed6fedcaf2dc7bedda9e95df6ec350203fd0",
-    "v0.7/guide/operations.md": "e7b6f35398946bf1ffce3d4be336247d562028247a951545e38fceca675d60d0",
-    "v0.7/guide/quickstart.md": "0d201a5f8d1daa25c99a1fc7cc0b52e7cb0b8270a31fd3267827a5ece2dd2d58",
+    "v0.7/guide/operations.md": "c539a49facc4228f95a7dd9b085cf9bb1d95d3582bfeededadf87ad78abf51a8",
+    "v0.7/guide/quickstart.md": "926f23e894100d131e9cf2ac2172ab2b392192a57be24fcd94f81213fec9a8a1",
     "v0.7/guide/tutorial.md": "3139a35f456984a4f192fbb74d7e0b73eee1a77798ad52500c5fce411cf652a9",
-    "v0.7/operations.html": "42df30f5493bff1d3da89f6ed645b1ef15461e80b8a6b27c8203e65cf0676fb5",
-    "v0.7/quickstart.html": "69ec9821ee9f9363889248a41b28e5efad304a270fde096911142ad3411ba145",
+    "v0.7/operations.html": "64e7efbe0cb89b535320efc22f3fa29a6cb2d158969428329eee33d553b9afe5",
+    "v0.7/quickstart.html": "78a6c77f27d51e50a4077608fb791fd8f9eb2924875b979543e3642e8bc12321",
     "v0.7/tutorial.html": "9ff82615901be8209e2ae859dc034a0a7729fb5cf88799250a93bf4921ac4ff4"
   }
 }

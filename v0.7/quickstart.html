@@ -4,7 +4,7 @@
 <div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント"><p class="nav-label">ガイド</p><a href="index.html">はじめに</a><a href="quickstart.html" aria-current="page">最初のAPI接続</a><a href="authentication.html">認証・権限</a><a href="concepts.html">概念・APIの選択</a><a href="tables.html">表・データ更新</a><a href="tutorial.html">アプリ登録から運用まで</a><a href="media.html">画像・Dropbox連携</a><a href="mcp.html">AIエージェント・MCP</a><p class="nav-label">リファレンス</p><a href="examples.html">HTTP・実行例</a><a href="api.html">APIリファレンス</a><a href="errors.html">エラーと再試行</a><a href="operations.html">BFF・運用・サポート</a><a href="versions.html">対応状況・バージョン</a><a href="changelog.html">変更履歴</a><p class="nav-label">仕様ファイル</p><a class="machine" href="openapi.json">OpenAPI JSON</a><a class="machine" href="mcp-tools.json">MCPツール定義</a><div class="nav-foot">公開ドキュメント<br>0.7.0-experimental<br>更新 2026-10-04</div></nav><main id="main"><div class="breadcrumb"><a href="index.html">ドキュメント</a><span>/</span><span>最初のAPI接続</span></div><p class="eyebrow">DEVELOPER DOCUMENTATION</p><h1 id="section-1">最初のAPI接続</h1>
 <p>対象は API 0.7.0-experimental。初回は人の本人資格で GET /v1/me の200を確認します。service用資格では、人用APIへの拒否が正しい動作です。</p>
 <h2 id="section-2">1. 接続情報を受け取る</h2>
-<p>環境管理者へ「開発接続情報と検証用データ」を依頼し、次を確認してください。これらを公開資料から推測しません。</p>
+<p>このページ末尾のメール窓口へ「開発接続情報と検証用データ」を依頼し、次を確認してください。これらを公開資料から推測しません。</p>
 <div class="table-wrap"><table><thead><tr><th scope="col">項目</th><th scope="col">必要な値</th></tr></thead><tbody><tr><td>Core</td><td>HTTPS origin、API版、有効モジュール</td></tr><tr><td>IdP</td><td>issuer、discovery URL、認証方式、必要なMFA</td></tr><tr><td>本人用クライアント</td><td>登録済みclient_id、redirect_uri、scope、対象audience</td></tr><tr><td>本人</td><td>ログイン方法、利用組織、必要な表利用権</td></tr><tr><td>検証用表</td><td>collection、現在schema_version、許可する操作、検証行</td></tr><tr><td>証明書</td><td>公開CA、または管理者が交付した検証CAと照合用SHA</td></tr></tbody></table></div>
 <p>Core、顧客アプリ/BFF、IdPは別の接続先です。インターネット上の本サイトは仕様の配信先で、APIサーバーではありません。</p>
 <h2 id="section-3">2. 本人のaccess tokenを取得する</h2>
@@ -23,4 +23,22 @@
 <p>正常に完了した新規ログイン直後で、同じ資格の GET /v1/me だけがTOKEN_INVALIDの場合に限り、回数と経過時間を限定して待機できます。クライアント待機枠の例は0.5秒間隔・最大20秒です。これは成功保証ではありません。20秒を超えたら待機を終了し、時刻・code・request_idを記録して環境管理者へ確認します。全401や変更操作を自動再送する規則ではなく、TOKEN_EXPIRED、明示失効、403、TLS/署名エラーには適用しません。</p>
 <p>Coreのchecked_atの鮮度は5秒以内、reconciled_atは60秒以内を要求します。これらは古い認可情報を拒否する条件であり、新セッションの反映時間の約束ではありません。</p>
 <h2 id="section-9">接続情報の依頼窓口</h2>
-<p>窓口の担当者、受付手段、受付時間、発行の目標時間は<strong>責任者による決定待ち・未確定</strong>です。暫定的に環境管理者へ、用途・接続対象環境・本人/サービスの区分・希望する操作と表・client_id/redirect_uri・希望期限・返答先を伝えてください。この一覧は依頼項目であり、受付済み・発行期限の保証ではありません。</p><footer class="page-foot"><span>0.7.0-experimental</span><span>更新 2026-10-04</span><a href="guide/quickstart.md">機械・テキスト向け</a><a href="versions.html">対応状況</a></footer></main></div></body></html>
+<p>開発・検証用の接続申請は、提供者側の環境管理者（サービス責任者）が受け付けます。受付手段はメールです。Slackは使用しません。</p>
+<p><strong>現在の受付メール：morita@meta-xdesign.com</strong></p>
+<p>このアドレスは開発・検証期間中の暫定窓口です。ローンチ前に、自動応答に対応した受付用メールアドレスへ変更する予定です。切替先と切替日は確定後に本ページで案内します。現在の窓口で自動返信を提供しているという案内ではありません。</p>
+<p>一次回答は<strong>受信の翌営業日までを目標</strong>とします。保証付きのSLAではありません。一次回答は受付確認・不足情報の確認・対応見込みの連絡であり、接続情報の発行完了を意味しません。利用開始日は申請内容を確認した後に回答します。</p>
+<h3 id="section-10">依頼メールの雛形</h3>
+<pre><span class="code-label">text</span><code>件名：【開発接続申請】環境名／利用目的
+
+依頼者・所属：
+返信先：
+対象環境（不明なら用途を記載）：
+利用目的：
+利用区分：本人 / service
+必要な表・操作（閲覧、登録、更新など）：
+利用開始希望日・利用終了日：
+検証用データの希望：
+登録済みclient_id（ある場合）：
+redirect_uri（本人用クライアントを新規登録する場合）：
+補足：</code></pre>
+<p>パスワード、access/refresh token、秘密鍵、cookieを依頼メールに記載しないでください。接続先・設定・資格の交付方法は、本人と許可範囲を確認して案内します。</p><footer class="page-foot"><span>0.7.0-experimental</span><span>更新 2026-10-04</span><a href="guide/quickstart.md">機械・テキスト向け</a><a href="versions.html">対応状況</a></footer></main></div></body></html>
