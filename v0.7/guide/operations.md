@@ -2,7 +2,9 @@
 
 ## BFFの責務
 
-本人ログインの入口 /auth/login からIdPへ遷移し、登録済み /auth/callback でstateとPKCEを確認します。access/refresh tokenはサーバー側の保護ストアで保持し、ブラウザーには本人セッションcookieだけを渡します。実際のパスやcookie名は配布BFFの契約を確認してください。
+本人ログインの入口 POST /auth/start からIdPへ遷移し、登録済み /auth/callback でstateとPKCEを確認します。access/refresh tokenはサーバー側の保護ストアで保持し、ブラウザーには本人セッションcookieだけを渡します。実際のパスやcookie名は配布BFFの契約を確認してください。
+
+提供BFFでは、まずGET /api/sessionでcsrfとpreauth cookieを受け取り、同じOrigin・cookie・X-CSRF-TokenでPOST /auth/startへ {} を送ります。200のauthorization_urlへブラウザーを移動し、callback後にGET /api/sessionのauthenticated=trueを確認します。終了は同じセッションのCSRF付きPOST /api/logoutへ {} を送り、202後もupstreamの確認状態を追跡します。
 
 cookieはSecure・HttpOnly・適切なSameSiteとし、書込要求は同じOriginとCSRF tokenを検査します。ブラウザーで扱うCSRF tokenとaccess tokenを混同しません。資格やcookieをURL・console.log・エラー画面へ出さないでください。
 

@@ -950,8 +950,8 @@ my-request.jsonは下の共通JSONから1件を選び、headers内のAuthorizati
   "content_type": "application/merge-patch+json",
   "status": 412,
   "response": {
-    "type": "urn:hub:error:version_conflict",
-    "title": "VERSION_CONFLICT",
+    "type": "urn:hub:problem:version-conflict",
+    "title": "操作を完了できません",
     "status": 412,
     "code": "VERSION_CONFLICT",
     "request_id": "33333333-3333-4333-8333-333333333333"
@@ -979,8 +979,8 @@ my-request.jsonは下の共通JSONから1件を選び、headers内のAuthorizati
   },
   "status": 401,
   "response": {
-    "type": "urn:hub:error:auth_required",
-    "title": "AUTH_REQUIRED",
+    "type": "urn:hub:problem:auth-required",
+    "title": "操作を完了できません",
     "status": 401,
     "code": "AUTH_REQUIRED",
     "request_id": "33333333-3333-4333-8333-333333333333"
