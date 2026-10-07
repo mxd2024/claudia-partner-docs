@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>人物・行アクセス API | Claudia Partner 開発者ヘルプ</title><meta name="description" content="Claudia Partnerの顧客アプリ開発者向けガイド、API仕様、リリース情報。文書対象版と提供条件を確認できます。"><meta name="theme-color" content="#145c52"><link rel="canonical" href="https://claudia-help.meta-xdesign.com/v0.7/api-workspace-access.html"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head>
+<body><a class="skip" href="#main">本文へ移動</a><header class="topbar"><a class="brand" href="../index.html"><img src="claudia-partner-mark.svg" alt=""><span>Claudia <b>Partner</b><small>Developer Help</small></span></a><nav class="top-links" aria-label="主な分類"><a href="guides.html">ガイド</a><a href="api.html">API</a><a href="releases.html">リリース情報</a></nav><button class="menu-toggle" aria-expanded="false" aria-controls="navigation">メニュー</button></header><div class="version-strip">文書対象 <strong>0.7.0-experimental</strong><span>2026-10-04契約 · 改訂11</span><a href="versions.html">提供状況を確認 →</a></div><div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント"><form class="site-search" role="search"><label for="site-search">ドキュメントを検索</label><div class="search-field"><span aria-hidden="true">⌕</span><input id="site-search" type="search" placeholder="例：BFF、OIDC、404、画像" autocomplete="off" data-index="search-index.json" aria-controls="search-results"></div><div id="search-results" aria-live="polite" hidden></div></form><p class="nav-label">理解する</p><a href="index.html">アプリ開発の全体像</a><a href="principles.html">基盤の考え方と責任分界</a><a href="glossary.html">用語集</a><p class="nav-label">接続する</p><a href="quickstart.html">接続準備と最初の読取</a><a href="sample-app.html">架空の業務メモアプリ</a><a href="request-access.html">接続情報を依頼する</a><a href="authentication.html">本人として接続する</a><a href="service-access.html">service として接続する</a><p class="nav-label">使う</p><a href="concepts.html">共通ルール</a><a href="tables.html">表とデータの更新</a><a href="reliability.html">競合・再送・復帰</a><a href="media.html">画像・添付と外部ストア</a><a href="tutorial.html">アプリの登録と運用</a><a href="app-architecture.html">アプリの推奨構成（参考）</a><p class="nav-label">AIエージェント</p><a href="mcp.html">取込MCPの導入</a><a href="mcp-support.html">MCPの対応範囲とトラブル対応</a><p class="nav-label">リファレンス</p><a href="api.html">APIリファレンス</a><a href="examples.html">HTTP・実行例</a><a href="errors.html">エラーと再試行</a><a href="specs.html">仕様ファイル</a><p class="nav-label">運用・サポート</p><a href="versions.html">対応状況とバージョン</a><a href="changelog.html">変更履歴</a><a href="support.html">サポートと窓口</a><div class="nav-foot">文書対象版<br>0.7.0-experimental<br>契約スナップショット 2026-10-04</div></nav><main id="main"><div class="breadcrumb"><a href="../index.html">開発者ヘルプ</a><span aria-hidden="true"> / </span><span>人物・行アクセス API</span></div><p class="eyebrow">API / WORKSPACE-ACCESS</p><h1>人物・行アクセス</h1><p><a href="api.html">← 全操作を検索</a> · <a href="api-schemas.html">共通データ型</a></p><p class="notice">文書対象版の契約です。実機疎通は未確認。環境での有効化・現在の権限が必要です。</p><details class="operation" id="op-workspaceAccess-deleteGet" data-group="workspace-access" data-search="get /v2/access/deletions/{subjectid}/{collection} workspaceaccess.deleteget 人物・行アクセス workspace-access 本人の行削除範囲を取得"><summary><span class="method get">GET</span><span class="route">/v2/access/deletions/{subjectId}/{collection}</span><span class="opmeta">人物・行アクセス · workspaceAccess.deleteGet</span></summary><div class="opbody">
+<p><span class="badge">OpenAPI定義あり</span><a class="anchor-link" href="#op-workspaceAccess-deleteGet">この操作へのリンク</a></p>
+<h3>本人の行削除範囲を取得</h3>
+<p>本人の行削除範囲を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理権限は業務行の閲覧権を付与しない。人物対応は明示された本人IDと人物行を使い、名前や行所有者から推測しない。</p>
+<h3>認証</h3><p>Bearer JWT。主体と現在権限を確認します。</p>
+<h3>操作別の認可条件</h3><pre><span class="code-label">json</span><code>{
+  &quot;actor_types&quot;: [
+    &quot;human&quot;
+  ],
+  &quot;authentication&quot;: &quot;current_identity&quot;,
+  &quot;mfa&quot;: true,
+  &quot;mfa_when_lifecycle_enabled&quot;: true,
+  &quot;required_capabilities&quot;: [],
+  &quot;max_authentication_age_seconds&quot;: null,
+  &quot;external_human_mfa&quot;: true,
+  &quot;identity_freshness&quot;: {
+    &quot;checked_age_seconds&quot;: 5,
+    &quot;reconciled_age_seconds&quot;: 60
+  },
+  &quot;administrative_session_when_lifecycle_enabled&quot;: true,
+  &quot;resource_checks&quot;: [
+    {
+      &quot;kind&quot;: &quot;management&quot;,
+      &quot;all_of&quot;: [
+        &quot;service_administrator&quot;,
+        &quot;manage_access&quot;
+      ],
+      &quot;action&quot;: &quot;deleteGet&quot;
+    }
+  ]
+}</code></pre>
+<h3>再送と結果確認</h3><pre><span class="code-label">json</span><code>{
+  &quot;effect&quot;: &quot;read_or_plan&quot;,
+  &quot;mode&quot;: &quot;none&quot;,
+  &quot;safe_to_repeat&quot;: true,
+  &quot;result_check&quot;: &quot;同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。&quot;
+}</code></pre>
+<h3>パラメーター</h3><div class="table-wrap"><table><thead><tr><th scope="col">名前 / 場所</th><th scope="col">必須</th><th scope="col">型・条件</th></tr></thead><tbody><tr><td><code>subjectId</code><br>path</td><td>必須</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;,
+  &quot;format&quot;: &quot;uuid&quot;
+}</code></pre></td></tr><tr><td><code>collection</code><br>path</td><td>必須</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;
+}</code></pre></td></tr></tbody></table></div>
+<h3>応答</h3><div class="table-wrap"><table><thead><tr><th scope="col">HTTP</th><th scope="col">内容 / データ型</th></tr></thead><tbody><tr><td><code>200</code></td><td>Success; fields are projected using current authorization.<br>application/json · <a href="api-schemas.html#schema-HumanDeleteGrant">HumanDeleteGrant</a></td></tr><tr><td><code>400</code></td><td>本人の行削除範囲を取得での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>401</code></td><td>本人の行削除範囲を取得での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>403</code></td><td>本人の行削除範囲を取得での拒否・失敗: FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>404</code></td><td>本人の行削除範囲を取得での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>409</code></td><td>本人の行削除範囲を取得での拒否・失敗: LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>422</code></td><td>本人の行削除範囲を取得での拒否・失敗: VALIDATION_FAILED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>429</code></td><td>本人の行削除範囲を取得での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>500</code></td><td>本人の行削除範囲を取得での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>503</code></td><td>本人の行削除範囲を取得での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr></tbody></table></div>
+<p>提供条件: 環境による</p><p>制限: 固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。</p><p><a href="examples.html">完全な要求・応答と実行例</a> · <a href="principles.html">状態の読み方</a></p>
+</div></details><details class="operation" id="op-workspaceAccess-deletePut" data-group="workspace-access" data-search="put /v2/access/deletions/{subjectid}/{collection} workspaceaccess.deleteput 人物・行アクセス workspace-access 本人の行削除範囲を設定"><summary><span class="method put">PUT</span><span class="route">/v2/access/deletions/{subjectId}/{collection}</span><span class="opmeta">人物・行アクセス · workspaceAccess.deletePut</span></summary><div class="opbody">
+<p><span class="badge">OpenAPI定義あり</span><a class="anchor-link" href="#op-workspaceAccess-deletePut">この操作へのリンク</a></p>
+<h3>本人の行削除範囲を設定</h3>
+<p>本人の行削除範囲を設定。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理権限は業務行の閲覧権を付与しない。人物対応は明示された本人IDと人物行を使い、名前や行所有者から推測しない。</p>
+<h3>認証</h3><p>Bearer JWT。主体と現在権限を確認します。</p>
+<h3>操作別の認可条件</h3><pre><span class="code-label">json</span><code>{
+  &quot;actor_types&quot;: [
+    &quot;human&quot;
+  ],
+  &quot;authentication&quot;: &quot;current_identity&quot;,
+  &quot;mfa&quot;: true,
+  &quot;mfa_when_lifecycle_enabled&quot;: true,
+  &quot;required_capabilities&quot;: [],
+  &quot;max_authentication_age_seconds&quot;: null,
+  &quot;external_human_mfa&quot;: true,
+  &quot;identity_freshness&quot;: {
+    &quot;checked_age_seconds&quot;: 5,
+    &quot;reconciled_age_seconds&quot;: 60
+  },
+  &quot;administrative_session_when_lifecycle_enabled&quot;: true,
+  &quot;resource_checks&quot;: [
+    {
+      &quot;kind&quot;: &quot;management&quot;,
+      &quot;all_of&quot;: [
+        &quot;service_administrator&quot;,
+        &quot;manage_access&quot;
+      ],
+      &quot;action&quot;: &quot;deletePut&quot;
+    }
+  ]
+}</code></pre>
+<h3>再送と結果確認</h3><pre><span class="code-label">json</span><code>{
+  &quot;effect&quot;: &quot;write&quot;,
+  &quot;mode&quot;: &quot;Idempotency-Key&quot;,
+  &quot;identifier&quot;: &quot;header.Idempotency-Key&quot;,
+  &quot;preconditions&quot;: [
+    &quot;本文のversion/schema_version/revision/fingerprint（定義される操作のみ）&quot;
+  ],
+  &quot;safe_to_repeat&quot;: true,
+  &quot;result_check&quot;: &quot;同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。&quot;
+}</code></pre>
+<h3>パラメーター</h3><div class="table-wrap"><table><thead><tr><th scope="col">名前 / 場所</th><th scope="col">必須</th><th scope="col">型・条件</th></tr></thead><tbody><tr><td><code>subjectId</code><br>path</td><td>必須</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;,
+  &quot;format&quot;: &quot;uuid&quot;
+}</code></pre></td></tr><tr><td><code>collection</code><br>path</td><td>必須</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;
+}</code></pre></td></tr><tr><td><code>Idempotency-Key</code><br>header</td><td>必須</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;,
+  &quot;pattern&quot;: &quot;^[-a-zA-Z0-9_]{8,128}$&quot;
+}</code></pre></td></tr></tbody></table></div>
+<h3>リクエスト本文</h3>
+<p><code>application/json</code></p><pre><span class="code-label">json</span><code>{
+  &quot;$ref&quot;: &quot;<a href="api-schemas.html#schema-HumanDeleteInput">#/components/schemas/HumanDeleteInput</a>&quot;
+}</code></pre>
+<h3>応答</h3><div class="table-wrap"><table><thead><tr><th scope="col">HTTP</th><th scope="col">内容 / データ型</th></tr></thead><tbody><tr><td><code>200</code></td><td>Success; fields are projected using current authorization.<br>application/json · <a href="api-schemas.html#schema-HumanDeleteGrant">HumanDeleteGrant</a></td></tr><tr><td><code>400</code></td><td>本人の行削除範囲を設定での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>401</code></td><td>本人の行削除範囲を設定での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>403</code></td><td>本人の行削除範囲を設定での拒否・失敗: FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>404</code></td><td>本人の行削除範囲を設定での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>409</code></td><td>本人の行削除範囲を設定での拒否・失敗: LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>412</code></td><td>本人の行削除範囲を設定での拒否・失敗: VERSION_CONFLICT。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>413</code></td><td>本人の行削除範囲を設定での拒否・失敗: PAYLOAD_TOO_LARGE。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>415</code></td><td>本人の行削除範囲を設定での拒否・失敗: UNSUPPORTED_MEDIA_TYPE。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>422</code></td><td>本人の行削除範囲を設定での拒否・失敗: IDEMPOTENCY_MISMATCH, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>428</code></td><td>本人の行削除範囲を設定での拒否・失敗: IDEMPOTENCY_KEY_REQUIRED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>429</code></td><td>本人の行削除範囲を設定での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>500</code></td><td>本人の行削除範囲を設定での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>503</code></td><td>本人の行削除範囲を設定での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, OUTCOME_UNKNOWN, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr></tbody></table></div>
+<p>提供条件: 環境による</p><p>制限: 固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。</p><p><a href="examples.html">完全な要求・応答と実行例</a> · <a href="principles.html">状態の読み方</a></p>
+</div></details><details class="operation" id="op-workspaceAccess-rootGet" data-group="workspace-access" data-search="get /v2/access/people/{collection} workspaceaccess.rootget 人物・行アクセス workspace-access 人物表の登録状態を取得"><summary><span class="method get">GET</span><span class="route">/v2/access/people/{collection}</span><span class="opmeta">人物・行アクセス · workspaceAccess.rootGet</span></summary><div class="opbody">
+<p><span class="badge">OpenAPI定義あり</span><a class="anchor-link" href="#op-workspaceAccess-rootGet">この操作へのリンク</a></p>
+<h3>人物表の登録状態を取得</h3>
+<p>人物表の登録状態を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理権限は業務行の閲覧権を付与しない。人物対応は明示された本人IDと人物行を使い、名前や行所有者から推測しない。</p>
+<h3>認証</h3><p>Bearer JWT。主体と現在権限を確認します。</p>
+<h3>操作別の認可条件</h3><pre><span class="code-label">json</span><code>{
+  &quot;actor_types&quot;: [
+    &quot;human&quot;
+  ],
+  &quot;authentication&quot;: &quot;current_identity&quot;,
+  &quot;mfa&quot;: true,
+  &quot;mfa_when_lifecycle_enabled&quot;: true,
+  &quot;required_capabilities&quot;: [],
+  &quot;max_authentication_age_seconds&quot;: null,
+  &quot;external_human_mfa&quot;: true,
+  &quot;identity_freshness&quot;: {
+    &quot;checked_age_seconds&quot;: 5,
+    &quot;reconciled_age_seconds&quot;: 60
+  },
+  &quot;administrative_session_when_lifecycle_enabled&quot;: true,
+  &quot;resource_checks&quot;: [
+    {
+      &quot;kind&quot;: &quot;management&quot;,
+      &quot;all_of&quot;: [
+        &quot;service_administrator&quot;,
+        &quot;manage_access&quot;
+      ],
+      &quot;action&quot;: &quot;rootGet&quot;
+    }
+  ]
+}</code></pre>
+<h3>再送と結果確認</h3><pre><span class="code-label">json</span><code>{
+  &quot;effect&quot;: &quot;read_or_plan&quot;,
+  &quot;mode&quot;: &quot;none&quot;,
+  &quot;safe_to_repeat&quot;: true,
+  &quot;result_check&quot;: &quot;同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。&quot;
+}</code></pre>
+<h3>パラメーター</h3><div class="table-wrap"><table><thead><tr><th scope="col">名前 / 場所</th><th scope="col">必須</th><th scope="col">型・条件</th></tr></thead><tbody><tr><td><code>collection</code><br>path</td><td>必須</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;
+}</code></pre></td></tr></tbody></table></div>
+<h3>応答</h3><div class="table-wrap"><table><thead><tr><th scope="col">HTTP</th><th scope="col">内容 / データ型</th></tr></thead><tbody><tr><td><code>200</code></td><td>Success; fields are projected using current authorization.<br>application/json · <a href="api-schemas.html#schema-PersonRootResult">PersonRootResult</a></td></tr><tr><td><code>400</code></td><td>人物表の登録状態を取得での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>401</code></td><td>人物表の登録状態を取得での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>403</code></td><td>人物表の登録状態を取得での拒否・失敗: FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>404</code></td><td>人物表の登録状態を取得での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>409</code></td><td>人物表の登録状態を取得での拒否・失敗: LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>422</code></td><td>人物表の登録状態を取得での拒否・失敗: VALIDATION_FAILED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>429</code></td><td>人物表の登録状態を取得での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>500</code></td><td>人物表の登録状態を取得での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>503</code></td><td>人物表の登録状態を取得での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr></tbody></table></div>
+<p>提供条件: 環境による</p><p>制限: 固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。</p><p><a href="examples.html">完全な要求・応答と実行例</a> · <a href="principles.html">状態の読み方</a></p>
+</div></details><details class="operation" id="op-workspaceAccess-rootPut" data-group="workspace-access" data-search="put /v2/access/people/{collection} workspaceaccess.rootput 人物・行アクセス workspace-access 人物表を登録"><summary><span class="method put">PUT</span><span class="route">/v2/access/people/{collection}</span><span class="opmeta">人物・行アクセス · workspaceAccess.rootPut</span></summary><div class="opbody">
+<p><span class="badge">OpenAPI定義あり</span><a class="anchor-link" href="#op-workspaceAccess-rootPut">この操作へのリンク</a></p>
+<h3>人物表を登録</h3>
+<p>人物表を登録。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理権限は業務行の閲覧権を付与しない。人物対応は明示された本人IDと人物行を使い、名前や行所有者から推測しない。</p>
+<h3>認証</h3><p>Bearer JWT。主体と現在権限を確認します。</p>
+<h3>操作別の認可条件</h3><pre><span class="code-label">json</span><code>{
+  &quot;actor_types&quot;: [
+    &quot;human&quot;
+  ],
+  &quot;authentication&quot;: &quot;current_identity&quot;,
+  &quot;mfa&quot;: true,
+  &quot;mfa_when_lifecycle_enabled&quot;: true,
+  &quot;required_capabilities&quot;: [],
+  &quot;max_authentication_age_seconds&quot;: null,
+  &quot;external_human_mfa&quot;: true,
+  &quot;identity_freshness&quot;: {
+    &quot;checked_age_seconds&quot;: 5,
+    &quot;reconciled_age_seconds&quot;: 60
+  },
+  &quot;administrative_session_when_lifecycle_enabled&quot;: true,
+  &quot;resource_checks&quot;: [
+    {
+      &quot;kind&quot;: &quot;management&quot;,
+      &quot;all_of&quot;: [
+        &quot;service_administrator&quot;,
+        &quot;manage_access&quot;
+      ],
+      &quot;action&quot;: &quot;rootPut&quot;
+    }
+  ]
+}</code></pre>
+<h3>再送と結果確認</h3><pre><span class="code-label">json</span><code>{
+  &quot;effect&quot;: &quot;write&quot;,
+  &quot;mode&quot;: &quot;Idempotency-Key&quot;,
+  &quot;identifier&quot;: &quot;header.Idempotency-Key&quot;,
+  &quot;preconditions&quot;: [
+    &quot;本文のversion/schema_version/revision/fingerprint（定義される操作のみ）&quot;
+  ],
+  &quot;safe_to_repeat&quot;: true,
+  &quot;result_check&quot;: &quot;同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。&quot;
+}</code></pre>
+<h3>パラメーター</h3><div class="table-wrap"><table><thead><tr><th scope="col">名前 / 場所</th><th scope="col">必須</th><th scope="col">型・条件</th></tr></thead><tbody><tr><td><code>collection</code><br>path</td><td>必須</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;
+}</code></pre></td></tr><tr><td><code>Idempotency-Key</code><br>header</td><td>必須</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;,
+  &quot;pattern&quot;: &quot;^[-a-zA-Z0-9_]{8,128}$&quot;
+}</code></pre></td></tr></tbody></table></div>
+<h3>リクエスト本文</h3>
+<p><code>application/json</code></p><pre><span class="code-label">json</span><code>{
+  &quot;$ref&quot;: &quot;<a href="api-schemas.html#schema-PersonRootInput">#/components/schemas/PersonRootInput</a>&quot;
+}</code></pre>
+<h3>応答</h3><div class="table-wrap"><table><thead><tr><th scope="col">HTTP</th><th scope="col">内容 / データ型</th></tr></thead><tbody><tr><td><code>200</code></td><td>Success; fields are projected using current authorization.<br>application/json · <a href="api-schemas.html#schema-PersonRootResult">PersonRootResult</a></td></tr><tr><td><code>400</code></td><td>人物表を登録での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>401</code></td><td>人物表を登録での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>403</code></td><td>人物表を登録での拒否・失敗: FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>404</code></td><td>人物表を登録での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>409</code></td><td>人物表を登録での拒否・失敗: LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>412</code></td><td>人物表を登録での拒否・失敗: VERSION_CONFLICT。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>413</code></td><td>人物表を登録での拒否・失敗: PAYLOAD_TOO_LARGE。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>415</code></td><td>人物表を登録での拒否・失敗: UNSUPPORTED_MEDIA_TYPE。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>422</code></td><td>人物表を登録での拒否・失敗: IDEMPOTENCY_MISMATCH, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>428</code></td><td>人物表を登録での拒否・失敗: IDEMPOTENCY_KEY_REQUIRED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>429</code></td><td>人物表を登録での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>500</code></td><td>人物表を登録での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>503</code></td><td>人物表を登録での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, OUTCOME_UNKNOWN, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr></tbody></table></div>
+<p>提供条件: 環境による</p><p>制限: 固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。</p><p><a href="examples.html">完全な要求・応答と実行例</a> · <a href="principles.html">状態の読み方</a></p>
+</div></details><details class="operation" id="op-workspaceAccess-bindingGet" data-group="workspace-access" data-search="get /v2/access/people/{collection}/bindings/{subjectid} workspaceaccess.bindingget 人物・行アクセス workspace-access 本人idと人物行の対応を取得"><summary><span class="method get">GET</span><span class="route">/v2/access/people/{collection}/bindings/{subjectId}</span><span class="opmeta">人物・行アクセス · workspaceAccess.bindingGet</span></summary><div class="opbody">
+<p><span class="badge">OpenAPI定義あり</span><a class="anchor-link" href="#op-workspaceAccess-bindingGet">この操作へのリンク</a></p>
+<h3>本人IDと人物行の対応を取得</h3>
+<p>本人IDと人物行の対応を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理権限は業務行の閲覧権を付与しない。人物対応は明示された本人IDと人物行を使い、名前や行所有者から推測しない。</p>
+<h3>認証</h3><p>Bearer JWT。主体と現在権限を確認します。</p>
+<h3>操作別の認可条件</h3><pre><span class="code-label">json</span><code>{
+  &quot;actor_types&quot;: [
+    &quot;human&quot;
+  ],
+  &quot;authentication&quot;: &quot;current_identity&quot;,
+  &quot;mfa&quot;: true,
+  &quot;mfa_when_lifecycle_enabled&quot;: true,
+  &quot;required_capabilities&quot;: [],
+  &quot;max_authentication_age_seconds&quot;: null,
+  &quot;external_human_mfa&quot;: true,
+  &quot;identity_freshness&quot;: {
+    &quot;checked_age_seconds&quot;: 5,
+    &quot;reconciled_age_seconds&quot;: 60
+  },
+  &quot;administrative_session_when_lifecycle_enabled&quot;: true,
+  &quot;resource_checks&quot;: [
+    {
+      &quot;kind&quot;: &quot;management&quot;,
+      &quot;all_of&quot;: [
+        &quot;service_administrator&quot;,
+        &quot;manage_access&quot;
+      ],
+      &quot;action&quot;: &quot;bindingGet&quot;
+    }
+  ]
+}</code></pre>
+<h3>再送と結果確認</h3><pre><span class="code-label">json</span><code>{
+  &quot;effect&quot;: &quot;read_or_plan&quot;,
+  &quot;mode&quot;: &quot;none&quot;,
+  &quot;safe_to_repeat&quot;: true,
+  &quot;result_check&quot;: &quot;同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。&quot;
+}</code></pre>
+<h3>パラメーター</h3><div class="table-wrap"><table><thead><tr><th scope="col">名前 / 場所</th><th scope="col">必須</th><th scope="col">型・条件</th></tr></thead><tbody><tr><td><code>collection</code><br>path</td><td>必須</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;
+}</code></pre></td></tr><tr><td><code>subjectId</code><br>path</td><td>必須</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;,
+  &quot;format&quot;: &quot;uuid&quot;
+}</code></pre></td></tr></tbody></table></div>
+<h3>応答</h3><div class="table-wrap"><table><thead><tr><th scope="col">HTTP</th><th scope="col">内容 / データ型</th></tr></thead><tbody><tr><td><code>200</code></td><td>Success; fields are projected using current authorization.<br>application/json · <a href="api-schemas.html#schema-PersonBindingResult">PersonBindingResult</a></td></tr><tr><td><code>400</code></td><td>本人IDと人物行の対応を取得での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>401</code></td><td>本人IDと人物行の対応を取得での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>403</code></td><td>本人IDと人物行の対応を取得での拒否・失敗: FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>404</code></td><td>本人IDと人物行の対応を取得での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>409</code></td><td>本人IDと人物行の対応を取得での拒否・失敗: LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>422</code></td><td>本人IDと人物行の対応を取得での拒否・失敗: VALIDATION_FAILED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>429</code></td><td>本人IDと人物行の対応を取得での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>500</code></td><td>本人IDと人物行の対応を取得での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>503</code></td><td>本人IDと人物行の対応を取得での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr></tbody></table></div>
+<p>提供条件: 環境による</p><p>制限: 固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。</p><p><a href="examples.html">完全な要求・応答と実行例</a> · <a href="principles.html">状態の読み方</a></p>
+</div></details><details class="operation" id="op-workspaceAccess-bindingPut" data-group="workspace-access" data-search="put /v2/access/people/{collection}/bindings/{subjectid} workspaceaccess.bindingput 人物・行アクセス workspace-access 本人idと人物行の対応を設定"><summary><span class="method put">PUT</span><span class="route">/v2/access/people/{collection}/bindings/{subjectId}</span><span class="opmeta">人物・行アクセス · workspaceAccess.bindingPut</span></summary><div class="opbody">
+<p><span class="badge">OpenAPI定義あり</span><a class="anchor-link" href="#op-workspaceAccess-bindingPut">この操作へのリンク</a></p>
+<h3>本人IDと人物行の対応を設定</h3>
+<p>本人IDと人物行の対応を設定。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理権限は業務行の閲覧権を付与しない。人物対応は明示された本人IDと人物行を使い、名前や行所有者から推測しない。</p>
+<h3>認証</h3><p>Bearer JWT。主体と現在権限を確認します。</p>
+<h3>操作別の認可条件</h3><pre><span class="code-label">json</span><code>{
+  &quot;actor_types&quot;: [
+    &quot;human&quot;
+  ],
+  &quot;authentication&quot;: &quot;current_identity&quot;,
+  &quot;mfa&quot;: true,
+  &quot;mfa_when_lifecycle_enabled&quot;: true,
+  &quot;required_capabilities&quot;: [],
+  &quot;max_authentication_age_seconds&quot;: null,
+  &quot;external_human_mfa&quot;: true,
+  &quot;identity_freshness&quot;: {
+    &quot;checked_age_seconds&quot;: 5,
+    &quot;reconciled_age_seconds&quot;: 60
+  },
+  &quot;administrative_session_when_lifecycle_enabled&quot;: true,
+  &quot;resource_checks&quot;: [
+    {
+      &quot;kind&quot;: &quot;management&quot;,
+      &quot;all_of&quot;: [
+        &quot;service_administrator&quot;,
+        &quot;manage_access&quot;
+      ],
+      &quot;action&quot;: &quot;bindingPut&quot;
+    }
+  ]
+}</code></pre>
+<h3>再送と結果確認</h3><pre><span class="code-label">json</span><code>{
+  &quot;effect&quot;: &quot;write&quot;,
+  &quot;mode&quot;: &quot;Idempotency-Key&quot;,
+  &quot;identifier&quot;: &quot;header.Idempotency-Key&quot;,
+  &quot;preconditions&quot;: [
+    &quot;本文のversion/schema_version/revision/fingerprint（定義される操作のみ）&quot;
+  ],
+  &quot;safe_to_repeat&quot;: true,
+  &quot;result_check&quot;: &quot;同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。&quot;
+}</code></pre>
+<h3>パラメーター</h3><div class="table-wrap"><table><thead><tr><th scope="col">名前 / 場所</th><th scope="col">必須</th><th scope="col">型・条件</th></tr></thead><tbody><tr><td><code>collection</code><br>path</td><td>必須</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;
+}</code></pre></td></tr><tr><td><code>subjectId</code><br>path</td><td>必須</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;,
+  &quot;format&quot;: &quot;uuid&quot;
+}</code></pre></td></tr><tr><td><code>Idempotency-Key</code><br>header</td><td>必須</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;,
+  &quot;pattern&quot;: &quot;^[-a-zA-Z0-9_]{8,128}$&quot;
+}</code></pre></td></tr></tbody></table></div>
+<h3>リクエスト本文</h3>
+<p><code>application/json</code></p><pre><span class="code-label">json</span><code>{
+  &quot;$ref&quot;: &quot;<a href="api-schemas.html#schema-PersonBindingInput">#/components/schemas/PersonBindingInput</a>&quot;
+}</code></pre>
+<h3>応答</h3><div class="table-wrap"><table><thead><tr><th scope="col">HTTP</th><th scope="col">内容 / データ型</th></tr></thead><tbody><tr><td><code>200</code></td><td>Success; fields are projected using current authorization.<br>application/json · <a href="api-schemas.html#schema-PersonBindingResult">PersonBindingResult</a></td></tr><tr><td><code>400</code></td><td>本人IDと人物行の対応を設定での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>401</code></td><td>本人IDと人物行の対応を設定での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>403</code></td><td>本人IDと人物行の対応を設定での拒否・失敗: FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>404</code></td><td>本人IDと人物行の対応を設定での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>409</code></td><td>本人IDと人物行の対応を設定での拒否・失敗: LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>412</code></td><td>本人IDと人物行の対応を設定での拒否・失敗: VERSION_CONFLICT。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>413</code></td><td>本人IDと人物行の対応を設定での拒否・失敗: PAYLOAD_TOO_LARGE。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>415</code></td><td>本人IDと人物行の対応を設定での拒否・失敗: UNSUPPORTED_MEDIA_TYPE。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>422</code></td><td>本人IDと人物行の対応を設定での拒否・失敗: IDEMPOTENCY_MISMATCH, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>428</code></td><td>本人IDと人物行の対応を設定での拒否・失敗: IDEMPOTENCY_KEY_REQUIRED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>429</code></td><td>本人IDと人物行の対応を設定での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>500</code></td><td>本人IDと人物行の対応を設定での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>503</code></td><td>本人IDと人物行の対応を設定での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, OUTCOME_UNKNOWN, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr></tbody></table></div>
+<p>提供条件: 環境による</p><p>制限: 固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。</p><p><a href="examples.html">完全な要求・応答と実行例</a> · <a href="principles.html">状態の読み方</a></p>
+</div></details><details class="operation" id="op-workspaceAccess-membersGet" data-group="workspace-access" data-search="get /v2/access/people/{collection}/rows/{personid}/members workspaceaccess.membersget 人物・行アクセス workspace-access 人物行の所属者を取得"><summary><span class="method get">GET</span><span class="route">/v2/access/people/{collection}/rows/{personId}/members</span><span class="opmeta">人物・行アクセス · workspaceAccess.membersGet</span></summary><div class="opbody">
+<p><span class="badge">OpenAPI定義あり</span><a class="anchor-link" href="#op-workspaceAccess-membersGet">この操作へのリンク</a></p>
+<h3>人物行の所属者を取得</h3>
+<p>人物行の所属者を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理権限は業務行の閲覧権を付与しない。人物対応は明示された本人IDと人物行を使い、名前や行所有者から推測しない。</p>
+<h3>認証</h3><p>Bearer JWT。主体と現在権限を確認します。</p>
+<h3>操作別の認可条件</h3><pre><span class="code-label">json</span><code>{
+  &quot;actor_types&quot;: [
+    &quot;human&quot;
+  ],
+  &quot;authentication&quot;: &quot;current_identity&quot;,
+  &quot;mfa&quot;: true,
+  &quot;mfa_when_lifecycle_enabled&quot;: true,
+  &quot;required_capabilities&quot;: [],
+  &quot;max_authentication_age_seconds&quot;: null,
+  &quot;external_human_mfa&quot;: true,
+  &quot;identity_freshness&quot;: {
+    &quot;checked_age_seconds&quot;: 5,
+    &quot;reconciled_age_seconds&quot;: 60
+  },
+  &quot;administrative_session_when_lifecycle_enabled&quot;: true,
+  &quot;resource_checks&quot;: [
+    {
+      &quot;kind&quot;: &quot;management&quot;,
+      &quot;all_of&quot;: [
+        &quot;service_administrator&quot;,
+        &quot;manage_access&quot;
+      ],
+      &quot;action&quot;: &quot;membersGet&quot;
+    }
+  ]
+}</code></pre>
+<h3>再送と結果確認</h3><pre><span class="code-label">json</span><code>{
+  &quot;effect&quot;: &quot;read_or_plan&quot;,
+  &quot;mode&quot;: &quot;none&quot;,
+  &quot;safe_to_repeat&quot;: true,
+  &quot;result_check&quot;: &quot;同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。&quot;
+}</code></pre>
+<h3>パラメーター</h3><div class="table-wrap"><table><thead><tr><th scope="col">名前 / 場所</th><th scope="col">必須</th><th scope="col">型・条件</th></tr></thead><tbody><tr><td><code>collection</code><br>path</td><td>必須</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;
+}</code></pre></td></tr><tr><td><code>personId</code><br>path</td><td>必須</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;,
+  &quot;format&quot;: &quot;uuid&quot;
+}</code></pre></td></tr><tr><td><code>limit</code><br>query</td><td>任意</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;integer&quot;,
+  &quot;minimum&quot;: 1,
+  &quot;maximum&quot;: 100
+}</code></pre></td></tr><tr><td><code>after</code><br>query</td><td>任意</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;,
+  &quot;format&quot;: &quot;uuid&quot;
+}</code></pre></td></tr></tbody></table></div>
+<h3>応答</h3><div class="table-wrap"><table><thead><tr><th scope="col">HTTP</th><th scope="col">内容 / データ型</th></tr></thead><tbody><tr><td><code>200</code></td><td>Success; fields are projected using current authorization.<br>application/json · <a href="api-schemas.html#schema-PersonMembersPage">PersonMembersPage</a></td></tr><tr><td><code>400</code></td><td>人物行の所属者を取得での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>401</code></td><td>人物行の所属者を取得での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>403</code></td><td>人物行の所属者を取得での拒否・失敗: FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>404</code></td><td>人物行の所属者を取得での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>409</code></td><td>人物行の所属者を取得での拒否・失敗: LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>422</code></td><td>人物行の所属者を取得での拒否・失敗: VALIDATION_FAILED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>429</code></td><td>人物行の所属者を取得での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>500</code></td><td>人物行の所属者を取得での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>503</code></td><td>人物行の所属者を取得での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr></tbody></table></div>
+<p>提供条件: 環境による</p><p>制限: 固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。</p><p><a href="examples.html">完全な要求・応答と実行例</a> · <a href="principles.html">状態の読み方</a></p>
+</div></details><details class="operation" id="op-workspaceAccess-membersPut" data-group="workspace-access" data-search="put /v2/access/people/{collection}/rows/{personid}/members workspaceaccess.membersput 人物・行アクセス workspace-access 人物行の所属者を設定"><summary><span class="method put">PUT</span><span class="route">/v2/access/people/{collection}/rows/{personId}/members</span><span class="opmeta">人物・行アクセス · workspaceAccess.membersPut</span></summary><div class="opbody">
+<p><span class="badge">OpenAPI定義あり</span><a class="anchor-link" href="#op-workspaceAccess-membersPut">この操作へのリンク</a></p>
+<h3>人物行の所属者を設定</h3>
+<p>人物行の所属者を設定。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理権限は業務行の閲覧権を付与しない。人物対応は明示された本人IDと人物行を使い、名前や行所有者から推測しない。</p>
+<h3>認証</h3><p>Bearer JWT。主体と現在権限を確認します。</p>
+<h3>操作別の認可条件</h3><pre><span class="code-label">json</span><code>{
+  &quot;actor_types&quot;: [
+    &quot;human&quot;
+  ],
+  &quot;authentication&quot;: &quot;current_identity&quot;,
+  &quot;mfa&quot;: true,
+  &quot;mfa_when_lifecycle_enabled&quot;: true,
+  &quot;required_capabilities&quot;: [],
+  &quot;max_authentication_age_seconds&quot;: null,
+  &quot;external_human_mfa&quot;: true,
+  &quot;identity_freshness&quot;: {
+    &quot;checked_age_seconds&quot;: 5,
+    &quot;reconciled_age_seconds&quot;: 60
+  },
+  &quot;administrative_session_when_lifecycle_enabled&quot;: true,
+  &quot;resource_checks&quot;: [
+    {
+      &quot;kind&quot;: &quot;management&quot;,
+      &quot;all_of&quot;: [
+        &quot;service_administrator&quot;,
+        &quot;manage_access&quot;
+      ],
+      &quot;action&quot;: &quot;membersPut&quot;
+    }
+  ]
+}</code></pre>
+<h3>再送と結果確認</h3><pre><span class="code-label">json</span><code>{
+  &quot;effect&quot;: &quot;write&quot;,
+  &quot;mode&quot;: &quot;Idempotency-Key&quot;,
+  &quot;identifier&quot;: &quot;header.Idempotency-Key&quot;,
+  &quot;preconditions&quot;: [
+    &quot;本文のversion/schema_version/revision/fingerprint（定義される操作のみ）&quot;
+  ],
+  &quot;safe_to_repeat&quot;: true,
+  &quot;result_check&quot;: &quot;同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。&quot;
+}</code></pre>
+<h3>パラメーター</h3><div class="table-wrap"><table><thead><tr><th scope="col">名前 / 場所</th><th scope="col">必須</th><th scope="col">型・条件</th></tr></thead><tbody><tr><td><code>collection</code><br>path</td><td>必須</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;
+}</code></pre></td></tr><tr><td><code>personId</code><br>path</td><td>必須</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;,
+  &quot;format&quot;: &quot;uuid&quot;
+}</code></pre></td></tr><tr><td><code>Idempotency-Key</code><br>header</td><td>必須</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;,
+  &quot;pattern&quot;: &quot;^[-a-zA-Z0-9_]{8,128}$&quot;
+}</code></pre></td></tr></tbody></table></div>
+<h3>リクエスト本文</h3>
+<p><code>application/json</code></p><pre><span class="code-label">json</span><code>{
+  &quot;$ref&quot;: &quot;<a href="api-schemas.html#schema-PersonMembersInput">#/components/schemas/PersonMembersInput</a>&quot;
+}</code></pre>
+<h3>応答</h3><div class="table-wrap"><table><thead><tr><th scope="col">HTTP</th><th scope="col">内容 / データ型</th></tr></thead><tbody><tr><td><code>200</code></td><td>Success; fields are projected using current authorization.<br>application/json · <a href="api-schemas.html#schema-PersonMembersResult">PersonMembersResult</a></td></tr><tr><td><code>400</code></td><td>人物行の所属者を設定での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>401</code></td><td>人物行の所属者を設定での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>403</code></td><td>人物行の所属者を設定での拒否・失敗: FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>404</code></td><td>人物行の所属者を設定での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>409</code></td><td>人物行の所属者を設定での拒否・失敗: LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>412</code></td><td>人物行の所属者を設定での拒否・失敗: VERSION_CONFLICT。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>413</code></td><td>人物行の所属者を設定での拒否・失敗: PAYLOAD_TOO_LARGE。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>415</code></td><td>人物行の所属者を設定での拒否・失敗: UNSUPPORTED_MEDIA_TYPE。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>422</code></td><td>人物行の所属者を設定での拒否・失敗: IDEMPOTENCY_MISMATCH, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>428</code></td><td>人物行の所属者を設定での拒否・失敗: IDEMPOTENCY_KEY_REQUIRED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>429</code></td><td>人物行の所属者を設定での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>500</code></td><td>人物行の所属者を設定での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>503</code></td><td>人物行の所属者を設定での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, OUTCOME_UNKNOWN, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr></tbody></table></div>
+<p>提供条件: 環境による</p><p>制限: 固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。</p><p><a href="examples.html">完全な要求・応答と実行例</a> · <a href="principles.html">状態の読み方</a></p>
+</div></details><details class="operation" id="op-workspaceAccess-me" data-group="workspace-access" data-search="get /v2/people/{collection}/me workspaceaccess.me 人物・行アクセス workspace-access 本人に対応する人物行を取得"><summary><span class="method get">GET</span><span class="route">/v2/people/{collection}/me</span><span class="opmeta">人物・行アクセス · workspaceAccess.me</span></summary><div class="opbody">
+<p><span class="badge">OpenAPI定義あり</span><a class="anchor-link" href="#op-workspaceAccess-me">この操作へのリンク</a></p>
+<h3>本人に対応する人物行を取得</h3>
+<p>本人に対応する人物行を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理権限は業務行の閲覧権を付与しない。人物対応は明示された本人IDと人物行を使い、名前や行所有者から推測しない。</p>
+<h3>認証</h3><p>Bearer JWT。主体と現在権限を確認します。</p>
+<h3>操作別の認可条件</h3><pre><span class="code-label">json</span><code>{
+  &quot;actor_types&quot;: [
+    &quot;human&quot;
+  ],
+  &quot;authentication&quot;: &quot;current_identity&quot;,
+  &quot;mfa&quot;: false,
+  &quot;mfa_when_lifecycle_enabled&quot;: false,
+  &quot;required_capabilities&quot;: [],
+  &quot;max_authentication_age_seconds&quot;: null,
+  &quot;external_human_mfa&quot;: true,
+  &quot;identity_freshness&quot;: {
+    &quot;checked_age_seconds&quot;: 5,
+    &quot;reconciled_age_seconds&quot;: 60
+  },
+  &quot;administrative_session_when_lifecycle_enabled&quot;: false,
+  &quot;resource_checks&quot;: [
+    {
+      &quot;kind&quot;: &quot;person_resolution&quot;,
+      &quot;action&quot;: &quot;me&quot;,
+      &quot;checks&quot;: [
+        &quot;enabled_root&quot;,
+        &quot;current_binding&quot;,
+        &quot;row_visibility&quot;,
+        &quot;membership&quot;
+      ]
+    }
+  ]
+}</code></pre>
+<h3>再送と結果確認</h3><pre><span class="code-label">json</span><code>{
+  &quot;effect&quot;: &quot;read_or_plan&quot;,
+  &quot;mode&quot;: &quot;none&quot;,
+  &quot;safe_to_repeat&quot;: true,
+  &quot;result_check&quot;: &quot;同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。&quot;
+}</code></pre>
+<h3>パラメーター</h3><div class="table-wrap"><table><thead><tr><th scope="col">名前 / 場所</th><th scope="col">必須</th><th scope="col">型・条件</th></tr></thead><tbody><tr><td><code>collection</code><br>path</td><td>必須</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;
+}</code></pre></td></tr></tbody></table></div>
+<h3>応答</h3><div class="table-wrap"><table><thead><tr><th scope="col">HTTP</th><th scope="col">内容 / データ型</th></tr></thead><tbody><tr><td><code>200</code></td><td>Success; fields are projected using current authorization.<br>application/json · <a href="api-schemas.html#schema-PersonSelf">PersonSelf</a></td></tr><tr><td><code>400</code></td><td>本人に対応する人物行を取得での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>401</code></td><td>本人に対応する人物行を取得での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>403</code></td><td>本人に対応する人物行を取得での拒否・失敗: FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>404</code></td><td>本人に対応する人物行を取得での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>409</code></td><td>本人に対応する人物行を取得での拒否・失敗: LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>422</code></td><td>本人に対応する人物行を取得での拒否・失敗: VALIDATION_FAILED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>429</code></td><td>本人に対応する人物行を取得での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>500</code></td><td>本人に対応する人物行を取得での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>503</code></td><td>本人に対応する人物行を取得での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr></tbody></table></div>
+<p>提供条件: 環境による</p><p>制限: 固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。</p><p><a href="examples.html">完全な要求・応答と実行例</a> · <a href="principles.html">状態の読み方</a></p>
+</div></details><details class="operation" id="op-workspaceAccess-subjects" data-group="workspace-access" data-search="post /v2/tables/{collection}/subjects/query workspaceaccess.subjects 人物・行アクセス workspace-access 行に対応する本人idを検索"><summary><span class="method post">POST</span><span class="route">/v2/tables/{collection}/subjects/query</span><span class="opmeta">人物・行アクセス · workspaceAccess.subjects</span></summary><div class="opbody">
+<p><span class="badge">OpenAPI定義あり</span><a class="anchor-link" href="#op-workspaceAccess-subjects">この操作へのリンク</a></p>
+<h3>行に対応する本人IDを検索</h3>
+<p>行に対応する本人IDを検索。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 管理権限は業務行の閲覧権を付与しない。人物対応は明示された本人IDと人物行を使い、名前や行所有者から推測しない。</p>
+<h3>認証</h3><p>Bearer JWT。主体と現在権限を確認します。</p>
+<h3>操作別の認可条件</h3><pre><span class="code-label">json</span><code>{
+  &quot;actor_types&quot;: [
+    &quot;human&quot;
+  ],
+  &quot;authentication&quot;: &quot;current_identity&quot;,
+  &quot;mfa&quot;: false,
+  &quot;mfa_when_lifecycle_enabled&quot;: false,
+  &quot;required_capabilities&quot;: [],
+  &quot;max_authentication_age_seconds&quot;: null,
+  &quot;external_human_mfa&quot;: true,
+  &quot;identity_freshness&quot;: {
+    &quot;checked_age_seconds&quot;: 5,
+    &quot;reconciled_age_seconds&quot;: 60
+  },
+  &quot;administrative_session_when_lifecycle_enabled&quot;: false,
+  &quot;resource_checks&quot;: [
+    {
+      &quot;kind&quot;: &quot;person_resolution&quot;,
+      &quot;action&quot;: &quot;subjects&quot;,
+      &quot;checks&quot;: [
+        &quot;enabled_root&quot;,
+        &quot;current_binding&quot;,
+        &quot;row_visibility&quot;,
+        &quot;membership&quot;
+      ]
+    }
+  ]
+}</code></pre>
+<h3>再送と結果確認</h3><pre><span class="code-label">json</span><code>{
+  &quot;effect&quot;: &quot;read_or_plan&quot;,
+  &quot;mode&quot;: &quot;none&quot;,
+  &quot;safe_to_repeat&quot;: true,
+  &quot;result_check&quot;: &quot;同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。&quot;
+}</code></pre>
+<h3>パラメーター</h3><div class="table-wrap"><table><thead><tr><th scope="col">名前 / 場所</th><th scope="col">必須</th><th scope="col">型・条件</th></tr></thead><tbody><tr><td><code>collection</code><br>path</td><td>必須</td><td><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;string&quot;
+}</code></pre></td></tr></tbody></table></div>
+<h3>リクエスト本文</h3>
+<p><code>application/json</code></p><pre><span class="code-label">json</span><code>{
+  &quot;$ref&quot;: &quot;<a href="api-schemas.html#schema-RowSubjectsInput">#/components/schemas/RowSubjectsInput</a>&quot;
+}</code></pre>
+<h3>応答</h3><div class="table-wrap"><table><thead><tr><th scope="col">HTTP</th><th scope="col">内容 / データ型</th></tr></thead><tbody><tr><td><code>200</code></td><td>Success; fields are projected using current authorization.<br>application/json · <a href="api-schemas.html#schema-RowSubjectsResult">RowSubjectsResult</a></td></tr><tr><td><code>400</code></td><td>行に対応する本人IDを検索での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>401</code></td><td>行に対応する本人IDを検索での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>403</code></td><td>行に対応する本人IDを検索での拒否・失敗: FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>404</code></td><td>行に対応する本人IDを検索での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>409</code></td><td>行に対応する本人IDを検索での拒否・失敗: LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>413</code></td><td>行に対応する本人IDを検索での拒否・失敗: PAYLOAD_TOO_LARGE。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>415</code></td><td>行に対応する本人IDを検索での拒否・失敗: UNSUPPORTED_MEDIA_TYPE。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>422</code></td><td>行に対応する本人IDを検索での拒否・失敗: VALIDATION_FAILED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>429</code></td><td>行に対応する本人IDを検索での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>500</code></td><td>行に対応する本人IDを検索での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr><tr><td><code>503</code></td><td>行に対応する本人IDを検索での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。<br>application/problem+json · <a href="api-schemas.html#schema-Problem">Problem</a></td></tr></tbody></table></div>
+<p>提供条件: 環境による</p><p>制限: 固定のレート上限は定めていません。環境側の制限があり、429が返ることがあります。</p><p><a href="examples.html">完全な要求・応答と実行例</a> · <a href="principles.html">状態の読み方</a></p>
+</div></details><footer class="page-foot"><p>文書対象: <b>0.7.0-experimental</b> · 文書改訂 11 · 更新 2026-10-07</p><p>契約スナップショット 2026-10-04。実環境への疎通は未確認です。<a href="versions.html">提供条件と制約</a></p></footer></main></div><footer class="site-foot">Claudia Partner · 顧客アプリ開発者向け公開ドキュメント</footer></body></html>

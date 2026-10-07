@@ -101,3 +101,8 @@ OpenAPIの各操作には、`x-required-authority`があり、その操作を実
 | organization.activity | read_or_plan | none | 同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。 |
 | apps.plan | read_or_plan | none | 同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。 |
 | identity.logoutSelf | write | attempt_id | 同じセッションとattempt_idで再送し失効受領を確認する。別attempt_idを自動発行しない。 |
+
+
+## 未有効のモジュールと404
+
+仕様に載るルートでも、接続先のモジュールが未有効なら404 `NOT_FOUND`となる場合があります。対象の不存在や権限による非公開と、応答だけでは区別できません。`x-availability`や本人確認の成功だけで有効化を断定せず、[接続準備と最初の読取](../quickstart.html)で環境管理者から対象版・有効な機能の一覧を受け取ります。時刻、method、対象ルート、code、request_idを添えて照会し、対象を総当たりしません。

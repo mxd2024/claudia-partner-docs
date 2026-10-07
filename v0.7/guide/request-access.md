@@ -55,3 +55,8 @@ redirect_uri（利用者用のクライアントを新規に登録する場合�
 - 検証用の表の名前と、許可される操作が分かっている。
 
 次は、[利用者として接続する](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/authentication.md)、または[serviceとして接続する](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/service-access.md)へ進みます。
+
+
+## 機能の有効化も確認する
+
+依頼には、利用するAPI版、v1/v2系列、必要なモジュール、検証用の読取対象を含めてください。環境管理者から有効な機能の一覧を受け取ります。仕様への掲載だけでは、その環境にルートが配備されているか分かりません。[最初の読取](../quickstart.html)で確認します。
