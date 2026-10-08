@@ -4,13 +4,17 @@
 
 ## ファイル
 
-- [OpenAPI 3.1 JSON](https://mxd2024.github.io/claudia-partner-docs/v0.7/openapi.json)：132操作の、入力・応答・認証の定義。
-- [全API一覧 JSON](https://mxd2024.github.io/claudia-partner-docs/v0.7/api-inventory.json)：公開する132操作の一覧と、それぞれの提供状態。
+- [OpenAPI 3.1 JSON](https://mxd2024.github.io/claudia-partner-docs/v0.7/openapi.json)：134操作の、入力・応答・認証の定義。
+- [全API一覧 JSON](https://mxd2024.github.io/claudia-partner-docs/v0.7/api-inventory.json)：公開する134操作の一覧と、それぞれの提供状態。
 - [現在のMCPツール定義 JSON](https://mxd2024.github.io/claudia-partner-docs/v0.7/mcp-tools.json)：取込アダプターの8ツール。
 - [このガイドのMarkdown](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/index.md)：AIやテキストのツールが参照するための形式。
 - [実行例のJSON](https://mxd2024.github.io/claudia-partner-docs/v0.7/examples/public-requests.json)：[HTTP・実行例](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/examples.md)の元のデータ。
 
 OpenAPIの接続先と認証のURLは、接続できない説明用の値です。環境に合わせた版の作り方は、[利用者として接続する](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/authentication.md)の「OpenAPIのツールから使う」を参照してください。
+
+## 固定した契約と確認記録
+
+契約は2026-10-07のAPI 0.7.0-experimental、文書改訂12です。[来歴JSON](https://mxd2024.github.io/claudia-partner-docs/v0.7/provenance.json)に元契約の固定commit・SHA、MCP配布物の版・SHA、確認範囲を記録しています。私有repoへのリンクやローカルの経路を利用者の導線には使いません。
 
 ## ファイルの整合を確認する
 

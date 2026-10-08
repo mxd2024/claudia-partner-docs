@@ -51,6 +51,15 @@ grant_type=client_credentials&client_id=<CLIENT_ID>&client_assertion_type=urn%3A
 
 **期待する結果**: 許可された操作が、200で成功します。`GET /v1/me`は、人の利用者の専用なので、拒否されます。環境の認証の入口によって、401（`TOKEN_INVALID`）または403のどちらかになります。実際のHTTPとcodeを記録してください。「人として接続できた」ことを、成功の条件にしないでください。
 
+## 表の情報とCSV区間取込
+
+次の2操作は **[環境による]**。managed serviceの承認と、現在の資格・表・列・行・CRUD・schema_versionの許可が必要です。人のJWTは使えません。
+
+- [GET /v2/service/tables/{collection}](../api-service-access.html#op-service-metadata): 許可された表・列のmetadataを取得します。
+- [POST /v2/service/tables/{collection}/import](../api-service-access.html#op-service-import): 承認範囲のCSV取込区間を原子的に反映します。application/jsonのServiceImportと必須Idempotency-Keyを使い、同じ内容・同じキーで再送します。入力・結果・上限はリファレンスで確認し、任意のCSVバイナリーを直接POSTしません。
+
+取込MCPの接続キーはこのAPIのBearer資格ではありません。MCPの8ツールと、これらのservice APIは別の契約です。環境の取込実行主体と許可を確認してください。[MCPの対応範囲](../mcp-support.html)を参照してください。
+
 ## 世代と再開
 
 初めて使うときは、provisionの後、service専用のアクセストークンで、activateします。rotate（鍵の更新）の後と、suspendからresumeの後も、新しい世代を反映するために、provisionとactivateが必要です。古い世代の資格は、使えません。revokedは、元に戻りません。

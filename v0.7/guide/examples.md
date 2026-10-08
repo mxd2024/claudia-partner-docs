@@ -894,12 +894,12 @@ my-request.jsonは下の共通JSONから1件を選び、headers内のAuthorizati
 }
 ```
 
-## If-Matchで既存案件を更新
+## If-Matchで既存ケースを更新
 
 ```json
 {
   "id": "if-match",
-  "title": "If-Matchで既存案件を更新",
+  "title": "If-Matchで既存ケースを更新",
   "method": "PATCH",
   "path": "/v1/jobs/{id}",
   "url": "/v1/jobs/11111111-1111-4111-8111-111111111111",

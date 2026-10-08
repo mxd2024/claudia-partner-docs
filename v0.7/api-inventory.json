@@ -1,8 +1,8 @@
 {
   "version": 1,
   "api_version": "0.7.0-experimental",
-  "route_count": 132,
-  "openapi_route_count": 132,
+  "route_count": 134,
+  "openapi_route_count": 134,
   "mcp_scope": "all-public-api-services",
   "current_mcp": "8 import-adapter tools; all-service implementation pending",
   "routes": [
@@ -18,7 +18,8 @@
       "input_content_types": [],
       "response_content_types": [
         "application/json"
-      ]
+      ],
+      "availability": "提供中"
     },
     {
       "method": "GET",
@@ -32,7 +33,8 @@
       "input_content_types": [],
       "response_content_types": [
         "application/json"
-      ]
+      ],
+      "availability": "提供中"
     },
     {
       "method": "GET",
@@ -47,197 +49,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
-    },
-    {
-      "method": "GET",
-      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}",
-      "operation_id": "asset.list",
-      "group": "assets",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}/get",
-      "request_headers": [],
-      "query_parameters": [
-        {
-          "name": "limit",
-          "required": false
-        },
-        {
-          "name": "offset",
-          "required": false
-        }
       ],
-      "input_content_types": [],
-      "response_content_types": [
-        "application/json",
-        "application/problem+json"
-      ]
-    },
-    {
-      "method": "GET",
-      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}",
-      "operation_id": "asset.get",
-      "group": "assets",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1{assetId}/get",
-      "request_headers": [],
-      "query_parameters": [
-        {
-          "name": "version",
-          "required": false
-        }
-      ],
-      "input_content_types": [],
-      "response_content_types": [
-        "application/json",
-        "application/problem+json"
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}/check",
-      "operation_id": "asset.check",
-      "group": "assets",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1{assetId}~1check/post",
-      "request_headers": [],
-      "query_parameters": [
-        {
-          "name": "version",
-          "required": false
-        }
-      ],
-      "input_content_types": [],
-      "response_content_types": [
-        "application/json",
-        "application/problem+json"
-      ]
-    },
-    {
-      "method": "GET",
-      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}/content",
-      "operation_id": "asset.content",
-      "group": "assets",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1{assetId}~1content/get",
-      "request_headers": [],
-      "query_parameters": [
-        {
-          "name": "version",
-          "required": false
-        }
-      ],
-      "input_content_types": [],
-      "response_content_types": [
-        "application/octet-stream",
-        "application/problem+json",
-        "application/json"
-      ]
-    },
-    {
-      "method": "PUT",
-      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}/content",
-      "operation_id": "asset.upload",
-      "group": "assets",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1{assetId}~1content/put",
-      "request_headers": [
-        {
-          "name": "If-Match",
-          "required": true
-        },
-        {
-          "name": "Idempotency-Key",
-          "required": true
-        },
-        {
-          "name": "X-Asset-Reason",
-          "required": false
-        },
-        {
-          "name": "X-Asset-Media-Type",
-          "required": false
-        }
-      ],
-      "query_parameters": [],
-      "input_content_types": [
-        "application/octet-stream"
-      ],
-      "response_content_types": [
-        "application/json",
-        "application/problem+json"
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}/reference",
-      "operation_id": "asset.reference",
-      "group": "assets",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1{assetId}~1reference/post",
-      "request_headers": [
-        {
-          "name": "If-Match",
-          "required": true
-        },
-        {
-          "name": "Idempotency-Key",
-          "required": true
-        },
-        {
-          "name": "X-Asset-Reason",
-          "required": false
-        }
-      ],
-      "query_parameters": [],
-      "input_content_types": [
-        "application/json"
-      ],
-      "response_content_types": [
-        "application/json",
-        "application/problem+json"
-      ]
-    },
-    {
-      "method": "GET",
-      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}/thumbnail",
-      "operation_id": "asset.thumbnail",
-      "group": "assets",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1{assetId}~1thumbnail/get",
-      "request_headers": [],
-      "query_parameters": [
-        {
-          "name": "version",
-          "required": false
-        }
-      ],
-      "input_content_types": [],
-      "response_content_types": [
-        "image/png",
-        "application/problem+json",
-        "application/json"
-      ]
-    },
-    {
-      "method": "GET",
-      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/policy",
-      "operation_id": "asset.policy",
-      "group": "assets",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1policy/get",
-      "request_headers": [],
-      "query_parameters": [
-        {
-          "name": "version",
-          "required": false
-        }
-      ],
-      "input_content_types": [],
-      "response_content_types": [
-        "application/json",
-        "application/problem+json"
-      ]
+      "availability": "提供中（環境による）"
     },
     {
       "method": "GET",
@@ -252,7 +65,24 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "提供中（環境による）"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/assets/workspaces/{collection}/{rowId}/{field}/policy",
+      "operation_id": "media.1.policy",
+      "group": "media",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1workspaces~1{collection}~1{rowId}~1{field}~1policy/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "DELETE",
@@ -284,7 +114,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "GET",
@@ -299,7 +130,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "GET",
@@ -314,7 +146,8 @@
       "response_content_types": [
         "application/octet-stream",
         "application/problem+json"
-      ]
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "PUT",
@@ -356,7 +189,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "POST",
@@ -390,7 +224,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "GET",
@@ -403,24 +238,208 @@
       "query_parameters": [],
       "input_content_types": [],
       "response_content_types": [
-        "image/png",
-        "application/problem+json"
-      ]
+        "application/problem+json",
+        "image/png"
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "GET",
-      "path": "/v1/assets/workspaces/{collection}/{rowId}/{field}/policy",
-      "operation_id": "media.1.policy",
-      "group": "media",
+      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}",
+      "operation_id": "asset.list",
+      "group": "assets",
       "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v1~1assets~1workspaces~1{collection}~1{rowId}~1{field}~1policy/get",
+      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}/get",
       "request_headers": [],
-      "query_parameters": [],
+      "query_parameters": [
+        {
+          "name": "limit",
+          "required": false
+        },
+        {
+          "name": "offset",
+          "required": false
+        }
+      ],
       "input_content_types": [],
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/policy",
+      "operation_id": "asset.policy",
+      "group": "assets",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1policy/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "version",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "試験提供（環境による）"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}",
+      "operation_id": "asset.get",
+      "group": "assets",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1{assetId}/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "version",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "試験提供（環境による）"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}/check",
+      "operation_id": "asset.check",
+      "group": "assets",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1{assetId}~1check/post",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "version",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "試験提供（環境による）"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}/content",
+      "operation_id": "asset.content",
+      "group": "assets",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1{assetId}~1content/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "version",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/octet-stream",
+        "application/problem+json"
+      ],
+      "availability": "試験提供（環境による）"
+    },
+    {
+      "method": "PUT",
+      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}/content",
+      "operation_id": "asset.upload",
+      "group": "assets",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1{assetId}~1content/put",
+      "request_headers": [
+        {
+          "name": "If-Match",
+          "required": true
+        },
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        },
+        {
+          "name": "X-Asset-Reason",
+          "required": false
+        },
+        {
+          "name": "X-Asset-Media-Type",
+          "required": false
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/octet-stream"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "試験提供（環境による）"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}/reference",
+      "operation_id": "asset.reference",
+      "group": "assets",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1{assetId}~1reference/post",
+      "request_headers": [
+        {
+          "name": "If-Match",
+          "required": true
+        },
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        },
+        {
+          "name": "X-Asset-Reason",
+          "required": false
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "試験提供（環境による）"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/assets/{namespace}/{resourceType}/{resourceId}/{assetId}/thumbnail",
+      "operation_id": "asset.thumbnail",
+      "group": "assets",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1assets~1{namespace}~1{resourceType}~1{resourceId}~1{assetId}~1thumbnail/get",
+      "request_headers": [],
+      "query_parameters": [
+        {
+          "name": "version",
+          "required": false
+        }
+      ],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json",
+        "image/png"
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "GET",
@@ -435,7 +454,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "GET",
@@ -450,7 +470,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "GET",
@@ -494,7 +515,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "POST",
@@ -516,72 +538,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
-    },
-    {
-      "method": "DELETE",
-      "path": "/v1/jobs/{id}",
-      "operation_id": "job.delete",
-      "group": "business",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v1~1jobs~1{id}/delete",
-      "request_headers": [
-        {
-          "name": "If-Match",
-          "required": true
-        },
-        {
-          "name": "Idempotency-Key",
-          "required": true
-        }
       ],
-      "query_parameters": [],
-      "input_content_types": [],
-      "response_content_types": [
-        "application/json",
-        "application/problem+json"
-      ]
-    },
-    {
-      "method": "GET",
-      "path": "/v1/jobs/{id}",
-      "operation_id": "job.get",
-      "group": "business",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v1~1jobs~1{id}/get",
-      "request_headers": [],
-      "query_parameters": [],
-      "input_content_types": [],
-      "response_content_types": [
-        "application/json",
-        "application/problem+json"
-      ]
-    },
-    {
-      "method": "PATCH",
-      "path": "/v1/jobs/{id}",
-      "operation_id": "job.update",
-      "group": "business",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v1~1jobs~1{id}/patch",
-      "request_headers": [
-        {
-          "name": "If-Match",
-          "required": true
-        },
-        {
-          "name": "Idempotency-Key",
-          "required": true
-        }
-      ],
-      "query_parameters": [],
-      "input_content_types": [
-        "application/merge-patch+json"
-      ],
-      "response_content_types": [
-        "application/json",
-        "application/problem+json"
-      ]
+      "availability": "提供中（環境による）"
     },
     {
       "method": "GET",
@@ -621,7 +579,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "GET",
@@ -665,7 +624,76 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "提供中（環境による）"
+    },
+    {
+      "method": "DELETE",
+      "path": "/v1/jobs/{id}",
+      "operation_id": "job.delete",
+      "group": "business",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1jobs~1{id}/delete",
+      "request_headers": [
+        {
+          "name": "If-Match",
+          "required": true
+        },
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "提供中（環境による）"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/jobs/{id}",
+      "operation_id": "job.get",
+      "group": "business",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1jobs~1{id}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "提供中（環境による）"
+    },
+    {
+      "method": "PATCH",
+      "path": "/v1/jobs/{id}",
+      "operation_id": "job.update",
+      "group": "business",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v1~1jobs~1{id}/patch",
+      "request_headers": [
+        {
+          "name": "If-Match",
+          "required": true
+        },
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/merge-patch+json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "GET",
@@ -680,7 +708,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "GET",
@@ -695,7 +724,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "GET",
@@ -710,7 +740,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "GET",
@@ -725,7 +756,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "PUT",
@@ -751,7 +783,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -773,7 +806,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "GET",
@@ -788,7 +822,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -805,7 +840,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -827,7 +863,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -844,7 +881,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "GET",
@@ -859,7 +897,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "GET",
@@ -874,7 +913,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "PUT",
@@ -896,7 +936,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "GET",
@@ -911,7 +952,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "PUT",
@@ -933,7 +975,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "GET",
@@ -948,7 +991,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "PUT",
@@ -965,7 +1009,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "GET",
@@ -980,7 +1025,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "PUT",
@@ -1002,7 +1048,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "GET",
@@ -1017,7 +1064,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "PUT",
@@ -1039,7 +1087,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "GET",
@@ -1063,7 +1112,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "PUT",
@@ -1085,7 +1135,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "GET",
@@ -1109,7 +1160,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "GET",
@@ -1133,7 +1185,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "GET",
@@ -1148,7 +1201,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "POST",
@@ -1170,7 +1224,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "POST",
@@ -1187,22 +1242,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
-    },
-    {
-      "method": "GET",
-      "path": "/v2/app-packages/{appId}",
-      "operation_id": "app-packages.get",
-      "group": "app-packages",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v2~1app-packages~1{appId}/get",
-      "request_headers": [],
-      "query_parameters": [],
-      "input_content_types": [],
-      "response_content_types": [
-        "application/json",
-        "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "POST",
@@ -1224,7 +1265,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "POST",
@@ -1241,7 +1283,24 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/app-packages/{appId}",
+      "operation_id": "app-packages.get",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1app-packages~1{appId}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "環境による"
     },
     {
       "method": "GET",
@@ -1256,7 +1315,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "GET",
@@ -1280,83 +1340,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
-    },
-    {
-      "method": "GET",
-      "path": "/v2/apps/{appId}",
-      "operation_id": "apps.get",
-      "group": "apps",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v2~1apps~1{appId}/get",
-      "request_headers": [],
-      "query_parameters": [],
-      "input_content_types": [],
-      "response_content_types": [
-        "application/json",
-        "application/problem+json"
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/v2/apps/{appId}/requirements/apply",
-      "operation_id": "app-packages.requirementsApply",
-      "group": "app-packages",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v2~1apps~1{appId}~1requirements~1apply/post",
-      "request_headers": [
-        {
-          "name": "Idempotency-Key",
-          "required": true
-        }
       ],
-      "query_parameters": [],
-      "input_content_types": [
-        "application/json"
-      ],
-      "response_content_types": [
-        "application/json",
-        "application/problem+json"
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/v2/apps/{appId}/requirements/plan",
-      "operation_id": "app-packages.requirementsPlan",
-      "group": "app-packages",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v2~1apps~1{appId}~1requirements~1plan/post",
-      "request_headers": [],
-      "query_parameters": [],
-      "input_content_types": [
-        "application/json"
-      ],
-      "response_content_types": [
-        "application/json",
-        "application/problem+json"
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/v2/apps/{appId}/state",
-      "operation_id": "apps.transition",
-      "group": "apps",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v2~1apps~1{appId}~1state/post",
-      "request_headers": [
-        {
-          "name": "Idempotency-Key",
-          "required": true
-        }
-      ],
-      "query_parameters": [],
-      "input_content_types": [
-        "application/json"
-      ],
-      "response_content_types": [
-        "application/json",
-        "application/problem+json"
-      ]
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -1378,7 +1363,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -1395,7 +1381,88 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/apps/{appId}",
+      "operation_id": "apps.get",
+      "group": "apps",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1apps~1{appId}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "試験提供（環境による）"
+    },
+    {
+      "method": "POST",
+      "path": "/v2/apps/{appId}/requirements/apply",
+      "operation_id": "app-packages.requirementsApply",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1apps~1{appId}~1requirements~1apply/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "環境による"
+    },
+    {
+      "method": "POST",
+      "path": "/v2/apps/{appId}/requirements/plan",
+      "operation_id": "app-packages.requirementsPlan",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1apps~1{appId}~1requirements~1plan/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "環境による"
+    },
+    {
+      "method": "POST",
+      "path": "/v2/apps/{appId}/state",
+      "operation_id": "apps.transition",
+      "group": "apps",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1apps~1{appId}~1state/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -1417,44 +1484,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
-    },
-    {
-      "method": "GET",
-      "path": "/v2/cases/{rowId}",
-      "operation_id": "workspace.caseGet",
-      "group": "workspaces",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v2~1cases~1{rowId}/get",
-      "request_headers": [],
-      "query_parameters": [],
-      "input_content_types": [],
-      "response_content_types": [
-        "application/json",
-        "application/problem+json"
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/v2/cases/{rowId}/cancel",
-      "operation_id": "workspace.caseCancel",
-      "group": "workspaces",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v2~1cases~1{rowId}~1cancel/post",
-      "request_headers": [
-        {
-          "name": "Idempotency-Key",
-          "required": true
-        }
       ],
-      "query_parameters": [],
-      "input_content_types": [
-        "application/json"
-      ],
-      "response_content_types": [
-        "application/json",
-        "application/problem+json"
-      ]
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -1476,7 +1507,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -1493,7 +1525,47 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/cases/{rowId}",
+      "operation_id": "workspace.caseGet",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1cases~1{rowId}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "試験提供（環境による）"
+    },
+    {
+      "method": "POST",
+      "path": "/v2/cases/{rowId}/cancel",
+      "operation_id": "workspace.caseCancel",
+      "group": "workspaces",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1cases~1{rowId}~1cancel/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "GET",
@@ -1517,7 +1589,44 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
+    },
+    {
+      "method": "POST",
+      "path": "/v2/data-migrations/begin",
+      "operation_id": "app-packages.migrationBegin",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1data-migrations~1begin/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "環境による"
+    },
+    {
+      "method": "POST",
+      "path": "/v2/data-migrations/plan",
+      "operation_id": "app-packages.migrationPlan",
+      "group": "app-packages",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1data-migrations~1plan/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "環境による"
     },
     {
       "method": "GET",
@@ -1532,7 +1641,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "POST",
@@ -1549,7 +1659,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "POST",
@@ -1571,7 +1682,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "POST",
@@ -1593,7 +1705,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "POST",
@@ -1610,41 +1723,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/v2/data-migrations/begin",
-      "operation_id": "app-packages.migrationBegin",
-      "group": "app-packages",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v2~1data-migrations~1begin/post",
-      "request_headers": [],
-      "query_parameters": [],
-      "input_content_types": [
-        "application/json"
       ],
-      "response_content_types": [
-        "application/json",
-        "application/problem+json"
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/v2/data-migrations/plan",
-      "operation_id": "app-packages.migrationPlan",
-      "group": "app-packages",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v2~1data-migrations~1plan/post",
-      "request_headers": [],
-      "query_parameters": [],
-      "input_content_types": [
-        "application/json"
-      ],
-      "response_content_types": [
-        "application/json",
-        "application/problem+json"
-      ]
+      "availability": "環境による"
     },
     {
       "method": "GET",
@@ -1668,7 +1748,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "GET",
@@ -1683,7 +1764,24 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "提供中（環境による）"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/media/{collection}/{rowId}/{field}/policy",
+      "operation_id": "media.0.policy",
+      "group": "media",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1media~1{collection}~1{rowId}~1{field}~1policy/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "DELETE",
@@ -1715,7 +1813,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "GET",
@@ -1730,7 +1829,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "GET",
@@ -1745,7 +1845,8 @@
       "response_content_types": [
         "application/octet-stream",
         "application/problem+json"
-      ]
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "PUT",
@@ -1787,7 +1888,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "POST",
@@ -1821,7 +1923,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "GET",
@@ -1834,24 +1937,10 @@
       "query_parameters": [],
       "input_content_types": [],
       "response_content_types": [
-        "image/png",
-        "application/problem+json"
-      ]
-    },
-    {
-      "method": "GET",
-      "path": "/v2/media/{collection}/{rowId}/{field}/policy",
-      "operation_id": "media.0.policy",
-      "group": "media",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v2~1media~1{collection}~1{rowId}~1{field}~1policy/get",
-      "request_headers": [],
-      "query_parameters": [],
-      "input_content_types": [],
-      "response_content_types": [
-        "application/json",
-        "application/problem+json"
-      ]
+        "application/problem+json",
+        "image/png"
+      ],
+      "availability": "提供中（環境による）"
     },
     {
       "method": "PUT",
@@ -1877,7 +1966,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -1894,7 +1984,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "GET",
@@ -1909,7 +2000,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "GET",
@@ -1924,7 +2016,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "POST",
@@ -1946,7 +2039,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "POST",
@@ -1963,7 +2057,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "GET",
@@ -1978,7 +2073,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "GET",
@@ -1993,7 +2089,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "GET",
@@ -2017,7 +2114,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "POST",
@@ -2039,7 +2137,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "DELETE",
@@ -2056,7 +2155,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "GET",
@@ -2071,24 +2171,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
-    },
-    {
-      "method": "POST",
-      "path": "/v2/service-clients/{clientId}/{action}",
-      "operation_id": "service.change",
-      "group": "service-access",
-      "schema_status": "openapi_available",
-      "openapi_pointer": "/paths/~1v2~1service-clients~1{clientId}~1{action}/post",
-      "request_headers": [],
-      "query_parameters": [],
-      "input_content_types": [
-        "application/json"
       ],
-      "response_content_types": [
-        "application/json",
-        "application/problem+json"
-      ]
+      "availability": "環境による"
     },
     {
       "method": "PUT",
@@ -2105,7 +2189,26 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
+    },
+    {
+      "method": "POST",
+      "path": "/v2/service-clients/{clientId}/{action}",
+      "operation_id": "service.change",
+      "group": "service-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1service-clients~1{clientId}~1{action}/post",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "環境による"
     },
     {
       "method": "POST",
@@ -2122,7 +2225,24 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
+    },
+    {
+      "method": "GET",
+      "path": "/v2/service/tables/{collection}",
+      "operation_id": "service.metadata",
+      "group": "service-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1service~1tables~1{collection}/get",
+      "request_headers": [],
+      "query_parameters": [],
+      "input_content_types": [],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "環境による"
     },
     {
       "method": "POST",
@@ -2144,7 +2264,31 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
+    },
+    {
+      "method": "POST",
+      "path": "/v2/service/tables/{collection}/import",
+      "operation_id": "service.import",
+      "group": "service-access",
+      "schema_status": "openapi_available",
+      "openapi_pointer": "/paths/~1v2~1service~1tables~1{collection}~1import/post",
+      "request_headers": [
+        {
+          "name": "Idempotency-Key",
+          "required": true
+        }
+      ],
+      "query_parameters": [],
+      "input_content_types": [
+        "application/json"
+      ],
+      "response_content_types": [
+        "application/json",
+        "application/problem+json"
+      ],
+      "availability": "環境による"
     },
     {
       "method": "POST",
@@ -2161,7 +2305,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "POST",
@@ -2178,7 +2323,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "GET",
@@ -2202,7 +2348,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "GET",
@@ -2217,7 +2364,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "GET",
@@ -2241,7 +2389,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "GET",
@@ -2256,7 +2405,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "PUT",
@@ -2282,7 +2432,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "GET",
@@ -2297,7 +2448,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "PUT",
@@ -2323,7 +2475,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -2340,7 +2493,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -2362,7 +2516,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "GET",
@@ -2377,7 +2532,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -2394,7 +2550,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -2411,7 +2568,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -2428,7 +2586,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -2450,7 +2609,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -2472,7 +2632,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "GET",
@@ -2487,7 +2648,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -2509,7 +2671,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "GET",
@@ -2524,7 +2687,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "PUT",
@@ -2550,7 +2714,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -2567,7 +2732,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "GET",
@@ -2582,7 +2748,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -2599,7 +2766,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "環境による"
     },
     {
       "method": "GET",
@@ -2623,7 +2791,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -2645,7 +2814,8 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     },
     {
       "method": "POST",
@@ -2667,7 +2837,11 @@
       "response_content_types": [
         "application/json",
         "application/problem+json"
-      ]
+      ],
+      "availability": "試験提供（環境による）"
     }
-  ]
+  ],
+  "source_openapi_sha256": "29e0a6fcd763b3efb855ef40dd3018f06cae790a64db3b2e37c26273d333a63b",
+  "source_commit": "74b35558b25da7c8d7bbb0be18f74b79e8765316",
+  "contract_snapshot_date": "2026-10-07"
 }

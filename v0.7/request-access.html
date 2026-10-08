@@ -1,33 +1,30 @@
 <!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>接続情報を依頼する | Claudia Partner 開発者ヘルプ</title><meta name="description" content="Claudia Partnerの顧客アプリ開発者向けガイド、API仕様、リリース情報。文書対象版と提供条件を確認できます。"><meta name="theme-color" content="#145c52"><link rel="canonical" href="https://claudia-help.meta-xdesign.com/v0.7/request-access.html"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head>
-<body><a class="skip" href="#main">本文へ移動</a><header class="topbar"><a class="brand" href="../index.html"><img src="claudia-partner-mark.svg" alt=""><span>Claudia <b>Partner</b><small>Developer Help</small></span></a><nav class="top-links" aria-label="主な分類"><a href="guides.html">ガイド</a><a href="api.html">API</a><a href="releases.html">リリース情報</a></nav><button class="menu-toggle" aria-expanded="false" aria-controls="navigation">メニュー</button></header><div class="version-strip">文書対象 <strong>0.7.0-experimental</strong><span>2026-10-04契約 · 改訂11</span><a href="versions.html">提供状況を確認 →</a></div><div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント"><form class="site-search" role="search"><label for="site-search">ドキュメントを検索</label><div class="search-field"><span aria-hidden="true">⌕</span><input id="site-search" type="search" placeholder="例：BFF、OIDC、404、画像" autocomplete="off" data-index="search-index.json" aria-controls="search-results"></div><div id="search-results" aria-live="polite" hidden></div></form><p class="nav-label">理解する</p><a href="index.html">アプリ開発の全体像</a><a href="principles.html">基盤の考え方と責任分界</a><a href="glossary.html">用語集</a><p class="nav-label">接続する</p><a href="quickstart.html">接続準備と最初の読取</a><a href="sample-app.html">架空の業務メモアプリ</a><a href="request-access.html" aria-current="page">接続情報を依頼する</a><a href="authentication.html">本人として接続する</a><a href="service-access.html">service として接続する</a><p class="nav-label">使う</p><a href="concepts.html">共通ルール</a><a href="tables.html">表とデータの更新</a><a href="reliability.html">競合・再送・復帰</a><a href="media.html">画像・添付と外部ストア</a><a href="tutorial.html">アプリの登録と運用</a><a href="app-architecture.html">アプリの推奨構成（参考）</a><p class="nav-label">AIエージェント</p><a href="mcp.html">取込MCPの導入</a><a href="mcp-support.html">MCPの対応範囲とトラブル対応</a><p class="nav-label">リファレンス</p><a href="api.html">APIリファレンス</a><a href="examples.html">HTTP・実行例</a><a href="errors.html">エラーと再試行</a><a href="specs.html">仕様ファイル</a><p class="nav-label">運用・サポート</p><a href="versions.html">対応状況とバージョン</a><a href="changelog.html">変更履歴</a><a href="support.html">サポートと窓口</a><div class="nav-foot">文書対象版<br>0.7.0-experimental<br>契約スナップショット 2026-10-04</div></nav><main id="main"><div class="breadcrumb"><a href="../index.html">開発者ヘルプ</a><span aria-hidden="true"> / </span><span>接続情報を依頼する</span></div><nav class="page-toc" aria-label="このページの内容"><p class="toc-title">このページの内容</p><ol><li><a href="#section-2">受け取る情報</a></li><li><a href="#section-3">依頼する</a></li><li><a href="#section-5">受け取った後に確認すること</a></li><li><a href="#section-6">機能の有効化も確認する</a></li></ol></nav><h1 id="section-1">接続情報を依頼する</h1>
-<p>基盤に接続するための情報は、環境ごとに違います。このサイトから推測せず、環境管理者から受け取ります。このページでは、何を受け取るのか、どう依頼するのかを説明します。</p>
-<h2 id="section-2">受け取る情報</h2>
-<div class="table-wrap"><table><thead><tr><th scope="col">項目</th><th scope="col">内容</th><th scope="col">何のための情報か</th></tr></thead><tbody><tr><td>基盤</td><td>HTTPS origin、API版、有効な機能</td><td>基盤APIを呼ぶ接続先</td></tr><tr><td>認証サービス</td><td>issuer（認証サービスのURL）、audience（トークンの宛先）、認証方式、必要なMFA</td><td>利用者のログインと、トークンの取得</td></tr><tr><td>利用者用のクライアント</td><td>登録済みのclient_id（アプリのID）、redirect_uri（ログイン後に戻るURL）、scope（求める権限の種類）</td><td>利用者としての接続</td></tr><tr><td>利用者</td><td>ログインの方法、利用する組織、必要な表の権限</td><td>利用者としての接続</td></tr><tr><td>管理者の権限</td><td>アプリ定義の登録、利用者の権限の設定、serviceの承認を行う利用者への、管理権限（<code>manage_access</code>と<code>service_administrator</code>の両方）の付与</td><td>管理の操作</td></tr><tr><td>検証用の表</td><td>collection（表の識別子）、現在のschema_version、許可する操作、検証用の行</td><td>最初の読み書き</td></tr><tr><td>管理サイト（MCPの取込を使う場合）</td><td>管理サイトのHTTPS origin、利用者のアカウント。契約の環境ごとに、個別に渡されます</td><td>MCPアダプターの接続先</td></tr><tr><td>画像（使う場合）</td><td>参照できる保存先（store）の名前と、Dropboxのどのフォルダーに対応するか。Dropboxの接続</td><td>画像の参照の登録</td></tr><tr><td>証明書</td><td>公開の認証局、または環境管理者が渡した検証用の証明書</td><td>TLSの検証</td></tr></tbody></table></div>
-<p>基盤、あなたのアプリ、認証サービスは、それぞれ別のURLです。このサイトは、仕様を配信するだけで、APIのサーバーではありません。</p>
-<h2 id="section-3">依頼する</h2>
-<p>接続の申請は、環境管理者が受け付けます。受付の手段は、メールです。</p>
-<p><strong>現在の受付メール：morita@meta-xdesign.com</strong></p>
-<p>一次回答は、<strong>受信した日の翌営業日までを目標</strong>にしています。保証付きのSLAではありません。一次回答は、受付の確認、不足している情報の確認、対応の見込みの連絡です。接続情報を渡したことを意味しません。利用を始められる日は、申請の内容を確認した後に、お知らせします。</p>
-<h3 id="section-4">依頼メールの雛形</h3>
-<pre><span class="code-label">text</span><code>件名：【開発接続申請】環境名／利用目的
+<body><a class="skip" href="#main">本文へ移動</a><header class="topbar"><a class="brand" href="../index.html"><img src="claudia-partner-mark.svg" alt=""><span>Claudia <b>Partner</b><small>Developer Help</small></span></a><nav class="top-links" aria-label="主な分類"><a href="guides.html">ガイド</a><a href="api.html">API</a><a href="releases.html">リリース情報</a></nav><button class="menu-toggle" aria-expanded="false" aria-controls="navigation">メニュー</button></header><div class="version-strip">文書対象 <strong>0.7.0-experimental</strong><span>2026-10-07契約 · 改訂12</span><a href="versions.html">提供状況を確認 →</a></div><div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント"><form class="site-search" role="search"><label for="site-search">ドキュメントを検索</label><div class="search-field"><span aria-hidden="true">⌕</span><input id="site-search" type="search" placeholder="例：BFF、OIDC、404、画像" autocomplete="off" data-index="search-index.json" aria-controls="search-results"></div><div id="search-results" aria-live="polite" hidden></div></form><p class="nav-label">理解する</p><a href="index.html">アプリ開発の全体像</a><a href="principles.html">基盤の考え方と責任分界</a><a href="glossary.html">用語集</a><p class="nav-label">接続する</p><a href="quickstart.html">接続準備と最初の読取</a><a href="sample-app.html">架空の業務メモアプリ</a><a href="request-access.html" aria-current="page">接続情報を依頼する</a><a href="authentication.html">本人として接続する</a><a href="service-access.html">service として接続する</a><p class="nav-label">使う</p><a href="concepts.html">共通ルール</a><a href="tables.html">表とデータの更新</a><a href="reliability.html">競合・再送・復帰</a><a href="media.html">画像・添付と外部ストア</a><a href="tutorial.html">アプリの登録と運用</a><a href="app-architecture.html">アプリの推奨構成（参考）</a><p class="nav-label">AIエージェント</p><a href="mcp.html">取込MCPの導入</a><a href="mcp-support.html">MCPの対応範囲とトラブル対応</a><p class="nav-label">リファレンス</p><a href="api.html">APIリファレンス</a><a href="examples.html">HTTP・実行例</a><a href="errors.html">エラーと再試行</a><a href="specs.html">仕様ファイル</a><p class="nav-label">運用・サポート</p><a href="versions.html">対応状況とバージョン</a><a href="changelog.html">変更履歴</a><a href="support.html">サポートと窓口</a><div class="nav-foot">文書対象版<br>0.7.0-experimental<br>契約スナップショット 2026-10-07</div></nav><main id="main"><div class="breadcrumb"><a href="../index.html">開発者ヘルプ</a><span aria-hidden="true"> / </span><span>接続情報を依頼する</span></div><nav class="page-toc" aria-label="このページの内容"><p class="toc-title">このページの内容</p><ol><li><a href="#section-2">受付と現在の提供状況</a></li><li><a href="#section-3">受け取る情報</a></li><li><a href="#section-4">公開Issueの依頼雛形</a></li><li><a href="#section-5">交付後の確認</a></li></ol></nav><h1 id="section-1">接続情報を依頼する</h1>
+<p>基盤、顧客アプリのBFF、認証サービス、管理サイトは、それぞれ別の接続先です。HTTPS originは環境ごとに受け取り、このサイトのURLや構成図から推測しません。</p>
+<h2 id="section-2">受付と現在の提供状況</h2>
+<p>接続の相談・文書の質問は、<a href="https://github.com/mxd2024/claudia-partner-docs/issues">公開GitHub Issues</a>で受け付けます。顧客のClaude等から確認事項を整理して起票する場合も、公開情報だけを記載してください。公開窓口は相談と調整の入口です。実際の接続先・資格・顧客別設定は、環境管理者が確認した非公開の受渡し方法で交付します。</p>
+<p>アプリごとの利用者用クライアント登録・接続は <strong>[準備中]</strong>。申請を受けて環境管理者が個別に案内する形で、登録画面・自己登録APIは <strong>[未提供]</strong> です。申請だけで利用可能になるとは限りません。開発用ループバックのredirect_uriは <strong>[環境による]</strong> ため、利用可能なURIと条件を登録前に確認します。受付時間、回答期限、SLAは未確定です。</p>
+<p>役割メールの提供状況は未確認のため、この文書では受付メールを案内していません。</p>
+<h2 id="section-3">受け取る情報</h2>
+<div class="table-wrap"><table><thead><tr><th scope="col">項目</th><th scope="col">確認する内容</th></tr></thead><tbody><tr><td>基盤</td><td>HTTPS origin、API版、有効な機能、表・列・行と操作の許可</td></tr><tr><td>認証サービス</td><td>issuer、audience、認証方式、scope、MFAの条件</td></tr><tr><td>アプリ用クライアント</td><td>登録済みclient_id、public / confidentialの種別、正確なredirect_uriとクライアント認証方式</td></tr><tr><td>管理権限</td><td>アプリ登録・権限設定・service承認を行う管理者の条件</td></tr><tr><td>検証用の表</td><td>collection、schema_version、許可された操作、架空の検証行</td></tr><tr><td>取込MCP</td><td>管理サイトのHTTPS origin、アダプター版、利用可能な取込形式と実行主体</td></tr><tr><td>メディア</td><td>有効なcustody、store、外部原本の責任者、管理サイトのDropbox機能の有効化</td></tr><tr><td>TLS</td><td>公開認証局、または環境管理者が渡した検証用証明書</td></tr></tbody></table></div>
+<h2 id="section-4">公開Issueの依頼雛形</h2>
+<p>以下は公開してよい一般的な要件に置き換えて記入します。顧客名、実環境のorigin・戻り先、顧客の識別子・データは公開Issueに書かず、「非公開で交付希望」とします。origin / redirect_uriの正確な値は、登録前に環境管理者へ非公開で渡します。</p>
+<pre><span class="code-label">text</span><code>件名: アプリ用BFFの接続相談 / 用途
 
-依頼者・所属：
-返信先：
-対象環境（不明なら用途を記載）：
-利用目的：
-利用区分：利用者 / service / MCPの取込（管理サイトのアカウント）
-必要な表・操作（閲覧、登録、更新など）：
-管理権限が必要な利用者（アプリ定義の登録、権限の設定、serviceの承認）：
-画像（Dropbox）の利用：要 / 不要（要の場合、対象のアプリ・表・列、対象のフォルダー、読み取り / 保存の用途、原本の保管の責任）：
-利用開始希望日・利用終了日：
-検証用データの希望：
-登録済みclient_id（ある場合）：
-redirect_uri（利用者用のクライアントを新規に登録する場合）：
-補足：</code></pre>
-<p>パスワード、アクセストークン、リフレッシュトークン、秘密鍵、cookieは、メールに書かないでください。接続先、設定、資格の渡し方は、依頼者と、許可する範囲を確認してから案内します。</p>
-<h2 id="section-5">受け取った後に確認すること</h2>
-<ul><li>基盤のURLが、HTTPSになっている。</li><li>受け取ったclient_idとredirect_uriが、ログインの設定と一致している。</li><li>検証用の表の名前と、許可される操作が分かっている。</li></ul>
-<p>次は、<a href="authentication.html">利用者として接続する</a>、または<a href="service-access.html">serviceとして接続する</a>へ進みます。</p>
-<h2 id="section-6">機能の有効化も確認する</h2>
-<p>依頼には、利用するAPI版、v1/v2系列、必要なモジュール、検証用の読取対象を含めてください。環境管理者から有効な機能の一覧を受け取ります。仕様への掲載だけでは、その環境にルートが配備されているか分かりません。<a href="quickstart.html">最初の読取</a>で確認します。</p><footer class="page-foot"><p>文書対象: <b>0.7.0-experimental</b> · 文書改訂 11 · 更新 2026-10-07</p><p>契約スナップショット 2026-10-04。実環境への疎通は未確認です。<a href="versions.html">提供条件と制約</a></p></footer></main></div><footer class="site-foot">Claudia Partner · 顧客アプリ開発者向け公開ドキュメント</footer></body></html>
+用途（顧客を特定しない説明）:
+固定する仕様: API 0.7.0-experimental / 契約日 / 文書改訂
+接続の主体: 人（OIDC） / service / 取込MCP
+希望するクライアント種別: public（公開） / confidential（機密） / 要相談
+アプリのorigin・redirect_uri: 説明用の値、または非公開で交付希望
+検証用ループバックredirect_uriの希望と条件:
+利用するAPI・有効化を希望する機能:
+表・列・行・操作の範囲（架空の識別子で説明）:
+利用開始・終了予定:
+管理者の権限設定・service承認の必要性:
+メディア・Dropbox利用の要否と原本の責任分界:
+検証用の架空データの希望:
+未確定の点・確認したい点:</code></pre>
+<p>パスワード、トークン、秘密鍵、client_secret、Cookieは公開・非公開を問わずこの雛形に書きません。公開鍵も、管理者が指定した手順で交付します。</p>
+<h2 id="section-5">交付後の確認</h2>
+<p>HTTPS、API版、有効な機能、client_id、クライアント種別、登録済みredirect_uri、表・列・行の許可を照合します。仕様に載っていても環境にルートがあるとは限りません。<a href="quickstart.html">最初の読取</a>と<a href="authentication.html">本人の接続</a>、または<a href="service-access.html">service接続</a>へ進みます。</p><footer class="page-foot"><p>文書対象: <b>0.7.0-experimental</b> · 文書改訂 12 · 更新 2026-10-08</p><p>契約スナップショット 2026-10-07。全操作の実機確認は未実施。限定確認の範囲は<a href="versions.html">提供条件と制約</a>を参照してください。</p></footer></main></div><footer class="site-foot">Claudia Partner · 顧客アプリ開発者向け公開ドキュメント</footer></body></html>

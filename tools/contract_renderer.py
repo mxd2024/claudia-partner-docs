@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / 'docs/public-site'
 PUBLIC_REMOTE = 'https://github.com/mxd2024/claudia-partner-docs.git'
 GROUPS = {
-    'business': '業務・本人情報', 'tables': '顧客定義表 v1', 'workspaces': '業務表・案件 v2',
+    'business': '業務・本人情報', 'tables': '顧客定義表 v1', 'workspaces': '業務表・ケース v2',
     'workspace-sockets': '関連・所属', 'workspace-access': '人物・行アクセス',
     'assets': '資産', 'media': '画像・添付', 'service-access': 'サービス・権限',
     'apps': 'アプリ管理', 'app-packages': 'アプリ定義・移行', 'organization': '組織管理',
@@ -180,6 +180,8 @@ def text_link(config, vp, link):
 
 
 def public_text(value):
+    value = value.replace('案件', 'ケース')
+    value = value.replace('design-images', 'sample-files').replace('design-blue.png', 'sample-image.png').replace('デザイン原本', '参考画像').replace('デザイン見本', '参考画像')
     value = value.replace('稼働サイト', '提供環境').replace('配備側', '環境側').replace('配備', '環境').replace('有効モジュール', '有効な機能').replace('モジュール', '機能')
     return re.sub(r'Core(?![A-Za-z])', '基盤', value)
 
@@ -210,19 +212,15 @@ def public_spec(spec):
         '試験提供': '試験の段階です。仕様は変更されることがあります。利用する版を固定してください。',
         '環境による': '環境ごとに有効かどうかが異なります。環境管理者に確認してください。',
     }
-    spec['x-error-status'].pop('STALE_SOURCE', None)
-    spec['x-error-code-usage'].pop('STALE_SOURCE', None)
-    codes = spec['components']['schemas']['Problem']['properties']['code']['enum']
-    if 'STALE_SOURCE' in codes: codes.remove('STALE_SOURCE')
     return publicize(spec)
 
 
 def reference(spec, inventory):
     rows = inventory['routes']
     out = ['<h1>APIリファレンス</h1><p>パス・操作ID・機能名で検索できます。各操作を開くと、認証、入力、応答を確認できます。実装に存在する操作でも、利用中の環境での有効化と権限が必要です。</p>',
-           '<div class="notice">全132操作にOpenAPI定義があります。API仕様の掲載は、全操作のMCP提供済みを意味しません。</div>',
+           f'<div class="notice">全{len(rows)}操作にOpenAPI定義があります。API仕様の掲載は、全操作のMCP提供済みを意味しません。</div>',
            '<p><a href="openapi.json">OpenAPI JSON</a> · <a href="api-inventory.json">全API一覧 JSON</a> · <a href="#schemas">共通データ型</a></p>',
-           '<div class="filters"><label>操作を検索<input type="search" id="api-search" placeholder="例：media、query、権限" autocomplete="off"></label><label>機能<select id="api-group"><option value="">すべての機能</option>' + ''.join(f'<option value="{g}">{e(label)}</option>' for g, label in GROUPS.items()) + '</select></label><button type="button" id="clear-search">クリア</button></div><p id="result-count" role="status" aria-live="polite">132 / 132 操作を表示</p><p id="empty-result" class="empty" hidden>一致する操作はありません。条件を変更してください。</p>']
+           '<div class="filters"><label>操作を検索<input type="search" id="api-search" placeholder="例：media、query、権限" autocomplete="off"></label><label>機能<select id="api-group"><option value="">すべての機能</option>' + ''.join(f'<option value="{g}">{e(label)}</option>' for g, label in GROUPS.items()) + f'</select></label><button type="button" id="clear-search">クリア</button></div><p id="result-count" role="status" aria-live="polite">{len(rows)} / {len(rows)} 操作を表示</p><p id="empty-result" class="empty" hidden>一致する操作はありません。条件を変更してください。</p>']
     for route in rows:
         op = spec['paths'].get(route['path'], {}).get(route['method'].lower())
         group = GROUPS[route['group']]; identity = 'op-' + slug(route['operation_id'])

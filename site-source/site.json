@@ -2,9 +2,9 @@
   "title": "Claudia Partner 開発者ヘルプ",
   "version": "0.7.0-experimental",
   "version_path": "v0.7",
-  "updated": "2026-10-07",
+  "updated": "2026-10-08",
   "base_url": "https://claudia-help.meta-xdesign.com/",
-  "source_api_sha256": "8b4b85fd4b19cf486b13d06db9671cee16e65a61ee27e536cc9ddcdf5348eb77",
+  "source_api_sha256": "29e0a6fcd763b3efb855ef40dd3018f06cae790a64db3b2e37c26273d333a63b",
   "pages": [
     {
       "slug": "index",
@@ -232,7 +232,11 @@
   "redirects": {
     "operations": "support"
   },
-  "revision": 11,
-  "contract_snapshot_date": "2026-10-04",
-  "public_openapi_sha256": "92596836b81afdcb43774b50d2174bfcf747cc784a615ddd2918d60643841b85"
+  "revision": 12,
+  "contract_snapshot_date": "2026-10-07",
+  "public_openapi_sha256": "0f58ea9cfd738c0bf19c46d08685c8f71d0f0f89ab5d5fb0e8e5ea38d796809b",
+  "expected_operations": 134,
+  "source_api_commit": "74b35558b25da7c8d7bbb0be18f74b79e8765316",
+  "mcp_adapter_version": "1.0.1",
+  "expected_mcp_tools": 8
 }

@@ -1,14 +1,15 @@
 <!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>MCPの対応範囲とトラブル対応 | Claudia Partner 開発者ヘルプ</title><meta name="description" content="Claudia Partnerの顧客アプリ開発者向けガイド、API仕様、リリース情報。文書対象版と提供条件を確認できます。"><meta name="theme-color" content="#145c52"><link rel="canonical" href="https://claudia-help.meta-xdesign.com/v0.7/mcp-support.html"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head>
-<body><a class="skip" href="#main">本文へ移動</a><header class="topbar"><a class="brand" href="../index.html"><img src="claudia-partner-mark.svg" alt=""><span>Claudia <b>Partner</b><small>Developer Help</small></span></a><nav class="top-links" aria-label="主な分類"><a href="guides.html">ガイド</a><a href="api.html">API</a><a href="releases.html">リリース情報</a></nav><button class="menu-toggle" aria-expanded="false" aria-controls="navigation">メニュー</button></header><div class="version-strip">文書対象 <strong>0.7.0-experimental</strong><span>2026-10-04契約 · 改訂11</span><a href="versions.html">提供状況を確認 →</a></div><div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント"><form class="site-search" role="search"><label for="site-search">ドキュメントを検索</label><div class="search-field"><span aria-hidden="true">⌕</span><input id="site-search" type="search" placeholder="例：BFF、OIDC、404、画像" autocomplete="off" data-index="search-index.json" aria-controls="search-results"></div><div id="search-results" aria-live="polite" hidden></div></form><p class="nav-label">理解する</p><a href="index.html">アプリ開発の全体像</a><a href="principles.html">基盤の考え方と責任分界</a><a href="glossary.html">用語集</a><p class="nav-label">接続する</p><a href="quickstart.html">接続準備と最初の読取</a><a href="sample-app.html">架空の業務メモアプリ</a><a href="request-access.html">接続情報を依頼する</a><a href="authentication.html">本人として接続する</a><a href="service-access.html">service として接続する</a><p class="nav-label">使う</p><a href="concepts.html">共通ルール</a><a href="tables.html">表とデータの更新</a><a href="reliability.html">競合・再送・復帰</a><a href="media.html">画像・添付と外部ストア</a><a href="tutorial.html">アプリの登録と運用</a><a href="app-architecture.html">アプリの推奨構成（参考）</a><p class="nav-label">AIエージェント</p><a href="mcp.html">取込MCPの導入</a><a href="mcp-support.html" aria-current="page">MCPの対応範囲とトラブル対応</a><p class="nav-label">リファレンス</p><a href="api.html">APIリファレンス</a><a href="examples.html">HTTP・実行例</a><a href="errors.html">エラーと再試行</a><a href="specs.html">仕様ファイル</a><p class="nav-label">運用・サポート</p><a href="versions.html">対応状況とバージョン</a><a href="changelog.html">変更履歴</a><a href="support.html">サポートと窓口</a><div class="nav-foot">文書対象版<br>0.7.0-experimental<br>契約スナップショット 2026-10-04</div></nav><main id="main"><div class="breadcrumb"><a href="../index.html">開発者ヘルプ</a><span aria-hidden="true"> / </span><span>MCPの対応範囲とトラブル対応</span></div><nav class="page-toc" aria-label="このページの内容"><p class="toc-title">このページの内容</p><ol><li><a href="#section-2">対応範囲</a></li><li><a href="#section-3">8ツールの契約</a></li><li><a href="#section-4">ツールの出力と状態</a></li><li><a href="#section-5">接続できないとき</a></li></ol></nav><h1 id="section-1">MCPの対応範囲とトラブル対応</h1>
+<body><a class="skip" href="#main">本文へ移動</a><header class="topbar"><a class="brand" href="../index.html"><img src="claudia-partner-mark.svg" alt=""><span>Claudia <b>Partner</b><small>Developer Help</small></span></a><nav class="top-links" aria-label="主な分類"><a href="guides.html">ガイド</a><a href="api.html">API</a><a href="releases.html">リリース情報</a></nav><button class="menu-toggle" aria-expanded="false" aria-controls="navigation">メニュー</button></header><div class="version-strip">文書対象 <strong>0.7.0-experimental</strong><span>2026-10-07契約 · 改訂12</span><a href="versions.html">提供状況を確認 →</a></div><div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント"><form class="site-search" role="search"><label for="site-search">ドキュメントを検索</label><div class="search-field"><span aria-hidden="true">⌕</span><input id="site-search" type="search" placeholder="例：BFF、OIDC、404、画像" autocomplete="off" data-index="search-index.json" aria-controls="search-results"></div><div id="search-results" aria-live="polite" hidden></div></form><p class="nav-label">理解する</p><a href="index.html">アプリ開発の全体像</a><a href="principles.html">基盤の考え方と責任分界</a><a href="glossary.html">用語集</a><p class="nav-label">接続する</p><a href="quickstart.html">接続準備と最初の読取</a><a href="sample-app.html">架空の業務メモアプリ</a><a href="request-access.html">接続情報を依頼する</a><a href="authentication.html">本人として接続する</a><a href="service-access.html">service として接続する</a><p class="nav-label">使う</p><a href="concepts.html">共通ルール</a><a href="tables.html">表とデータの更新</a><a href="reliability.html">競合・再送・復帰</a><a href="media.html">画像・添付と外部ストア</a><a href="tutorial.html">アプリの登録と運用</a><a href="app-architecture.html">アプリの推奨構成（参考）</a><p class="nav-label">AIエージェント</p><a href="mcp.html">取込MCPの導入</a><a href="mcp-support.html" aria-current="page">MCPの対応範囲とトラブル対応</a><p class="nav-label">リファレンス</p><a href="api.html">APIリファレンス</a><a href="examples.html">HTTP・実行例</a><a href="errors.html">エラーと再試行</a><a href="specs.html">仕様ファイル</a><p class="nav-label">運用・サポート</p><a href="versions.html">対応状況とバージョン</a><a href="changelog.html">変更履歴</a><a href="support.html">サポートと窓口</a><div class="nav-foot">文書対象版<br>0.7.0-experimental<br>契約スナップショット 2026-10-07</div></nav><main id="main"><div class="breadcrumb"><a href="../index.html">開発者ヘルプ</a><span aria-hidden="true"> / </span><span>MCPの対応範囲とトラブル対応</span></div><nav class="page-toc" aria-label="このページの内容"><p class="toc-title">このページの内容</p><ol><li><a href="#section-2">対応範囲</a></li><li><a href="#section-3">8ツールの契約</a></li><li><a href="#section-4">出力と状態</a></li><li><a href="#section-5">接続できないとき</a></li><li><a href="#section-6">旧1.0.0の記録と1.0.1の確認</a></li></ol></nav><h1 id="section-1">MCPの対応範囲とトラブル対応</h1>
 <h2 id="section-2">対応範囲</h2>
-<p>この文書対象版（2026-10-04の記録）のMCPで利用できるのは、取込用の8ツールです [提供中]。全APIサービスへの対応は [準備中] です。</p>
-<p>DBへの直接の接続、任意のSQL、署名鍵は、MCPの対象に含めません。現在の8ツールの動作を、全APIの提供として扱わないでください。導入の手順は、<a href="mcp.html">MCPの導入</a>。</p>
+<p><strong>取込アダプター1.0.1、8ツール</strong> [提供中]。全APIサービスのMCPは [準備中]。DB直接接続、任意のSQL、署名鍵の交付は提供範囲に含みません。導入は<a href="mcp.html">MCPの導入</a>へ。</p>
+<p>serviceの<code>GET /v2/service/tables/{collection}</code>と<code>POST /v2/service/tables/{collection}/import</code>は、公開Core APIの別契約です <strong>[環境による]</strong>。専用service JWTと承認範囲が必要で、MCPの接続キーを直接このAPIへ送れません。取込MCPの内部でどの実行主体・経路を使うかは環境管理者へ確認します。8ツールの存在を、134操作すべてのMCP対応とみなしません。<a href="service-access.html">service接続</a>を参照してください。</p>
 <h2 id="section-3">8ツールの契約</h2>
+<p>以下は確認した配布クライアントから抽出した定義です。ツール名・入力・annotationsは一致し、説明文のHUB表記だけを基盤に一般化しています。<a href="mcp-tools.json">機械可読JSON</a>も配信しています。</p>
 <pre><span class="code-label">json</span><code>{
   &quot;protocol_version&quot;: &quot;2025-06-18&quot;,
   &quot;adapter&quot;: &quot;claudia-customer-imports&quot;,
-  &quot;adapter_version&quot;: &quot;1.0.0&quot;,
+  &quot;adapter_version&quot;: &quot;1.0.1&quot;,
   &quot;scope&quot;: &quot;import-adapter-only&quot;,
   &quot;tools&quot;: [
     {
@@ -29,7 +30,7 @@
     },
     {
       &quot;name&quot;: &quot;imports_prepare&quot;,
-      &quot;description&quot;: &quot;指定CSVを検査し差分計画を作る。まだ業務表へ反映しない。ファイルは転送フォルダ内に限定する。&quot;,
+      &quot;description&quot;: &quot;指定CSVを検査し差分計画を作る。まだ業務表へ反映しない。ファイルは転送フォルダ内に限定する。大きなファイルは分割して送信し、確認は裏で進む（stateがpreparingのとき）。stateがpreparedになるまでimports_statusで確認してから、imports_runを行う。&quot;,
       &quot;inputSchema&quot;: {
         &quot;type&quot;: &quot;object&quot;,
         &quot;properties&quot;: {
@@ -81,7 +82,7 @@
     },
     {
       &quot;name&quot;: &quot;imports_status&quot;,
-      &quot;description&quot;: &quot;計画の状態と完了区間数を確認する。&quot;,
+      &quot;description&quot;: &quot;計画の状態、確認中（preparing）の進み具合、完了区間数を確認する。prepare_failedのときはerror.codeが失敗理由。&quot;,
       &quot;inputSchema&quot;: {
         &quot;type&quot;: &quot;object&quot;,
         &quot;properties&quot;: {
@@ -141,7 +142,7 @@
     },
     {
       &quot;name&quot;: &quot;imports_verify&quot;,
-      &quot;description&quot;: &quot;取込結果を基盤から再取得し、全値を照合する。&quot;,
+      &quot;description&quot;: &quot;取込結果を基盤から再取得し全値を照合する。&quot;,
       &quot;inputSchema&quot;: {
         &quot;type&quot;: &quot;object&quot;,
         &quot;properties&quot;: {
@@ -189,18 +190,13 @@
     }
   ]
 }</code></pre>
-<h2 id="section-4">ツールの出力と状態</h2>
-<p>ツールは、APIのJSONの結果を、MCPの<code>content[0].text</code>に、JSONの文字列として返します。</p>
-<div class="table-wrap"><table><thead><tr><th scope="col">ツール</th><th scope="col">出力と扱い</th></tr></thead><tbody><tr><td><code>imports_catalog</code></td><td>取込の形式の配列。<code>id</code>を、<code>dataset</code>に使います。<code>headers</code>、<code>key_columns</code>、<code>format</code>、<code>field_types</code>で、形式を確認します</td></tr><tr><td><code>imports_prepare</code></td><td>計画。<code>id</code>、<code>dataset</code>、<code>source_rows</code>、<code>created</code>・<code>updated</code>・<code>unchanged</code>の件数、<code>absent_retained</code>、<code>source_sha256</code>、<code>encoding</code>、<code>state</code>など。<code>imports_run</code>などの<code>plan_id</code>には、この<code>id</code>を渡します。差分を示して、反映してよいか確認します</td></tr><tr><td><code>imports_run</code></td><td>同じ<code>plan_id</code>と<code>source_sha256</code>で、最大4区間ずつ進めます。最後の区間の後は、自動で照合します</td></tr><tr><td><code>imports_status</code></td><td>計画の状態と、完了した区間の数を、取得し直します</td></tr><tr><td><code>imports_verify</code></td><td>全区間が完了した計画を、インフラの値と照合します。成功は<code>state=verified</code>です。未完了は<code>PLAN_INCOMPLETE</code>、不一致は<code>VERIFY_MISMATCH</code>です</td></tr><tr><td><code>imports_history</code></td><td>利用者の計画の配列（最新100件まで）</td></tr><tr><td><code>imports_cancel</code></td><td><code>prepared</code>の計画だけを、<code>cancelled</code>にします。実行した後は、取り消せず、<code>RESUME_REQUIRED</code>になります</td></tr><tr><td><code>imports_export</code></td><td>新しいファイルに保存して、<code>saved_file</code>と<code>bytes</code>を返します。既存のファイルは、上書きしません</td></tr></tbody></table></div>
-<p>状態は、通常、<code>prepared</code>、<code>running</code>、<code>verified</code>の順に進みます。実行の失敗は<code>failed</code>、実行前の取り消しは<code>cancelled</code>です。通信が切れただけで、失敗や未反映と決めず、<code>imports_status</code>で確認します。同じ計画と、同じ受領のキーを保持して、新しい計画を作って、二重に反映しないでください。</p>
+<h2 id="section-4">出力と状態</h2>
+<p>APIのJSON結果は<code>content[0].text</code>内のJSON文字列です。<code>isError</code>と内容を確認します。</p>
+<div class="table-wrap"><table><thead><tr><th scope="col">ツール</th><th scope="col">出力と注意</th></tr></thead><tbody><tr><td>imports_catalog</td><td>形式、headers、key_columns、format、field_types。datasetは返されたidを使う</td></tr><tr><td>imports_prepare</td><td>計画id、source_sha256、差分件数、state。preparingではstatusで進捗を確認し、preparedになるまでrunしない</td></tr><tr><td>imports_status</td><td>準備の進捗・完了区間。prepare_failedのerror.codeも確認</td></tr><tr><td>imports_run</td><td>同じplan_id・source_sha256で最大4区間ずつ反映・再開</td></tr><tr><td>imports_verify</td><td>全区間完了後の全値照合。成功はverified。不一致はVERIFY_MISMATCH</td></tr><tr><td>imports_history</td><td>利用者の履歴・再開可能な計画（最新100件まで）</td></tr><tr><td>imports_cancel</td><td>未実行のpreparedのみ取消。実行後はRESUME_REQUIRED</td></tr><tr><td>imports_export</td><td>新しいCSVファイルに保存しsaved_fileとbytesを返す。上書きしない</td></tr></tbody></table></div>
+<p>通信断だけで失敗・未反映と決めません。新しい計画を作らず、同じplan_idとsource_sha256で状態を取得し直します。</p>
 <h2 id="section-5">接続できないとき</h2>
-<p>クライアントが「Connection interrupted」とだけ表示する場合、原因は、HTTPのステータス、content-type、本文で見分けます。次の原因が確認されています。どの場合も、TLS検証の無効化、認証ヘッダーの手動での付与、クライアントの識別の偽装は行いません。</p>
-<h3 id="section-6">接続の前にTLS検証が失敗する（例: certificate has expired）</h3>
-<ul><li>原因: OSの証明書ストアに、期限切れのルート証明書が残る環境で、Pythonの既定の検証が失敗します。</li><li>対処: 信頼するルート証明書のPEMファイルを、環境変数<code>SSL_CERT_FILE</code>に指定して、MCPホストからクライアントを起動します。検証自体は、有効のままにします。</li></ul>
-<h3 id="section-7">HTTP 403、content-typeが<code>text/plain</code>、本文が<code>error code: 1010</code></h3>
-<ul><li>原因: 管理サイトに届く前の入口で、要求が拒否されています。管理サイトの応答（JSONの<code>error</code>）ではありません。</li><li>対処: お客様の側では、回避できません。提供者側の入口の設定の修正が、必要です。時刻と、本文の<code>error code: 1010</code>を添えて、<a href="support.html">サポートと窓口</a>へ連絡してください。対象版の記録では修正版の提供日は未定です。今回の文書更新では修正・配備・実機確認を行っていません。クライアントの識別を偽装したり、TLSの検証を無効にしたりして、回避しないでください。</li></ul>
-<h3 id="section-8">HTTP 401、JSONの<code>error</code>が<code>authentication_required</code></h3>
-<ul><li>原因: キーが無効、または失効している。あるいは、別の接続先で発行したキーを使っています。</li><li>対処: 管理サイトで接続キーを再発行し、同じ<code>--base</code>と<code>--credential-name</code>で、再保存します。新しいキーでも続くときは、サービス側の設定が原因の可能性があります。<a href="support.html">サポートと窓口</a>へ連絡します。</li></ul>
-<p>JSONの<code>error</code>が返るときは、アプリまで届いています。<code>text/plain</code>の本文だけが返るときは、入口で拒否されています。この違いが、連絡するときの、最初の手がかりになります。</p>
-<h3 id="section-9">キーの保存や読み取りが失敗する</h3>
-<p>実行しているユーザーと、Secret Serviceのロックを確認します。利用者用のアクセストークンを、取込のキーの代わりに保存しないでください。</p><footer class="page-foot"><p>文書対象: <b>0.7.0-experimental</b> · 文書改訂 11 · 更新 2026-10-07</p><p>契約スナップショット 2026-10-04。実環境への疎通は未確認です。<a href="versions.html">提供条件と制約</a></p></footer></main></div><footer class="site-foot">Claudia Partner · 顧客アプリ開発者向け公開ドキュメント</footer></body></html>
+<p>1.0.1は、TLS・入口・API・タイムアウトを区別して案内します。生の応答本文や資格をログ・Issueに貼り付けず、公開できるcode、HTTP、日時、クライアント版を記録します。</p>
+<div class="table-wrap"><table><thead><tr><th scope="col">症状</th><th scope="col">対処</th></tr></thead><tbody><tr><td>TLS_CERTIFICATE_VERIFY_FAILED / TLS_CA_UNAVAILABLE</td><td>時刻、配布物のCAバンドル、環境管理者の信頼するCAを確認。SSL_CERT_FILEで明示CAを指定できます。TLS検証は無効にしない</td></tr><tr><td>ENTRY_REJECTED / HTTP 403、非JSONのerror code: 1010</td><td>入口の拒否。旧1.0.0から現在の配布物へ更新して確認。1.0.1でも続く場合は管理者に入口の調査を依頼</td></tr><tr><td>JSONのAPI拒否（authentication_required等）</td><td>接続先・キーの期限・取消・現在の権限を確認。無効なキーは再発行して同じbaseとcredential-nameで保存</td></tr><tr><td>CONNECTION_TIMEOUT / 結果不明</td><td>plan_id・source_sha256を保持してstatusを確認。同じ計画を再開し、二重の計画を作らない</td></tr><tr><td>キーの保存・読取失敗</td><td>同じOS利用者、Windows DPAPIまたはLinux Secret Serviceの利用可能性・ロック状態を確認。macOS保存は未提供</td></tr></tbody></table></div>
+<h2 id="section-6">旧1.0.0の記録と1.0.1の確認</h2>
+<p>2026-10-04の1.0.0では入口403・<code>error code: 1010</code>と既定証明書ストアのTLS失敗が記録されていました。1.0.1には製品固有User-Agent、固定CAバンドル、区別したエラー案内が入り、2026-10-08の<a href="https://github.com/mxd2024/claudia-partner-docs/issues/16">公開読取確認報告</a>では旧入口拒否が解消しています。</p>
+<p>この確認は初期化・ツール一覧・取込先一覧・履歴・状態の読取に限ります。書込と全環境は未確認です。製品のUser-Agentは認可の代替ではなく、識別の偽装やTLS無効化で回避しません。<a href="versions.html">提供状況</a>と<a href="support.html">サポート</a>を参照してください。</p><footer class="page-foot"><p>文書対象: <b>0.7.0-experimental</b> · 文書改訂 12 · 更新 2026-10-08</p><p>契約スナップショット 2026-10-07。全操作の実機確認は未実施。限定確認の範囲は<a href="versions.html">提供条件と制約</a>を参照してください。</p></footer></main></div><footer class="site-foot">Claudia Partner · 顧客アプリ開発者向け公開ドキュメント</footer></body></html>

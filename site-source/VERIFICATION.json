@@ -1,19 +1,23 @@
 {
-  "documentation_revision": 11,
+  "documentation_revision": 12,
   "contract_version": "0.7.0-experimental",
-  "contract_snapshot": "2026-10-04",
-  "runtime_api_tested": false,
+  "contract_snapshot": "2026-10-07",
   "target_url": "https://claudia-help.meta-xdesign.com/",
+  "runtime_api_tested": false,
   "static": {
     "passed": true,
-    "public_files": 85,
+    "public_files": 86,
     "html_pages": 43,
-    "checked_internal_links": 4622,
+    "checked_internal_links": 4698,
     "broken_links_or_anchors": 0,
-    "api_operations": 132,
+    "api_operations": 134,
     "mcp_tools": 8,
+    "mcp_adapter_version": "1.0.1",
     "synthetic_examples": 60,
-    "api_index_bytes": 80767,
+    "api_index_bytes": 82503,
+    "contract_hash_and_version_consistency": true,
+    "all_openapi_refs_resolved": true,
+    "public_wording_scan": true,
     "failures": []
   },
   "browser": {
@@ -55,6 +59,31 @@
         "horizontal_overflow": false
       },
       {
+        "width": 1440,
+        "page": "v0.7/request-access.html",
+        "horizontal_overflow": false
+      },
+      {
+        "width": 1440,
+        "page": "v0.7/versions.html",
+        "horizontal_overflow": false
+      },
+      {
+        "width": 1440,
+        "page": "v0.7/mcp.html",
+        "horizontal_overflow": false
+      },
+      {
+        "width": 1440,
+        "page": "v0.7/media.html",
+        "horizontal_overflow": false
+      },
+      {
+        "width": 1440,
+        "page": "v0.7/api-service-access.html",
+        "horizontal_overflow": false
+      },
+      {
         "width": 390,
         "page": "index.html",
         "horizontal_overflow": false
@@ -90,6 +119,31 @@
         "horizontal_overflow": false
       },
       {
+        "width": 390,
+        "page": "v0.7/request-access.html",
+        "horizontal_overflow": false
+      },
+      {
+        "width": 390,
+        "page": "v0.7/versions.html",
+        "horizontal_overflow": false
+      },
+      {
+        "width": 390,
+        "page": "v0.7/mcp.html",
+        "horizontal_overflow": false
+      },
+      {
+        "width": 390,
+        "page": "v0.7/media.html",
+        "horizontal_overflow": false
+      },
+      {
+        "width": 390,
+        "page": "v0.7/api-service-access.html",
+        "horizontal_overflow": false
+      },
+      {
         "width": 320,
         "page": "index.html",
         "horizontal_overflow": false
@@ -122,17 +176,42 @@
       {
         "width": 320,
         "page": "v0.7/sample-app.html",
+        "horizontal_overflow": false
+      },
+      {
+        "width": 320,
+        "page": "v0.7/request-access.html",
+        "horizontal_overflow": false
+      },
+      {
+        "width": 320,
+        "page": "v0.7/versions.html",
+        "horizontal_overflow": false
+      },
+      {
+        "width": 320,
+        "page": "v0.7/mcp.html",
+        "horizontal_overflow": false
+      },
+      {
+        "width": 320,
+        "page": "v0.7/media.html",
+        "horizontal_overflow": false
+      },
+      {
+        "width": 320,
+        "page": "v0.7/api-service-access.html",
         "horizontal_overflow": false
       }
     ],
     "checks": [
       {
         "search": "BFF",
-        "results": 7
+        "results": 8
       },
       {
         "search": "OIDC",
-        "results": 6
+        "results": 8
       },
       {
         "search": "404",
@@ -155,6 +234,26 @@
         "results": 8
       },
       {
+        "search": "service.metadata",
+        "results": 2
+      },
+      {
+        "search": "service.import",
+        "results": 2
+      },
+      {
+        "search": "ケース",
+        "results": 8
+      },
+      {
+        "search": "接続相談",
+        "results": 1
+      },
+      {
+        "search": "1.0.1",
+        "results": 4
+      },
+      {
         "search_no_results": true
       },
       {
@@ -166,6 +265,12 @@
       },
       {
         "legacy_operation_deep_link": true
+      },
+      {
+        "new_operation_deep_link": "service-metadata"
+      },
+      {
+        "new_operation_deep_link": "service-import"
       },
       {
         "legacy_schema_deep_link": true
@@ -440,12 +545,92 @@
       }
     ]
   },
+  "contract_import_audit": {
+    "passed": true,
+    "source_and_public_protocol_structure_identical": true,
+    "legacy_operation_ids_preserved": 132,
+    "added_operation_ids": [
+      "service.import",
+      "service.metadata"
+    ],
+    "all_examples_reference_current_operations_and_statuses": true,
+    "synthetic_examples": 60,
+    "example_operation_coverage": 56,
+    "total_operations": 134,
+    "source_inventory_hash_was_stale": true,
+    "public_inventory_derived_from_fixed_openapi": true
+  },
+  "public_status": {
+    "checked_at": "2026-10-08T00:03:13.192030+00:00",
+    "checks": [
+      {
+        "url": "https://claudia-help.meta-xdesign.com/",
+        "http_status": 200,
+        "tls_verified": true,
+        "title": "スターサーバー サーバーデフォルトページ",
+        "server_default_invalid_url": false
+      },
+      {
+        "url": "https://claudia-help.meta-xdesign.com/manifest.json",
+        "http_status": 500,
+        "tls_verified": true
+      },
+      {
+        "url": "https://mxd2024.github.io/claudia-partner-docs/",
+        "http_status": 200,
+        "tls_verified": true,
+        "title": "基盤の全体像 | Claudia Partner Docs",
+        "server_default_invalid_url": false
+      },
+      {
+        "url": "https://mxd2024.github.io/claudia-partner-docs/manifest.json",
+        "http_status": 200,
+        "tls_verified": true,
+        "documentation_revision": 10,
+        "updated": "2026-10-04",
+        "source_openapi_sha256": "8b4b85fd4b19cf486b13d06db9671cee16e65a61ee27e536cc9ddcdf5348eb77",
+        "base_url": "https://mxd2024.github.io/claudia-partner-docs/"
+      }
+    ]
+  },
   "build_reproducible": true,
   "api_index_previous_bytes": 1133753,
-  "api_index_current_bytes": 80767,
-  "original_contract_files_changed": false,
+  "api_index_current_bytes": 82503,
+  "source_provenance": "v0.7/provenance.json",
+  "review_issues": [
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "reviewed_tracking_issue": "https://github.com/mxd2024/claudia-partner-docs/issues/9#issuecomment-6049080121",
+  "document_corrections_completed": [
+    15,
+    16,
+    17,
+    18,
+    19
+  ],
+  "remaining": {
+    "independent_developer_end_to_end_acceptance": [
+      "#1",
+      "#7"
+    ],
+    "example_coverage": {
+      "issue": "#4",
+      "covered_operations": 56,
+      "total_operations": 134,
+      "synthetic_samples": 60,
+      "runtime_execution_performed": false
+    },
+    "disabled_module_response_measurement": "#12",
+    "mcp_runtime": "Public read report referenced; not repeated with credentials. Writes and all deployments unverified.",
+    "dropbox_runtime": "Normal MFA and independent acceptance, restart/partial failure recovery and independent provider revocation check remain.",
+    "app_bff_registration": "Preparing; administrator guidance required; self-registration not provided.",
+    "custom_host": "Existing host connection and document root have not been supplied; content not deployed."
+  },
   "deployment_status": "awaiting_existing_host_connection_and_document_root",
-  "https_status_at_2026_10_07_2309_utc": "certificate_name_mismatch",
   "dns_changed": false,
-  "https_status_at_2026_10_07_2324_utc": "TLS verification passed; HTTP 200 server default Invalid URL page; site content not deployed"
+  "infrastructure_changed": false
 }

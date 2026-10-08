@@ -50,7 +50,7 @@ GET /v2/tables/work_notes/rows/{rowId}
 | `Idempotency-Key` | 書き込みの操作ごとに、新しく作る。8〜128文字の`-`、英数字、`_`。service申請では、UUID |
 | `X-Parent-Version`（画像の操作） | 画像のpolicyで返る、親の行の版 |
 | `X-Schema-Version`（画像の操作） | 表の定義の`schema_version`（policyや行の取得で得た値） |
-| `If-Match` | 次の操作が要求します。表の定義の更新（`PUT /v2/tables/{collection}`）、関連の設定（`PUT /v2/tables/{collection}/access`）、画像の操作、v1の案件の更新（`PATCH /v1/jobs/{id}`）。`"0"`のように、版を二重引用符で囲みます。画像の新規は`"0"`です |
+| `If-Match` | 次の操作が要求します。表の定義の更新（`PUT /v2/tables/{collection}`）、関連の設定（`PUT /v2/tables/{collection}/access`）、画像の操作、v1のケースの更新（`PATCH /v1/jobs/{id}`）。`"0"`のように、版を二重引用符で囲みます。画像の新規は`"0"`です |
 
 v2の行の更新と削除（batch）では、`If-Match`は使いません。本文の`version`に、取得した行の版を指定します。
 
@@ -69,7 +69,7 @@ v2の行の更新と削除（batch）では、`If-Match`は使いません。本
 
 ## v2の業務表、関連、ごみ箱
 
-v2では、業務表、案件、関連（表どうしの親子の関係）、transaction（複数の表のまとめての更新）、履歴、ごみ箱と復元の操作を提供します。パスとschemaは、[APIリファレンス](https://mxd2024.github.io/claudia-partner-docs/v0.7/openapi.json)で、「業務表・案件」または「関連・所属」を選んで確認します。通しの手順は、[アプリの登録と運用](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/tutorial.md)にあります。
+v2では、業務表、ケース、関連（表どうしの親子の関係）、transaction（複数の表のまとめての更新）、履歴、ごみ箱と復元の操作を提供します。パスとschemaは、[APIリファレンス](https://mxd2024.github.io/claudia-partner-docs/v0.7/openapi.json)で、「業務表・ケース」または「関連・所属」を選んで確認します。通しの手順は、[アプリの登録と運用](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/tutorial.md)にあります。
 
 削除と、原本の物理的な削除は、同じ意味ではありません。ごみ箱、添付の解除、外部の原本の保持を、区別して扱います。
 

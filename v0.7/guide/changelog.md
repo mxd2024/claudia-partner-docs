@@ -1,5 +1,18 @@
 # 変更履歴
 
+## 2026-10-08 / 文書改訂12 / API固定契約を更新
+
+- 2026-10-07の固定契約から134操作を取り込み。service.metadata・service.importの2操作と3型を追加し、認可・環境条件・再送の定義を更新。公開前のSHAと公開ファイルSHAを同時に更新しました。
+- MCP定義を確認した1.0.1配布物の8ツールに同期。9ファイル構成、CAバンドル、ZIPのSHA、90日・最大10個のキー制約を記載。
+- 旧1.0.0の入口拒否を版付きの記録に分け、1.0.1の公開読取確認報告と書込・全環境の未確認を明記。
+- アプリ用BFFの登録は準備中、自己登録は未提供、ループバックは環境によると明記。接続依頼を公開Issueの一般化した雛形に統一。
+- Dropbox管理サイト操作の設計（1回の同意・最大3フォルダー・許可無効化・解除・再接続）を追記し、限定認証条件の実装者確認と公開API準備中を区別。
+- 個人受付アドレスを削除。ケースと参考画像へ表現を一般化し、公開物の語句検査を追加。
+- 出典・公開物・検索・リンク・表示の検証を同じPRで更新。API・MCP・BFFの実装変更や再配備は行っていません。
+
+対象: [Issue 15](https://github.com/mxd2024/claudia-partner-docs/issues/15)、[16](https://github.com/mxd2024/claudia-partner-docs/issues/16)、[17](https://github.com/mxd2024/claudia-partner-docs/issues/17)、[18](https://github.com/mxd2024/claudia-partner-docs/issues/18)、[19](https://github.com/mxd2024/claudia-partner-docs/issues/19)。残る独立受入・例の実行・未有効機能の実測は[Issue 9](https://github.com/mxd2024/claudia-partner-docs/issues/9)で追跡します。
+
+
 ## 2026-10-07 / 文書改訂11 / API契約は変更なし
 
 - 顧客アプリ開発者向けに、ホーム・ガイド・API・リリース情報の入口を整理。

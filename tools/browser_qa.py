@@ -4,6 +4,7 @@ from playwright.sync_api import sync_playwright
 ROOT=Path(__file__).resolve().parents[1]
 QA=ROOT/'.qa'
 QA.mkdir(exist_ok=True)
+config=json.loads((ROOT/'site-source/site.json').read_bytes())
 report={'browser':'isolated headless Chromium on the user PC','viewports':[],'checks':[],'errors':[]}
 with sync_playwright() as p:
     browser=p.chromium.launch(headless=True)
@@ -12,7 +13,7 @@ with sync_playwright() as p:
     page.on('console',lambda msg:report['errors'].append(msg.text) if msg.type=='error' else None)
     for width in [1440,390,320]:
         page.set_viewport_size({'width':width,'height':1000})
-        for path in ['index.html','v0.7/guides.html','v0.7/quickstart.html','v0.7/api.html','v0.7/api-media.html','v0.7/releases.html','v0.7/sample-app.html']:
+        for path in ['index.html','v0.7/guides.html','v0.7/quickstart.html','v0.7/api.html','v0.7/api-media.html','v0.7/releases.html','v0.7/sample-app.html','v0.7/request-access.html','v0.7/versions.html','v0.7/mcp.html','v0.7/media.html','v0.7/api-service-access.html']:
             r=page.goto('http://127.0.0.1:8765/'+path)
             assert r.status==200
             assert page.locator('h1').count()==1
@@ -24,7 +25,7 @@ with sync_playwright() as p:
     page.set_viewport_size({'width':1440,'height':1000})
     page.goto('http://127.0.0.1:8765/')
     search=page.locator('#site-search')
-    for query in ['BFF','OIDC','404','画像','Idempotency-Key','query','ＭＣＰ']:
+    for query in ['BFF','OIDC','404','画像','Idempotency-Key','query','ＭＣＰ','service.metadata','service.import','ケース','接続相談','1.0.1']:
         search.fill(query)
         page.wait_for_function('document.querySelectorAll("#search-results a").length > 0')
         assert page.locator('#search-results').is_visible()
@@ -49,12 +50,17 @@ with sync_playwright() as p:
     page.locator('#api-search').fill('不一致')
     assert page.locator('#empty-result').is_visible()
     page.locator('#clear-search').click()
-    assert page.locator('.operation-row:visible').count()==132
+    assert page.locator('.operation-row:visible').count()==config['expected_operations']
     report['checks'].append({'api_filter_and_clear':True,'media_operations':visible})
     page.goto('http://127.0.0.1:8765/v0.7/api.html#op-health-live')
     page.wait_for_url('**/api-health.html#op-health-live')
     assert page.locator('#op-health-live').get_attribute('open') is not None
     report['checks'].append({'legacy_operation_deep_link':True})
+    for operation in ['service-metadata','service-import']:
+        page.goto('http://127.0.0.1:8765/v0.7/api.html#op-'+operation)
+        page.wait_for_url('**/api-service-access.html#op-'+operation)
+        assert page.locator('#op-'+operation).get_attribute('open') is not None
+        report['checks'].append({'new_operation_deep_link':operation})
     page.goto('http://127.0.0.1:8765/v0.7/api.html#schema-Problem')
     page.wait_for_url('**/api-schemas.html#schema-Problem')
     assert page.locator('#schema-Problem').get_attribute('open') is not None
