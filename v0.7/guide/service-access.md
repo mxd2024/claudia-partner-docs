@@ -29,7 +29,7 @@ serviceは、組織の管理者の承認を受けて、動きます。承認さ�
 
 ## 申請から利用まで
 
-1. **申請する（組織の管理者。申請の内容は、あなたが決めて、管理者に渡します）。** `POST /v2/service-clients`に、`Idempotency-Key`（UUID）を付けて、`app_id`、`purpose`、`expires_at`、`rpm`、`jwk`、`scopes`を送ります。期限は最大90日、`rpm`（1分あたりの要求の上限）は1〜120です。`scopes`には、表、`schema_version`、読む列、書く列、操作、行を明示します。`create`を許可するときは、`custodian`も設定します。
+1. **申請する（組織の管理者。申請の内容は、あなたが決めて、管理者に渡します）。** `POST /v2/service-clients`に、`Idempotency-Key`（UUID）を付けて、`app_id`、`purpose`、`expires_at`、`rpm`、`jwk`、`scopes`を送ります。期限は最大90日、`rpm`（1分あたりのリクエストの上限）は1〜120です。`scopes`には、表、`schema_version`、読む列、書く列、操作、行を明示します。`create`を許可するときは、`custodian`も設定します。
 2. **承認する（組織の管理者）。** 返ったclient idと`version`を使い、`POST /v2/service-clients/{clientId}/approve`に`{"version":現在の版}`を送ります。
 3. **provisionする（組織の管理者）。** 最新の`version`で、`/provision`を実行します。`ready`の状態と、接続の情報（issuer、`token_endpoint`、audience、`auth_method`）を取得します。
 4. **トークンを取得する（あなたのサーバー処理）。** 次のJWT（署名付きの要求）を、登録した鍵で署名し、`token_endpoint`へ送ります。JWTの本体は、記録も表示もしません。`iss`と`sub`、およびフォームの`client_id`には、応答の`client_id`（文字列）を使います。2〜3の、パスの`{clientId}`には、応答の`id`（UUID）を使います。2つは別の値です。
@@ -49,13 +49,13 @@ grant_type=client_credentials&client_id=<CLIENT_ID>&client_assertion_type=urn%3A
 5. **activateする（あなたのサーバー処理）。** provisionが返す`audience`は、取得するアクセストークンの宛先（API）で、JWTの`aud`（`token_endpoint`）とは別の値です。JWTのヘッダーの`kid`は、登録した公開鍵の`kid`と一致させます（RS256）。 `access_token`で、`POST /v2/service/activate`に`{}`を送ります。serviceの`access_token`の有効期間は、最大300秒です。更新は、新しい`jti`で、`client_credentials`を取得し直します。利用者用のリフレッシュトークンは、使いません。
 6. **使う（あなたのサーバー処理）。** 許可された`POST /v2/service/tables/{collection}/query`を実行します。
 
-**期待する結果**: 許可された操作が、200で成功します。`GET /v1/me`は、人の利用者の専用なので、拒否されます。環境の認証の入口によって、401（`TOKEN_INVALID`）または403のどちらかになります。実際のHTTPとcodeを記録してください。「人として接続できた」ことを、成功の条件にしないでください。
+**期待する結果**: 許可された操作が、200で成功します。`GET /v1/me`は、人の利用者の専用なので、拒否されます。利用環境の認証の入口によって、401（`TOKEN_INVALID`）または403のどちらかになります。実際のHTTPとcodeを記録してください。「人として接続できた」ことを、成功の条件にしないでください。
 
 ## metadataと取込の経路
 
 文書対象の固定仕様には、`GET /v2/service/tables/{collection}`（`service.metadata`）と`POST /v2/service/tables/{collection}/import`（`service.import`）が追加されています。ともにservice専用で、利用環境の対応版と有効化が必要です。
 
-取込本文は`schema_version`、`expected_actor`、`operations`に従い、`Idempotency-Key`を指定します。権限は現在のservice承認範囲で判定します。通常のbatchや人用importから、本文・認証・上限を流用しないでください。[APIリファレンス](../openapi.json)で現在の型と条件を確認します。これらの追加を、利用中の環境で実機確認済みとは扱いません。
+取込本文は`schema_version`、`expected_actor`、`operations`に従い、`Idempotency-Key`を指定します。権限は現在のservice承認範囲で判定します。通常のbatchや人用importから、本文・認証・上限を流用しないでください。[APIリファレンス](../openapi.json)で現在の型と条件を確認します。これらの追加を、利用中の利用環境で実機確認済みとは扱いません。
 
 ## 世代と再開
 
@@ -67,7 +67,7 @@ grant_type=client_credentials&client_id=<CLIENT_ID>&client_assertion_type=urn%3A
 
 ## 権限の変更
 
-serviceの権限（表、列、操作）は、`PUT /v2/service-clients/{clientId}/permissions`で、**全置換**で更新します。省略した表、列、操作は、許可から外れます。有効なserviceは、同じJWTのままで、次の要求から、新しい設定に従います。通常の設定変更で、provisionやactivateを、やり直す必要はありません。
+serviceの権限（表、列、操作）は、`PUT /v2/service-clients/{clientId}/permissions`で、**全置換**で更新します。省略した表、列、操作は、許可から外れます。有効なserviceは、同じJWTのままで、次のリクエストから、新しい設定に従います。通常の設定変更で、provisionやactivateを、やり直す必要はありません。
 
 ## 停止と失効
 

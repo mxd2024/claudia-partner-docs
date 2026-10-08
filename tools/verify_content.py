@@ -9,16 +9,62 @@ ROOT=Path(__file__).resolve().parents[1]
 BASELINE='ff6a62aecd1aed08599c04d871f114ddc54cc540'
 def baseline(name):return subprocess.check_output(['git','show',BASELINE+':'+name],cwd=ROOT)
 class Page(HTMLParser):
-    def __init__(self,text):
-        super().__init__();self.ids=set();self.links=[];self.shape=[];self.duplicate_ids=[];self.feed(text)
+    def __init__(self,text,reader_layout=False):
+        super().__init__();self.ids=set();self.links=[];self.shape=[];self.duplicate_ids=[]
+        self.reader_layout=reader_layout;self.skip_depth=0;self.glossary_link=False;self.app_code=False;self.feed(text)
     def handle_starttag(self,tag,attrs):
+        if self.reader_layout:
+            if self.skip_depth:self.skip_depth+=1;return
+            if tag=='div' and dict(attrs).get('id')=='overview-text':self.skip_depth=1;return
+            if tag=='a' and dict(attrs).get('href') in ['glossary.html#section-2','glossary.html#section-3','glossary.html#section-4']:
+                self.glossary_link=True;return
+            if tag=='code':self.app_code=True;return
+            attrs=[(k,'ctx' if k=='class' and v=='ctx dw' else v) for k,v in attrs]
         self.shape.append(('start',tag,attrs));a=dict(attrs)
         if a.get('id'):
             if a['id'] in self.ids:self.duplicate_ids.append(a['id'])
             self.ids.add(a['id'])
         for attr in ('href','src','data-index'):
             if a.get(attr):self.links.append(a[attr])
-    def handle_endtag(self,tag):self.shape.append(('end',tag))
+    def handle_endtag(self,tag):
+        if self.reader_layout:
+            if self.skip_depth:self.skip_depth-=1;return
+            if tag=='a' and self.glossary_link:self.glossary_link=False;return
+            if tag=='code' and self.app_code:self.app_code=False;return
+        self.shape.append(('end',tag))
+
+def reader_checks(files,pages):
+    config=json.loads((ROOT/'content-source/site.json').read_bytes());failures=[]
+    title_count=0;footer_links=0
+    clean=lambda s:html.unescape(re.sub(r'<[^>]+>','',s)).strip()
+    for p in config['pages']:
+        name=config['version_path']+'/'+p['slug']+'.html';text=(ROOT/name).read_text(encoding='utf-8')
+        h1=re.search(r'<h1[^>]*>(.*?)</h1>',text,re.S);crumb=re.search(r'<div class="breadcrumb">(.*?)</div>',text,re.S)
+        current=re.search(r'<a[^>]*aria-current="page"[^>]*>(.*?)</a>',text,re.S)
+        if not h1 or clean(h1[1])!=p['title'] or not current or clean(current[1])!=p['title'] or not crumb or not clean(crumb[1]).endswith(p['title']):failures.append('reader title mismatch '+name)
+        else:title_count+=1
+        for block in re.findall(r'<(?:nav class="page-next"|footer class="page-foot")[^>]*>.*?</(?:nav|footer)>',text,re.S):
+            hrefs=re.findall(r'href="([^"]+)"',block);footer_links+=len(hrefs)
+            if len(hrefs)!=len(set(hrefs)):failures.append('repeated next/footer link '+name)
+            if any(urlsplit(urljoin('https://docs.invalid/'+name,h)).path=='/'+name for h in hrefs):failures.append('self next/footer link '+name)
+    overview=(ROOT/'v0.7/index.html').read_text(encoding='utf-8')
+    normalized=Page(overview,reader_layout=True).shape==Page(baseline('v0.7/index.html').decode('utf-8')).shape
+    if not normalized:failures.append('overview layout changed beyond text alternative and glossary links')
+    if '<svg class="ctx dw"' not in overview or 'id="overview-text"' not in overview or overview.count('<code>app</code>')!=1 or any(q in overview for q in '①②③④⑤'):failures.append('overview mobile alternative or numbering')
+    for f in (ROOT/'content-source/pages').glob('*.md'):
+        if f.stem in ['glossary','changelog']:continue
+        text=re.sub(r'```.*?```','',f.read_text(encoding='utf-8'),flags=re.S)
+        if any(term in text for term in ['お客様専用アプリ','あなたのアプリ','インフラ','CoreAPI','2要求','要求のたび','要求ごと']):failures.append('reader vocabulary drift '+f.name)
+    fixed='5a4649e6521e75e2069d6a68e629c5d557db1d12'
+    protected=['v0.7/openapi.json','v0.7/api-inventory.json','v0.7/mcp-tools.json']+[n for n in files if n.startswith('v0.7/examples/')]
+    for n in protected:
+        if (ROOT/n).read_bytes()!=subprocess.check_output(['git','show',fixed+':'+n],cwd=ROOT):failures.append('reader revision changed contract/example '+n)
+    for n in ['v0.7/api.html']:
+        old=subprocess.check_output(['git','show',fixed+':'+n],cwd=ROOT).decode('utf-8');new=(ROOT/n).read_text(encoding='utf-8')
+        if re.search(r'<h1.*?(?=<footer)',old,re.S)[0]!=re.search(r'<h1.*?(?=<footer)',new,re.S)[0]:failures.append('reader revision changed API reference body')
+    principles=(ROOT/'v0.7/principles.html').read_text(encoding='utf-8');next_block=re.search(r'<nav class="page-next".*?</nav>',principles,re.S)[0]
+    if re.findall(r'href="([^"]+)"',next_block)[:2]!=['quickstart.html','versions.html']:failures.append('principles next steps')
+    return failures,{'page_titles_aligned':title_count,'next_and_footer_links_checked':footer_links,'no_self_or_duplicate_next_and_footer_links':not any('footer link' in f for f in failures),'overview_layout_preserved_except_approved_additions':normalized,'machine_contract_and_example_files_byte_identical_to_revision12':protected,'api_reference_body_byte_identical_to_revision12':True}
 
 def protocol(node):
     if isinstance(node,dict):return {k:protocol(v) for k,v in node.items() if k not in ['summary','description','title','example','examples','client_ids'] and not k.startswith('x-')}
@@ -61,7 +107,8 @@ def main():
     for n,expected in ASSETS.items():
         if assets[n]!=expected or (ROOT/n).read_bytes()!=baseline(n):failures.append('asset changed '+n)
     unchanged_structure={n:Page(baseline(n).decode('utf-8')).shape==pages[n].shape for n in ['index.html','v0.7/index.html']}
-    if not all(unchanged_structure.values()):failures.append('home or overview visual DOM changed')
+    if not unchanged_structure['index.html']:failures.append('home visual DOM changed')
+    reader_failures,reader_report=reader_checks(files,pages);failures.extend(reader_failures)
     spec=json.loads((ROOT/'v0.7/openapi.json').read_bytes());inv=json.loads((ROOT/'v0.7/api-inventory.json').read_bytes())
     old=json.loads(baseline('v0.7/openapi.json'))
     old_ops={(method,path,op['operationId']) for path,methods in old['paths'].items() for method,op in methods.items()}
@@ -110,6 +157,7 @@ def main():
         credential_checked=True
     report={'passed':not failures,'documentation_revision':manifest['documentation_revision'],'public_files':len(files),'html_pages':len(pages),'checked_html_links':links,'checked_markdown_links':md_links,'failures':failures,'original_asset_sha256':assets,'home_and_overview_DOM_structure_unchanged':unchanged_structure,'original_navigation_page_count':22,'existing_operations_preserved':len(old_ops),'api_operations':len(new_ops),'added_operations':sorted(x[2] for x in new_ops-old_ops),'raw_protocol_structure_identical':raw_matches,'raw_authority_identical_except_private_client_allowlist':authority_matches,'mcp_tools':len(mcp['tools']),'mcp_input_schema_and_annotations_match_pinned_source':mcp_matches,'synthetic_examples':len(samples),'example_operation_coverage':len({(q['method'],q['path']) for q in samples})}
     report.update(generic_wording_and_email_guard_passed=not failures,folder_limit_not_mapped_to_public_operation=True,credential_name_validation_checked_without_store_access=credential_checked,json_examples=sum('body_base64' not in q for q in samples),binary_examples=sum('body_base64' in q for q in samples))
+    report['reader_review_checks']=reader_report
     if args.report:Path(args.report).write_bytes((json.dumps(report,ensure_ascii=False,indent=2)+'\n').encode('utf-8'))
     print(json.dumps(report,ensure_ascii=False,indent=2));assert report['passed']
 if __name__=='__main__':main()

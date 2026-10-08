@@ -279,8 +279,12 @@ def page_toc(body):
 def next_links(config, page, prefix):
     if not page.get('next'): return ''
     by_slug = {p['slug']: p for p in config['pages']}
-    items = ''.join(f'<li><a href="{prefix}{n}.html"><b>{e(by_slug[n]["title"])}</b><span>{e(by_slug[n].get("summary", ""))}</span></a></li>' for n in page['next'])
-    return f'<nav class="page-next" aria-label="次に読む"><h2 class="next-title">次に読む</h2><ul>{items}</ul><p class="help">困ったとき: <a href="{prefix}errors.html">エラーと再試行</a> ・ <a href="{prefix}support.html">サポートと窓口</a></p></nav>'
+    targets = [n for n in dict.fromkeys(page['next']) if n != page['slug']]
+    items = ''.join(f'<li><a href="{prefix}{n}.html"><b>{e(by_slug[n]["title"])}</b><span>{e(by_slug[n].get("summary", ""))}</span></a></li>' for n in targets)
+    help_targets = [n for n in ('errors', 'support') if n != page['slug'] and n not in targets]
+    help_links = ' ・ '.join(f'<a href="{prefix}{n}.html">{e(by_slug[n]["title"])}</a>' for n in help_targets)
+    help_text = f'<p class="help">困ったとき: {help_links}</p>' if help_links else ''
+    return f'<nav class="page-next" aria-label="次に読む"><h2 class="next-title">次に読む</h2><ul>{items}</ul>{help_text}</nav>'
 
 
 def wrap(config, page, body, root=False):
@@ -296,8 +300,9 @@ def wrap(config, page, body, root=False):
     path = 'index.html' if root else config['version_path'] + '/' + page['slug'] + '.html'
     description = 'Claudia Partner基盤のAPI・認証・権限・画像・MCPの接続ガイド。基盤の考え方、接続の手順、仕様、対応状況を確認できます。'
     foot_link = f'{prefix}guide/{page["slug"]}.md' if page['slug'] != 'api' else prefix + 'openapi.json'
+    version_link = '<span>対応状況</span>' if page['slug'] == 'versions' and not root else f'<a href="{prefix}versions.html">対応状況</a>'
     crumb = f'<a href="{prefix}index.html">ドキュメント</a><span>/</span><span>{e(page["section"])}</span><span>/</span><span>{e(page["title"])}</span>' if not root else '<span>ドキュメント</span>'
     return f'''<!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{e(page['title'])} | Claudia Partner Docs</title><meta name="description" content="{description}"><meta name="theme-color" content="#004d58"><link rel="canonical" href="{e(config['base_url'] + path)}"><link rel="icon" href="{prefix}favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}style.css"><link rel="stylesheet" href="{prefix}brand.css"><script src="{prefix}app.js" defer></script></head>
 <body><a class="skip" href="#main">本文へ移動</a><header class="topbar"><a class="brand cp-brand" href="{prefix}index.html"><img class="cp-brand__mark" src="{prefix}claudia-partner-mark.svg" alt=""><span class="cp-brand__text"><span class="cp-brand__name">Claudia <span class="cp-brand__partner">Partner</span></span><span class="cp-brand__descriptor">Docs</span></span></a><span class="top-note">API・MCP 共通ドキュメント</span><span class="version">{e(config['version'])}</span><button class="menu-toggle" aria-expanded="false" aria-controls="navigation">メニュー</button></header>
-<div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント">{search}{''.join(nav)}<div class="nav-foot">公開ドキュメント<br>{e(config['version'])}<br>更新 {e(config['updated'])}</div></nav><main id="main"><div class="breadcrumb">{crumb}</div><p class="eyebrow">{e(page.get('section', 'DOCUMENTATION'))}</p>{body}<footer class="page-foot"><span>{e(config['version'])}</span><span>更新 {e(config['updated'])}</span><a href="{foot_link}">機械・テキスト向け</a><a href="{prefix}versions.html">対応状況</a></footer></main></div></body></html>'''
+<div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント">{search}{''.join(nav)}<div class="nav-foot">公開ドキュメント<br>{e(config['version'])}<br>更新 {e(config['updated'])}</div></nav><main id="main"><div class="breadcrumb">{crumb}</div><p class="eyebrow">{e(page.get('section', 'DOCUMENTATION'))}</p>{body}<footer class="page-foot"><span>{e(config['version'])}</span><span>更新 {e(config['updated'])}</span><a href="{foot_link}">機械・テキスト向け</a>{version_link}</footer></main></div></body></html>'''

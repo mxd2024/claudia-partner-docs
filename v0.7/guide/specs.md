@@ -10,9 +10,9 @@
 - [このガイドのMarkdown](../guide/index.md)：AIやテキストのツールが参照するための形式。
 - [実行例のJSON](../examples/public-requests.json)：[HTTP・実行例](examples.md)の元のデータ。
 
-OpenAPIの接続先と認証のURLは、接続できない説明用の値です。環境に合わせた版の作り方は、[利用者として接続する](authentication.md)の「OpenAPIのツールから使う」を参照してください。
+OpenAPIの接続先と認証のURLは、接続できない説明用の値です。利用環境に合わせた版の作り方は、[利用者として接続する](authentication.md)の「OpenAPIのツールから使う」を参照してください。
 
-文書改訂12の元OpenAPIは、2026-10-07の固定commit `74b35558b25da7c8d7bbb0be18f74b79e8765316`です。元仕様のSHA-256は`29e0a6fcd763b3efb855ef40dd3018f06cae790a64db3b2e37c26273d333a63b`です。[文書対象の出典情報](../provenance.json)に、対象版とMCP配布物の固定値を記載しています。稼働版は接続先ごとに確認してください。
+文書改訂13の元OpenAPIは、2026-10-07の固定commit `74b35558b25da7c8d7bbb0be18f74b79e8765316`です。元仕様のSHA-256は`29e0a6fcd763b3efb855ef40dd3018f06cae790a64db3b2e37c26273d333a63b`です。[文書対象の出典情報](../provenance.json)に、対象版とMCP配布物の固定値を記載しています。稼働版は接続先ごとに確認してください。
 
 ## ファイルの整合を確認する
 
