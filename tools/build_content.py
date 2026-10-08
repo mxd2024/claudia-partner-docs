@@ -85,14 +85,14 @@ def outputs():
     provenance['public_openapi_sha256']=r.sha(out[f'{vp}/openapi.json'])
     out[f'{vp}/provenance.json']=r.json_bytes(provenance)
     out['links.json']=r.json_bytes({'format':1,'default_version':vp,'versions':{vp:{'api_version':c['version'],'links':{p['slug']:c['base_url']+vp+'/'+p['slug']+'.html' for p in c['pages']}|{old:c['base_url']+vp+'/'+old+'.html' for old in c['redirects']}|{n:c['base_url']+vp+'/'+n+'.json' for n in ['openapi','mcp-tools','api-inventory','provenance']}|{'examples_json':c['base_url']+vp+'/examples/public-requests.json'}}}})
-    out['llms.txt']=('# Claudia Partner Docs\n\nPublic documentation for API '+c['version']+'. Documentation revision 11, pinned contract 2026-10-07. Runtime version and enabled features depend on the environment. MCP client 1.0.1 defines 8 import tools; all-service MCP is preparing. Examples are synthetic and have not been executed against customer environments.\n\n'+'\n'.join('- ['+p['title']+']('+c['base_url']+vp+('/openapi.json' if p['slug']=='api' else '/guide/'+p['slug']+'.md')+')' for p in c['pages'])+'\n').encode('utf-8')
+    out['llms.txt']=('# Claudia Partner Docs\n\nPublic documentation for API '+c['version']+'. Documentation revision 12, pinned contract 2026-10-07. Runtime version and enabled features depend on the environment. MCP client 1.0.1 defines 8 import tools; all-service MCP is preparing. Examples are synthetic and have not been executed against customer environments.\n\n'+'\n'.join('- ['+p['title']+']('+c['base_url']+vp+('/openapi.json' if p['slug']=='api' else '/guide/'+p['slug']+'.md')+')' for p in c['pages'])+'\n').encode('utf-8')
     out['README.md']='''# Claudia Partner Docs
 
 Claudia Partnerの顧客アプリ開発者向け公開ドキュメントです。
 
 https://mxd2024.github.io/claudia-partner-docs/
 
-API 0.7.0-experimental、文書改訂11（2026-10-08）、固定契約2026-10-07を対象にします。文書の最新版は接続先の稼働版を意味しません。134操作、MCPクライアント1.0.1の8ツールを記載し、有効化・権限・実機確認範囲は利用環境ごとに区別します。
+API 0.7.0-experimental、文書改訂12（2026-10-08）、固定契約2026-10-07を対象にします。文書の最新版は接続先の稼働版を意味しません。134操作、MCPクライアント1.0.1の8ツールを記載し、有効化・権限・実機確認範囲は利用環境ごとに区別します。
 
 ## 更新とビルド
 

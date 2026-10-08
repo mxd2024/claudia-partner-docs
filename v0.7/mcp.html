@@ -6,7 +6,7 @@
 <p>現在の接続の経路は、AIエージェント → 手元のMCPアダプター → 管理サイトの取込API → インフラです。MCPアダプターの接続先は、管理サイトのHTTPS originで、インフラのAPIのURLとは異なります。管理サイトのoriginと利用条件は、利用環境ごとに確認します。接続キーは人OIDCのアクセストークンや、CoreAPIのservice JWTとは別の資格です。管理サイトからCoreAPIへの経路には、人セッションを使う構成と機械資格を使う構成があり、実際の構成と反映状態を確認してください。</p>
 <h2 id="section-2">配布物を入手する</h2>
 <p>管理サイトに利用者としてログインし、「取込・出力」から「取込の説明」を開き、MCPクライアントのZIPをダウンロードします。ファイル名は<code>mcp-client.zip</code>です。ダウンロードしたZIPを、専用のフォルダーへ展開します。</p>
-<p>文書対象のZIP（1.0.1）には、起動用<code>mcp_stdio.py</code>、<code>README.txt</code>、<code>ca-bundle.json</code>、<code>claudia_ops/__init__.py</code>、<code>claudia_ops/imports/__init__.py</code>、<code>claudia_ops/imports/mcp_stdio.py</code>、<code>claudia_ops/imports/credential_store.py</code>、<code>claudia_ops/imports/ca-bundle.pem</code>、<code>claudia_ops/imports/licenses/certifi-LICENSE</code>の9ファイルが含まれます。起動は、<code>mcp_stdio.py</code>のファイルパスを指定して行います。ZIPのSHA-256は、次のとおりです。ダウンロードしたファイルが、同じ値であることを確認してください。</p>
+<p>文書対象のZIP（1.0.1）には、起動用<code>mcp_stdio.py</code>、<code>README.txt</code>、<code>ca-bundle.json</code>、<code>claudia_ops/__init__.py</code>、<code>claudia_ops/imports/__init__.py</code>、<code>claudia_ops/imports/mcp_stdio.py</code>、<code>claudia_ops/imports/credential_store.py</code>、<code>claudia_ops/imports/ca-bundle.pem</code>、<code>licenses/certifi-LICENSE</code>の9ファイルが含まれます。起動は、<code>mcp_stdio.py</code>のファイルパスを指定して行います。ZIPのSHA-256は、次のとおりです。ダウンロードしたファイルが、同じ値であることを確認してください。</p>
 <pre><span class="code-label">text</span><code>3a89af3db734cb6edb7c135db31f6f8fb96f6074e263e9c3f74848bb6d09f68f</code></pre>
 <p>配布元で取得したファイルの版も確認してください。このハッシュは文書対象1.0.1の値で、配布元の最新ファイルと同一とは限りません。CAはcertifi 2026.7.22を同梱します。CAバンドルのSHA-256は<code>9cc2a774b5198dcff14d9be1e66091f538975d867ce029a96bce15a55dfd730f</code>です。</p>
 <h2 id="section-3">OSと準備</h2>
@@ -19,7 +19,7 @@
 <h2 id="section-5">キーを発行して保存する</h2>
 <p>管理サイトの「取込・出力」にある、AI接続の欄で、接続キーを発行します。キーが表示されるのは、発行したときの一度だけです。キーは、対話の入力で資格ストアに保存し、MCPの設定のJSONやチャットに貼り付けないでください。紛失したときは、再表示できません。古いキーを失効して、再発行します。有効期間は90日、利用者ごとの有効なキーは最大10個です。</p>
 <pre><span class="code-label">sh</span><code>python /absolute/path/mcp-client/mcp_stdio.py --base https://console.example.invalid --directory /absolute/path/transfer --credential-name customer-imports --save-key</code></pre>
-<p><code>--base</code>は、提供されたHTTPS origin（通常は443。パスとクエリーなし）です。<code>--credential-name</code>は、英数字、ハイフン、アンダースコアの短い名前にします。47文字以内にしてください。保存のときと起動のときは、同じ<code>--base</code>と<code>--credential-name</code>を使います。</p>
+<p><code>--base</code>は、提供されたHTTPS origin（通常は443。パスとクエリーなし）です。<code>--credential-name</code>は、英小文字（a〜z）、数字、ハイフン、アンダースコアの短い名前にします。英大文字は受け付けません。HTTPS接続では、接続先から作る17文字の識別子を加えた保存名が64文字以内になるよう、指定する名前を47文字以内にしてください。保存のときと起動のときは、同じ<code>--base</code>と<code>--credential-name</code>を使います。</p>
 <h2 id="section-6">MCPホストに設定する</h2>
 <pre><span class="code-label">json</span><code>{&quot;mcpServers&quot;:{&quot;claudia-imports&quot;:{&quot;command&quot;:&quot;/absolute/path/python&quot;,&quot;args&quot;:[&quot;/absolute/path/mcp-client/mcp_stdio.py&quot;,&quot;--base&quot;,&quot;https://console.example.invalid&quot;,&quot;--directory&quot;,&quot;/absolute/path/transfer&quot;,&quot;--credential-name&quot;,&quot;customer-imports&quot;]}}}</code></pre>
 <p>Windowsでは、JSONのパスの区切りを<code>/</code>にするか、バックスラッシュを二重にします。</p>

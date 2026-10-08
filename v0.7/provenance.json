@@ -1,12 +1,12 @@
 {
-  "documentation_revision": 11,
+  "documentation_revision": 12,
   "reviewed_date": "2026-10-08",
   "api_version": "0.7.0-experimental",
   "contract_snapshot_date": "2026-10-07",
   "api_operations": 134,
   "source_openapi_commit": "74b35558b25da7c8d7bbb0be18f74b79e8765316",
   "source_openapi_sha256": "29e0a6fcd763b3efb855ef40dd3018f06cae790a64db3b2e37c26273d333a63b",
-  "public_openapi_sha256": "0f58ea9cfd738c0bf19c46d08685c8f71d0f0f89ab5d5fb0e8e5ea38d796809b",
+  "public_openapi_sha256": "4b3678db6cfd72c1f0394c028a4243d1cc848c4ba39ac1b97376a23d7d6b6707",
   "presentation_changes": [
     "Original site design and renderer retained; only prose and contract data updated",
     "Individual customer support and deployment assumptions removed",
@@ -27,7 +27,9 @@
     "public_read_report_date": "2026-10-08",
     "public_read_report": "https://github.com/mxd2024/claudia-partner-docs/issues/16",
     "public_read_repeated_in_this_revision": false,
-    "writes_tested_in_this_revision": false
+    "writes_tested_in_this_revision": false,
+    "credential_store_source_sha256": "d9920a88e4f24cd34da8e93a21c81ccf76d1b92733263fc770b8daf066565805",
+    "license_path": "licenses/certifi-LICENSE"
   },
   "dropbox": {
     "contract_commit": "bccf7d391881952c4d6268bcd4b75a3f618406d6",

@@ -141,7 +141,7 @@ HTTP_ACTIONS = {
 }
 CODE_NOTES = {
     'STALE_SOURCE': '参照先の原本が登録時から変わっています。内容と現在の版を確認し、必要な再関連付けを行う',
-    'FOLDER_LIMIT_REACHED': '設定できるフォルダー数の上限です。現在の設定を確認する',
+    'FOLDER_LIMIT_REACHED': '管理サイトのDropbox接続で使うコードです。公開OpenAPIの134操作では返りません。設定できるフォルダー数の上限を確認する',
     'OPERATION_IN_PROGRESS': '対象の処理が進行中です。状態を確認してから次の操作を決める',
     'CURSOR_STALE': '一覧が変わり、`cursor`が使えません。蓄積したページを捨てて、最初から検索し直す',
     'VERSION_CONFLICT': '期待した版と現在の版が一致しません。再取得し、差分を確認してから、操作を決め直す',

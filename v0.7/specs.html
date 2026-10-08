@@ -6,7 +6,7 @@
 <h2 id="section-2">ファイル</h2>
 <ul><li><a href="openapi.json">OpenAPI 3.1 JSON</a>：134操作の、入力・応答・認証の定義。</li><li><a href="api-inventory.json">全API一覧 JSON</a>：公開する134操作の一覧と、それぞれの提供状態。</li><li><a href="mcp-tools.json">現在のMCPツール定義 JSON</a>：取込アダプターの8ツール。</li><li><a href="guide/index.md">このガイドのMarkdown</a>：AIやテキストのツールが参照するための形式。</li><li><a href="examples/public-requests.json">実行例のJSON</a>：<a href="examples.html">HTTP・実行例</a>の元のデータ。</li></ul>
 <p>OpenAPIの接続先と認証のURLは、接続できない説明用の値です。環境に合わせた版の作り方は、<a href="authentication.html">利用者として接続する</a>の「OpenAPIのツールから使う」を参照してください。</p>
-<p>文書改訂11の元OpenAPIは、2026-10-07の固定commit <code>74b35558b25da7c8d7bbb0be18f74b79e8765316</code>です。元仕様のSHA-256は<code>29e0a6fcd763b3efb855ef40dd3018f06cae790a64db3b2e37c26273d333a63b</code>です。<a href="provenance.json">文書対象の出典情報</a>に、対象版とMCP配布物の固定値を記載しています。稼働版は接続先ごとに確認してください。</p>
+<p>文書改訂12の元OpenAPIは、2026-10-07の固定commit <code>74b35558b25da7c8d7bbb0be18f74b79e8765316</code>です。元仕様のSHA-256は<code>29e0a6fcd763b3efb855ef40dd3018f06cae790a64db3b2e37c26273d333a63b</code>です。<a href="provenance.json">文書対象の出典情報</a>に、対象版とMCP配布物の固定値を記載しています。稼働版は接続先ごとに確認してください。</p>
 <h2 id="section-3">ファイルの整合を確認する</h2>
 <p><a href="../manifest.json">manifest</a>に、公開しているファイルのSHA-256を記載しています。取得したファイルは、manifestの<code>files</code>の値と照合できます。</p>
 <ul><li><code>files[&quot;v0.7/openapi.json&quot;]</code>は、公開用に題名や説明を整えた、配信ファイルそのもののSHA-256です。ダウンロードしたOpenAPIは、この値と照合します。</li><li><code>source_openapi_sha256</code>は、公開用に整える前の、元のOpenAPIの値です。配信ファイルとは、一致しません。</li><li>manifest自身は、自己参照を避けるため、<code>files</code>に含みません。</li><li>MCPクライアントのZIPのSHA-256は、manifestには含みません。<a href="mcp.html">MCPの導入</a>に載せています。</li></ul>

@@ -2,7 +2,7 @@
 from pathlib import Path
 from html.parser import HTMLParser
 from urllib.parse import urljoin,urlsplit,unquote
-import argparse,ast,hashlib,json,re,subprocess
+import argparse,ast,hashlib,html,json,re,subprocess
 from build_content import ASSETS
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -25,11 +25,17 @@ def protocol(node):
     if isinstance(node,list):return [protocol(v) for v in node]
     return node
 def main():
-    ap=argparse.ArgumentParser();ap.add_argument('--raw-openapi');ap.add_argument('--mcp-source');ap.add_argument('--report');args=ap.parse_args()
+    ap=argparse.ArgumentParser();ap.add_argument('--raw-openapi');ap.add_argument('--mcp-source');ap.add_argument('--credential-source');ap.add_argument('--report');args=ap.parse_args()
     failures=[];manifest=json.loads((ROOT/'manifest.json').read_bytes());files=manifest['files'];pages={};links=0;md_links=0
     for name,expected in files.items():
         raw=(ROOT/name).read_bytes()
         if hashlib.sha256(raw).hexdigest()!=expected:failures.append('hash '+name)
+        text=html.unescape(raw.decode('utf-8'))
+        for phrase in ['案件','morita@','伴走支援','大手企業のセキュリティ水準','design-images','design-blue.png','デザイン見本','お客様ごとの専用環境']:
+            if phrase in text:failures.append('non-generic wording '+name+' '+phrase)
+        for address in re.findall(r'[A-Za-z0-9_.+-]+@[A-Za-z0-9_.-]+\.[A-Za-z]{2,}',text):
+            domain=address.rsplit('@',1)[1].lower()
+            if not domain.endswith('.invalid') and domain not in ['example.com','example.net','example.org']:failures.append('non-synthetic email '+name)
         if name.endswith('.html'):
             pages[name]=Page(raw.decode('utf-8'))
             if pages[name].duplicate_ids:failures.append('duplicate ids '+name)
@@ -90,7 +96,20 @@ def main():
         mcp_matches=True
     samples=json.loads((ROOT/'v0.7/examples/public-requests.json').read_bytes())
     for q in samples:assert str(q['status']) in spec['paths'][q['path']][q['method'].lower()]['responses']
+    assert spec['x-error-code-usage']['FOLDER_LIMIT_REACHED']=='other_core_contract_not_mapped_to_public_operation'
+    assert not any('FOLDER_LIMIT_REACHED' in json.dumps(op) for methods in spec['paths'].values() for op in methods.values())
+    credential_checked=None
+    if args.credential_source:
+        source_bytes=Path(args.credential_source).read_bytes();provenance=json.loads((ROOT/'v0.7/provenance.json').read_bytes())
+        assert hashlib.sha256(source_bytes).hexdigest()==provenance['mcp']['credential_store_source_sha256']
+        fn=next(n for n in ast.parse(source_bytes).body if isinstance(n,ast.FunctionDef) and n.name=='credential')
+        assert isinstance(fn.body[0],ast.If)
+        expr=compile(ast.Expression(fn.body[0].test),'<credential-validation-only>','eval')
+        for name,rejected in [('customer-imports',False),('0_a-z',False),('Customer-imports',True),('path/name',True),('has space',True),('',True),('a'*47+'-'+'0'*16,False),('a'*48+'-'+'0'*16,True)]:
+            assert bool(eval(expr,{'__builtins__':{},'len':len,'any':any,'name':name}))==rejected,name
+        credential_checked=True
     report={'passed':not failures,'documentation_revision':manifest['documentation_revision'],'public_files':len(files),'html_pages':len(pages),'checked_html_links':links,'checked_markdown_links':md_links,'failures':failures,'original_asset_sha256':assets,'home_and_overview_DOM_structure_unchanged':unchanged_structure,'original_navigation_page_count':22,'existing_operations_preserved':len(old_ops),'api_operations':len(new_ops),'added_operations':sorted(x[2] for x in new_ops-old_ops),'raw_protocol_structure_identical':raw_matches,'raw_authority_identical_except_private_client_allowlist':authority_matches,'mcp_tools':len(mcp['tools']),'mcp_input_schema_and_annotations_match_pinned_source':mcp_matches,'synthetic_examples':len(samples),'example_operation_coverage':len({(q['method'],q['path']) for q in samples})}
+    report.update(generic_wording_and_email_guard_passed=not failures,folder_limit_not_mapped_to_public_operation=True,credential_name_validation_checked_without_store_access=credential_checked,json_examples=sum('body_base64' not in q for q in samples),binary_examples=sum('body_base64' in q for q in samples))
     if args.report:Path(args.report).write_bytes((json.dumps(report,ensure_ascii=False,indent=2)+'\n').encode('utf-8'))
     print(json.dumps(report,ensure_ascii=False,indent=2));assert report['passed']
 if __name__=='__main__':main()

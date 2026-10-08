@@ -39824,7 +39824,7 @@
         ],
         "parameters": [],
         "x-availability": "環境による",
-        "description": "専用環境の容量とアプリ件数を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 専用環境に固定した管理情報のみ。業務値やIdP資格は返さない。不明な容量・契約指標はnullまたはnot_connected。設定変更は通知を送らない。",
+        "description": "利用環境の容量とアプリ件数を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 接続した環境に固定した管理情報のみ。業務値やIdP資格は返さない。不明な容量・契約指標はnullまたはnot_connected。設定変更は通知を送らない。",
         "responses": {
           "200": {
             "description": "Success; fields are projected using current authorization.",
@@ -39924,7 +39924,7 @@
                 },
                 "examples": {
                   "organization-overview": {
-                    "summary": "専用環境の容量とアプリ件数を取得",
+                    "summary": "利用環境の容量とアプリ件数を取得",
                     "value": {
                       "as_of": "2026-10-04T00:00:00Z",
                       "data_api": "available",
@@ -39952,7 +39952,7 @@
             }
           },
           "400": {
-            "description": "専用環境の容量とアプリ件数を取得での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
+            "description": "利用環境の容量とアプリ件数を取得での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "BAD_REQUEST",
               "SELF_DECLARED_HEADER"
@@ -39966,7 +39966,7 @@
             }
           },
           "401": {
-            "description": "専用環境の容量とアプリ件数を取得での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
+            "description": "利用環境の容量とアプリ件数を取得での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTH_REQUIRED",
               "TOKEN_EXPIRED",
@@ -39981,7 +39981,7 @@
             }
           },
           "403": {
-            "description": "専用環境の容量とアプリ件数を取得での拒否・失敗: FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED。codeで分岐しrequest_idを保管する。",
+            "description": "利用環境の容量とアプリ件数を取得での拒否・失敗: FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "FORBIDDEN_ROLE",
               "MFA_REQUIRED",
@@ -39996,7 +39996,7 @@
             }
           },
           "404": {
-            "description": "専用環境の容量とアプリ件数を取得での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
+            "description": "利用環境の容量とアプリ件数を取得での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "NOT_FOUND"
             ],
@@ -40009,7 +40009,7 @@
             }
           },
           "409": {
-            "description": "専用環境の容量とアプリ件数を取得での拒否・失敗: CURSOR_STALE, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "利用環境の容量とアプリ件数を取得での拒否・失敗: CURSOR_STALE, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "CURSOR_STALE",
               "LOCK_BUSY",
@@ -40024,7 +40024,7 @@
             }
           },
           "429": {
-            "description": "専用環境の容量とアプリ件数を取得での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。",
+            "description": "利用環境の容量とアプリ件数を取得での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "RATE_LIMITED"
             ],
@@ -40046,7 +40046,7 @@
             }
           },
           "500": {
-            "description": "専用環境の容量とアプリ件数を取得での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "利用環境の容量とアプリ件数を取得での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "INTERNAL_CONTRACT_VIOLATION"
             ],
@@ -40059,7 +40059,7 @@
             }
           },
           "503": {
-            "description": "専用環境の容量とアプリ件数を取得での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
+            "description": "利用環境の容量とアプリ件数を取得での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "DEPENDENCY_UNAVAILABLE",
               "MAINTENANCE",
@@ -40075,7 +40075,7 @@
             }
           }
         },
-        "summary": "専用環境の容量とアプリ件数を取得",
+        "summary": "利用環境の容量とアプリ件数を取得",
         "x-required-authority": {
           "actor_types": [
             "human"
@@ -40130,7 +40130,7 @@
         ],
         "parameters": [],
         "x-availability": "環境による",
-        "description": "組織設定を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 専用環境に固定した管理情報のみ。業務値やIdP資格は返さない。不明な容量・契約指標はnullまたはnot_connected。設定変更は通知を送らない。",
+        "description": "組織設定を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 接続した環境に固定した管理情報のみ。業務値やIdP資格は返さない。不明な容量・契約指標はnullまたはnot_connected。設定変更は通知を送らない。",
         "responses": {
           "200": {
             "description": "Success; fields are projected using current authorization.",
@@ -40373,7 +40373,7 @@
         ],
         "parameters": [],
         "x-availability": "環境による",
-        "description": "組織設定の変更を計画。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 専用環境に固定した管理情報のみ。業務値やIdP資格は返さない。不明な容量・契約指標はnullまたはnot_connected。設定変更は通知を送らない。",
+        "description": "組織設定の変更を計画。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 接続した環境に固定した管理情報のみ。業務値やIdP資格は返さない。不明な容量・契約指標はnullまたはnot_connected。設定変更は通知を送らない。",
         "requestBody": {
           "required": true,
           "content": {
@@ -40786,7 +40786,7 @@
           }
         ],
         "x-availability": "環境による",
-        "description": "確認済み組織設定を適用。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 専用環境に固定した管理情報のみ。業務値やIdP資格は返さない。不明な容量・契約指標はnullまたはnot_connected。設定変更は通知を送らない。",
+        "description": "確認済み組織設定を適用。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 接続した環境に固定した管理情報のみ。業務値やIdP資格は返さない。不明な容量・契約指標はnullまたはnot_connected。設定変更は通知を送らない。",
         "requestBody": {
           "required": true,
           "content": {
@@ -41175,7 +41175,7 @@
         ],
         "parameters": [],
         "x-availability": "環境による",
-        "description": "確定操作の履歴を検索。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 専用環境に固定した管理情報のみ。業務値やIdP資格は返さない。不明な容量・契約指標はnullまたはnot_connected。設定変更は通知を送らない。",
+        "description": "確定操作の履歴を検索。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 接続した環境に固定した管理情報のみ。業務値やIdP資格は返さない。不明な容量・契約指標はnullまたはnot_connected。設定変更は通知を送らない。",
         "requestBody": {
           "required": true,
           "content": {
