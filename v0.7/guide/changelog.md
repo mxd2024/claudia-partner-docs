@@ -1,39 +1,5 @@
 # 変更履歴
 
-## 2026-10-08 / 文書改訂13 / 契約変更なし
-
-- Issue 17の00:00 UTC設計追記を反映。Macでの開発→VPS配置の設定差分、開発・本番の2戻り先併存、TLS・Cookie・BFFの秘密保管、開発URI削除と資格失効を追加。
-- SSH転送・独自CA登録を顧客端末へ要求しない公開CA入口を設計要件として記載。併存登録・移行・開発プロファイルの正本と実機受入は未確認で、準備中の状態を維持。
-- READMEとガイドの導線をGitHub上のMarkdown・仕様・接続依頼・公開Issuesへ整理。静的サイト配備前にも使える文書の入口と、提供状態を明記。
-- 公開Issueの検索・新規質問・追加質問・機密投稿禁止・回答期限未保証を追記。API・MCPの契約ファイルは改訂12と同一です。
-- 本改訂は同じdraft PRの文書整備のみ。mainへの反映、顧客への案内送信、インフラ実装・設定変更は行っていません。
-
-設計の出典: [Issue 17追記](https://github.com/mxd2024/claudia-partner-docs/issues/17#issuecomment-6049287364)。
-
-
-## 2026-10-08 / 文書改訂12 / API固定契約を更新
-
-- 2026-10-07の固定契約から134操作を取り込み。service.metadata・service.importの2操作と3型を追加し、認可・環境条件・再送の定義を更新。公開前のSHAと公開ファイルSHAを同時に更新しました。
-- MCP定義を確認した1.0.1配布物の8ツールに同期。9ファイル構成、CAバンドル、ZIPのSHA、90日・最大10個のキー制約を記載。
-- 旧1.0.0の入口拒否を版付きの記録に分け、1.0.1の公開読取確認報告と書込・全環境の未確認を明記。
-- アプリ用BFFの登録は準備中、自己登録は未提供、ループバックは環境によると明記。接続依頼を公開Issueの一般化した雛形に統一。
-- Dropbox管理サイト操作の設計（1回の同意・最大3フォルダー・許可無効化・解除・再接続）を追記し、限定認証条件の実装者確認と公開API準備中を区別。
-- 個人受付アドレスを削除。ケースと参考画像へ表現を一般化し、公開物の語句検査を追加。
-- 出典・公開物・検索・リンク・表示の検証を同じPRで更新。API・MCP・BFFの実装変更や再配備は行っていません。
-
-対象: [Issue 15](https://github.com/mxd2024/claudia-partner-docs/issues/15)、[16](https://github.com/mxd2024/claudia-partner-docs/issues/16)、[17](https://github.com/mxd2024/claudia-partner-docs/issues/17)、[18](https://github.com/mxd2024/claudia-partner-docs/issues/18)、[19](https://github.com/mxd2024/claudia-partner-docs/issues/19)。残る独立受入・例の実行・未有効機能の実測は[Issue 9](https://github.com/mxd2024/claudia-partner-docs/issues/9)で追跡します。
-
-
-## 2026-10-07 / 文書改訂11 / API契約は変更なし
-
-- 顧客アプリ開発者向けに、ホーム・ガイド・API・リリース情報の入口を整理。
-- BFF／Core API／認証サービスの役割と、人・service・取込MCPの資格の違いを明記。
-- 接続前の有効モジュール確認、未有効モジュールでの404と判別の限界を追記。
-- 架空の業務メモアプリを追加。Dropboxや専用VPSを共通の必須条件とする説明を一般化。
-- API詳細を機能別に分割。132操作、旧操作アンカー、共通schemaへのリンクを保持。
-- 文書対象は2026-10-04の0.7.0-experimental契約。実機確認、API・BFF・MCPの修正や再配備は行っていません。
-
-
 ## 2026-10-04 / 初回公開 / API 0.7.0-experimental
 
 Claudia PartnerのAPI・MCP共通ドキュメントを公開しました。

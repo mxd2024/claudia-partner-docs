@@ -40,4 +40,4 @@
 
 認証が切れたり、権限が変わったりしても、再送のときは、その時点の権限で評価されます。
 
-詳しい再送の方式は、[共通ルール](concepts.md)にあります。エラーの一覧は、[エラーと再試行](errors.md)にあります。
+詳しい再送の方式は、[共通ルール](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/concepts.md)にあります。エラーの一覧は、[エラーと再試行](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/errors.md)にあります。

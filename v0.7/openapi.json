@@ -1,9 +1,9 @@
 {
   "openapi": "3.1.0",
   "info": {
-    "title": "Claudia Partner 公開API契約",
+    "title": "Claudia Partner API",
     "version": "0.7.0-experimental",
-    "description": "API 0.7.0-experimentalの固定契約。機能の有効化・認可・実稼働版は環境ごとに確認してください。説明文は公開向けに一般化しています。"
+    "description": "Public API 0.7.0-experimental: 132 machine-described operations matching 132 implemented HTTP routes. Optional capabilities and authorization depend on the deployment. See api-inventory.json for coverage. No production endpoint or credentials are included."
   },
   "paths": {
     "/v1/me": {
@@ -694,7 +694,7 @@
             }
           },
           "400": {
-            "description": "ケースを一覧取得での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
+            "description": "案件を一覧取得での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "BAD_REQUEST",
               "SELF_DECLARED_HEADER"
@@ -708,7 +708,7 @@
             }
           },
           "401": {
-            "description": "ケースを一覧取得での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
+            "description": "案件を一覧取得での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTH_REQUIRED",
               "TOKEN_EXPIRED",
@@ -723,7 +723,7 @@
             }
           },
           "403": {
-            "description": "ケースを一覧取得での拒否・失敗: AI_MUST_USE_PROPOSALS, AI_SUSPENDED, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件を一覧取得での拒否・失敗: AI_MUST_USE_PROPOSALS, AI_SUSPENDED, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AI_MUST_USE_PROPOSALS",
               "AI_SUSPENDED",
@@ -741,7 +741,7 @@
             }
           },
           "404": {
-            "description": "ケースを一覧取得での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
+            "description": "案件を一覧取得での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "NOT_FOUND"
             ],
@@ -754,7 +754,7 @@
             }
           },
           "409": {
-            "description": "ケースを一覧取得での拒否・失敗: AUTHORITY_CONFLICT, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "案件を一覧取得での拒否・失敗: AUTHORITY_CONFLICT, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTHORITY_CONFLICT",
               "LOCK_BUSY",
@@ -769,7 +769,7 @@
             }
           },
           "422": {
-            "description": "ケースを一覧取得での拒否・失敗: FIELD_NOT_ALLOWED, FIELD_REQUIRED, FIELD_UNKNOWN, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
+            "description": "案件を一覧取得での拒否・失敗: FIELD_NOT_ALLOWED, FIELD_REQUIRED, FIELD_UNKNOWN, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "FIELD_NOT_ALLOWED",
               "FIELD_REQUIRED",
@@ -785,7 +785,7 @@
             }
           },
           "429": {
-            "description": "ケースを一覧取得での拒否・失敗: AI_RATE_LIMITED, RATE_LIMITED。codeで分岐しrequest_idを保管する。",
+            "description": "案件を一覧取得での拒否・失敗: AI_RATE_LIMITED, RATE_LIMITED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AI_RATE_LIMITED",
               "RATE_LIMITED"
@@ -808,7 +808,7 @@
             }
           },
           "500": {
-            "description": "ケースを一覧取得での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件を一覧取得での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "INTERNAL_CONTRACT_VIOLATION"
             ],
@@ -821,7 +821,7 @@
             }
           },
           "503": {
-            "description": "ケースを一覧取得での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
+            "description": "案件を一覧取得での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "DEPENDENCY_UNAVAILABLE",
               "MAINTENANCE",
@@ -837,8 +837,8 @@
             }
           }
         },
-        "summary": "ケースを一覧取得",
-        "description": "ケースを一覧取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在のケース権限と業務状態を検査する。status_codeは表のdraft/committedとは別。",
+        "summary": "案件を一覧取得",
+        "description": "案件を一覧取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在の案件権限と業務状態を検査する。status_codeは表のdraft/committedとは別。",
         "x-required-authority": {
           "actor_types": [
             "human"
@@ -1033,7 +1033,7 @@
             }
           },
           "400": {
-            "description": "ケースを新規作成での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
+            "description": "案件を新規作成での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "BAD_REQUEST",
               "SELF_DECLARED_HEADER"
@@ -1047,7 +1047,7 @@
             }
           },
           "401": {
-            "description": "ケースを新規作成での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
+            "description": "案件を新規作成での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTH_REQUIRED",
               "TOKEN_EXPIRED",
@@ -1062,7 +1062,7 @@
             }
           },
           "403": {
-            "description": "ケースを新規作成での拒否・失敗: AI_MUST_USE_PROPOSALS, AI_SUSPENDED, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件を新規作成での拒否・失敗: AI_MUST_USE_PROPOSALS, AI_SUSPENDED, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AI_MUST_USE_PROPOSALS",
               "AI_SUSPENDED",
@@ -1080,7 +1080,7 @@
             }
           },
           "404": {
-            "description": "ケースを新規作成での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
+            "description": "案件を新規作成での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "NOT_FOUND"
             ],
@@ -1093,7 +1093,7 @@
             }
           },
           "409": {
-            "description": "ケースを新規作成での拒否・失敗: AUTHORITY_CONFLICT, DUPLICATE, IDEMPOTENCY_IN_PROGRESS, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "案件を新規作成での拒否・失敗: AUTHORITY_CONFLICT, DUPLICATE, IDEMPOTENCY_IN_PROGRESS, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTHORITY_CONFLICT",
               "DUPLICATE",
@@ -1110,7 +1110,7 @@
             }
           },
           "412": {
-            "description": "ケースを新規作成での拒否・失敗: VERSION_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "案件を新規作成での拒否・失敗: VERSION_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "VERSION_CONFLICT"
             ],
@@ -1123,7 +1123,7 @@
             }
           },
           "413": {
-            "description": "ケースを新規作成での拒否・失敗: PAYLOAD_TOO_LARGE。codeで分岐しrequest_idを保管する。",
+            "description": "案件を新規作成での拒否・失敗: PAYLOAD_TOO_LARGE。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "PAYLOAD_TOO_LARGE"
             ],
@@ -1136,7 +1136,7 @@
             }
           },
           "415": {
-            "description": "ケースを新規作成での拒否・失敗: UNSUPPORTED_MEDIA_TYPE。codeで分岐しrequest_idを保管する。",
+            "description": "案件を新規作成での拒否・失敗: UNSUPPORTED_MEDIA_TYPE。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "UNSUPPORTED_MEDIA_TYPE"
             ],
@@ -1149,7 +1149,7 @@
             }
           },
           "422": {
-            "description": "ケースを新規作成での拒否・失敗: FIELD_NOT_ALLOWED, FIELD_REQUIRED, FIELD_UNKNOWN, IDEMPOTENCY_MISMATCH, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
+            "description": "案件を新規作成での拒否・失敗: FIELD_NOT_ALLOWED, FIELD_REQUIRED, FIELD_UNKNOWN, IDEMPOTENCY_MISMATCH, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "FIELD_NOT_ALLOWED",
               "FIELD_REQUIRED",
@@ -1166,7 +1166,7 @@
             }
           },
           "428": {
-            "description": "ケースを新規作成での拒否・失敗: IDEMPOTENCY_KEY_REQUIRED。codeで分岐しrequest_idを保管する。",
+            "description": "案件を新規作成での拒否・失敗: IDEMPOTENCY_KEY_REQUIRED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "IDEMPOTENCY_KEY_REQUIRED"
             ],
@@ -1179,7 +1179,7 @@
             }
           },
           "429": {
-            "description": "ケースを新規作成での拒否・失敗: AI_RATE_LIMITED, RATE_LIMITED。codeで分岐しrequest_idを保管する。",
+            "description": "案件を新規作成での拒否・失敗: AI_RATE_LIMITED, RATE_LIMITED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AI_RATE_LIMITED",
               "RATE_LIMITED"
@@ -1202,7 +1202,7 @@
             }
           },
           "500": {
-            "description": "ケースを新規作成での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件を新規作成での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "INTERNAL_CONTRACT_VIOLATION"
             ],
@@ -1215,7 +1215,7 @@
             }
           },
           "503": {
-            "description": "ケースを新規作成での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, OUTCOME_UNKNOWN, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
+            "description": "案件を新規作成での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, OUTCOME_UNKNOWN, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "DEPENDENCY_UNAVAILABLE",
               "MAINTENANCE",
@@ -1232,8 +1232,8 @@
             }
           }
         },
-        "summary": "ケースを新規作成",
-        "description": "ケースを新規作成。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在のケース権限と業務状態を検査する。status_codeは表のdraft/committedとは別。",
+        "summary": "案件を新規作成",
+        "description": "案件を新規作成。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在の案件権限と業務状態を検査する。status_codeは表のdraft/committedとは別。",
         "x-required-authority": {
           "actor_types": [
             "human"
@@ -1534,7 +1534,7 @@
             }
           },
           "400": {
-            "description": "ケースを1件取得での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
+            "description": "案件を1件取得での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "BAD_REQUEST",
               "SELF_DECLARED_HEADER"
@@ -1548,7 +1548,7 @@
             }
           },
           "401": {
-            "description": "ケースを1件取得での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
+            "description": "案件を1件取得での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTH_REQUIRED",
               "TOKEN_EXPIRED",
@@ -1563,7 +1563,7 @@
             }
           },
           "403": {
-            "description": "ケースを1件取得での拒否・失敗: AI_MUST_USE_PROPOSALS, AI_SUSPENDED, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件を1件取得での拒否・失敗: AI_MUST_USE_PROPOSALS, AI_SUSPENDED, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AI_MUST_USE_PROPOSALS",
               "AI_SUSPENDED",
@@ -1581,7 +1581,7 @@
             }
           },
           "404": {
-            "description": "ケースを1件取得での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
+            "description": "案件を1件取得での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "NOT_FOUND"
             ],
@@ -1594,7 +1594,7 @@
             }
           },
           "409": {
-            "description": "ケースを1件取得での拒否・失敗: AUTHORITY_CONFLICT, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "案件を1件取得での拒否・失敗: AUTHORITY_CONFLICT, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTHORITY_CONFLICT",
               "LOCK_BUSY",
@@ -1609,7 +1609,7 @@
             }
           },
           "422": {
-            "description": "ケースを1件取得での拒否・失敗: FIELD_NOT_ALLOWED, FIELD_REQUIRED, FIELD_UNKNOWN, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
+            "description": "案件を1件取得での拒否・失敗: FIELD_NOT_ALLOWED, FIELD_REQUIRED, FIELD_UNKNOWN, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "FIELD_NOT_ALLOWED",
               "FIELD_REQUIRED",
@@ -1625,7 +1625,7 @@
             }
           },
           "429": {
-            "description": "ケースを1件取得での拒否・失敗: AI_RATE_LIMITED, RATE_LIMITED。codeで分岐しrequest_idを保管する。",
+            "description": "案件を1件取得での拒否・失敗: AI_RATE_LIMITED, RATE_LIMITED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AI_RATE_LIMITED",
               "RATE_LIMITED"
@@ -1648,7 +1648,7 @@
             }
           },
           "500": {
-            "description": "ケースを1件取得での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件を1件取得での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "INTERNAL_CONTRACT_VIOLATION"
             ],
@@ -1661,7 +1661,7 @@
             }
           },
           "503": {
-            "description": "ケースを1件取得での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
+            "description": "案件を1件取得での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "DEPENDENCY_UNAVAILABLE",
               "MAINTENANCE",
@@ -1677,8 +1677,8 @@
             }
           }
         },
-        "summary": "ケースを1件取得",
-        "description": "ケースを1件取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在のケース権限と業務状態を検査する。status_codeは表のdraft/committedとは別。",
+        "summary": "案件を1件取得",
+        "description": "案件を1件取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在の案件権限と業務状態を検査する。status_codeは表のdraft/committedとは別。",
         "x-required-authority": {
           "actor_types": [
             "human"
@@ -1770,7 +1770,7 @@
             }
           },
           "400": {
-            "description": "ケースを削除での拒否・失敗: BAD_REQUEST, ETAG_MALFORMED, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
+            "description": "案件を削除での拒否・失敗: BAD_REQUEST, ETAG_MALFORMED, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "BAD_REQUEST",
               "ETAG_MALFORMED",
@@ -1785,7 +1785,7 @@
             }
           },
           "401": {
-            "description": "ケースを削除での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
+            "description": "案件を削除での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTH_REQUIRED",
               "TOKEN_EXPIRED",
@@ -1800,7 +1800,7 @@
             }
           },
           "403": {
-            "description": "ケースを削除での拒否・失敗: AI_MUST_USE_PROPOSALS, AI_SUSPENDED, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件を削除での拒否・失敗: AI_MUST_USE_PROPOSALS, AI_SUSPENDED, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AI_MUST_USE_PROPOSALS",
               "AI_SUSPENDED",
@@ -1818,7 +1818,7 @@
             }
           },
           "404": {
-            "description": "ケースを削除での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
+            "description": "案件を削除での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "NOT_FOUND"
             ],
@@ -1831,7 +1831,7 @@
             }
           },
           "409": {
-            "description": "ケースを削除での拒否・失敗: AUTHORITY_CONFLICT, IDEMPOTENCY_IN_PROGRESS, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "案件を削除での拒否・失敗: AUTHORITY_CONFLICT, IDEMPOTENCY_IN_PROGRESS, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTHORITY_CONFLICT",
               "IDEMPOTENCY_IN_PROGRESS",
@@ -1847,7 +1847,7 @@
             }
           },
           "412": {
-            "description": "ケースを削除での拒否・失敗: VERSION_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "案件を削除での拒否・失敗: VERSION_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "VERSION_CONFLICT"
             ],
@@ -1860,7 +1860,7 @@
             }
           },
           "422": {
-            "description": "ケースを削除での拒否・失敗: FIELD_NOT_ALLOWED, FIELD_REQUIRED, FIELD_UNKNOWN, IDEMPOTENCY_MISMATCH, INVALID_TRANSITION, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
+            "description": "案件を削除での拒否・失敗: FIELD_NOT_ALLOWED, FIELD_REQUIRED, FIELD_UNKNOWN, IDEMPOTENCY_MISMATCH, INVALID_TRANSITION, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "FIELD_NOT_ALLOWED",
               "FIELD_REQUIRED",
@@ -1878,7 +1878,7 @@
             }
           },
           "428": {
-            "description": "ケースを削除での拒否・失敗: IDEMPOTENCY_KEY_REQUIRED, PRECONDITION_REQUIRED。codeで分岐しrequest_idを保管する。",
+            "description": "案件を削除での拒否・失敗: IDEMPOTENCY_KEY_REQUIRED, PRECONDITION_REQUIRED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "IDEMPOTENCY_KEY_REQUIRED",
               "PRECONDITION_REQUIRED"
@@ -1892,7 +1892,7 @@
             }
           },
           "429": {
-            "description": "ケースを削除での拒否・失敗: AI_RATE_LIMITED, RATE_LIMITED。codeで分岐しrequest_idを保管する。",
+            "description": "案件を削除での拒否・失敗: AI_RATE_LIMITED, RATE_LIMITED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AI_RATE_LIMITED",
               "RATE_LIMITED"
@@ -1915,7 +1915,7 @@
             }
           },
           "500": {
-            "description": "ケースを削除での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件を削除での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "INTERNAL_CONTRACT_VIOLATION"
             ],
@@ -1928,7 +1928,7 @@
             }
           },
           "503": {
-            "description": "ケースを削除での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, OUTCOME_UNKNOWN, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
+            "description": "案件を削除での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, OUTCOME_UNKNOWN, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "DEPENDENCY_UNAVAILABLE",
               "MAINTENANCE",
@@ -1945,8 +1945,8 @@
             }
           }
         },
-        "summary": "ケースを削除",
-        "description": "ケースを削除。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在のケース権限と業務状態を検査する。status_codeは表のdraft/committedとは別。",
+        "summary": "案件を削除",
+        "description": "案件を削除。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在の案件権限と業務状態を検査する。status_codeは表のdraft/committedとは別。",
         "x-required-authority": {
           "actor_types": [
             "human"
@@ -2080,7 +2080,7 @@
               },
               "examples": {
                 "if-match": {
-                  "summary": "If-Matchで既存ケースを更新",
+                  "summary": "If-Matchで既存案件を更新",
                   "value": {
                     "notes": "確認済み"
                   }
@@ -2120,7 +2120,7 @@
                 },
                 "examples": {
                   "if-match": {
-                    "summary": "If-Matchで既存ケースを更新",
+                    "summary": "If-Matchで既存案件を更新",
                     "value": {
                       "id": "11111111-1111-4111-8111-111111111111",
                       "version": "2"
@@ -2131,7 +2131,7 @@
             }
           },
           "400": {
-            "description": "ケースの指定項目を更新での拒否・失敗: BAD_REQUEST, ETAG_MALFORMED, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
+            "description": "案件の指定項目を更新での拒否・失敗: BAD_REQUEST, ETAG_MALFORMED, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "BAD_REQUEST",
               "ETAG_MALFORMED",
@@ -2146,7 +2146,7 @@
             }
           },
           "401": {
-            "description": "ケースの指定項目を更新での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
+            "description": "案件の指定項目を更新での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTH_REQUIRED",
               "TOKEN_EXPIRED",
@@ -2161,7 +2161,7 @@
             }
           },
           "403": {
-            "description": "ケースの指定項目を更新での拒否・失敗: AI_MUST_USE_PROPOSALS, AI_SUSPENDED, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件の指定項目を更新での拒否・失敗: AI_MUST_USE_PROPOSALS, AI_SUSPENDED, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AI_MUST_USE_PROPOSALS",
               "AI_SUSPENDED",
@@ -2179,7 +2179,7 @@
             }
           },
           "404": {
-            "description": "ケースの指定項目を更新での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
+            "description": "案件の指定項目を更新での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "NOT_FOUND"
             ],
@@ -2192,7 +2192,7 @@
             }
           },
           "409": {
-            "description": "ケースの指定項目を更新での拒否・失敗: AUTHORITY_CONFLICT, IDEMPOTENCY_IN_PROGRESS, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "案件の指定項目を更新での拒否・失敗: AUTHORITY_CONFLICT, IDEMPOTENCY_IN_PROGRESS, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTHORITY_CONFLICT",
               "IDEMPOTENCY_IN_PROGRESS",
@@ -2208,7 +2208,7 @@
             }
           },
           "412": {
-            "description": "ケースの指定項目を更新での拒否・失敗: VERSION_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "案件の指定項目を更新での拒否・失敗: VERSION_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "VERSION_CONFLICT"
             ],
@@ -2233,7 +2233,7 @@
             }
           },
           "413": {
-            "description": "ケースの指定項目を更新での拒否・失敗: PAYLOAD_TOO_LARGE。codeで分岐しrequest_idを保管する。",
+            "description": "案件の指定項目を更新での拒否・失敗: PAYLOAD_TOO_LARGE。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "PAYLOAD_TOO_LARGE"
             ],
@@ -2246,7 +2246,7 @@
             }
           },
           "415": {
-            "description": "ケースの指定項目を更新での拒否・失敗: UNSUPPORTED_MEDIA_TYPE。codeで分岐しrequest_idを保管する。",
+            "description": "案件の指定項目を更新での拒否・失敗: UNSUPPORTED_MEDIA_TYPE。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "UNSUPPORTED_MEDIA_TYPE"
             ],
@@ -2259,7 +2259,7 @@
             }
           },
           "422": {
-            "description": "ケースの指定項目を更新での拒否・失敗: EMPTY_PATCH, FIELD_NOT_ALLOWED, FIELD_REQUIRED, FIELD_UNKNOWN, IDEMPOTENCY_MISMATCH, INVALID_TRANSITION, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
+            "description": "案件の指定項目を更新での拒否・失敗: EMPTY_PATCH, FIELD_NOT_ALLOWED, FIELD_REQUIRED, FIELD_UNKNOWN, IDEMPOTENCY_MISMATCH, INVALID_TRANSITION, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "EMPTY_PATCH",
               "FIELD_NOT_ALLOWED",
@@ -2278,7 +2278,7 @@
             }
           },
           "428": {
-            "description": "ケースの指定項目を更新での拒否・失敗: IDEMPOTENCY_KEY_REQUIRED, PRECONDITION_REQUIRED。codeで分岐しrequest_idを保管する。",
+            "description": "案件の指定項目を更新での拒否・失敗: IDEMPOTENCY_KEY_REQUIRED, PRECONDITION_REQUIRED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "IDEMPOTENCY_KEY_REQUIRED",
               "PRECONDITION_REQUIRED"
@@ -2292,7 +2292,7 @@
             }
           },
           "429": {
-            "description": "ケースの指定項目を更新での拒否・失敗: AI_RATE_LIMITED, RATE_LIMITED。codeで分岐しrequest_idを保管する。",
+            "description": "案件の指定項目を更新での拒否・失敗: AI_RATE_LIMITED, RATE_LIMITED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AI_RATE_LIMITED",
               "RATE_LIMITED"
@@ -2315,7 +2315,7 @@
             }
           },
           "500": {
-            "description": "ケースの指定項目を更新での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件の指定項目を更新での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "INTERNAL_CONTRACT_VIOLATION"
             ],
@@ -2328,7 +2328,7 @@
             }
           },
           "503": {
-            "description": "ケースの指定項目を更新での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, OUTCOME_UNKNOWN, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
+            "description": "案件の指定項目を更新での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, OUTCOME_UNKNOWN, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "DEPENDENCY_UNAVAILABLE",
               "MAINTENANCE",
@@ -2345,8 +2345,8 @@
             }
           }
         },
-        "summary": "ケースの指定項目を更新",
-        "description": "ケースの指定項目を更新。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在のケース権限と業務状態を検査する。status_codeは表のdraft/committedとは別。",
+        "summary": "案件の指定項目を更新",
+        "description": "案件の指定項目を更新。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在の案件権限と業務状態を検査する。status_codeは表のdraft/committedとは別。",
         "x-required-authority": {
           "actor_types": [
             "human"
@@ -2727,7 +2727,7 @@
             }
           },
           "400": {
-            "description": "ケースをエクスポートでの拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
+            "description": "案件をエクスポートでの拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "BAD_REQUEST",
               "SELF_DECLARED_HEADER"
@@ -2741,7 +2741,7 @@
             }
           },
           "401": {
-            "description": "ケースをエクスポートでの拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
+            "description": "案件をエクスポートでの拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTH_REQUIRED",
               "TOKEN_EXPIRED",
@@ -2756,7 +2756,7 @@
             }
           },
           "403": {
-            "description": "ケースをエクスポートでの拒否・失敗: AI_MUST_USE_PROPOSALS, AI_SUSPENDED, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件をエクスポートでの拒否・失敗: AI_MUST_USE_PROPOSALS, AI_SUSPENDED, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AI_MUST_USE_PROPOSALS",
               "AI_SUSPENDED",
@@ -2774,7 +2774,7 @@
             }
           },
           "404": {
-            "description": "ケースをエクスポートでの拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
+            "description": "案件をエクスポートでの拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "NOT_FOUND"
             ],
@@ -2787,7 +2787,7 @@
             }
           },
           "409": {
-            "description": "ケースをエクスポートでの拒否・失敗: AUTHORITY_CONFLICT, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "案件をエクスポートでの拒否・失敗: AUTHORITY_CONFLICT, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTHORITY_CONFLICT",
               "LOCK_BUSY",
@@ -2802,7 +2802,7 @@
             }
           },
           "422": {
-            "description": "ケースをエクスポートでの拒否・失敗: FIELD_NOT_ALLOWED, FIELD_REQUIRED, FIELD_UNKNOWN, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
+            "description": "案件をエクスポートでの拒否・失敗: FIELD_NOT_ALLOWED, FIELD_REQUIRED, FIELD_UNKNOWN, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "FIELD_NOT_ALLOWED",
               "FIELD_REQUIRED",
@@ -2818,7 +2818,7 @@
             }
           },
           "429": {
-            "description": "ケースをエクスポートでの拒否・失敗: AI_RATE_LIMITED, RATE_LIMITED。codeで分岐しrequest_idを保管する。",
+            "description": "案件をエクスポートでの拒否・失敗: AI_RATE_LIMITED, RATE_LIMITED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AI_RATE_LIMITED",
               "RATE_LIMITED"
@@ -2841,7 +2841,7 @@
             }
           },
           "500": {
-            "description": "ケースをエクスポートでの拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件をエクスポートでの拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "INTERNAL_CONTRACT_VIOLATION"
             ],
@@ -2854,7 +2854,7 @@
             }
           },
           "503": {
-            "description": "ケースをエクスポートでの拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
+            "description": "案件をエクスポートでの拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "DEPENDENCY_UNAVAILABLE",
               "MAINTENANCE",
@@ -2870,8 +2870,8 @@
             }
           }
         },
-        "summary": "ケースをエクスポート",
-        "description": "ケースをエクスポート。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在のケース権限と業務状態を検査する。status_codeは表のdraft/committedとは別。",
+        "summary": "案件をエクスポート",
+        "description": "案件をエクスポート。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在の案件権限と業務状態を検査する。status_codeは表のdraft/committedとは別。",
         "x-required-authority": {
           "actor_types": [
             "human"
@@ -3007,7 +3007,7 @@
             }
           },
           "400": {
-            "description": "ケース数を取得での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
+            "description": "案件数を取得での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "BAD_REQUEST",
               "SELF_DECLARED_HEADER"
@@ -3021,7 +3021,7 @@
             }
           },
           "401": {
-            "description": "ケース数を取得での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
+            "description": "案件数を取得での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTH_REQUIRED",
               "TOKEN_EXPIRED",
@@ -3036,7 +3036,7 @@
             }
           },
           "403": {
-            "description": "ケース数を取得での拒否・失敗: AI_MUST_USE_PROPOSALS, AI_SUSPENDED, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件数を取得での拒否・失敗: AI_MUST_USE_PROPOSALS, AI_SUSPENDED, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AI_MUST_USE_PROPOSALS",
               "AI_SUSPENDED",
@@ -3054,7 +3054,7 @@
             }
           },
           "404": {
-            "description": "ケース数を取得での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
+            "description": "案件数を取得での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "NOT_FOUND"
             ],
@@ -3067,7 +3067,7 @@
             }
           },
           "409": {
-            "description": "ケース数を取得での拒否・失敗: AUTHORITY_CONFLICT, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "案件数を取得での拒否・失敗: AUTHORITY_CONFLICT, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTHORITY_CONFLICT",
               "LOCK_BUSY",
@@ -3082,7 +3082,7 @@
             }
           },
           "422": {
-            "description": "ケース数を取得での拒否・失敗: FIELD_NOT_ALLOWED, FIELD_REQUIRED, FIELD_UNKNOWN, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
+            "description": "案件数を取得での拒否・失敗: FIELD_NOT_ALLOWED, FIELD_REQUIRED, FIELD_UNKNOWN, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "FIELD_NOT_ALLOWED",
               "FIELD_REQUIRED",
@@ -3098,7 +3098,7 @@
             }
           },
           "429": {
-            "description": "ケース数を取得での拒否・失敗: AI_RATE_LIMITED, RATE_LIMITED。codeで分岐しrequest_idを保管する。",
+            "description": "案件数を取得での拒否・失敗: AI_RATE_LIMITED, RATE_LIMITED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AI_RATE_LIMITED",
               "RATE_LIMITED"
@@ -3121,7 +3121,7 @@
             }
           },
           "500": {
-            "description": "ケース数を取得での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件数を取得での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "INTERNAL_CONTRACT_VIOLATION"
             ],
@@ -3134,7 +3134,7 @@
             }
           },
           "503": {
-            "description": "ケース数を取得での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
+            "description": "案件数を取得での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "DEPENDENCY_UNAVAILABLE",
               "MAINTENANCE",
@@ -3150,8 +3150,8 @@
             }
           }
         },
-        "summary": "ケース数を取得",
-        "description": "ケース数を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在のケース権限と業務状態を検査する。status_codeは表のdraft/committedとは別。",
+        "summary": "案件数を取得",
+        "description": "案件数を取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 現在の案件権限と業務状態を検査する。status_codeは表のdraft/committedとは別。",
         "x-required-authority": {
           "actor_types": [
             "human"
@@ -11980,7 +11980,7 @@
           "workspaces"
         ],
         "x-availability": "試験提供（環境による）",
-        "description": "ケースの採番設定を更新。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
+        "description": "案件の採番設定を更新。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
             "name": "series",
@@ -12039,7 +12039,7 @@
             }
           },
           "400": {
-            "description": "ケースの採番設定を更新での拒否・失敗: BAD_REQUEST, ETAG_MALFORMED, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
+            "description": "案件の採番設定を更新での拒否・失敗: BAD_REQUEST, ETAG_MALFORMED, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "BAD_REQUEST",
               "ETAG_MALFORMED",
@@ -12054,7 +12054,7 @@
             }
           },
           "401": {
-            "description": "ケースの採番設定を更新での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
+            "description": "案件の採番設定を更新での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTH_REQUIRED",
               "TOKEN_EXPIRED",
@@ -12069,7 +12069,7 @@
             }
           },
           "403": {
-            "description": "ケースの採番設定を更新での拒否・失敗: FIELD_NOT_WRITABLE, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件の採番設定を更新での拒否・失敗: FIELD_NOT_WRITABLE, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "FIELD_NOT_WRITABLE",
               "FORBIDDEN_ROLE",
@@ -12086,7 +12086,7 @@
             }
           },
           "404": {
-            "description": "ケースの採番設定を更新での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
+            "description": "案件の採番設定を更新での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "NOT_FOUND"
             ],
@@ -12099,7 +12099,7 @@
             }
           },
           "409": {
-            "description": "ケースの採番設定を更新での拒否・失敗: CURSOR_STALE, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "案件の採番設定を更新での拒否・失敗: CURSOR_STALE, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "CURSOR_STALE",
               "LOCK_BUSY",
@@ -12114,7 +12114,7 @@
             }
           },
           "412": {
-            "description": "ケースの採番設定を更新での拒否・失敗: VERSION_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "案件の採番設定を更新での拒否・失敗: VERSION_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "VERSION_CONFLICT"
             ],
@@ -12127,7 +12127,7 @@
             }
           },
           "413": {
-            "description": "ケースの採番設定を更新での拒否・失敗: PAYLOAD_TOO_LARGE。codeで分岐しrequest_idを保管する。",
+            "description": "案件の採番設定を更新での拒否・失敗: PAYLOAD_TOO_LARGE。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "PAYLOAD_TOO_LARGE"
             ],
@@ -12140,7 +12140,7 @@
             }
           },
           "415": {
-            "description": "ケースの採番設定を更新での拒否・失敗: UNSUPPORTED_MEDIA_TYPE。codeで分岐しrequest_idを保管する。",
+            "description": "案件の採番設定を更新での拒否・失敗: UNSUPPORTED_MEDIA_TYPE。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "UNSUPPORTED_MEDIA_TYPE"
             ],
@@ -12153,7 +12153,7 @@
             }
           },
           "422": {
-            "description": "ケースの採番設定を更新での拒否・失敗: IDEMPOTENCY_MISMATCH, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
+            "description": "案件の採番設定を更新での拒否・失敗: IDEMPOTENCY_MISMATCH, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "IDEMPOTENCY_MISMATCH",
               "VALIDATION_FAILED"
@@ -12167,7 +12167,7 @@
             }
           },
           "428": {
-            "description": "ケースの採番設定を更新での拒否・失敗: IDEMPOTENCY_KEY_REQUIRED, PRECONDITION_REQUIRED。codeで分岐しrequest_idを保管する。",
+            "description": "案件の採番設定を更新での拒否・失敗: IDEMPOTENCY_KEY_REQUIRED, PRECONDITION_REQUIRED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "IDEMPOTENCY_KEY_REQUIRED",
               "PRECONDITION_REQUIRED"
@@ -12181,7 +12181,7 @@
             }
           },
           "429": {
-            "description": "ケースの採番設定を更新での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。",
+            "description": "案件の採番設定を更新での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "RATE_LIMITED"
             ],
@@ -12203,7 +12203,7 @@
             }
           },
           "500": {
-            "description": "ケースの採番設定を更新での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件の採番設定を更新での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "INTERNAL_CONTRACT_VIOLATION"
             ],
@@ -12216,7 +12216,7 @@
             }
           },
           "503": {
-            "description": "ケースの採番設定を更新での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, OUTCOME_UNKNOWN, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
+            "description": "案件の採番設定を更新での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, OUTCOME_UNKNOWN, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "DEPENDENCY_UNAVAILABLE",
               "MAINTENANCE",
@@ -12233,7 +12233,7 @@
             }
           }
         },
-        "summary": "ケースの採番設定を更新",
+        "summary": "案件の採番設定を更新",
         "x-required-authority": {
           "actor_types": [
             "human"
@@ -12297,7 +12297,7 @@
           "workspaces"
         ],
         "x-availability": "試験提供（環境による）",
-        "description": "ケース台帳に新規採番して登録。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
+        "description": "案件台帳に新規採番して登録。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
             "name": "Idempotency-Key",
@@ -12331,7 +12331,7 @@
             }
           },
           "400": {
-            "description": "ケース台帳に新規採番して登録での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳に新規採番して登録での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "BAD_REQUEST",
               "SELF_DECLARED_HEADER"
@@ -12345,7 +12345,7 @@
             }
           },
           "401": {
-            "description": "ケース台帳に新規採番して登録での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳に新規採番して登録での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTH_REQUIRED",
               "TOKEN_EXPIRED",
@@ -12360,7 +12360,7 @@
             }
           },
           "403": {
-            "description": "ケース台帳に新規採番して登録での拒否・失敗: FIELD_NOT_WRITABLE, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳に新規採番して登録での拒否・失敗: FIELD_NOT_WRITABLE, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "FIELD_NOT_WRITABLE",
               "FORBIDDEN_ROLE",
@@ -12377,7 +12377,7 @@
             }
           },
           "404": {
-            "description": "ケース台帳に新規採番して登録での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳に新規採番して登録での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "NOT_FOUND"
             ],
@@ -12390,7 +12390,7 @@
             }
           },
           "409": {
-            "description": "ケース台帳に新規採番して登録での拒否・失敗: CURSOR_STALE, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳に新規採番して登録での拒否・失敗: CURSOR_STALE, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "CURSOR_STALE",
               "LOCK_BUSY",
@@ -12405,7 +12405,7 @@
             }
           },
           "412": {
-            "description": "ケース台帳に新規採番して登録での拒否・失敗: VERSION_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳に新規採番して登録での拒否・失敗: VERSION_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "VERSION_CONFLICT"
             ],
@@ -12418,7 +12418,7 @@
             }
           },
           "413": {
-            "description": "ケース台帳に新規採番して登録での拒否・失敗: PAYLOAD_TOO_LARGE。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳に新規採番して登録での拒否・失敗: PAYLOAD_TOO_LARGE。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "PAYLOAD_TOO_LARGE"
             ],
@@ -12431,7 +12431,7 @@
             }
           },
           "415": {
-            "description": "ケース台帳に新規採番して登録での拒否・失敗: UNSUPPORTED_MEDIA_TYPE。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳に新規採番して登録での拒否・失敗: UNSUPPORTED_MEDIA_TYPE。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "UNSUPPORTED_MEDIA_TYPE"
             ],
@@ -12444,7 +12444,7 @@
             }
           },
           "422": {
-            "description": "ケース台帳に新規採番して登録での拒否・失敗: IDEMPOTENCY_MISMATCH, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳に新規採番して登録での拒否・失敗: IDEMPOTENCY_MISMATCH, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "IDEMPOTENCY_MISMATCH",
               "VALIDATION_FAILED"
@@ -12458,7 +12458,7 @@
             }
           },
           "428": {
-            "description": "ケース台帳に新規採番して登録での拒否・失敗: IDEMPOTENCY_KEY_REQUIRED。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳に新規採番して登録での拒否・失敗: IDEMPOTENCY_KEY_REQUIRED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "IDEMPOTENCY_KEY_REQUIRED"
             ],
@@ -12471,7 +12471,7 @@
             }
           },
           "429": {
-            "description": "ケース台帳に新規採番して登録での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳に新規採番して登録での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "RATE_LIMITED"
             ],
@@ -12493,7 +12493,7 @@
             }
           },
           "500": {
-            "description": "ケース台帳に新規採番して登録での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳に新規採番して登録での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "INTERNAL_CONTRACT_VIOLATION"
             ],
@@ -12506,7 +12506,7 @@
             }
           },
           "503": {
-            "description": "ケース台帳に新規採番して登録での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, OUTCOME_UNKNOWN, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳に新規採番して登録での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, OUTCOME_UNKNOWN, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "DEPENDENCY_UNAVAILABLE",
               "MAINTENANCE",
@@ -12523,7 +12523,7 @@
             }
           }
         },
-        "summary": "ケース台帳に新規採番して登録",
+        "summary": "案件台帳に新規採番して登録",
         "x-required-authority": {
           "actor_types": [
             "human"
@@ -12585,7 +12585,7 @@
           "workspaces"
         ],
         "x-availability": "試験提供（環境による）",
-        "description": "既存のケース番号を取込。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
+        "description": "既存の案件番号を取込。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
             "name": "Idempotency-Key",
@@ -12619,7 +12619,7 @@
             }
           },
           "400": {
-            "description": "既存のケース番号を取込での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
+            "description": "既存の案件番号を取込での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "BAD_REQUEST",
               "SELF_DECLARED_HEADER"
@@ -12633,7 +12633,7 @@
             }
           },
           "401": {
-            "description": "既存のケース番号を取込での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
+            "description": "既存の案件番号を取込での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTH_REQUIRED",
               "TOKEN_EXPIRED",
@@ -12648,7 +12648,7 @@
             }
           },
           "403": {
-            "description": "既存のケース番号を取込での拒否・失敗: FIELD_NOT_WRITABLE, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "既存の案件番号を取込での拒否・失敗: FIELD_NOT_WRITABLE, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "FIELD_NOT_WRITABLE",
               "FORBIDDEN_ROLE",
@@ -12665,7 +12665,7 @@
             }
           },
           "404": {
-            "description": "既存のケース番号を取込での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
+            "description": "既存の案件番号を取込での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "NOT_FOUND"
             ],
@@ -12678,7 +12678,7 @@
             }
           },
           "409": {
-            "description": "既存のケース番号を取込での拒否・失敗: CURSOR_STALE, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "既存の案件番号を取込での拒否・失敗: CURSOR_STALE, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "CURSOR_STALE",
               "LOCK_BUSY",
@@ -12693,7 +12693,7 @@
             }
           },
           "412": {
-            "description": "既存のケース番号を取込での拒否・失敗: VERSION_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "既存の案件番号を取込での拒否・失敗: VERSION_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "VERSION_CONFLICT"
             ],
@@ -12706,7 +12706,7 @@
             }
           },
           "413": {
-            "description": "既存のケース番号を取込での拒否・失敗: PAYLOAD_TOO_LARGE。codeで分岐しrequest_idを保管する。",
+            "description": "既存の案件番号を取込での拒否・失敗: PAYLOAD_TOO_LARGE。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "PAYLOAD_TOO_LARGE"
             ],
@@ -12719,7 +12719,7 @@
             }
           },
           "415": {
-            "description": "既存のケース番号を取込での拒否・失敗: UNSUPPORTED_MEDIA_TYPE。codeで分岐しrequest_idを保管する。",
+            "description": "既存の案件番号を取込での拒否・失敗: UNSUPPORTED_MEDIA_TYPE。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "UNSUPPORTED_MEDIA_TYPE"
             ],
@@ -12732,7 +12732,7 @@
             }
           },
           "422": {
-            "description": "既存のケース番号を取込での拒否・失敗: IDEMPOTENCY_MISMATCH, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
+            "description": "既存の案件番号を取込での拒否・失敗: IDEMPOTENCY_MISMATCH, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "IDEMPOTENCY_MISMATCH",
               "VALIDATION_FAILED"
@@ -12746,7 +12746,7 @@
             }
           },
           "428": {
-            "description": "既存のケース番号を取込での拒否・失敗: IDEMPOTENCY_KEY_REQUIRED。codeで分岐しrequest_idを保管する。",
+            "description": "既存の案件番号を取込での拒否・失敗: IDEMPOTENCY_KEY_REQUIRED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "IDEMPOTENCY_KEY_REQUIRED"
             ],
@@ -12759,7 +12759,7 @@
             }
           },
           "429": {
-            "description": "既存のケース番号を取込での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。",
+            "description": "既存の案件番号を取込での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "RATE_LIMITED"
             ],
@@ -12781,7 +12781,7 @@
             }
           },
           "500": {
-            "description": "既存のケース番号を取込での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "既存の案件番号を取込での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "INTERNAL_CONTRACT_VIOLATION"
             ],
@@ -12794,7 +12794,7 @@
             }
           },
           "503": {
-            "description": "既存のケース番号を取込での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, OUTCOME_UNKNOWN, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
+            "description": "既存の案件番号を取込での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, OUTCOME_UNKNOWN, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "DEPENDENCY_UNAVAILABLE",
               "MAINTENANCE",
@@ -12811,7 +12811,7 @@
             }
           }
         },
-        "summary": "既存のケース番号を取込",
+        "summary": "既存の案件番号を取込",
         "x-required-authority": {
           "actor_types": [
             "human"
@@ -12874,7 +12874,7 @@
           "workspaces"
         ],
         "x-availability": "試験提供（環境による）",
-        "description": "ケース台帳を検索。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
+        "description": "案件台帳を検索。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [],
         "requestBody": {
           "required": true,
@@ -12898,7 +12898,7 @@
             }
           },
           "400": {
-            "description": "ケース台帳を検索での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳を検索での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "BAD_REQUEST",
               "SELF_DECLARED_HEADER"
@@ -12912,7 +12912,7 @@
             }
           },
           "401": {
-            "description": "ケース台帳を検索での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳を検索での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTH_REQUIRED",
               "TOKEN_EXPIRED",
@@ -12927,7 +12927,7 @@
             }
           },
           "403": {
-            "description": "ケース台帳を検索での拒否・失敗: FIELD_NOT_WRITABLE, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳を検索での拒否・失敗: FIELD_NOT_WRITABLE, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "FIELD_NOT_WRITABLE",
               "FORBIDDEN_ROLE",
@@ -12944,7 +12944,7 @@
             }
           },
           "404": {
-            "description": "ケース台帳を検索での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳を検索での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "NOT_FOUND"
             ],
@@ -12957,7 +12957,7 @@
             }
           },
           "409": {
-            "description": "ケース台帳を検索での拒否・失敗: CURSOR_STALE, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳を検索での拒否・失敗: CURSOR_STALE, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "CURSOR_STALE",
               "LOCK_BUSY",
@@ -12972,7 +12972,7 @@
             }
           },
           "413": {
-            "description": "ケース台帳を検索での拒否・失敗: PAYLOAD_TOO_LARGE。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳を検索での拒否・失敗: PAYLOAD_TOO_LARGE。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "PAYLOAD_TOO_LARGE"
             ],
@@ -12985,7 +12985,7 @@
             }
           },
           "415": {
-            "description": "ケース台帳を検索での拒否・失敗: UNSUPPORTED_MEDIA_TYPE。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳を検索での拒否・失敗: UNSUPPORTED_MEDIA_TYPE。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "UNSUPPORTED_MEDIA_TYPE"
             ],
@@ -12998,7 +12998,7 @@
             }
           },
           "422": {
-            "description": "ケース台帳を検索での拒否・失敗: VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳を検索での拒否・失敗: VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "VALIDATION_FAILED"
             ],
@@ -13011,7 +13011,7 @@
             }
           },
           "429": {
-            "description": "ケース台帳を検索での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳を検索での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "RATE_LIMITED"
             ],
@@ -13033,7 +13033,7 @@
             }
           },
           "500": {
-            "description": "ケース台帳を検索での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳を検索での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "INTERNAL_CONTRACT_VIOLATION"
             ],
@@ -13046,7 +13046,7 @@
             }
           },
           "503": {
-            "description": "ケース台帳を検索での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳を検索での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "DEPENDENCY_UNAVAILABLE",
               "MAINTENANCE",
@@ -13062,7 +13062,7 @@
             }
           }
         },
-        "summary": "ケース台帳を検索",
+        "summary": "案件台帳を検索",
         "x-required-authority": {
           "actor_types": [
             "human"
@@ -13120,7 +13120,7 @@
           "workspaces"
         ],
         "x-availability": "試験提供（環境による）",
-        "description": "ケース台帳を1件取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
+        "description": "案件台帳を1件取得。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
             "name": "rowId",
@@ -13144,7 +13144,7 @@
             }
           },
           "400": {
-            "description": "ケース台帳を1件取得での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳を1件取得での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "BAD_REQUEST",
               "SELF_DECLARED_HEADER"
@@ -13158,7 +13158,7 @@
             }
           },
           "401": {
-            "description": "ケース台帳を1件取得での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳を1件取得での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTH_REQUIRED",
               "TOKEN_EXPIRED",
@@ -13173,7 +13173,7 @@
             }
           },
           "403": {
-            "description": "ケース台帳を1件取得での拒否・失敗: FIELD_NOT_WRITABLE, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳を1件取得での拒否・失敗: FIELD_NOT_WRITABLE, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "FIELD_NOT_WRITABLE",
               "FORBIDDEN_ROLE",
@@ -13190,7 +13190,7 @@
             }
           },
           "404": {
-            "description": "ケース台帳を1件取得での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳を1件取得での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "NOT_FOUND"
             ],
@@ -13203,7 +13203,7 @@
             }
           },
           "409": {
-            "description": "ケース台帳を1件取得での拒否・失敗: CURSOR_STALE, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳を1件取得での拒否・失敗: CURSOR_STALE, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "CURSOR_STALE",
               "LOCK_BUSY",
@@ -13218,7 +13218,7 @@
             }
           },
           "422": {
-            "description": "ケース台帳を1件取得での拒否・失敗: VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳を1件取得での拒否・失敗: VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "VALIDATION_FAILED"
             ],
@@ -13231,7 +13231,7 @@
             }
           },
           "429": {
-            "description": "ケース台帳を1件取得での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳を1件取得での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "RATE_LIMITED"
             ],
@@ -13253,7 +13253,7 @@
             }
           },
           "500": {
-            "description": "ケース台帳を1件取得での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳を1件取得での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "INTERNAL_CONTRACT_VIOLATION"
             ],
@@ -13266,7 +13266,7 @@
             }
           },
           "503": {
-            "description": "ケース台帳を1件取得での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
+            "description": "案件台帳を1件取得での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "DEPENDENCY_UNAVAILABLE",
               "MAINTENANCE",
@@ -13282,7 +13282,7 @@
             }
           }
         },
-        "summary": "ケース台帳を1件取得",
+        "summary": "案件台帳を1件取得",
         "x-required-authority": {
           "actor_types": [
             "human"
@@ -13340,7 +13340,7 @@
           "workspaces"
         ],
         "x-availability": "試験提供（環境による）",
-        "description": "ケースを取消。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
+        "description": "案件を取消。登録された人のaccess tokenと現在権限を検査する。操作固有のMFA・管理権・データ権が追加で必要。 v2はv1と別契約。行所有権・列・所属・現在版を検査する。関連表の一括取引は最大8表・計100行操作で原子的に適用し、親行は既存IDを指定する。",
         "parameters": [
           {
             "name": "rowId",
@@ -13383,7 +13383,7 @@
             }
           },
           "400": {
-            "description": "ケースを取消での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
+            "description": "案件を取消での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "BAD_REQUEST",
               "SELF_DECLARED_HEADER"
@@ -13397,7 +13397,7 @@
             }
           },
           "401": {
-            "description": "ケースを取消での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
+            "description": "案件を取消での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "AUTH_REQUIRED",
               "TOKEN_EXPIRED",
@@ -13412,7 +13412,7 @@
             }
           },
           "403": {
-            "description": "ケースを取消での拒否・失敗: FIELD_NOT_WRITABLE, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件を取消での拒否・失敗: FIELD_NOT_WRITABLE, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "FIELD_NOT_WRITABLE",
               "FORBIDDEN_ROLE",
@@ -13429,7 +13429,7 @@
             }
           },
           "404": {
-            "description": "ケースを取消での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
+            "description": "案件を取消での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "NOT_FOUND"
             ],
@@ -13442,7 +13442,7 @@
             }
           },
           "409": {
-            "description": "ケースを取消での拒否・失敗: CURSOR_STALE, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "案件を取消での拒否・失敗: CURSOR_STALE, LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "CURSOR_STALE",
               "LOCK_BUSY",
@@ -13457,7 +13457,7 @@
             }
           },
           "412": {
-            "description": "ケースを取消での拒否・失敗: VERSION_CONFLICT。codeで分岐しrequest_idを保管する。",
+            "description": "案件を取消での拒否・失敗: VERSION_CONFLICT。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "VERSION_CONFLICT"
             ],
@@ -13470,7 +13470,7 @@
             }
           },
           "413": {
-            "description": "ケースを取消での拒否・失敗: PAYLOAD_TOO_LARGE。codeで分岐しrequest_idを保管する。",
+            "description": "案件を取消での拒否・失敗: PAYLOAD_TOO_LARGE。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "PAYLOAD_TOO_LARGE"
             ],
@@ -13483,7 +13483,7 @@
             }
           },
           "415": {
-            "description": "ケースを取消での拒否・失敗: UNSUPPORTED_MEDIA_TYPE。codeで分岐しrequest_idを保管する。",
+            "description": "案件を取消での拒否・失敗: UNSUPPORTED_MEDIA_TYPE。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "UNSUPPORTED_MEDIA_TYPE"
             ],
@@ -13496,7 +13496,7 @@
             }
           },
           "422": {
-            "description": "ケースを取消での拒否・失敗: IDEMPOTENCY_MISMATCH, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
+            "description": "案件を取消での拒否・失敗: IDEMPOTENCY_MISMATCH, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "IDEMPOTENCY_MISMATCH",
               "VALIDATION_FAILED"
@@ -13510,7 +13510,7 @@
             }
           },
           "428": {
-            "description": "ケースを取消での拒否・失敗: IDEMPOTENCY_KEY_REQUIRED。codeで分岐しrequest_idを保管する。",
+            "description": "案件を取消での拒否・失敗: IDEMPOTENCY_KEY_REQUIRED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "IDEMPOTENCY_KEY_REQUIRED"
             ],
@@ -13523,7 +13523,7 @@
             }
           },
           "429": {
-            "description": "ケースを取消での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。",
+            "description": "案件を取消での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "RATE_LIMITED"
             ],
@@ -13545,7 +13545,7 @@
             }
           },
           "500": {
-            "description": "ケースを取消での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
+            "description": "案件を取消での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "INTERNAL_CONTRACT_VIOLATION"
             ],
@@ -13558,7 +13558,7 @@
             }
           },
           "503": {
-            "description": "ケースを取消での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, OUTCOME_UNKNOWN, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
+            "description": "案件を取消での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, OUTCOME_UNKNOWN, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
             "x-error-codes": [
               "DEPENDENCY_UNAVAILABLE",
               "MAINTENANCE",
@@ -13575,7 +13575,7 @@
             }
           }
         },
-        "summary": "ケースを取消",
+        "summary": "案件を取消",
         "x-required-authority": {
           "actor_types": [
             "human"
@@ -21562,507 +21562,6 @@
           "mode": "none",
           "safe_to_repeat": false,
           "result_check": "GET /v2/service-clients/{clientId}（人の管理権限で照合） で状態を確認。専用の再送識別子・応答再生保証なし。"
-        },
-        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "同時2要求。client単位rpm=1..120（承認設定）。上限に達したら429。"
-      }
-    },
-    "/v2/service/tables/{collection}": {
-      "get": {
-        "security": [
-          {
-            "bearerAuth": []
-          },
-          {
-            "serviceOAuth": []
-          }
-        ],
-        "operationId": "service.metadata",
-        "tags": [
-          "service-access"
-        ],
-        "x-availability": "環境による",
-        "description": "サービスに許可された表と列の情報を取得。登録されたserviceのJWT・現在の状態・対象表/列/行/CRUD/期限を検査する。人のJWTは使えない。 管理操作は登録済みMFA本人、機械操作は専用audienceのservice資格を使う。人のJWTを機械経路へ流用しない。changeはversion必須で、rotateのみjwkが必要。",
-        "parameters": [
-          {
-            "name": "collection",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success; fields are projected using current authorization.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ServiceTableMetadata"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "サービスに許可された表と列の情報を取得での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "BAD_REQUEST",
-              "SELF_DECLARED_HEADER"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "サービスに許可された表と列の情報を取得での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "AUTH_REQUIRED",
-              "TOKEN_EXPIRED",
-              "TOKEN_INVALID"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "サービスに許可された表と列の情報を取得での拒否・失敗: FIELD_NOT_WRITABLE, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "FIELD_NOT_WRITABLE",
-              "FORBIDDEN_ROLE",
-              "MFA_REQUIRED",
-              "REAUTH_REQUIRED",
-              "SCOPE_VIOLATION"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "サービスに許可された表と列の情報を取得での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "NOT_FOUND"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "サービスに許可された表と列の情報を取得での拒否・失敗: LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "LOCK_BUSY",
-              "STATE_CONFLICT"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "サービスに許可された表と列の情報を取得での拒否・失敗: VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "VALIDATION_FAILED"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "サービスに許可された表と列の情報を取得での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "RATE_LIMITED"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            },
-            "headers": {
-              "Retry-After": {
-                "description": "秒。返される場合のみ従う。workspace/v1表の同時数制限は1秒。apps/serviceの一部経路は未設定。固定リクエスト毎秒値を保証しない。",
-                "schema": {
-                  "type": "integer",
-                  "minimum": 1
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "サービスに許可された表と列の情報を取得での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "INTERNAL_CONTRACT_VIOLATION"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "サービスに許可された表と列の情報を取得での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "DEPENDENCY_UNAVAILABLE",
-              "MAINTENANCE",
-              "TX_ABORT_UNCONFIRMED",
-              "TX_RETRY_EXHAUSTED"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            }
-          }
-        },
-        "summary": "サービスに許可された表と列の情報を取得",
-        "x-required-authority": {
-          "actor_types": [
-            "service"
-          ],
-          "authentication": "dedicated_service_jwt",
-          "mfa": false,
-          "required_capabilities": [],
-          "max_authentication_age_seconds": null,
-          "resource_checks": [
-            {
-              "kind": "service_grant",
-              "operation": "metadata",
-              "checks": [
-                "current_state",
-                "expiry",
-                "audience",
-                "key_binding",
-                "collection",
-                "columns",
-                "row_filter",
-                "crud",
-                "schema_version"
-              ]
-            }
-          ]
-        },
-        "x-retry-policy": {
-          "effect": "read_or_plan",
-          "mode": "none",
-          "safe_to_repeat": true,
-          "result_check": "同じ条件で取得可能。ただし一覧・計画・cursor・fingerprintは現在状態で変化する。計画を再取得しても適用は行わない。"
-        },
-        "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
-        "x-rate-limit": "同時2要求。client単位rpm=1..120（承認設定）。上限に達したら429。"
-      }
-    },
-    "/v2/service/tables/{collection}/import": {
-      "post": {
-        "security": [
-          {
-            "bearerAuth": []
-          },
-          {
-            "serviceOAuth": []
-          }
-        ],
-        "operationId": "service.import",
-        "tags": [
-          "service-access"
-        ],
-        "x-availability": "環境による",
-        "description": "サービスの許可範囲でCSV取込区間を原子的に反映。登録されたserviceのJWT・現在の状態・対象表/列/行/CRUD/期限を検査する。人のJWTは使えない。 管理操作は登録済みMFA本人、機械操作は専用audienceのservice資格を使う。人のJWTを機械経路へ流用しない。changeはversion必須で、rotateのみjwkが必要。",
-        "parameters": [
-          {
-            "name": "collection",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "Idempotency-Key",
-            "in": "header",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "pattern": "^[A-Za-z0-9_-]{8,128}$"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ServiceImport"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success; fields are projected using current authorization.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ServiceImportResult"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "サービスの許可範囲でCSV取込区間を原子的に反映での拒否・失敗: BAD_REQUEST, SELF_DECLARED_HEADER。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "BAD_REQUEST",
-              "SELF_DECLARED_HEADER"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "サービスの許可範囲でCSV取込区間を原子的に反映での拒否・失敗: AUTH_REQUIRED, TOKEN_EXPIRED, TOKEN_INVALID。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "AUTH_REQUIRED",
-              "TOKEN_EXPIRED",
-              "TOKEN_INVALID"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "サービスの許可範囲でCSV取込区間を原子的に反映での拒否・失敗: FIELD_NOT_WRITABLE, FORBIDDEN_ROLE, MFA_REQUIRED, REAUTH_REQUIRED, SCOPE_VIOLATION。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "FIELD_NOT_WRITABLE",
-              "FORBIDDEN_ROLE",
-              "MFA_REQUIRED",
-              "REAUTH_REQUIRED",
-              "SCOPE_VIOLATION"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "サービスの許可範囲でCSV取込区間を原子的に反映での拒否・失敗: NOT_FOUND。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "NOT_FOUND"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "サービスの許可範囲でCSV取込区間を原子的に反映での拒否・失敗: LOCK_BUSY, STATE_CONFLICT。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "LOCK_BUSY",
-              "STATE_CONFLICT"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "412": {
-            "description": "サービスの許可範囲でCSV取込区間を原子的に反映での拒否・失敗: VERSION_CONFLICT。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "VERSION_CONFLICT"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "413": {
-            "description": "サービスの許可範囲でCSV取込区間を原子的に反映での拒否・失敗: PAYLOAD_TOO_LARGE。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "PAYLOAD_TOO_LARGE"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "415": {
-            "description": "サービスの許可範囲でCSV取込区間を原子的に反映での拒否・失敗: UNSUPPORTED_MEDIA_TYPE。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "UNSUPPORTED_MEDIA_TYPE"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "サービスの許可範囲でCSV取込区間を原子的に反映での拒否・失敗: IDEMPOTENCY_MISMATCH, VALIDATION_FAILED。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "IDEMPOTENCY_MISMATCH",
-              "VALIDATION_FAILED"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "428": {
-            "description": "サービスの許可範囲でCSV取込区間を原子的に反映での拒否・失敗: IDEMPOTENCY_KEY_REQUIRED。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "IDEMPOTENCY_KEY_REQUIRED"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "サービスの許可範囲でCSV取込区間を原子的に反映での拒否・失敗: RATE_LIMITED。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "RATE_LIMITED"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            },
-            "headers": {
-              "Retry-After": {
-                "description": "秒。返される場合のみ従う。workspace/v1表の同時数制限は1秒。apps/serviceの一部経路は未設定。固定リクエスト毎秒値を保証しない。",
-                "schema": {
-                  "type": "integer",
-                  "minimum": 1
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "サービスの許可範囲でCSV取込区間を原子的に反映での拒否・失敗: INTERNAL_CONTRACT_VIOLATION。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "INTERNAL_CONTRACT_VIOLATION"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "サービスの許可範囲でCSV取込区間を原子的に反映での拒否・失敗: DEPENDENCY_UNAVAILABLE, MAINTENANCE, OUTCOME_UNKNOWN, TX_ABORT_UNCONFIRMED, TX_RETRY_EXHAUSTED。codeで分岐しrequest_idを保管する。",
-            "x-error-codes": [
-              "DEPENDENCY_UNAVAILABLE",
-              "MAINTENANCE",
-              "OUTCOME_UNKNOWN",
-              "TX_ABORT_UNCONFIRMED",
-              "TX_RETRY_EXHAUSTED"
-            ],
-            "content": {
-              "application/problem+json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Problem"
-                }
-              }
-            }
-          }
-        },
-        "summary": "サービスの許可範囲でCSV取込区間を原子的に反映",
-        "x-required-authority": {
-          "actor_types": [
-            "service"
-          ],
-          "authentication": "dedicated_service_jwt",
-          "mfa": false,
-          "required_capabilities": [],
-          "max_authentication_age_seconds": null,
-          "resource_checks": [
-            {
-              "kind": "service_grant",
-              "operation": "import",
-              "checks": [
-                "current_state",
-                "expiry",
-                "audience",
-                "key_binding",
-                "collection",
-                "columns",
-                "row_filter",
-                "crud",
-                "schema_version"
-              ]
-            }
-          ]
-        },
-        "x-retry-policy": {
-          "effect": "write",
-          "mode": "Idempotency-Key",
-          "identifier": "header.Idempotency-Key",
-          "preconditions": [
-            "本文のversion/schema_version/revision/fingerprint（定義される操作のみ）"
-          ],
-          "safe_to_repeat": true,
-          "result_check": "同じキー・本文・前提版で再送し受領結果を確認する。現在権限も再検査する。競合時は最新状態と利用者の意図を照合し、版だけを置換しない。"
         },
         "x-error-coverage": "操作条件と機能の既知の拒否コード。実際に発生する組合せは対象・状態・有効な機能に依存。未知codeはHTTP分類に従い自動書換え再送しない。",
         "x-rate-limit": "同時2要求。client単位rpm=1..120（承認設定）。上限に達したら429。"
@@ -37144,7 +36643,7 @@
                             "id": {
                               "type": "string",
                               "format": "uuid",
-                              "description": "変更対象の既存行のUUID。行の取得・一覧応答のidを使用する。expected_actor（呼出本人ID）とは別。"
+                              "description": "Optional compare-only precondition on the authenticated internal actor. Does not set or transfer ownership. Required by the resumable import SDK."
                             },
                             "version": {
                               "type": "integer",
@@ -37186,7 +36685,7 @@
                             "id": {
                               "type": "string",
                               "format": "uuid",
-                              "description": "変更対象の既存行のUUID。行の取得・一覧応答のidを使用する。expected_actor（呼出本人ID）とは別。"
+                              "description": "Optional compare-only precondition on the authenticated internal actor. Does not set or transfer ownership. Required by the resumable import SDK."
                             },
                             "version": {
                               "type": "integer",
@@ -37217,7 +36716,7 @@
                             "id": {
                               "type": "string",
                               "format": "uuid",
-                              "description": "変更対象の既存行のUUID。行の取得・一覧応答のidを使用する。expected_actor（呼出本人ID）とは別。"
+                              "description": "Optional compare-only precondition on the authenticated internal actor. Does not set or transfer ownership. Required by the resumable import SDK."
                             },
                             "version": {
                               "type": "integer",
@@ -43688,8 +43187,7 @@
         "type": "object",
         "properties": {
           "type": {
-            "type": "string",
-            "description": "エラー種別の識別子。応答値はurn:hub:problem:<code>形式で、codeは小文字化し、下線をハイフンへ置換する。取得用URLではない。処理分岐にはcodeを使用する。"
+            "type": "string"
           },
           "title": {
             "type": "string"
@@ -43732,10 +43230,7 @@
               "NOT_FOUND",
               "STATE_CONFLICT",
               "PROPOSAL_CONFLICT",
-              "OPERATION_IN_PROGRESS",
-              "FOLDER_LIMIT_REACHED",
               "DUPLICATE",
-              "STALE_SOURCE",
               "AUTHORITY_CONFLICT",
               "IDEMPOTENCY_IN_PROGRESS",
               "LOCK_BUSY",
@@ -43932,7 +43427,7 @@
               "draft",
               "committed"
             ],
-            "description": "行の保存状態。draftは必須値の未入力を許容し、committedは必須値を検証する。この値の変更は業務工程の進行や請求の確定を実行しない。"
+            "description": "System-managed persistence state: draft permits incomplete required values; committed validates required fields. This is NOT the business status_code of process.jobs and does not finalize an invoice or advance a job."
           },
           "expected_values": {
             "type": "object",
@@ -44019,7 +43514,7 @@
               "draft",
               "committed"
             ],
-            "description": "行の保存状態。draftは必須値の未入力を許容し、committedは必須値を検証する。この値の変更は業務工程の進行や請求の確定を実行しない。"
+            "description": "System-managed persistence state: draft permits incomplete required values; committed validates required fields. This is NOT the business status_code of process.jobs and does not finalize an invoice or advance a job."
           },
           "values": {
             "type": "object",
@@ -45054,7 +44549,7 @@
                     "id": {
                       "type": "string",
                       "format": "uuid",
-                      "description": "変更対象の既存行のUUID。行の取得・一覧応答のidを使用する。expected_actor（呼出本人ID）とは別。"
+                      "description": "Optional compare-only precondition on the authenticated internal actor. Does not set or transfer ownership. Required by the resumable import SDK."
                     },
                     "version": {
                       "type": "integer",
@@ -45096,7 +44591,7 @@
                     "id": {
                       "type": "string",
                       "format": "uuid",
-                      "description": "変更対象の既存行のUUID。行の取得・一覧応答のidを使用する。expected_actor（呼出本人ID）とは別。"
+                      "description": "Optional compare-only precondition on the authenticated internal actor. Does not set or transfer ownership. Required by the resumable import SDK."
                     },
                     "version": {
                       "type": "integer",
@@ -45127,7 +44622,7 @@
                     "id": {
                       "type": "string",
                       "format": "uuid",
-                      "description": "変更対象の既存行のUUID。行の取得・一覧応答のidを使用する。expected_actor（呼出本人ID）とは別。"
+                      "description": "Optional compare-only precondition on the authenticated internal actor. Does not set or transfer ownership. Required by the resumable import SDK."
                     },
                     "version": {
                       "type": "integer",
@@ -45344,7 +44839,7 @@
           },
           "revision": {
             "type": "string",
-            "description": "現在の権限で見える行集合の変更を表す不透明な文字列。同じ資源・取得条件で等値比較に使い、数値変換・加算・大小比較をしない。v1表やv2の状態変更用の整数revisionとは別契約。"
+            "description": "この応答が表す資源・一覧の変更版。別資源へ流用しない。"
           },
           "schema_version": {
             "type": "integer",
@@ -45365,7 +44860,7 @@
         "properties": {
           "revision": {
             "type": "string",
-            "description": "現在の権限で見える行集合の変更を表す不透明な文字列。同じ資源・取得条件で等値比較に使い、数値変換・加算・大小比較をしない。v1表やv2の状態変更用の整数revisionとは別契約。"
+            "description": "この応答が表す資源・一覧の変更版。別資源へ流用しない。"
           },
           "schema_version": {
             "type": "integer",
@@ -45608,7 +45103,7 @@
           },
           "revision": {
             "type": "string",
-            "description": "現在の権限で見える行集合の変更を表す不透明な文字列。同じ資源・取得条件で等値比較に使い、数値変換・加算・大小比較をしない。v1表やv2の状態変更用の整数revisionとは別契約。"
+            "description": "この応答が表す資源・一覧の変更版。別資源へ流用しない。"
           },
           "schema_version": {
             "type": "integer",
@@ -45637,7 +45132,7 @@
           },
           "revision": {
             "type": "string",
-            "description": "現在の権限で見える行集合の変更を表す不透明な文字列。同じ資源・取得条件で等値比較に使い、数値変換・加算・大小比較をしない。v1表やv2の状態変更用の整数revisionとは別契約。"
+            "description": "この応答が表す資源・一覧の変更版。別資源へ流用しない。"
           },
           "schema_version": {
             "type": "integer",
@@ -46582,7 +46077,7 @@
                           "id": {
                             "type": "string",
                             "format": "uuid",
-                            "description": "変更対象の既存行のUUID。行の取得・一覧応答のidを使用する。expected_actor（呼出本人ID）とは別。"
+                            "description": "Optional compare-only precondition on the authenticated internal actor. Does not set or transfer ownership. Required by the resumable import SDK."
                           },
                           "version": {
                             "type": "integer",
@@ -46624,7 +46119,7 @@
                           "id": {
                             "type": "string",
                             "format": "uuid",
-                            "description": "変更対象の既存行のUUID。行の取得・一覧応答のidを使用する。expected_actor（呼出本人ID）とは別。"
+                            "description": "Optional compare-only precondition on the authenticated internal actor. Does not set or transfer ownership. Required by the resumable import SDK."
                           },
                           "version": {
                             "type": "integer",
@@ -46655,7 +46150,7 @@
                           "id": {
                             "type": "string",
                             "format": "uuid",
-                            "description": "変更対象の既存行のUUID。行の取得・一覧応答のidを使用する。expected_actor（呼出本人ID）とは別。"
+                            "description": "Optional compare-only precondition on the authenticated internal actor. Does not set or transfer ownership. Required by the resumable import SDK."
                           },
                           "version": {
                             "type": "integer",
@@ -47335,8 +46830,7 @@
                     "format": "uuid"
                   },
                   "client": {
-                    "const": "hub-spa",
-                    "description": "このgrantが適用される本人用の登録済みクライアントID。現在のAPIはhub-spa固定。任意のアプリ名やserviceのclient_idへ置換しない。"
+                    "const": "hub-spa"
                   },
                   "collection": {
                     "type": "string"
@@ -47655,227 +47149,6 @@
         },
         "required": [
           "items",
-          "schema_version"
-        ],
-        "additionalProperties": false
-      },
-      "ServiceTableMetadata": {
-        "type": "object",
-        "properties": {
-          "label": {
-            "type": "string"
-          },
-          "schema_version": {
-            "type": "integer",
-            "minimum": 1,
-            "description": "表の列定義の版。行versionとは別。"
-          },
-          "custodian": {
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "uuid"
-          },
-          "fields": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "label": {
-                  "type": "string"
-                },
-                "type": {
-                  "type": "string"
-                },
-                "required": {
-                  "type": "boolean"
-                },
-                "choices": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "readable": {
-                  "type": "boolean"
-                },
-                "writable": {
-                  "type": "boolean"
-                }
-              },
-              "required": [
-                "id",
-                "label",
-                "type",
-                "required",
-                "choices",
-                "readable",
-                "writable"
-              ],
-              "additionalProperties": false
-            },
-            "maxItems": 64
-          },
-          "can_import": {
-            "type": "boolean"
-          },
-          "can_export": {
-            "type": "boolean"
-          },
-          "limits": {
-            "type": "object",
-            "properties": {
-              "batch": {
-                "const": 100
-              },
-              "page": {
-                "const": 199
-              }
-            },
-            "required": [
-              "batch",
-              "page"
-            ],
-            "additionalProperties": false
-          }
-        },
-        "required": [
-          "label",
-          "schema_version",
-          "custodian",
-          "fields",
-          "can_import",
-          "can_export",
-          "limits"
-        ],
-        "additionalProperties": false
-      },
-      "ServiceImport": {
-        "type": "object",
-        "properties": {
-          "schema_version": {
-            "type": "integer",
-            "minimum": 1,
-            "description": "表の列定義の版。行versionとは別。"
-          },
-          "expected_actor": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "operations": {
-            "type": "array",
-            "minItems": 1,
-            "maxItems": 100,
-            "items": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "action": {
-                      "const": "create"
-                    },
-                    "values": {
-                      "type": "object",
-                      "additionalProperties": {
-                        "type": [
-                          "string",
-                          "number",
-                          "boolean",
-                          "null"
-                        ]
-                      },
-                      "maxProperties": 64
-                    }
-                  },
-                  "required": [
-                    "action",
-                    "values"
-                  ],
-                  "additionalProperties": false
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "action": {
-                      "const": "update"
-                    },
-                    "id": {
-                      "type": "string",
-                      "format": "uuid"
-                    },
-                    "version": {
-                      "type": "integer",
-                      "minimum": 1
-                    },
-                    "values": {
-                      "type": "object",
-                      "additionalProperties": {
-                        "type": [
-                          "string",
-                          "number",
-                          "boolean",
-                          "null"
-                        ]
-                      },
-                      "maxProperties": 64
-                    }
-                  },
-                  "required": [
-                    "action",
-                    "id",
-                    "version",
-                    "values"
-                  ],
-                  "additionalProperties": false
-                }
-              ]
-            }
-          }
-        },
-        "required": [
-          "schema_version",
-          "expected_actor",
-          "operations"
-        ],
-        "additionalProperties": false
-      },
-      "ServiceImportResult": {
-        "type": "object",
-        "properties": {
-          "rows": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                "version": {
-                  "type": "integer",
-                  "minimum": 1
-                }
-              },
-              "required": [
-                "id",
-                "version"
-              ],
-              "additionalProperties": false
-            },
-            "maxItems": 100
-          },
-          "schema_version": {
-            "type": "integer",
-            "minimum": 1,
-            "description": "表の列定義の版。行versionとは別。"
-          }
-        },
-        "required": [
-          "rows",
           "schema_version"
         ],
         "additionalProperties": false
@@ -48895,10 +48168,7 @@
     "NOT_FOUND": 404,
     "STATE_CONFLICT": 409,
     "PROPOSAL_CONFLICT": 409,
-    "OPERATION_IN_PROGRESS": 409,
-    "FOLDER_LIMIT_REACHED": 409,
     "DUPLICATE": 409,
-    "STALE_SOURCE": 409,
     "AUTHORITY_CONFLICT": 409,
     "IDEMPOTENCY_IN_PROGRESS": 409,
     "LOCK_BUSY": 409,
@@ -48953,7 +48223,7 @@
     },
     {
       "name": "workspaces",
-      "description": "業務表・ケース v2"
+      "description": "業務表・案件 v2"
     },
     {
       "name": "workspace-sockets",
@@ -49029,10 +48299,7 @@
     "NOT_FOUND": "documented_operation_response",
     "STATE_CONFLICT": "documented_operation_response",
     "PROPOSAL_CONFLICT": "documented_operation_response",
-    "OPERATION_IN_PROGRESS": "other_core_contract_not_mapped_to_public_operation",
-    "FOLDER_LIMIT_REACHED": "other_core_contract_not_mapped_to_public_operation",
     "DUPLICATE": "documented_operation_response",
-    "STALE_SOURCE": "other_core_contract_not_mapped_to_public_operation",
     "AUTHORITY_CONFLICT": "documented_operation_response",
     "IDEMPOTENCY_IN_PROGRESS": "documented_operation_response",
     "LOCK_BUSY": "documented_operation_response",
