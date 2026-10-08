@@ -1,5 +1,5 @@
 {
-  "documentation_revision": 13,
+  "documentation_revision": 14,
   "reviewed_date": "2026-10-08",
   "api_version": "0.7.0-experimental",
   "contract_snapshot_date": "2026-10-07",
@@ -16,7 +16,9 @@
     "Overview mobile text alternative reuses existing diagram styles; original CSS, JavaScript, logos and SVG geometry retained",
     "Self-links removed from next-step help and version footer",
     "macOS MCP connection method is preparing; different connection and key management methods are under consideration; version 1.0.1 Keychain limitation remains",
-    "Reader guidance starts with capabilities and next actions; technical status and credential constraints retained"
+    "Reader guidance starts with capabilities and next actions; technical status and credential constraints retained",
+    "Approved documentation terms page, navigation links and copyright footer added without changing brand assets or machine contracts",
+    "Trademark symbol added only to the common brand header, landing-page first mention and approved trademark statement"
   ],
   "mcp": {
     "adapter_version": "1.0.1",
@@ -57,5 +59,12 @@
     "public_app_api": "preparing"
   },
   "runtime_api_retested": false,
-  "infrastructure_changed": false
+  "infrastructure_changed": false,
+  "document_terms": {
+    "page": "terms.html",
+    "approved_date": "2026-10-08",
+    "copyright_holder_display": "META X Design",
+    "canonical_approved_text_sha256": "ffbe6576c5768e38f8ad89b95d0223df3647d862f00d7c1297d51bc11844c16a",
+    "scope": "Documentation; sample code, distributed software and third-party works retain their stated terms"
+  }
 }

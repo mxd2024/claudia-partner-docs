@@ -78,7 +78,7 @@ def outputs():
         out[f'{vp}/{old}.html']=('<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ページを移動しました | Claudia Partner Docs</title><meta http-equiv="refresh" content="0; url='+new+'.html"><link rel="canonical" href="'+c['base_url']+vp+'/'+new+'.html"><body><p>このページは、<a href="'+new+'.html">'+r.e(title)+'</a>に移動しました。</p></body></html>').encode('utf-8')
     out[f'{vp}/search-index.json']=json.dumps({'format':1,'entries':search},ensure_ascii=False,separators=(',',':')).encode('utf-8')
     # The original home DOM is retained. Only its description and last link label change.
-    root_body=f'<h1>Claudia Partner Docs</h1><p>Claudia Partner基盤のAPI・MCP公開ドキュメントです。基盤の考え方、接続の手順、仕様、対応状況を確認できます。利用中のAPIに対応する版を選んでください。</p><h2>公開中のドキュメント</h2><p><a href="{vp}/index.html">{r.e(c["version"])} の利用ガイド</a></p><p><a href="{vp}/api.html">APIリファレンス</a> · <a href="{vp}/mcp.html">AIエージェント・MCP</a> · <a href="links.json">アプリ向けリンク定義</a></p>'
+    root_body=f'<h1>Claudia Partner Docs</h1><p>Claudia Partner™基盤のAPI・MCP公開ドキュメントです。基盤の考え方、接続の手順、仕様、対応状況を確認できます。利用中のAPIに対応する版を選んでください。</p><h2>公開中のドキュメント</h2><p><a href="{vp}/index.html">{r.e(c["version"])} の利用ガイド</a></p><p><a href="{vp}/api.html">APIリファレンス</a> · <a href="{vp}/mcp.html">AIエージェント・MCP</a> · <a href="links.json">アプリ向けリンク定義</a></p>'
     out['index.html']=r.wrap(c,c['pages'][0],root_body,root=True).encode('utf-8')
     for n in ['openapi.json','api-inventory.json','mcp-tools.json','examples/public-requests.json']:
         out[f'{vp}/{n}']=(ROOT/vp/n).read_bytes()
@@ -87,14 +87,14 @@ def outputs():
     provenance['public_openapi_sha256']=r.sha(out[f'{vp}/openapi.json'])
     out[f'{vp}/provenance.json']=r.json_bytes(provenance)
     out['links.json']=r.json_bytes({'format':1,'default_version':vp,'versions':{vp:{'api_version':c['version'],'links':{p['slug']:c['base_url']+vp+'/'+p['slug']+'.html' for p in c['pages']}|{old:c['base_url']+vp+'/'+old+'.html' for old in c['redirects']}|{n:c['base_url']+vp+'/'+n+'.json' for n in ['openapi','mcp-tools','api-inventory','provenance']}|{'examples_json':c['base_url']+vp+'/examples/public-requests.json'}}}})
-    out['llms.txt']=('# Claudia Partner Docs\n\nPublic documentation for API '+c['version']+'. Documentation revision 13, pinned contract 2026-10-07. Runtime version and enabled features depend on the environment. MCP client 1.0.1 defines 8 import tools; all-service MCP is preparing. Examples are synthetic and have not been executed against customer environments.\n\n'+'\n'.join('- ['+p['title']+']('+c['base_url']+vp+('/openapi.json' if p['slug']=='api' else '/guide/'+p['slug']+'.md')+')' for p in c['pages'])+'\n').encode('utf-8')
+    out['llms.txt']=('# Claudia Partner Docs\n\nPublic documentation for API '+c['version']+'. Documentation revision 14, pinned contract 2026-10-07. Runtime version and enabled features depend on the environment. MCP client 1.0.1 defines 8 import tools; all-service MCP is preparing. Examples are synthetic and have not been executed against customer environments.\n\n'+'\n'.join('- ['+p['title']+']('+c['base_url']+vp+('/openapi.json' if p['slug']=='api' else '/guide/'+p['slug']+'.md')+')' for p in c['pages'])+'\n').encode('utf-8')
     out['README.md']='''# Claudia Partner Docs
 
 Claudia Partnerの顧客アプリ開発者向け公開ドキュメントです。
 
 https://mxd2024.github.io/claudia-partner-docs/
 
-API 0.7.0-experimental、文書改訂13（2026-10-08）、固定契約2026-10-07を対象にします。文書の最新版は接続先の稼働版を意味しません。134操作、MCPクライアント1.0.1の8ツールを記載し、有効化・権限・実機確認範囲は利用環境ごとに区別します。
+API 0.7.0-experimental、文書改訂14（2026-10-08）、固定契約2026-10-07を対象にします。文書の最新版は接続先の稼働版を意味しません。134操作、MCPクライアント1.0.1の8ツールを記載し、有効化・権限・実機確認範囲は利用環境ごとに区別します。
 
 ## 更新とビルド
 
@@ -105,6 +105,12 @@ GitHub Pagesはmainのルートを公開します。文書更新はPRでレビ�
 ## ファイルの整合
 
 manifest.jsonの`files`に配信ファイルのSHA-256を記載します。`source_openapi_sha256`は公開用加工前の固定仕様の値です。公開用OpenAPIとは値が異なります。`v0.7/provenance.json`に対象版の出典と確認範囲を記載します。
+
+## 利用条件
+
+[ドキュメントの利用条件・免責事項](v0.7/guide/terms.md)を参照してください。サンプルコード・配布ソフトウェア・第三者の著作物には、それぞれに示されたライセンス・利用条件が適用されます。
+
+© 2026 META X Design. All rights reserved.
 
 ## 誤記・質問
 

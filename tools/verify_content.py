@@ -7,14 +7,16 @@ from build_content import ASSETS
 
 ROOT=Path(__file__).resolve().parents[1]
 BASELINE='ff6a62aecd1aed08599c04d871f114ddc54cc540'
+APPROVED_TERMS_CANONICAL_SHA256='ffbe6576c5768e38f8ad89b95d0223df3647d862f00d7c1297d51bc11844c16a'
 def baseline(name):return subprocess.check_output(['git','show',BASELINE+':'+name],cwd=ROOT)
 class Page(HTMLParser):
-    def __init__(self,text,reader_layout=False):
+    def __init__(self,text,reader_layout=False,legal_layout=False):
         super().__init__();self.ids=set();self.links=[];self.shape=[];self.duplicate_ids=[]
-        self.reader_layout=reader_layout;self.skip_depth=0;self.glossary_link=False;self.app_code=False;self.feed(text)
+        self.reader_layout=reader_layout;self.legal_layout=legal_layout;self.skip_depth=0;self.glossary_link=False;self.app_code=False;self.feed(text)
     def handle_starttag(self,tag,attrs):
+        if self.skip_depth:self.skip_depth+=1;return
+        if self.legal_layout and ((tag in ('a','span') and dict(attrs).get('class') in ('legal','copyright')) or (tag=='sup' and dict(attrs).get('class')=='cp-brand__trademark')):self.skip_depth=1;return
         if self.reader_layout:
-            if self.skip_depth:self.skip_depth+=1;return
             if tag=='div' and dict(attrs).get('id')=='overview-text':self.skip_depth=1;return
             if tag=='a' and dict(attrs).get('href') in ['glossary.html#section-2','glossary.html#section-3','glossary.html#section-4']:
                 self.glossary_link=True;return
@@ -27,8 +29,8 @@ class Page(HTMLParser):
         for attr in ('href','src','data-index'):
             if a.get(attr):self.links.append(a[attr])
     def handle_endtag(self,tag):
+        if self.skip_depth:self.skip_depth-=1;return
         if self.reader_layout:
-            if self.skip_depth:self.skip_depth-=1;return
             if tag=='a' and self.glossary_link:self.glossary_link=False;return
             if tag=='code' and self.app_code:self.app_code=False;return
         self.shape.append(('end',tag))
@@ -48,7 +50,7 @@ def reader_checks(files,pages):
             if len(hrefs)!=len(set(hrefs)):failures.append('repeated next/footer link '+name)
             if any(urlsplit(urljoin('https://docs.invalid/'+name,h)).path=='/'+name for h in hrefs):failures.append('self next/footer link '+name)
     overview=(ROOT/'v0.7/index.html').read_text(encoding='utf-8')
-    normalized=Page(overview,reader_layout=True).shape==Page(baseline('v0.7/index.html').decode('utf-8')).shape
+    normalized=Page(overview,reader_layout=True,legal_layout=True).shape==Page(baseline('v0.7/index.html').decode('utf-8')).shape
     if not normalized:failures.append('overview layout changed beyond text alternative and glossary links')
     if '<svg class="ctx dw"' not in overview or 'id="overview-text"' not in overview or overview.count('<code>app</code>')!=1 or any(q in overview for q in '①②③④⑤'):failures.append('overview mobile alternative or numbering')
     for f in (ROOT/'content-source/pages').glob('*.md'):
@@ -75,6 +77,41 @@ def protocol(node):
     if isinstance(node,dict):return {k:protocol(v) for k,v in node.items() if k not in ['summary','description','title','example','examples','client_ids'] and not k.startswith('x-')}
     if isinstance(node,list):return [protocol(v) for v in node]
     return node
+
+def legal_checks(files):
+    failures=[];config=json.loads((ROOT/'content-source/site.json').read_bytes())
+    canonical=lambda s:'\n'.join(re.sub(r'^#{1,6}\s+','',line).strip() for line in s.splitlines() if line.strip())+'\n'
+    source=canonical((ROOT/'content-source/pages/terms.md').read_text(encoding='utf-8'))
+    source_sha=hashlib.sha256(source.encode('utf-8')).hexdigest()
+    if source_sha!=APPROVED_TERMS_CANONICAL_SHA256:failures.append('approved legal source text changed')
+    if canonical((ROOT/'v0.7/guide/terms.md').read_text(encoding='utf-8'))!=source:failures.append('legal Markdown differs from approved source')
+    doc=(ROOT/'v0.7/terms.html').read_text(encoding='utf-8');body=re.search(r'<h1.*?(?=<footer)',doc,re.S)[0]
+    body=re.sub(r'<nav class="page-toc".*?</nav>','',body,flags=re.S)
+    rendered='\n'.join(html.unescape(re.sub(r'<[^>]+>','',text)).strip() for _,text in re.findall(r'<(h1|h2|p)[^>]*>(.*?)</\1>',body,re.S))+'\n'
+    if rendered!=source:failures.append('rendered legal text differs from approved source')
+    if '®' in rendered or '専門家' in rendered or 'Meta X Design' in rendered:failures.append('unapproved trademark/copyright/legal note')
+    checked=0
+    for n in ['index.html']+['v0.7/'+p['slug']+'.html' for p in config['pages']]:
+        text=(ROOT/n).read_text(encoding='utf-8');footer=re.search(r'<footer class="page-foot".*?</footer>',text,re.S)[0]
+        if footer.count(config['copyright'])!=1:failures.append('copyright footer '+n)
+        if n=='v0.7/terms.html':
+            if '<span class="legal">利用条件・免責事項</span>' not in footer:failures.append('legal self footer '+n)
+        else:
+            href='v0.7/terms.html' if n=='index.html' else 'terms.html'
+            if f'<a class="legal" href="{href}">' not in footer:failures.append('legal footer route '+n)
+        if not re.search(r'<a href="(?:v0.7/)?terms.html" class="legal"',text):failures.append('legal sidebar route '+n)
+        if text.count('class="cp-brand__trademark"')!=1:failures.append('brand trademark marker '+n)
+        main_text=re.search(r'<main.*?</main>',text,re.S)[0]
+        if main_text.count('™')!=(1 if n in ['index.html','v0.7/index.html','v0.7/terms.html'] else 0):failures.append('trademark symbol outside approved places '+n)
+        checked+=1
+    fixed='eb7accac48182a03dde99f9b475c5ef118079d7d'
+    names=subprocess.check_output(['git','ls-tree','-r','--name-only',fixed],cwd=ROOT,text=True).splitlines()
+    licenses=[n for n in names if re.search(r'(?i)(?:^|/)(?:license|copying|notice)(?:\.|$)',n)]
+    protected=licenses+['content-source/pages/mcp.md']+[n for n in files if n.startswith('v0.7/examples/')]
+    for n in protected:
+        if (ROOT/n).read_bytes()!=subprocess.check_output(['git','show',fixed+':'+n],cwd=ROOT):failures.append('legal change altered licensed/distributed/sample source '+n)
+    if 'v0.7/terms.html' not in (ROOT/'sitemap.xml').read_text(encoding='utf-8'):failures.append('legal sitemap route')
+    return failures,{'approved_canonical_text_sha256':source_sha,'source_markdown_and_rendered_text_match_approved_text':not any('text' in f or 'source' in f for f in failures),'primary_pages_with_legal_navigation_and_copyright':checked,'existing_license_files_preserved':licenses,'mcp_guide_and_sample_files_preserved':protected,'registered_trademark_symbol_absent':True,'trademark_symbol_limited_to_approved_places':not any('trademark' in f for f in failures)}
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--raw-openapi');ap.add_argument('--mcp-source');ap.add_argument('--credential-source');ap.add_argument('--report');args=ap.parse_args()
     failures=[];manifest=json.loads((ROOT/'manifest.json').read_bytes());files=manifest['files'];pages={};links=0;md_links=0
@@ -115,8 +152,10 @@ def main():
     for n,expected in ASSETS.items():
         if assets[n]!=expected or (ROOT/n).read_bytes()!=baseline(n):failures.append('asset changed '+n)
     unchanged_structure={n:Page(baseline(n).decode('utf-8')).shape==pages[n].shape for n in ['index.html','v0.7/index.html']}
-    if not unchanged_structure['index.html']:failures.append('home visual DOM changed')
+    home_normalized=Page((ROOT/'index.html').read_text(encoding='utf-8'),legal_layout=True).shape==Page(baseline('index.html').decode('utf-8')).shape
+    if not home_normalized:failures.append('home visual DOM changed beyond legal links and copyright')
     reader_failures,reader_report=reader_checks(files,pages);failures.extend(reader_failures)
+    legal_failures,legal_report=legal_checks(files);failures.extend(legal_failures)
     spec=json.loads((ROOT/'v0.7/openapi.json').read_bytes());inv=json.loads((ROOT/'v0.7/api-inventory.json').read_bytes())
     old=json.loads(baseline('v0.7/openapi.json'))
     old_ops={(method,path,op['operationId']) for path,methods in old['paths'].items() for method,op in methods.items()}
@@ -175,6 +214,8 @@ def main():
     report.update(generic_wording_and_email_guard_passed=not failures,folder_limit_not_mapped_to_public_operation=True,credential_name_validation_checked_without_store_access=credential_checked,json_examples=sum('body_base64' not in q for q in samples),binary_examples=sum('body_base64' in q for q in samples))
     report['reader_review_checks']=reader_report
     report['mcp_os_support_and_cli_inspected_without_store_or_client_execution']=mcp_os_checked
+    report['home_layout_preserved_except_legal_links_copyright_and_trademark']=home_normalized
+    report['approved_documentation_terms_checks']=legal_report
     if args.report:Path(args.report).write_bytes((json.dumps(report,ensure_ascii=False,indent=2)+'\n').encode('utf-8'))
     print(json.dumps(report,ensure_ascii=False,indent=2));assert report['passed']
 if __name__=='__main__':main()

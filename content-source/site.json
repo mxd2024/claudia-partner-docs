@@ -221,10 +221,17 @@
       "next": [
         "errors"
       ]
+    },
+    {
+      "slug": "terms",
+      "title": "ドキュメントの利用条件・免責事項",
+      "section": "運用・サポート",
+      "summary": "ドキュメントの閲覧・参照、転載、第三者の権利、免責事項、商標と更新について。"
     }
   ],
   "redirects": {
     "operations": "support"
   },
-  "revision": 13
+  "revision": 14,
+  "copyright": "© 2026 META X Design. All rights reserved."
 }
