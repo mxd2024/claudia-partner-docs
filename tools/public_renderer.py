@@ -292,7 +292,7 @@ def wrap(config, page, body, root=False):
     nav = []; previous = None
     for p in config['pages']:
         if p['section'] != previous: nav.append(f'<p class="nav-label">{e(p["section"])}</p>'); previous = p['section']
-        nav.append(f'<a href="{prefix}{p["slug"]}.html"' + (' aria-current="page"' if p['slug'] == page['slug'] and not root else '') + f'>{e(p["title"])}</a>')
+        nav.append(f'<a href="{prefix}{p["slug"]}.html"' + (' class="legal"' if p['slug'] == 'terms' else '') + (' aria-current="page"' if p['slug'] == page['slug'] and not root else '') + f'>{e(p["title"])}</a>')
     nav.append(f'<p class="nav-label">仕様ファイル</p><a class="machine" href="{prefix}openapi.json">OpenAPI JSON</a><a class="machine" href="{prefix}mcp-tools.json">MCPツール定義</a>')
     search = f'<form class="site-search" role="search" onsubmit="return false"><label for="site-search">サイト内を検索</label><input type="search" id="site-search" placeholder="例：トークン、412、画像" autocomplete="off" data-index="{prefix}search-index.json" aria-controls="search-results"><div id="search-results" role="region" aria-live="polite" hidden></div></form>'
     if not root:
@@ -301,8 +301,10 @@ def wrap(config, page, body, root=False):
     description = 'Claudia Partner基盤のAPI・認証・権限・画像・MCPの接続ガイド。基盤の考え方、接続の手順、仕様、対応状況を確認できます。'
     foot_link = f'{prefix}guide/{page["slug"]}.md' if page['slug'] != 'api' else prefix + 'openapi.json'
     version_link = '<span>対応状況</span>' if page['slug'] == 'versions' and not root else f'<a href="{prefix}versions.html">対応状況</a>'
+    terms_link = '<span class="legal">利用条件・免責事項</span>' if page['slug'] == 'terms' and not root else f'<a class="legal" href="{prefix}terms.html">利用条件・免責事項</a>'
+    copyright_text = f'<span class="copyright">{e(config["copyright"])}</span>'
     crumb = f'<a href="{prefix}index.html">ドキュメント</a><span>/</span><span>{e(page["section"])}</span><span>/</span><span>{e(page["title"])}</span>' if not root else '<span>ドキュメント</span>'
     return f'''<!doctype html>
 <html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{e(page['title'])} | Claudia Partner Docs</title><meta name="description" content="{description}"><meta name="theme-color" content="#004d58"><link rel="canonical" href="{e(config['base_url'] + path)}"><link rel="icon" href="{prefix}favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}style.css"><link rel="stylesheet" href="{prefix}brand.css"><script src="{prefix}app.js" defer></script></head>
 <body><a class="skip" href="#main">本文へ移動</a><header class="topbar"><a class="brand cp-brand" href="{prefix}index.html"><img class="cp-brand__mark" src="{prefix}claudia-partner-mark.svg" alt=""><span class="cp-brand__text"><span class="cp-brand__name">Claudia <span class="cp-brand__partner">Partner</span></span><span class="cp-brand__descriptor">Docs</span></span></a><span class="top-note">API・MCP 共通ドキュメント</span><span class="version">{e(config['version'])}</span><button class="menu-toggle" aria-expanded="false" aria-controls="navigation">メニュー</button></header>
-<div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント">{search}{''.join(nav)}<div class="nav-foot">公開ドキュメント<br>{e(config['version'])}<br>更新 {e(config['updated'])}</div></nav><main id="main"><div class="breadcrumb">{crumb}</div><p class="eyebrow">{e(page.get('section', 'DOCUMENTATION'))}</p>{body}<footer class="page-foot"><span>{e(config['version'])}</span><span>更新 {e(config['updated'])}</span><a href="{foot_link}">機械・テキスト向け</a>{version_link}</footer></main></div></body></html>'''
+<div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント">{search}{''.join(nav)}<div class="nav-foot">公開ドキュメント<br>{e(config['version'])}<br>更新 {e(config['updated'])}</div></nav><main id="main"><div class="breadcrumb">{crumb}</div><p class="eyebrow">{e(page.get('section', 'DOCUMENTATION'))}</p>{body}<footer class="page-foot"><span>{e(config['version'])}</span><span>更新 {e(config['updated'])}</span><a href="{foot_link}">機械・テキスト向け</a>{version_link}{terms_link}{copyright_text}</footer></main></div></body></html>'''
