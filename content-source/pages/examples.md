@@ -1,6 +1,6 @@
 # HTTP・実行例
 
-60の例（全134操作のうち56操作）を載せています。すべて合成データの要求と応答です。実環境での実行結果ではなく、実機動作は未確認です。HTTPヘッダーとJSONは[共通examples JSON](examples/public-requests.json)から生成し、OpenAPIのexamplesにも同じ内容を使用します。時刻、UUID、版、fingerprint、storeは説明用です。実行時には現在の取得結果へ置き換えてください。
+60の例（全134操作のうち56操作）を載せています。すべて合成データのリクエストと応答です。実際の利用環境での実行結果ではなく、実機動作は未確認です。HTTPヘッダーとJSONは[共通examples JSON](examples/public-requests.json)から生成し、OpenAPIのexamplesにも同じ内容を使用します。時刻、UUID、版、fingerprint、storeは説明用です。実行時には現在の取得結果へ置き換えてください。
 
 成功応答の値は固定の期待値ではありません。表の権限や現在版に従い変化します。公開資料は検証用のデータ投入を自動的に行いません。[アプリの登録と運用](tutorial.html)に沿い、検証専用の表で実行してください。
 
@@ -14,9 +14,9 @@
 
 ### 接続と読み取り
 
-ブラウザー → アプリのサーバー側（BFF）→ CoreAPIの構成を例にします。人のログインは認証サービスのOIDC Authorization Code + PKCEとMFAを使います。登録済みclient_id等が必要で、個別アプリの登録・BFF接続は準備中です。
+ブラウザー → アプリのサーバー側（BFF）→ 基盤APIの構成を例にします。人のログインは認証サービスのOIDC Authorization Code + PKCEとMFAを使います。登録済みclient_id等が必要で、個別アプリの登録・BFF接続は準備中です。
 
-1. [接続情報](request-access.html)と環境の有効機能・稼働版を確認します。
+1. [接続情報](request-access.html)と利用環境の有効機能・稼働版を確認します。
 2. [本人として接続](authentication.html)し、`GET /v1/me`を確認します。
 3. 表のdefinitionから`schema_version`を取得します。
 4. `POST /v2/tables/{collection}/query`で、許可された作業メモを読みます。空の一覧と認証エラーを区別します。
@@ -35,16 +35,16 @@
 
 ## サンプルの実行
 
-[Python](examples/request.py)はPython 3.10以上の標準ライブラリ、[JavaScript](examples/request.mjs)はNode.js 22以上で動作します。どちらも選択した1要求のみを送信し、自動再試行しません。examples JSONを同じフォルダーへ保存して、置換済みの要求ファイルを指定します。
+[Python](examples/request.py)はPython 3.10以上の標準ライブラリ、[JavaScript](examples/request.mjs)はNode.js 22以上で動作します。どちらも選択した1リクエストのみを送信し、自動再試行しません。examples JSONを同じフォルダーへ保存して、置換済みのリクエストファイルを指定します。
 
 ```sh
 python request.py --base https://api.example.invalid --request my-request.json
 node request.mjs --base https://api.example.invalid --request my-request.json
 ```
 
-資格は環境変数CP_ACCESS_TOKEN、またはPythonの非表示対話入力で渡します。スクリプトや要求ファイルへ埋め込みません。CP_ACCESS_TOKENは[利用者として接続する](authentication.html)で取得したaccess_tokenです。baseは、環境管理者から受け取った、基盤のHTTPS originへ置き換えます。検証CAはPythonの --ca 引数、NodeのNODE_EXTRA_CA_CERTSで設定し、TLS検証を無効化しません。
+資格は環境変数CP_ACCESS_TOKEN、またはPythonの非表示対話入力で渡します。スクリプトやリクエストファイルへ埋め込みません。CP_ACCESS_TOKENは[利用者として接続する](authentication.html)で取得したaccess_tokenです。baseは、環境管理者から受け取った、基盤のHTTPS originへ置き換えます。検証CAはPythonの --ca 引数、NodeのNODE_EXTRA_CA_CERTSで設定し、TLS検証を無効化しません。
 
-my-request.jsonは下の共通JSONから1件を選び、headers内のAuthorizationプレースホルダー以外の値、url、bodyを実環境向けに直したものです。書込はIdempotency-Keyと期待版を確認してから実行します。
+my-request.jsonは下の共通JSONから1件を選び、headers内のAuthorizationプレースホルダー以外の値、url、bodyを実際の利用環境向けに直したものです。書込はIdempotency-Keyと期待版を確認してから実行します。
 
 <!-- generated:http-examples -->
 

@@ -205,7 +205,7 @@ DBへの直接の接続、任意のSQL、署名鍵は、MCPの対象に含めま
 | `imports_prepare` | 計画。`id`、`dataset`、`source_rows`、`created`・`updated`・`unchanged`の件数、`absent_retained`、`source_sha256`、`encoding`、`state`など。`imports_run`などの`plan_id`には、この`id`を渡します。差分を示して、反映してよいか確認します |
 | `imports_run` | 同じ`plan_id`と`source_sha256`で、最大4区間ずつ進めます。最後の区間の後は、自動で照合します |
 | `imports_status` | 計画の状態と、完了した区間の数を、取得し直します |
-| `imports_verify` | 全区間が完了した計画を、インフラの値と照合します。成功は`state=verified`です。未完了は`PLAN_INCOMPLETE`、不一致は`VERIFY_MISMATCH`です |
+| `imports_verify` | 全区間が完了した計画を、基盤の値と照合します。成功は`state=verified`です。未完了は`PLAN_INCOMPLETE`、不一致は`VERIFY_MISMATCH`です |
 | `imports_history` | 利用者の計画の配列（最新100件まで） |
 | `imports_cancel` | `prepared`の計画だけを、`cancelled`にします。実行した後は、取り消せず、`RESUME_REQUIRED`になります |
 | `imports_export` | 新しいファイルに保存して、`saved_file`と`bytes`を返します。既存のファイルは、上書きしません |
@@ -219,12 +219,12 @@ DBへの直接の接続、任意のSQL、署名鍵は、MCPの対象に含めま
 ### 接続の前にTLS検証が失敗する（例: certificate has expired）
 
 - 確認: システム時計、接続先、信頼するCAと配布物の版を確認します。エラーだけで特定の証明書を原因と断定しません。
-- 対処: 1.0.1の同梱CAを使用します。利用環境で別の信頼CAが必要なら、確認済みPEMを`SSL_CERT_FILE`に指定します。指定値は同梱CAより優先されます。TLS検証は有効のままにします。
+- 対処: 1.0.1の同梱CAを使用します。利用環境で別の信頼CAが必要なら、確認済みPEMを`SSL_CERT_FILE`に指定します。指定値は同梱CAより優先されます。TLS検証は有効のままにします。[配布物と同梱CAの確認](../mcp.html#section-2)へ進みます。
 
 ### HTTP 403、content-typeが`text/plain`、本文が`error code: 1010`
 
-- 原因: 管理サイトに届く前の入口で、要求が拒否されています。管理サイトの応答（JSONの`error`）ではありません。
-- 対処: 現行の配布物を確認し、利用環境のサービス管理者へ時刻とエラーコードを伝えます。1.0.1にはこの拒否を`ENTRY_REJECTED`として識別する処理があります。2026-10-08の限定した公開読取検証は成功していますが、すべての環境で入口の拒否が解消したとは限りません。クライアントの識別を偽装したり、TLS検証を無効にしたりして回避しないでください。
+- 原因: 管理サイトに届く前の入口で、リクエストが拒否されています。管理サイトの応答（JSONの`error`）ではありません。
+- 対処: 現行の配布物を確認し、利用環境のサービス管理者へ時刻とエラーコードを伝えます。1.0.1にはこの拒否を`ENTRY_REJECTED`として識別する処理があります。2026-10-08の限定した公開読取検証は成功していますが、すべての利用環境で入口の拒否が解消したとは限りません。クライアントの識別を偽装したり、TLS検証を無効にしたりして回避しないでください。
 
 ### HTTP 401、JSONの`error`が`authentication_required`
 
@@ -235,4 +235,4 @@ JSONの`error`が返るときは、アプリまで届いています。`text/pla
 
 ### キーの保存や読み取りが失敗する
 
-実行しているユーザーと、Secret Serviceのロックを確認します。利用者用のアクセストークンを、取込のキーの代わりに保存しないでください。
+実行しているユーザーと、Secret Serviceのロックを確認します。[OSごとの保存条件](../mcp.html#section-3)と[キーの保存手順](../mcp.html#section-5)を確認します。利用者用のアクセストークンを、取込のキーの代わりに保存しないでください。

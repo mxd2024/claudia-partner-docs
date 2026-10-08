@@ -23,9 +23,9 @@
       "section": "理解する",
       "summary": "基盤の機能と制約、アプリとの技術的な役割の分担。",
       "next": [
+        "quickstart",
         "versions",
-        "glossary",
-        "quickstart"
+        "glossary"
       ]
     },
     {
@@ -60,9 +60,9 @@
     },
     {
       "slug": "authentication",
-      "title": "本人として接続する",
+      "title": "利用者として接続する",
       "section": "接続する",
-      "summary": "本人のログイン（OIDC + PKCE）から、最初の GET /v1/me が200になるまで。更新・失効の扱い。",
+      "summary": "利用者のログイン（OIDC + PKCE）から、最初の GET /v1/me が200になるまで。更新・失効の扱い。",
       "next": [
         "tables",
         "reliability"
@@ -169,7 +169,7 @@
       "slug": "examples",
       "title": "HTTP・実行例",
       "section": "リファレンス",
-      "summary": "ヘッダー込みの完全な要求・応答の例と、Python・JavaScriptの実行サンプル。",
+      "summary": "ヘッダー込みの完全なリクエスト・応答の例と、Python・JavaScriptの実行サンプル。",
       "next": [
         "errors",
         "api"
@@ -226,5 +226,5 @@
   "redirects": {
     "operations": "support"
   },
-  "revision": 12
+  "revision": 13
 }

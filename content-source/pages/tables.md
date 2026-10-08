@@ -18,7 +18,7 @@ GET /v1/tables/work_notes
 POST /v1/tables/work_notes/query
 ```
 
-`work_notes`は、説明用の表の名前です。実際に使える表は、対象の環境の一覧で確認します。
+`work_notes`は、説明用の表の名前です。実際に使える表は、対象の利用環境の一覧で確認します。
 
 v2の系列では、次のように読み取ります。
 
@@ -33,7 +33,7 @@ GET /v2/tables/work_notes/rows/{rowId}
 
 ## 行を追加・更新する
 
-[HTTP・実行例](examples.html)に、次の完全なHTTPの要求と応答があります。
+[HTTP・実行例](examples.html)に、次の完全なHTTPのリクエストと応答があります。
 
 - v1: 表の一覧、検索、batch（まとめての更新）
 - v2: 表の定義、作成、更新、削除、復元、関連、`If-Match`
