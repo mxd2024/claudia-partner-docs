@@ -14,7 +14,9 @@
     "v2 case and v1 job wording distinguished; protocol keys and paths unchanged",
     "Reader terminology and headings aligned without changing machine contracts",
     "Overview mobile text alternative reuses existing diagram styles; original CSS, JavaScript, logos and SVG geometry retained",
-    "Self-links removed from next-step help and version footer"
+    "Self-links removed from next-step help and version footer",
+    "macOS MCP connection method is preparing; different connection and key management methods are under consideration; version 1.0.1 Keychain limitation remains",
+    "Reader guidance starts with capabilities and next actions; technical status and credential constraints retained"
   ],
   "mcp": {
     "adapter_version": "1.0.1",

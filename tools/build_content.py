@@ -18,6 +18,8 @@ def text_link(link,config):
     # Markdown is usable directly in this public repository, without private paths.
     m=re.fullmatch(r'([a-z0-9-]+)\.html(#.*)?',link)
     if m and m[1]=='api':return '../openapi.json'
+    # HTML section IDs are not Markdown heading slugs; keep anchored guide links in HTML.
+    if m and m[2]:return '../'+link
     if m and any(p['slug']==m[1] for p in config['pages']):return m[1]+'.md'
     if urlsplit(link).scheme or link.startswith('#'):return link
     return '../'+link

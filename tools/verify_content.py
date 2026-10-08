@@ -64,6 +64,11 @@ def reader_checks(files,pages):
         if re.search(r'<h1.*?(?=<footer)',old,re.S)[0]!=re.search(r'<h1.*?(?=<footer)',new,re.S)[0]:failures.append('reader revision changed API reference body')
     principles=(ROOT/'v0.7/principles.html').read_text(encoding='utf-8');next_block=re.search(r'<nav class="page-next".*?</nav>',principles,re.S)[0]
     if re.findall(r'href="([^"]+)"',next_block)[:2]!=['quickstart.html','versions.html']:failures.append('principles next steps')
+    mcp_guide=(ROOT/'content-source/pages/mcp.md').read_text(encoding='utf-8')
+    if '## macOS向けMCPの接続方法' not in mcp_guide or 'macOSでの導入準備' in mcp_guide or 'python3 --version' in mcp_guide or '| macOS | {{準備中}}' not in mcp_guide or '現行配布版1.0.1では、Keychainを使うキーの保存・読取が未対応' not in mcp_guide or '接続方式と提供時期は未確定' not in mcp_guide:failures.append('MCP macOS guidance scope')
+    if '管理サイトのブラウザー利用や、顧客アプリ・基盤APIの開発でmacOSを使うこととは別' not in mcp_guide:failures.append('MCP OS scope broadened to service')
+    for name in ['principles','versions']:
+        if '| macOS向けMCPの接続方法 | {{準備中}} |' not in (ROOT/f'content-source/pages/{name}.md').read_text(encoding='utf-8'):failures.append('macOS direction status mismatch '+name)
     return failures,{'page_titles_aligned':title_count,'next_and_footer_links_checked':footer_links,'no_self_or_duplicate_next_and_footer_links':not any('footer link' in f for f in failures),'overview_layout_preserved_except_approved_additions':normalized,'machine_contract_and_example_files_byte_identical_to_revision12':protected,'api_reference_body_byte_identical_to_revision12':True}
 
 def protocol(node):
@@ -103,6 +108,9 @@ def main():
             if p.scheme or link.startswith('#'):continue
             md_links+=1;target=(ROOT/name).parent/unquote(p.path)
             if not target.resolve().is_relative_to(ROOT) or not target.is_file():failures.append('Markdown link '+name+' '+link)
+            elif p.fragment and target.suffix=='.html':
+                key=target.resolve().relative_to(ROOT).as_posix()
+                if key not in pages or unquote(p.fragment) not in pages[key].ids:failures.append('Markdown HTML anchor '+name+' '+link)
     assets={n:hashlib.sha256((ROOT/n).read_bytes()).hexdigest() for n in ASSETS}
     for n,expected in ASSETS.items():
         if assets[n]!=expected or (ROOT/n).read_bytes()!=baseline(n):failures.append('asset changed '+n)
@@ -145,7 +153,7 @@ def main():
     for q in samples:assert str(q['status']) in spec['paths'][q['path']][q['method'].lower()]['responses']
     assert spec['x-error-code-usage']['FOLDER_LIMIT_REACHED']=='other_core_contract_not_mapped_to_public_operation'
     assert not any('FOLDER_LIMIT_REACHED' in json.dumps(op) for methods in spec['paths'].values() for op in methods.values())
-    credential_checked=None
+    credential_checked=None;mcp_os_checked=None
     if args.credential_source:
         source_bytes=Path(args.credential_source).read_bytes();provenance=json.loads((ROOT/'v0.7/provenance.json').read_bytes())
         assert hashlib.sha256(source_bytes).hexdigest()==provenance['mcp']['credential_store_source_sha256']
@@ -154,10 +162,19 @@ def main():
         expr=compile(ast.Expression(fn.body[0].test),'<credential-validation-only>','eval')
         for name,rejected in [('customer-imports',False),('0_a-z',False),('Customer-imports',True),('path/name',True),('has space',True),('',True),('a'*47+'-'+'0'*16,False),('a'*48+'-'+'0'*16,True)]:
             assert bool(eval(expr,{'__builtins__':{},'len':len,'any':any,'name':name}))==rejected,name
+        # Inspect the fixed source, without invoking any OS credential store.
+        assert "os.name == 'nt'" in source_bytes.decode('utf-8') and 'CryptProtectData' in source_bytes.decode('utf-8')
+        assert 'secret-tool' in source_bytes.decode('utf-8') and 'Keychain' not in source_bytes.decode('utf-8')
+        if args.mcp_source:
+            cli=ast.parse(Path(args.mcp_source).read_bytes())
+            options={a.value for n in ast.walk(cli) if isinstance(n,ast.Call) and isinstance(n.func,ast.Attribute) and n.func.attr=='add_argument' for a in n.args if isinstance(a,ast.Constant) and isinstance(a.value,str) and a.value.startswith('--')}
+            assert options=={'--base','--directory','--credential-name','--save-key'}
+            mcp_os_checked=True
         credential_checked=True
     report={'passed':not failures,'documentation_revision':manifest['documentation_revision'],'public_files':len(files),'html_pages':len(pages),'checked_html_links':links,'checked_markdown_links':md_links,'failures':failures,'original_asset_sha256':assets,'home_and_overview_DOM_structure_unchanged':unchanged_structure,'original_navigation_page_count':22,'existing_operations_preserved':len(old_ops),'api_operations':len(new_ops),'added_operations':sorted(x[2] for x in new_ops-old_ops),'raw_protocol_structure_identical':raw_matches,'raw_authority_identical_except_private_client_allowlist':authority_matches,'mcp_tools':len(mcp['tools']),'mcp_input_schema_and_annotations_match_pinned_source':mcp_matches,'synthetic_examples':len(samples),'example_operation_coverage':len({(q['method'],q['path']) for q in samples})}
     report.update(generic_wording_and_email_guard_passed=not failures,folder_limit_not_mapped_to_public_operation=True,credential_name_validation_checked_without_store_access=credential_checked,json_examples=sum('body_base64' not in q for q in samples),binary_examples=sum('body_base64' in q for q in samples))
     report['reader_review_checks']=reader_report
+    report['mcp_os_support_and_cli_inspected_without_store_or_client_execution']=mcp_os_checked
     if args.report:Path(args.report).write_bytes((json.dumps(report,ensure_ascii=False,indent=2)+'\n').encode('utf-8'))
     print(json.dumps(report,ensure_ascii=False,indent=2));assert report['passed']
 if __name__=='__main__':main()

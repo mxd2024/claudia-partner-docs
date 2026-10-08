@@ -25,7 +25,7 @@
 
 ## ログインして、トークンを取得する
 
-1. 環境管理者から、issuer（認証サービスのURL）、client_id（アプリのID）、登録済みのredirect_uri（ログイン後に戻るURL）、scope（求める権限の種類）、基盤のHTTPS originを受け取ります。client_idは、自分で決めません。検証用のredirect_uriが必要なら、利用環境で登録可能な値を確認します。loopbackの利用可否は利用環境によります。
+1. 環境管理者から、issuer（認証サービスのURL）、client_id（アプリのID）、登録済みのredirect_uri（ログイン後に戻るURL）、scope（求める権限の種類）、基盤のHTTPS originを受け取ります。client_idは、登録済みの値を使います。検証用のredirect_uriが必要なら、利用環境で登録可能な値を確認します。loopbackの利用可否は利用環境によります。
 2. issuerの`/.well-known/openid-configuration`をHTTPSで読み、返るissuerが、受け取った値と一致することを確認します。`authorization_endpoint`と`token_endpoint`を控えます。
 3. 暗号学的な乱数で、`state`と`code_verifier`を作ります。`code_verifier`は、43〜128文字の、URLに安全な文字列です。`code_challenge`は、`code_verifier`のSHA-256を、base64urlにした値（末尾の`=`なし）です。`code_verifier`と`state`は、ログに出さず、1回のログインにだけ使います。
 4. 次の認可URLを、ブラウザーで開き、利用者にログインとMFAを完了してもらいます。パラメーターは、URLエンコードします。
