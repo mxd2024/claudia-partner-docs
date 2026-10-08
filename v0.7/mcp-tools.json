@@ -1,7 +1,7 @@
 {
   "protocol_version": "2025-06-18",
   "adapter": "claudia-customer-imports",
-  "adapter_version": "1.0.1",
+  "adapter_version": "1.0.0",
   "scope": "import-adapter-only",
   "tools": [
     {
@@ -22,7 +22,7 @@
     },
     {
       "name": "imports_prepare",
-      "description": "指定CSVを検査し差分計画を作る。まだ業務表へ反映しない。ファイルは転送フォルダ内に限定する。大きなファイルは分割して送信し、確認は裏で進む（stateがpreparingのとき）。stateがpreparedになるまでimports_statusで確認してから、imports_runを行う。",
+      "description": "指定CSVを検査し差分計画を作る。まだ業務表へ反映しない。ファイルは転送フォルダ内に限定する。",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -74,7 +74,7 @@
     },
     {
       "name": "imports_status",
-      "description": "計画の状態、確認中（preparing）の進み具合、完了区間数を確認する。prepare_failedのときはerror.codeが失敗理由。",
+      "description": "計画の状態と完了区間数を確認する。",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -134,7 +134,7 @@
     },
     {
       "name": "imports_verify",
-      "description": "取込結果を基盤から再取得し全値を照合する。",
+      "description": "取込結果を基盤から再取得し、全値を照合する。",
       "inputSchema": {
         "type": "object",
         "properties": {
