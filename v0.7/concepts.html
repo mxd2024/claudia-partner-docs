@@ -6,7 +6,7 @@
 <h2 id="section-2">v1とv2の選び方</h2>
 <p>基盤APIには、v1とv2の2つの系列があります。パスの先頭が<code>/v1</code>か<code>/v2</code>かで、見分けられます。系列ごとに、扱える対象が違います。</p>
 <div class="table-wrap"><table><thead><tr><th scope="col">系列</th><th scope="col">主な対象</th></tr></thead><tbody><tr><td>v1</td><td>顧客が定義する表（<code>/v1/tables</code>）、ジョブ（<code>/v1/jobs</code>）、請求書、連絡先などの業務API</td></tr><tr><td>v2</td><td>業務表（<code>/v2/tables</code>）、ケース（<code>/v2/cases</code>）、行の所有権、関連・所属、アプリの定義、serviceの資格、画像（<code>/v2/media</code>）</td></tr></tbody></table></div>
-<p>v1の表や既存のジョブを、パスをv2に変えて、そのまま使うことはできません。移行には、専用のAPI（<code>/v2/data-migrations</code>など）を使います。データが自動で移行される、または同じデータを共有できる、とは考えないでください。利用している保存先と、アプリの契約を確認してください。</p>
+<p>v1の表や既存のケース（ジョブ）を、パスをv2に変えて、そのまま使うことはできません。移行には、専用のAPI（<code>/v2/data-migrations</code>など）を使います。データが自動で移行される、または同じデータを共有できる、とは考えないでください。利用している保存先と、アプリの契約を確認してください。</p>
 <h2 id="section-3">検索とページング</h2>
 <p>表の行を検索するとき、v1とv2の通常の検索は、次の項目を使います。</p>
 <div class="table-wrap"><table><thead><tr><th scope="col">項目</th><th scope="col">内容</th></tr></thead><tbody><tr><td><code>limit</code></td><td>1回に取得する件数。1〜199（既定は50）</td></tr><tr><td><code>sort</code></td><td>並べ替え。<code>{field, direction}</code></td></tr><tr><td><code>filters</code></td><td>絞り込み。最大8個。<code>op</code>は<code>eq</code>、<code>contains</code>、<code>gte</code>、<code>lte</code></td></tr><tr><td><code>status</code></td><td>状態での絞り込み</td></tr><tr><td><code>cursor</code></td><td>続きを取得するための値</td></tr></tbody></table></div>

@@ -2329,12 +2329,12 @@ my-request.jsonは下の共通JSONから1件を選び、headers内のAuthorizati
 }
 ```
 
-## 専用環境の容量とアプリ件数を取得
+## 利用環境の容量とアプリ件数を取得
 
 ```json
 {
   "id": "organization-overview",
-  "title": "専用環境の容量とアプリ件数を取得",
+  "title": "利用環境の容量とアプリ件数を取得",
   "method": "GET",
   "path": "/v2/organization/overview",
   "url": "/v2/organization/overview",

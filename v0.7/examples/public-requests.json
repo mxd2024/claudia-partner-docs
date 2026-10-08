@@ -2099,7 +2099,7 @@
   },
   {
     "id": "organization-overview",
-    "title": "専用環境の容量とアプリ件数を取得",
+    "title": "利用環境の容量とアプリ件数を取得",
     "method": "GET",
     "path": "/v2/organization/overview",
     "url": "/v2/organization/overview",

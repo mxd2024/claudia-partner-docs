@@ -8,7 +8,7 @@ AIエージェントから、取込の操作を行うために、MCPアダプタ
 
 管理サイトに利用者としてログインし、「取込・出力」から「取込の説明」を開き、MCPクライアントのZIPをダウンロードします。ファイル名は`mcp-client.zip`です。ダウンロードしたZIPを、専用のフォルダーへ展開します。
 
-文書対象のZIP（1.0.1）には、起動用`mcp_stdio.py`、`README.txt`、`ca-bundle.json`、`claudia_ops/__init__.py`、`claudia_ops/imports/__init__.py`、`claudia_ops/imports/mcp_stdio.py`、`claudia_ops/imports/credential_store.py`、`claudia_ops/imports/ca-bundle.pem`、`claudia_ops/imports/licenses/certifi-LICENSE`の9ファイルが含まれます。起動は、`mcp_stdio.py`のファイルパスを指定して行います。ZIPのSHA-256は、次のとおりです。ダウンロードしたファイルが、同じ値であることを確認してください。
+文書対象のZIP（1.0.1）には、起動用`mcp_stdio.py`、`README.txt`、`ca-bundle.json`、`claudia_ops/__init__.py`、`claudia_ops/imports/__init__.py`、`claudia_ops/imports/mcp_stdio.py`、`claudia_ops/imports/credential_store.py`、`claudia_ops/imports/ca-bundle.pem`、`licenses/certifi-LICENSE`の9ファイルが含まれます。起動は、`mcp_stdio.py`のファイルパスを指定して行います。ZIPのSHA-256は、次のとおりです。ダウンロードしたファイルが、同じ値であることを確認してください。
 
 ```text
 3a89af3db734cb6edb7c135db31f6f8fb96f6074e263e9c3f74848bb6d09f68f
@@ -42,7 +42,7 @@ Python 3.10以上を導入し、ターミナルで`python3 --version`を確認�
 python /absolute/path/mcp-client/mcp_stdio.py --base https://console.example.invalid --directory /absolute/path/transfer --credential-name customer-imports --save-key
 ```
 
-`--base`は、提供されたHTTPS origin（通常は443。パスとクエリーなし）です。`--credential-name`は、英数字、ハイフン、アンダースコアの短い名前にします。47文字以内にしてください。保存のときと起動のときは、同じ`--base`と`--credential-name`を使います。
+`--base`は、提供されたHTTPS origin（通常は443。パスとクエリーなし）です。`--credential-name`は、英小文字（a〜z）、数字、ハイフン、アンダースコアの短い名前にします。英大文字は受け付けません。HTTPS接続では、接続先から作る17文字の識別子を加えた保存名が64文字以内になるよう、指定する名前を47文字以内にしてください。保存のときと起動のときは、同じ`--base`と`--credential-name`を使います。
 
 ## MCPホストに設定する
 
