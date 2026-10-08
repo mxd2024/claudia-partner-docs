@@ -2,17 +2,19 @@
 
 ## 対応範囲
 
-現在のMCPで利用できるのは、取込用の8ツールです [提供中]。全APIサービスへの対応は [準備中] です。
+**取込アダプター1.0.1、8ツール** [提供中]。全APIサービスのMCPは [準備中]。DB直接接続、任意のSQL、署名鍵の交付は提供範囲に含みません。導入は[MCPの導入](mcp.md)へ。
 
-DBへの直接の接続、任意のSQL、署名鍵は、MCPの対象に含めません。現在の8ツールの動作を、全APIの提供として扱わないでください。導入の手順は、[MCPの導入](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/mcp.md)。
+serviceの`GET /v2/service/tables/{collection}`と`POST /v2/service/tables/{collection}/import`は、公開Core APIの別契約です **[環境による]**。専用service JWTと承認範囲が必要で、MCPの接続キーを直接このAPIへ送れません。取込MCPの内部でどの実行主体・経路を使うかは環境管理者へ確認します。8ツールの存在を、134操作すべてのMCP対応とみなしません。[service接続](service-access.md)を参照してください。
 
 ## 8ツールの契約
+
+以下は確認した配布クライアントから抽出した定義です。ツール名・入力・annotationsは一致し、説明文のHUB表記だけを基盤に一般化しています。[機械可読JSON](../mcp-tools.json)も配信しています。
 
 ```json
 {
   "protocol_version": "2025-06-18",
   "adapter": "claudia-customer-imports",
-  "adapter_version": "1.0.0",
+  "adapter_version": "1.0.1",
   "scope": "import-adapter-only",
   "tools": [
     {
@@ -33,7 +35,7 @@ DBへの直接の接続、任意のSQL、署名鍵は、MCPの対象に含めま
     },
     {
       "name": "imports_prepare",
-      "description": "指定CSVを検査し差分計画を作る。まだ業務表へ反映しない。ファイルは転送フォルダ内に限定する。",
+      "description": "指定CSVを検査し差分計画を作る。まだ業務表へ反映しない。ファイルは転送フォルダ内に限定する。大きなファイルは分割して送信し、確認は裏で進む（stateがpreparingのとき）。stateがpreparedになるまでimports_statusで確認してから、imports_runを行う。",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -85,7 +87,7 @@ DBへの直接の接続、任意のSQL、署名鍵は、MCPの対象に含めま
     },
     {
       "name": "imports_status",
-      "description": "計画の状態と完了区間数を確認する。",
+      "description": "計画の状態、確認中（preparing）の進み具合、完了区間数を確認する。prepare_failedのときはerror.codeが失敗理由。",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -145,7 +147,7 @@ DBへの直接の接続、任意のSQL、署名鍵は、MCPの対象に含めま
     },
     {
       "name": "imports_verify",
-      "description": "取込結果を基盤から再取得し、全値を照合する。",
+      "description": "取込結果を基盤から再取得し全値を照合する。",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -195,44 +197,37 @@ DBへの直接の接続、任意のSQL、署名鍵は、MCPの対象に含めま
 }
 ```
 
-## ツールの出力と状態
+## 出力と状態
 
-ツールは、APIのJSONの結果を、MCPの`content[0].text`に、JSONの文字列として返します。
+APIのJSON結果は`content[0].text`内のJSON文字列です。`isError`と内容を確認します。
 
-| ツール | 出力と扱い |
+| ツール | 出力と注意 |
 | --- | --- |
-| `imports_catalog` | 取込の形式の配列。`id`を、`dataset`に使います。`headers`、`key_columns`、`format`、`field_types`で、形式を確認します |
-| `imports_prepare` | 計画。`id`、`dataset`、`source_rows`、`created`・`updated`・`unchanged`の件数、`absent_retained`、`source_sha256`、`encoding`、`state`など。`imports_run`などの`plan_id`には、この`id`を渡します。差分を示して、反映してよいか確認します |
-| `imports_run` | 同じ`plan_id`と`source_sha256`で、最大4区間ずつ進めます。最後の区間の後は、自動で照合します |
-| `imports_status` | 計画の状態と、完了した区間の数を、取得し直します |
-| `imports_verify` | 全区間が完了した計画を、インフラの値と照合します。成功は`state=verified`です。未完了は`PLAN_INCOMPLETE`、不一致は`VERIFY_MISMATCH`です |
-| `imports_history` | 利用者の計画の配列（最新100件まで） |
-| `imports_cancel` | `prepared`の計画だけを、`cancelled`にします。実行した後は、取り消せず、`RESUME_REQUIRED`になります |
-| `imports_export` | 新しいファイルに保存して、`saved_file`と`bytes`を返します。既存のファイルは、上書きしません |
+| imports_catalog | 形式、headers、key_columns、format、field_types。datasetは返されたidを使う |
+| imports_prepare | 計画id、source_sha256、差分件数、state。preparingではstatusで進捗を確認し、preparedになるまでrunしない |
+| imports_status | 準備の進捗・完了区間。prepare_failedのerror.codeも確認 |
+| imports_run | 同じplan_id・source_sha256で最大4区間ずつ反映・再開 |
+| imports_verify | 全区間完了後の全値照合。成功はverified。不一致はVERIFY_MISMATCH |
+| imports_history | 利用者の履歴・再開可能な計画（最新100件まで） |
+| imports_cancel | 未実行のpreparedのみ取消。実行後はRESUME_REQUIRED |
+| imports_export | 新しいCSVファイルに保存しsaved_fileとbytesを返す。上書きしない |
 
-状態は、通常、`prepared`、`running`、`verified`の順に進みます。実行の失敗は`failed`、実行前の取り消しは`cancelled`です。通信が切れただけで、失敗や未反映と決めず、`imports_status`で確認します。同じ計画と、同じ受領のキーを保持して、新しい計画を作って、二重に反映しないでください。
+通信断だけで失敗・未反映と決めません。新しい計画を作らず、同じplan_idとsource_sha256で状態を取得し直します。
 
 ## 接続できないとき
 
-クライアントが「Connection interrupted」とだけ表示する場合、原因は、HTTPのステータス、content-type、本文で見分けます。次の原因が確認されています。どの場合も、TLS検証の無効化、認証ヘッダーの手動での付与、クライアントの識別の偽装は行いません。
+1.0.1は、TLS・入口・API・タイムアウトを区別して案内します。生の応答本文や資格をログ・Issueに貼り付けず、公開できるcode、HTTP、日時、クライアント版を記録します。
 
-### 接続の前にTLS検証が失敗する（例: certificate has expired）
+| 症状 | 対処 |
+| --- | --- |
+| TLS_CERTIFICATE_VERIFY_FAILED / TLS_CA_UNAVAILABLE | 時刻、配布物のCAバンドル、環境管理者の信頼するCAを確認。SSL_CERT_FILEで明示CAを指定できます。TLS検証は無効にしない |
+| ENTRY_REJECTED / HTTP 403、非JSONのerror code: 1010 | 入口の拒否。旧1.0.0から現在の配布物へ更新して確認。1.0.1でも続く場合は管理者に入口の調査を依頼 |
+| JSONのAPI拒否（authentication_required等） | 接続先・キーの期限・取消・現在の権限を確認。無効なキーは再発行して同じbaseとcredential-nameで保存 |
+| CONNECTION_TIMEOUT / 結果不明 | plan_id・source_sha256を保持してstatusを確認。同じ計画を再開し、二重の計画を作らない |
+| キーの保存・読取失敗 | 同じOS利用者、Windows DPAPIまたはLinux Secret Serviceの利用可能性・ロック状態を確認。macOS保存は未提供 |
 
-- 原因: OSの証明書ストアに、期限切れのルート証明書が残る環境で、Pythonの既定の検証が失敗します。
-- 対処: 信頼するルート証明書のPEMファイルを、環境変数`SSL_CERT_FILE`に指定して、MCPホストからクライアントを起動します。検証自体は、有効のままにします。
+## 旧1.0.0の記録と1.0.1の確認
 
-### HTTP 403、content-typeが`text/plain`、本文が`error code: 1010`
+2026-10-04の1.0.0では入口403・`error code: 1010`と既定証明書ストアのTLS失敗が記録されていました。1.0.1には製品固有User-Agent、固定CAバンドル、区別したエラー案内が入り、2026-10-08の[公開読取確認報告](https://github.com/mxd2024/claudia-partner-docs/issues/16)では旧入口拒否が解消しています。
 
-- 原因: 管理サイトに届く前の入口で、要求が拒否されています。管理サイトの応答（JSONの`error`）ではありません。
-- 対処: お客様の側では、回避できません。提供者側の入口の設定の修正が、必要です。時刻と、本文の`error code: 1010`を添えて、[サポートと窓口](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/support.md)へ連絡してください。修正版の提供日は、未定です。クライアントの識別を偽装したり、TLSの検証を無効にしたりして、回避しないでください。
-
-### HTTP 401、JSONの`error`が`authentication_required`
-
-- 原因: キーが無効、または失効している。あるいは、別の接続先で発行したキーを使っています。
-- 対処: 管理サイトで接続キーを再発行し、同じ`--base`と`--credential-name`で、再保存します。新しいキーでも続くときは、サービス側の設定が原因の可能性があります。[サポートと窓口](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/support.md)へ連絡します。
-
-JSONの`error`が返るときは、アプリまで届いています。`text/plain`の本文だけが返るときは、入口で拒否されています。この違いが、連絡するときの、最初の手がかりになります。
-
-### キーの保存や読み取りが失敗する
-
-実行しているユーザーと、Secret Serviceのロックを確認します。利用者用のアクセストークンを、取込のキーの代わりに保存しないでください。
+この確認は初期化・ツール一覧・取込先一覧・履歴・状態の読取に限ります。書込と全環境は未確認です。製品のUser-Agentは認可の代替ではなく、識別の偽装やTLS無効化で回避しません。[提供状況](versions.md)と[サポート](support.md)を参照してください。

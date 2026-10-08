@@ -1,0 +1,5196 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>共通データ型 | Claudia Partner 開発者ヘルプ</title><meta name="description" content="Claudia Partnerの顧客アプリ開発者向けガイド、API仕様、リリース情報。文書対象版と提供条件を確認できます。"><meta name="theme-color" content="#145c52"><link rel="canonical" href="https://claudia-help.meta-xdesign.com/v0.7/api-schemas.html"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><script src="app.js" defer></script></head>
+<body><a class="skip" href="#main">本文へ移動</a><header class="topbar"><a class="brand" href="../index.html"><img src="claudia-partner-mark.svg" alt=""><span>Claudia <b>Partner</b><small>Developer Help</small></span></a><nav class="top-links" aria-label="主な分類"><a href="guides.html">ガイド</a><a href="api.html">API</a><a href="releases.html">リリース情報</a></nav><button class="menu-toggle" aria-expanded="false" aria-controls="navigation">メニュー</button></header><div class="version-strip">文書対象 <strong>0.7.0-experimental</strong><span>2026-10-07契約 · 改訂13</span><a href="versions.html">提供状況を確認 →</a></div><div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント"><form class="site-search" role="search"><label for="site-search">ドキュメントを検索</label><div class="search-field"><span aria-hidden="true">⌕</span><input id="site-search" type="search" placeholder="例：BFF、OIDC、404、画像" autocomplete="off" data-index="search-index.json" aria-controls="search-results"></div><div id="search-results" aria-live="polite" hidden></div></form><p class="nav-label">理解する</p><a href="index.html">アプリ開発の全体像</a><a href="principles.html">基盤の考え方と責任分界</a><a href="glossary.html">用語集</a><p class="nav-label">接続する</p><a href="quickstart.html">接続準備と最初の読取</a><a href="sample-app.html">架空の業務メモアプリ</a><a href="request-access.html">接続情報を依頼する</a><a href="authentication.html">本人として接続する</a><a href="service-access.html">service として接続する</a><p class="nav-label">使う</p><a href="concepts.html">共通ルール</a><a href="tables.html">表とデータの更新</a><a href="reliability.html">競合・再送・復帰</a><a href="media.html">画像・添付と外部ストア</a><a href="tutorial.html">アプリの登録と運用</a><a href="app-architecture.html">アプリの推奨構成（参考）</a><p class="nav-label">AIエージェント</p><a href="mcp.html">取込MCPの導入</a><a href="mcp-support.html">MCPの対応範囲とトラブル対応</a><p class="nav-label">リファレンス</p><a href="api.html">APIリファレンス</a><a href="examples.html">HTTP・実行例</a><a href="errors.html">エラーと再試行</a><a href="specs.html">仕様ファイル</a><p class="nav-label">運用・サポート</p><a href="versions.html">対応状況とバージョン</a><a href="changelog.html">変更履歴</a><a href="support.html">サポートと窓口</a><div class="nav-foot">文書対象版<br>0.7.0-experimental<br>契約スナップショット 2026-10-07</div></nav><main id="main"><div class="breadcrumb"><a href="../index.html">開発者ヘルプ</a><span aria-hidden="true"> / </span><span>共通データ型</span></div><h1>共通データ型</h1><p><a href="api.html">← APIリファレンス</a></p><h2 id="schemas">共通データ型</h2><p>各操作の$refが参照する定義です。入力に使える欄や型は、現在の表定義・認可によってさらに制限されます。</p>
+<details class="schema" id="schema-AccessClients"><summary>AccessClients</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;items&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;uuid&quot;
+          },
+          &quot;client_id&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;app_id&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          },
+          &quot;policy_version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          },
+          &quot;authority_kind&quot;: {
+            &quot;enum&quot;: [
+              &quot;legacy&quot;,
+              &quot;managed&quot;
+            ]
+          },
+          &quot;state&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;expires_at&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;date-time&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;client_id&quot;,
+          &quot;app_id&quot;,
+          &quot;version&quot;,
+          &quot;policy_version&quot;,
+          &quot;authority_kind&quot;,
+          &quot;state&quot;,
+          &quot;expires_at&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 100
+    }
+  },
+  &quot;required&quot;: [
+    &quot;items&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-AccessDefinition"><summary>AccessDefinition</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;id&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;definition&quot;: {
+      &quot;$ref&quot;: &quot;<a href="#schema-WorkspaceDefine">#/components/schemas/WorkspaceDefine</a>&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;id&quot;,
+    &quot;version&quot;,
+    &quot;definition&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-AccessDelete"><summary>AccessDelete</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-AccessGrant"><summary>AccessGrant</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;grant&quot;: {
+      &quot;oneOf&quot;: [
+        {
+          &quot;type&quot;: &quot;null&quot;
+        },
+        {
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;actor&quot;: {
+              &quot;type&quot;: &quot;string&quot;,
+              &quot;format&quot;: &quot;uuid&quot;
+            },
+            &quot;client&quot;: {
+              &quot;const&quot;: &quot;hub-spa&quot;,
+              &quot;description&quot;: &quot;このgrantが適用される本人用の登録済みクライアントID。現在のAPIはhub-spa固定。任意のアプリ名やserviceのclient_idへ置換しない。&quot;
+            },
+            &quot;collection&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;role&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;read_scope&quot;: {
+              &quot;enum&quot;: [
+                &quot;own&quot;,
+                &quot;all&quot;
+              ]
+            },
+            &quot;write_scope&quot;: {
+              &quot;enum&quot;: [
+                &quot;none&quot;,
+                &quot;own&quot;,
+                &quot;all&quot;
+              ]
+            },
+            &quot;can_design&quot;: {
+              &quot;type&quot;: &quot;boolean&quot;
+            },
+            &quot;can_close&quot;: {
+              &quot;type&quot;: &quot;boolean&quot;
+            },
+            &quot;can_import&quot;: {
+              &quot;type&quot;: &quot;boolean&quot;
+            },
+            &quot;expires_at&quot;: {
+              &quot;type&quot;: &quot;string&quot;,
+              &quot;format&quot;: &quot;date-time&quot;
+            }
+          },
+          &quot;required&quot;: [
+            &quot;actor&quot;,
+            &quot;client&quot;,
+            &quot;collection&quot;,
+            &quot;role&quot;,
+            &quot;read_scope&quot;,
+            &quot;write_scope&quot;,
+            &quot;can_design&quot;,
+            &quot;can_close&quot;,
+            &quot;can_import&quot;,
+            &quot;expires_at&quot;
+          ],
+          &quot;additionalProperties&quot;: false
+        }
+      ]
+    }
+  },
+  &quot;required&quot;: [
+    &quot;version&quot;,
+    &quot;grant&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-AccessGrantInput"><summary>AccessGrantInput</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;oneOf&quot;: [
+    {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;properties&quot;: {
+        &quot;version&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 0
+        },
+        &quot;enabled&quot;: {
+          &quot;const&quot;: false
+        }
+      },
+      &quot;required&quot;: [
+        &quot;version&quot;,
+        &quot;enabled&quot;
+      ],
+      &quot;additionalProperties&quot;: false
+    },
+    {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;properties&quot;: {
+        &quot;version&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 0
+        },
+        &quot;enabled&quot;: {
+          &quot;const&quot;: true
+        },
+        &quot;role&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;,
+          &quot;not&quot;: {
+            &quot;const&quot;: &quot;owner&quot;
+          }
+        },
+        &quot;read_scope&quot;: {
+          &quot;enum&quot;: [
+            &quot;own&quot;,
+            &quot;all&quot;
+          ]
+        },
+        &quot;write_scope&quot;: {
+          &quot;enum&quot;: [
+            &quot;none&quot;,
+            &quot;own&quot;,
+            &quot;all&quot;
+          ]
+        },
+        &quot;can_design&quot;: {
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;can_close&quot;: {
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;can_import&quot;: {
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;expires_at&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;format&quot;: &quot;date-time&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;version&quot;,
+        &quot;enabled&quot;,
+        &quot;role&quot;,
+        &quot;read_scope&quot;,
+        &quot;write_scope&quot;,
+        &quot;can_design&quot;,
+        &quot;can_close&quot;,
+        &quot;can_import&quot;,
+        &quot;expires_at&quot;
+      ],
+      &quot;additionalProperties&quot;: false
+    }
+  ]
+}</code></pre></div></details>
+<details class="schema" id="schema-AccessPolicy"><summary>AccessPolicy</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;expires_at&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;date-time&quot;
+    },
+    &quot;rpm&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;maximum&quot;: 120
+    },
+    &quot;scopes&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;<a href="#schema-ServiceScope">#/components/schemas/ServiceScope</a>&quot;
+      },
+      &quot;maxItems&quot;: 16,
+      &quot;minItems&quot;: 1
+    }
+  },
+  &quot;required&quot;: [
+    &quot;version&quot;,
+    &quot;expires_at&quot;,
+    &quot;rpm&quot;,
+    &quot;scopes&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-AccessSubjects"><summary>AccessSubjects</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;items&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;uuid&quot;
+          },
+          &quot;active&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;actor_type&quot;: {
+            &quot;const&quot;: &quot;human&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;active&quot;,
+          &quot;actor_type&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 100
+    }
+  },
+  &quot;required&quot;: [
+    &quot;items&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-AccessTables"><summary>AccessTables</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;items&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          },
+          &quot;label&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;version&quot;,
+          &quot;label&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 100
+    }
+  },
+  &quot;required&quot;: [
+    &quot;items&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-AppApply"><summary>AppApply</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;manifest&quot;: {
+      &quot;$ref&quot;: &quot;<a href="#schema-AppManifest">#/components/schemas/AppManifest</a>&quot;
+    },
+    &quot;fingerprint&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;pattern&quot;: &quot;^[0-9a-f]{64}$&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;manifest&quot;,
+    &quot;fingerprint&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-AppList"><summary>AppList</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;items&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;
+          },
+          &quot;version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          },
+          &quot;revision&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          },
+          &quot;state&quot;: {
+            &quot;enum&quot;: [
+              &quot;active&quot;,
+              &quot;stopped&quot;,
+              &quot;detached&quot;,
+              &quot;trashed&quot;
+            ]
+          },
+          &quot;name&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;deleted_at&quot;: {
+            &quot;type&quot;: [
+              &quot;string&quot;,
+              &quot;null&quot;
+            ]
+          },
+          &quot;restore_until&quot;: {
+            &quot;type&quot;: [
+              &quot;string&quot;,
+              &quot;null&quot;
+            ]
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;version&quot;,
+          &quot;revision&quot;,
+          &quot;state&quot;,
+          &quot;name&quot;,
+          &quot;deleted_at&quot;,
+          &quot;restore_until&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 100
+    }
+  },
+  &quot;required&quot;: [
+    &quot;items&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-AppManifest"><summary>AppManifest</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;
+    },
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;name&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1,
+      &quot;maxLength&quot;: 128
+    },
+    &quot;datasets&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;
+          },
+          &quot;mode&quot;: {
+            &quot;enum&quot;: [
+              &quot;owned&quot;,
+              &quot;shared&quot;
+            ]
+          },
+          &quot;definition&quot;: {
+            &quot;$ref&quot;: &quot;<a href="#schema-WorkspaceDefine">#/components/schemas/WorkspaceDefine</a>&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;mode&quot;,
+          &quot;definition&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 32,
+      &quot;minItems&quot;: 1
+    },
+    &quot;dependencies&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;
+      },
+      &quot;maxItems&quot;: 32,
+      &quot;uniqueItems&quot;: true
+    }
+  },
+  &quot;required&quot;: [
+    &quot;id&quot;,
+    &quot;version&quot;,
+    &quot;name&quot;,
+    &quot;datasets&quot;,
+    &quot;dependencies&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-AppPlan"><summary>AppPlan</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;fingerprint&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;pattern&quot;: &quot;^[0-9a-f]{64}$&quot;
+    },
+    &quot;revision&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この応答が表す資源・一覧の変更版。別資源へ流用しない。&quot;
+    },
+    &quot;changes&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;
+          },
+          &quot;mode&quot;: {
+            &quot;enum&quot;: [
+              &quot;owned&quot;,
+              &quot;shared&quot;
+            ]
+          },
+          &quot;action&quot;: {
+            &quot;enum&quot;: [
+              &quot;create&quot;,
+              &quot;retain&quot;,
+              &quot;define&quot;,
+              &quot;reference&quot;
+            ]
+          },
+          &quot;version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 0
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;mode&quot;,
+          &quot;action&quot;,
+          &quot;version&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 32
+    }
+  },
+  &quot;required&quot;: [
+    &quot;fingerprint&quot;,
+    &quot;revision&quot;,
+    &quot;changes&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-AppState"><summary>AppState</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;
+    },
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;revision&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;この応答が表す資源・一覧の変更版。別資源へ流用しない。&quot;
+    },
+    &quot;state&quot;: {
+      &quot;enum&quot;: [
+        &quot;active&quot;,
+        &quot;stopped&quot;,
+        &quot;detached&quot;,
+        &quot;trashed&quot;
+      ]
+    },
+    &quot;manifest&quot;: {
+      &quot;$ref&quot;: &quot;<a href="#schema-AppManifest">#/components/schemas/AppManifest</a>&quot;
+    },
+    &quot;deleted_at&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    },
+    &quot;restore_until&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    },
+    &quot;replayed&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;id&quot;,
+    &quot;version&quot;,
+    &quot;revision&quot;,
+    &quot;state&quot;,
+    &quot;manifest&quot;,
+    &quot;deleted_at&quot;,
+    &quot;restore_until&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-AppTransition"><summary>AppTransition</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;action&quot;: {
+      &quot;enum&quot;: [
+        &quot;stop&quot;,
+        &quot;resume&quot;,
+        &quot;detach&quot;,
+        &quot;trash&quot;,
+        &quot;restore&quot;
+      ]
+    },
+    &quot;revision&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;この応答が表す資源・一覧の変更版。別資源へ流用しない。&quot;
+    },
+    &quot;reason&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1,
+      &quot;maxLength&quot;: 500
+    }
+  },
+  &quot;required&quot;: [
+    &quot;action&quot;,
+    &quot;revision&quot;,
+    &quot;reason&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-Asset"><summary>Asset</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;asset_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;uuid&quot;
+    },
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;custody&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [
+        &quot;managed_original&quot;,
+        &quot;external_reference&quot;
+      ]
+    },
+    &quot;sha256&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;pattern&quot;: &quot;^[a-f0-9]{64}$&quot;
+    },
+    &quot;size&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0
+    },
+    &quot;media_type&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;thumbnail&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;created_at&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;replayed&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;asset_id&quot;,
+    &quot;version&quot;,
+    &quot;custody&quot;,
+    &quot;sha256&quot;,
+    &quot;size&quot;,
+    &quot;media_type&quot;,
+    &quot;thumbnail&quot;,
+    &quot;created_at&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-AssetPolicy"><summary>AssetPolicy</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;contract_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1
+    },
+    &quot;modes&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      }
+    },
+    &quot;max_managed_bytes&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0
+    },
+    &quot;max_external_bytes&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0
+    },
+    &quot;media_types&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      }
+    },
+    &quot;can_write&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;contract_version&quot;,
+    &quot;modes&quot;,
+    &quot;max_managed_bytes&quot;,
+    &quot;max_external_bytes&quot;,
+    &quot;media_types&quot;,
+    &quot;can_write&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-AssetProblem"><summary>AssetProblem</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;error&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;request_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;uuid&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;error&quot;,
+    &quot;request_id&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-AssetReference"><summary>AssetReference</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;relative_path&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;media_type&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;relative_path&quot;,
+    &quot;media_type&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-Batch"><summary>Batch</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;operations&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;<a href="#schema-Mutation">#/components/schemas/Mutation</a>&quot;
+      },
+      &quot;maxItems&quot;: 100,
+      &quot;minItems&quot;: 1
+    }
+  },
+  &quot;required&quot;: [
+    &quot;schema_version&quot;,
+    &quot;operations&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-BatchResult"><summary>BatchResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;rows&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;uuid&quot;
+          },
+          &quot;version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          },
+          &quot;deleted&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;version&quot;,
+          &quot;deleted&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 100
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;revision&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この応答が表す資源・一覧の変更版。別資源へ流用しない。&quot;
+    },
+    &quot;committed&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;replayed&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;rows&quot;,
+    &quot;schema_version&quot;,
+    &quot;revision&quot;,
+    &quot;committed&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-Case"><summary>Case</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;uuid&quot;
+    },
+    &quot;number&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;title&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;status&quot;: {
+      &quot;enum&quot;: [
+        &quot;active&quot;,
+        &quot;cancelled&quot;
+      ]
+    },
+    &quot;legacy&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;id&quot;,
+    &quot;number&quot;,
+    &quot;title&quot;,
+    &quot;version&quot;,
+    &quot;status&quot;,
+    &quot;legacy&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-CaseCancel"><summary>CaseCancel</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-CaseCreate"><summary>CaseCreate</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;title&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1,
+      &quot;maxLength&quot;: 512
+    },
+    &quot;series&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;
+    },
+    &quot;period&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1,
+      &quot;maxLength&quot;: 32
+    }
+  },
+  &quot;required&quot;: [
+    &quot;title&quot;,
+    &quot;series&quot;,
+    &quot;period&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-CaseImport"><summary>CaseImport</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;items&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;number&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;minLength&quot;: 1,
+            &quot;maxLength&quot;: 256
+          },
+          &quot;title&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;minLength&quot;: 1,
+            &quot;maxLength&quot;: 512
+          },
+          &quot;source_key&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;minLength&quot;: 1,
+            &quot;maxLength&quot;: 256
+          }
+        },
+        &quot;required&quot;: [
+          &quot;number&quot;,
+          &quot;title&quot;,
+          &quot;source_key&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 100,
+      &quot;minItems&quot;: 1
+    }
+  },
+  &quot;required&quot;: [
+    &quot;items&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-CaseImportResult"><summary>CaseImportResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;items&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;<a href="#schema-Case">#/components/schemas/Case</a>&quot;
+      },
+      &quot;maxItems&quot;: 100
+    },
+    &quot;replayed&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;items&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-CaseQuery"><summary>CaseQuery</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;number&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1,
+      &quot;maxLength&quot;: 256
+    },
+    &quot;after&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;uuid&quot;
+    },
+    &quot;limit&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;maximum&quot;: 199
+    }
+  },
+  &quot;required&quot;: [],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-CaseQueryResult"><summary>CaseQueryResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;items&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;<a href="#schema-Case">#/components/schemas/Case</a>&quot;
+      },
+      &quot;maxItems&quot;: 199
+    },
+    &quot;next_after&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    }
+  },
+  &quot;required&quot;: [
+    &quot;items&quot;,
+    &quot;next_after&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-CaseResult"><summary>CaseResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;item&quot;: {
+      &quot;$ref&quot;: &quot;<a href="#schema-Case">#/components/schemas/Case</a>&quot;
+    },
+    &quot;replayed&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;item&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-Changes"><summary>Changes</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;revision&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この応答が表す資源・一覧の変更版。別資源へ流用しない。&quot;
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;revision&quot;,
+    &quot;schema_version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-Define"><summary>Define</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;label&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1,
+      &quot;maxLength&quot;: 128
+    },
+    &quot;fields&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;<a href="#schema-Field">#/components/schemas/Field</a>&quot;
+      },
+      &quot;maxItems&quot;: 64,
+      &quot;minItems&quot;: 1
+    },
+    &quot;export_roles&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;enum&quot;: [
+          &quot;designer&quot;,
+          &quot;editor&quot;,
+          &quot;viewer&quot;
+        ]
+      },
+      &quot;maxItems&quot;: 3,
+      &quot;uniqueItems&quot;: true
+    }
+  },
+  &quot;required&quot;: [
+    &quot;label&quot;,
+    &quot;fields&quot;,
+    &quot;export_roles&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-DefineResult"><summary>DefineResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;revision&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この応答が表す資源・一覧の変更版。別資源へ流用しない。&quot;
+    },
+    &quot;replayed&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;schema_version&quot;,
+    &quot;revision&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-Definition"><summary>Definition</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;label&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;revision&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この応答が表す資源・一覧の変更版。別資源へ流用しない。&quot;
+    },
+    &quot;fields&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;label&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;type&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;required&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;choices&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            }
+          },
+          &quot;readable&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;writable&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;searchable&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;label&quot;,
+          &quot;type&quot;,
+          &quot;required&quot;,
+          &quot;choices&quot;,
+          &quot;readable&quot;,
+          &quot;writable&quot;,
+          &quot;searchable&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 64
+    },
+    &quot;can_design&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;can_export&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;limits&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;properties&quot;: {
+        &quot;rows&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 0
+        },
+        &quot;fields&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 0
+        },
+        &quot;batch&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 0
+        },
+        &quot;page&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 0
+        }
+      },
+      &quot;required&quot;: [
+        &quot;rows&quot;,
+        &quot;fields&quot;,
+        &quot;batch&quot;,
+        &quot;page&quot;
+      ],
+      &quot;additionalProperties&quot;: false
+    }
+  },
+  &quot;required&quot;: [
+    &quot;label&quot;,
+    &quot;schema_version&quot;,
+    &quot;revision&quot;,
+    &quot;fields&quot;,
+    &quot;can_design&quot;,
+    &quot;can_export&quot;,
+    &quot;limits&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-ExportResult"><summary>ExportResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;csv&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;next_cursor&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    },
+    &quot;revision&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この応答が表す資源・一覧の変更版。別資源へ流用しない。&quot;
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;csv&quot;,
+    &quot;next_cursor&quot;,
+    &quot;revision&quot;,
+    &quot;schema_version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-Field"><summary>Field</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;
+    },
+    &quot;label&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1,
+      &quot;maxLength&quot;: 128
+    },
+    &quot;type&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [
+        &quot;text&quot;,
+        &quot;number&quot;,
+        &quot;boolean&quot;,
+        &quot;date&quot;,
+        &quot;choice&quot;
+      ]
+    },
+    &quot;required&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;read&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;enum&quot;: [
+          &quot;designer&quot;,
+          &quot;editor&quot;,
+          &quot;viewer&quot;
+        ]
+      },
+      &quot;maxItems&quot;: 3,
+      &quot;uniqueItems&quot;: true
+    },
+    &quot;write&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;enum&quot;: [
+          &quot;designer&quot;,
+          &quot;editor&quot;,
+          &quot;viewer&quot;
+        ]
+      },
+      &quot;maxItems&quot;: 3,
+      &quot;uniqueItems&quot;: true
+    },
+    &quot;searchable&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;retired&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;choices&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;minLength&quot;: 1,
+        &quot;maxLength&quot;: 128
+      },
+      &quot;maxItems&quot;: 100
+    }
+  },
+  &quot;required&quot;: [
+    &quot;id&quot;,
+    &quot;label&quot;,
+    &quot;type&quot;,
+    &quot;required&quot;,
+    &quot;read&quot;,
+    &quot;write&quot;,
+    &quot;searchable&quot;,
+    &quot;retired&quot;,
+    &quot;choices&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-HumanDeleteGrant"><summary>HumanDeleteGrant</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;grant&quot;: {
+      &quot;oneOf&quot;: [
+        {
+          &quot;type&quot;: &quot;null&quot;
+        },
+        {
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;version&quot;: {
+              &quot;type&quot;: &quot;integer&quot;,
+              &quot;minimum&quot;: 1
+            },
+            &quot;scope&quot;: {
+              &quot;enum&quot;: [
+                &quot;none&quot;,
+                &quot;own&quot;,
+                &quot;all&quot;
+              ]
+            },
+            &quot;expires_at&quot;: {
+              &quot;type&quot;: &quot;string&quot;,
+              &quot;format&quot;: &quot;date-time&quot;
+            },
+            &quot;source&quot;: {
+              &quot;enum&quot;: [
+                &quot;legacy&quot;,
+                &quot;explicit&quot;,
+                &quot;new&quot;,
+                &quot;revoked&quot;
+              ]
+            }
+          },
+          &quot;required&quot;: [
+            &quot;version&quot;,
+            &quot;scope&quot;,
+            &quot;expires_at&quot;,
+            &quot;source&quot;
+          ],
+          &quot;additionalProperties&quot;: false
+        }
+      ]
+    },
+    &quot;replayed&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;version&quot;,
+    &quot;grant&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-HumanDeleteInput"><summary>HumanDeleteInput</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;scope&quot;: {
+      &quot;enum&quot;: [
+        &quot;none&quot;,
+        &quot;own&quot;,
+        &quot;all&quot;
+      ]
+    },
+    &quot;expires_at&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;date-time&quot;
+    },
+    &quot;reason&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1,
+      &quot;maxLength&quot;: 500
+    }
+  },
+  &quot;required&quot;: [
+    &quot;version&quot;,
+    &quot;scope&quot;,
+    &quot;expires_at&quot;,
+    &quot;reason&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-Import"><summary>Import</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [
+        &quot;preview&quot;,
+        &quot;commit&quot;
+      ]
+    },
+    &quot;csv&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1,
+      &quot;maxLength&quot;: 200000
+    }
+  },
+  &quot;required&quot;: [
+    &quot;schema_version&quot;,
+    &quot;mode&quot;,
+    &quot;csv&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-Media"><summary>Media</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;asset_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;uuid&quot;
+    },
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;custody&quot;: {
+      &quot;enum&quot;: [
+        &quot;managed_original&quot;,
+        &quot;external_reference&quot;
+      ]
+    },
+    &quot;media_type&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;name&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;size&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0
+    },
+    &quot;sha256&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;preview&quot;: {
+      &quot;enum&quot;: [
+        &quot;ready&quot;,
+        &quot;not_supported&quot;
+      ]
+    },
+    &quot;deleted&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;updated_at&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;replayed&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;asset_id&quot;,
+    &quot;version&quot;,
+    &quot;deleted&quot;,
+    &quot;updated_at&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-MediaPolicy"><summary>MediaPolicy</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;parent_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1
+    },
+    &quot;can_write&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;contract_version&quot;: {
+      &quot;const&quot;: 1
+    },
+    &quot;modes&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;managed_original&quot;,
+          &quot;external_reference&quot;
+        ]
+      }
+    },
+    &quot;max_bytes&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;maximum&quot;: 33554432
+    },
+    &quot;max_attachments&quot;: {
+      &quot;const&quot;: 100
+    },
+    &quot;reference_stores&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;
+      }
+    },
+    &quot;formats&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;type&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;thumbnail&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;download&quot;: {
+            &quot;const&quot;: true
+          },
+          &quot;browser_preview&quot;: {
+            &quot;enum&quot;: [
+              &quot;browser-dependent&quot;,
+              &quot;download&quot;
+            ]
+          },
+          &quot;transcode&quot;: {
+            &quot;const&quot;: false
+          }
+        },
+        &quot;required&quot;: [
+          &quot;type&quot;,
+          &quot;thumbnail&quot;,
+          &quot;download&quot;,
+          &quot;browser_preview&quot;,
+          &quot;transcode&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      }
+    },
+    &quot;resumable&quot;: {
+      &quot;const&quot;: false
+    },
+    &quot;range&quot;: {
+      &quot;const&quot;: false
+    }
+  },
+  &quot;required&quot;: [
+    &quot;schema_version&quot;,
+    &quot;parent_version&quot;,
+    &quot;can_write&quot;,
+    &quot;contract_version&quot;,
+    &quot;modes&quot;,
+    &quot;max_bytes&quot;,
+    &quot;max_attachments&quot;,
+    &quot;reference_stores&quot;,
+    &quot;formats&quot;,
+    &quot;resumable&quot;,
+    &quot;range&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-MediaReference"><summary>MediaReference</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;store&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;relative_path&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;maxLength&quot;: 1400
+    },
+    &quot;media_type&quot;: {
+      &quot;enum&quot;: [
+        &quot;image/png&quot;,
+        &quot;image/jpeg&quot;,
+        &quot;image/webp&quot;,
+        &quot;application/pdf&quot;,
+        &quot;text/plain&quot;,
+        &quot;audio/mpeg&quot;,
+        &quot;audio/wav&quot;,
+        &quot;audio/ogg&quot;,
+        &quot;video/mp4&quot;,
+        &quot;video/webm&quot;
+      ]
+    },
+    &quot;name&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1,
+      &quot;maxLength&quot;: 255
+    }
+  },
+  &quot;required&quot;: [
+    &quot;store&quot;,
+    &quot;relative_path&quot;,
+    &quot;media_type&quot;,
+    &quot;name&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-Mutation"><summary>Mutation</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;action&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [
+        &quot;create&quot;,
+        &quot;update&quot;,
+        &quot;delete&quot;
+      ]
+    },
+    &quot;id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;uuid&quot;
+    },
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;values&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;additionalProperties&quot;: {
+        &quot;type&quot;: [
+          &quot;string&quot;,
+          &quot;number&quot;,
+          &quot;boolean&quot;,
+          &quot;null&quot;
+        ]
+      },
+      &quot;maxProperties&quot;: 64
+    },
+    &quot;status&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [
+        &quot;draft&quot;,
+        &quot;committed&quot;
+      ],
+      &quot;description&quot;: &quot;行の保存状態。draftは必須値の未入力を許容し、committedは必須値を検証する。この値の変更は業務工程の進行や請求の確定を実行しない。&quot;
+    },
+    &quot;expected_values&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;additionalProperties&quot;: {
+        &quot;type&quot;: [
+          &quot;string&quot;,
+          &quot;number&quot;,
+          &quot;boolean&quot;,
+          &quot;null&quot;
+        ]
+      },
+      &quot;maxProperties&quot;: 64
+    }
+  },
+  &quot;required&quot;: [
+    &quot;action&quot;,
+    &quot;id&quot;,
+    &quot;version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-NumberSeries"><summary>NumberSeries</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;prefix&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1,
+      &quot;maxLength&quot;: 32
+    },
+    &quot;width&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;maximum&quot;: 10
+    },
+    &quot;next_value&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;maximum&quot;: 9999999999
+    },
+    &quot;reuse_cancelled&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;prefix&quot;,
+    &quot;width&quot;,
+    &quot;next_value&quot;,
+    &quot;reuse_cancelled&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-NumberSeriesResult"><summary>NumberSeriesResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;replayed&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-PersonBindingInput"><summary>PersonBindingInput</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;person_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;uuid&quot;
+    },
+    &quot;enabled&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;expires_at&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;date-time&quot;
+    },
+    &quot;reason&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1,
+      &quot;maxLength&quot;: 500
+    }
+  },
+  &quot;required&quot;: [
+    &quot;version&quot;,
+    &quot;person_id&quot;,
+    &quot;enabled&quot;,
+    &quot;expires_at&quot;,
+    &quot;reason&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-PersonBindingResult"><summary>PersonBindingResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;binding&quot;: {
+      &quot;oneOf&quot;: [
+        {
+          &quot;type&quot;: &quot;null&quot;
+        },
+        {
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;person_id&quot;: {
+              &quot;type&quot;: &quot;string&quot;,
+              &quot;format&quot;: &quot;uuid&quot;
+            },
+            &quot;version&quot;: {
+              &quot;type&quot;: &quot;integer&quot;,
+              &quot;minimum&quot;: 1
+            },
+            &quot;enabled&quot;: {
+              &quot;type&quot;: &quot;boolean&quot;
+            },
+            &quot;expires_at&quot;: {
+              &quot;type&quot;: &quot;string&quot;,
+              &quot;format&quot;: &quot;date-time&quot;
+            }
+          },
+          &quot;required&quot;: [
+            &quot;person_id&quot;,
+            &quot;version&quot;,
+            &quot;enabled&quot;,
+            &quot;expires_at&quot;
+          ],
+          &quot;additionalProperties&quot;: false
+        }
+      ]
+    },
+    &quot;replayed&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;version&quot;,
+    &quot;binding&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-PersonMembersInput"><summary>PersonMembersInput</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;reason&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1,
+      &quot;maxLength&quot;: 500
+    },
+    &quot;members&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;actor&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;uuid&quot;
+          },
+          &quot;version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 0
+          },
+          &quot;enabled&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;write&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;expires_at&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;date-time&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;actor&quot;,
+          &quot;version&quot;,
+          &quot;enabled&quot;,
+          &quot;write&quot;,
+          &quot;expires_at&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 100,
+      &quot;minItems&quot;: 1
+    }
+  },
+  &quot;required&quot;: [
+    &quot;reason&quot;,
+    &quot;members&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-PersonMembersPage"><summary>PersonMembersPage</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;items&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;actor&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;uuid&quot;
+          },
+          &quot;version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          },
+          &quot;enabled&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;write&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;expires_at&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;date-time&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;actor&quot;,
+          &quot;version&quot;,
+          &quot;enabled&quot;,
+          &quot;write&quot;,
+          &quot;expires_at&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 100
+    },
+    &quot;next_after&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ],
+      &quot;format&quot;: &quot;uuid&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;items&quot;,
+    &quot;next_after&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-PersonMembersResult"><summary>PersonMembersResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;items&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;actor&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;uuid&quot;
+          },
+          &quot;version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          },
+          &quot;enabled&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;write&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;expires_at&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;date-time&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;actor&quot;,
+          &quot;version&quot;,
+          &quot;enabled&quot;,
+          &quot;write&quot;,
+          &quot;expires_at&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 100
+    },
+    &quot;replayed&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;items&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-PersonRootInput"><summary>PersonRootInput</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;enabled&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;reason&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1,
+      &quot;maxLength&quot;: 500
+    }
+  },
+  &quot;required&quot;: [
+    &quot;version&quot;,
+    &quot;enabled&quot;,
+    &quot;reason&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-PersonRootResult"><summary>PersonRootResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;root&quot;: {
+      &quot;oneOf&quot;: [
+        {
+          &quot;type&quot;: &quot;null&quot;
+        },
+        {
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;properties&quot;: {
+            &quot;collection&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            },
+            &quot;version&quot;: {
+              &quot;type&quot;: &quot;integer&quot;,
+              &quot;minimum&quot;: 1
+            },
+            &quot;enabled&quot;: {
+              &quot;type&quot;: &quot;boolean&quot;
+            }
+          },
+          &quot;required&quot;: [
+            &quot;collection&quot;,
+            &quot;version&quot;,
+            &quot;enabled&quot;
+          ],
+          &quot;additionalProperties&quot;: false
+        }
+      ]
+    },
+    &quot;replayed&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;version&quot;,
+    &quot;root&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-PersonSelf"><summary>PersonSelf</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;resolution&quot;: {
+      &quot;enum&quot;: [
+        &quot;resolved&quot;,
+        &quot;unresolved&quot;
+      ]
+    },
+    &quot;person_id&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ],
+      &quot;format&quot;: &quot;uuid&quot;
+    },
+    &quot;binding_version&quot;: {
+      &quot;type&quot;: [
+        &quot;integer&quot;,
+        &quot;null&quot;
+      ],
+      &quot;minimum&quot;: 1
+    }
+  },
+  &quot;required&quot;: [
+    &quot;resolution&quot;,
+    &quot;person_id&quot;,
+    &quot;binding_version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-Problem"><summary>Problem</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;type&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;エラー種別の識別子。応答値はurn:hub:problem:&lt;code&gt;形式で、codeは小文字化し、下線をハイフンへ置換する。取得用URLではない。処理分岐にはcodeを使用する。&quot;
+    },
+    &quot;title&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;status&quot;: {
+      &quot;type&quot;: &quot;integer&quot;
+    },
+    &quot;code&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [
+        &quot;ASSET_REASON_REQUIRED&quot;,
+        &quot;ASSET_INVALID&quot;,
+        &quot;ASSET_INVALID_IMAGE&quot;,
+        &quot;ASSET_FORBIDDEN&quot;,
+        &quot;ASSET_POLICY_DENIED&quot;,
+        &quot;ASSET_NOT_FOUND&quot;,
+        &quot;ASSET_NO_THUMBNAIL&quot;,
+        &quot;ASSET_VERSION_CONFLICT&quot;,
+        &quot;ASSET_IDEMPOTENCY_MISMATCH&quot;,
+        &quot;ASSET_POLICY_CHANGED&quot;,
+        &quot;ASSET_PRECONDITION_REQUIRED&quot;,
+        &quot;ASSET_TOO_LARGE&quot;,
+        &quot;ASSET_QUOTA_EXCEEDED&quot;,
+        &quot;ASSET_DEPENDENCY_UNAVAILABLE&quot;,
+        &quot;ASSET_BUSY&quot;,
+        &quot;ASSET_CAPACITY&quot;,
+        &quot;BAD_REQUEST&quot;,
+        &quot;ETAG_MALFORMED&quot;,
+        &quot;SELF_DECLARED_HEADER&quot;,
+        &quot;AUTH_REQUIRED&quot;,
+        &quot;TOKEN_INVALID&quot;,
+        &quot;TOKEN_EXPIRED&quot;,
+        &quot;FORBIDDEN_ROLE&quot;,
+        &quot;FIELD_NOT_WRITABLE&quot;,
+        &quot;SCOPE_VIOLATION&quot;,
+        &quot;MFA_REQUIRED&quot;,
+        &quot;REAUTH_REQUIRED&quot;,
+        &quot;AI_MUST_USE_PROPOSALS&quot;,
+        &quot;AI_SUSPENDED&quot;,
+        &quot;NOT_FOUND&quot;,
+        &quot;STATE_CONFLICT&quot;,
+        &quot;PROPOSAL_CONFLICT&quot;,
+        &quot;OPERATION_IN_PROGRESS&quot;,
+        &quot;FOLDER_LIMIT_REACHED&quot;,
+        &quot;DUPLICATE&quot;,
+        &quot;STALE_SOURCE&quot;,
+        &quot;AUTHORITY_CONFLICT&quot;,
+        &quot;IDEMPOTENCY_IN_PROGRESS&quot;,
+        &quot;LOCK_BUSY&quot;,
+        &quot;CURSOR_STALE&quot;,
+        &quot;VERSION_CONFLICT&quot;,
+        &quot;PAYLOAD_TOO_LARGE&quot;,
+        &quot;UNSUPPORTED_MEDIA_TYPE&quot;,
+        &quot;FIELD_UNKNOWN&quot;,
+        &quot;FIELD_NOT_ALLOWED&quot;,
+        &quot;FIELD_REQUIRED&quot;,
+        &quot;EMPTY_PATCH&quot;,
+        &quot;VALIDATION_FAILED&quot;,
+        &quot;INVALID_TRANSITION&quot;,
+        &quot;IDEMPOTENCY_MISMATCH&quot;,
+        &quot;PRECONDITION_REQUIRED&quot;,
+        &quot;IDEMPOTENCY_KEY_REQUIRED&quot;,
+        &quot;RATE_LIMITED&quot;,
+        &quot;AI_RATE_LIMITED&quot;,
+        &quot;DEPENDENCY_UNAVAILABLE&quot;,
+        &quot;MAINTENANCE&quot;,
+        &quot;OUTCOME_UNKNOWN&quot;,
+        &quot;TX_ABORT_UNCONFIRMED&quot;,
+        &quot;TX_RETRY_EXHAUSTED&quot;,
+        &quot;INTERNAL_CONTRACT_VIOLATION&quot;
+      ]
+    },
+    &quot;request_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;uuid&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;type&quot;,
+    &quot;title&quot;,
+    &quot;status&quot;,
+    &quot;code&quot;,
+    &quot;request_id&quot;
+  ],
+  &quot;additionalProperties&quot;: false,
+  &quot;description&quot;: &quot;Error responses intentionally contain no current row values or versions. After 412, GET /v1/tables/{collection}/rows/{rowId} under current authorization, show latest versus local values, and ask the user to resolve. A deleted/revoked row can return 404/403. Never blindly replace the expected version and retry. 409 CURSOR_STALE requires discarding the accumulated page set and starting over.&quot;
+}</code></pre></div></details>
+<details class="schema" id="schema-Query"><summary>Query</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;limit&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;maximum&quot;: 199,
+      &quot;default&quot;: 50
+    },
+    &quot;sort&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;properties&quot;: {
+        &quot;field&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;direction&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;enum&quot;: [
+            &quot;asc&quot;,
+            &quot;desc&quot;
+          ]
+        }
+      },
+      &quot;required&quot;: [
+        &quot;field&quot;,
+        &quot;direction&quot;
+      ],
+      &quot;additionalProperties&quot;: false
+    },
+    &quot;filters&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;field&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;op&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [
+              &quot;eq&quot;,
+              &quot;contains&quot;,
+              &quot;gte&quot;,
+              &quot;lte&quot;
+            ]
+          },
+          &quot;value&quot;: {
+            &quot;type&quot;: [
+              &quot;string&quot;,
+              &quot;number&quot;,
+              &quot;boolean&quot;,
+              &quot;null&quot;
+            ]
+          }
+        },
+        &quot;required&quot;: [
+          &quot;field&quot;,
+          &quot;op&quot;,
+          &quot;value&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 8
+    },
+    &quot;status&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [
+        &quot;draft&quot;,
+        &quot;committed&quot;
+      ]
+    },
+    &quot;cursor&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;maxLength&quot;: 4096
+    }
+  },
+  &quot;required&quot;: [],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-QueryResult"><summary>QueryResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;items&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;<a href="#schema-Row">#/components/schemas/Row</a>&quot;
+      },
+      &quot;maxItems&quot;: 199
+    },
+    &quot;next_cursor&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    },
+    &quot;revision&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この応答が表す資源・一覧の変更版。別資源へ流用しない。&quot;
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;items&quot;,
+    &quot;next_cursor&quot;,
+    &quot;revision&quot;,
+    &quot;schema_version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-Row"><summary>Row</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;uuid&quot;
+    },
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;status&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [
+        &quot;draft&quot;,
+        &quot;committed&quot;
+      ],
+      &quot;description&quot;: &quot;行の保存状態。draftは必須値の未入力を許容し、committedは必須値を検証する。この値の変更は業務工程の進行や請求の確定を実行しない。&quot;
+    },
+    &quot;values&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;additionalProperties&quot;: {
+        &quot;type&quot;: [
+          &quot;string&quot;,
+          &quot;number&quot;,
+          &quot;boolean&quot;,
+          &quot;null&quot;
+        ]
+      },
+      &quot;maxProperties&quot;: 64
+    }
+  },
+  &quot;required&quot;: [
+    &quot;id&quot;,
+    &quot;version&quot;,
+    &quot;status&quot;,
+    &quot;values&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-RowResult"><summary>RowResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;item&quot;: {
+      &quot;$ref&quot;: &quot;<a href="#schema-Row">#/components/schemas/Row</a>&quot;
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;revision&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この応答が表す資源・一覧の変更版。別資源へ流用しない。&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;item&quot;,
+    &quot;schema_version&quot;,
+    &quot;revision&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-RowSubjectsInput"><summary>RowSubjectsInput</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;rows&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;uuid&quot;
+          },
+          &quot;version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;version&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 100,
+      &quot;minItems&quot;: 1
+    }
+  },
+  &quot;required&quot;: [
+    &quot;rows&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-RowSubjectsResult"><summary>RowSubjectsResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;person_collection&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;items&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;row_id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;uuid&quot;
+          },
+          &quot;row_version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          },
+          &quot;person_id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;uuid&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;row_id&quot;,
+          &quot;row_version&quot;,
+          &quot;person_id&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 100
+    }
+  },
+  &quot;required&quot;: [
+    &quot;person_collection&quot;,
+    &quot;items&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-ServiceApplication"><summary>ServiceApplication</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;app_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;
+    },
+    &quot;purpose&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1,
+      &quot;maxLength&quot;: 500
+    },
+    &quot;expires_at&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;date-time&quot;
+    },
+    &quot;rpm&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;maximum&quot;: 120
+    },
+    &quot;jwk&quot;: {
+      &quot;$ref&quot;: &quot;<a href="#schema-ServicePublicKey">#/components/schemas/ServicePublicKey</a>&quot;
+    },
+    &quot;scopes&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;$ref&quot;: &quot;<a href="#schema-ServiceScope">#/components/schemas/ServiceScope</a>&quot;
+      },
+      &quot;maxItems&quot;: 16,
+      &quot;minItems&quot;: 1
+    }
+  },
+  &quot;required&quot;: [
+    &quot;app_id&quot;,
+    &quot;purpose&quot;,
+    &quot;expires_at&quot;,
+    &quot;rpm&quot;,
+    &quot;jwk&quot;,
+    &quot;scopes&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-ServiceBatch"><summary>ServiceBatch</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;operations&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;minItems&quot;: 1,
+      &quot;maxItems&quot;: 50,
+      &quot;items&quot;: {
+        &quot;oneOf&quot;: [
+          {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;properties&quot;: {
+              &quot;action&quot;: {
+                &quot;const&quot;: &quot;create&quot;
+              },
+              &quot;values&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;additionalProperties&quot;: {
+                  &quot;type&quot;: [
+                    &quot;string&quot;,
+                    &quot;number&quot;,
+                    &quot;boolean&quot;,
+                    &quot;null&quot;
+                  ]
+                },
+                &quot;maxProperties&quot;: 64
+              }
+            },
+            &quot;required&quot;: [
+              &quot;action&quot;,
+              &quot;values&quot;
+            ],
+            &quot;additionalProperties&quot;: false
+          },
+          {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;properties&quot;: {
+              &quot;action&quot;: {
+                &quot;const&quot;: &quot;update&quot;
+              },
+              &quot;id&quot;: {
+                &quot;type&quot;: &quot;string&quot;,
+                &quot;format&quot;: &quot;uuid&quot;
+              },
+              &quot;version&quot;: {
+                &quot;type&quot;: &quot;integer&quot;,
+                &quot;minimum&quot;: 1
+              },
+              &quot;values&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;additionalProperties&quot;: {
+                  &quot;type&quot;: [
+                    &quot;string&quot;,
+                    &quot;number&quot;,
+                    &quot;boolean&quot;,
+                    &quot;null&quot;
+                  ]
+                },
+                &quot;maxProperties&quot;: 64
+              }
+            },
+            &quot;required&quot;: [
+              &quot;action&quot;,
+              &quot;id&quot;,
+              &quot;version&quot;,
+              &quot;values&quot;
+            ],
+            &quot;additionalProperties&quot;: false
+          },
+          {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;properties&quot;: {
+              &quot;action&quot;: {
+                &quot;const&quot;: &quot;delete&quot;
+              },
+              &quot;id&quot;: {
+                &quot;type&quot;: &quot;string&quot;,
+                &quot;format&quot;: &quot;uuid&quot;
+              },
+              &quot;version&quot;: {
+                &quot;type&quot;: &quot;integer&quot;,
+                &quot;minimum&quot;: 1
+              },
+              &quot;reason&quot;: {
+                &quot;type&quot;: &quot;string&quot;,
+                &quot;minLength&quot;: 1,
+                &quot;maxLength&quot;: 500
+              }
+            },
+            &quot;required&quot;: [
+              &quot;action&quot;,
+              &quot;id&quot;,
+              &quot;version&quot;
+            ],
+            &quot;additionalProperties&quot;: false
+          }
+        ]
+      }
+    }
+  },
+  &quot;required&quot;: [
+    &quot;schema_version&quot;,
+    &quot;operations&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-ServiceBatchResult"><summary>ServiceBatchResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;items&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;uuid&quot;
+          },
+          &quot;version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;version&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 50
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;items&quot;,
+    &quot;schema_version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-ServiceChange"><summary>ServiceChange</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;jwk&quot;: {
+      &quot;$ref&quot;: &quot;<a href="#schema-ServicePublicKey">#/components/schemas/ServicePublicKey</a>&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-ServiceClient"><summary>ServiceClient</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;uuid&quot;
+    },
+    &quot;client_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;generation&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1
+    },
+    &quot;policy_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1
+    },
+    &quot;authority_kind&quot;: {
+      &quot;enum&quot;: [
+        &quot;legacy&quot;,
+        &quot;managed&quot;
+      ]
+    },
+    &quot;state&quot;: {
+      &quot;enum&quot;: [
+        &quot;requested&quot;,
+        &quot;approved&quot;,
+        &quot;ready&quot;,
+        &quot;active&quot;,
+        &quot;suspended&quot;,
+        &quot;revoked&quot;
+      ]
+    },
+    &quot;application&quot;: {
+      &quot;$ref&quot;: &quot;<a href="#schema-ServiceApplication">#/components/schemas/ServiceApplication</a>&quot;
+    },
+    &quot;applicant&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;uuid&quot;
+    },
+    &quot;approver&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ],
+      &quot;format&quot;: &quot;uuid&quot;
+    },
+    &quot;approver_client&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    },
+    &quot;subject&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    },
+    &quot;idp_id&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    },
+    &quot;expires_at&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;date-time&quot;
+    },
+    &quot;connection&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;properties&quot;: {
+        &quot;issuer&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;token_endpoint&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;audience&quot;: {
+          &quot;type&quot;: &quot;string&quot;
+        },
+        &quot;auth_method&quot;: {
+          &quot;const&quot;: &quot;private_key_jwt&quot;
+        }
+      },
+      &quot;required&quot;: [
+        &quot;issuer&quot;,
+        &quot;token_endpoint&quot;,
+        &quot;audience&quot;,
+        &quot;auth_method&quot;
+      ],
+      &quot;additionalProperties&quot;: false
+    }
+  },
+  &quot;required&quot;: [
+    &quot;id&quot;,
+    &quot;client_id&quot;,
+    &quot;version&quot;,
+    &quot;generation&quot;,
+    &quot;policy_version&quot;,
+    &quot;authority_kind&quot;,
+    &quot;state&quot;,
+    &quot;application&quot;,
+    &quot;applicant&quot;,
+    &quot;approver&quot;,
+    &quot;approver_client&quot;,
+    &quot;subject&quot;,
+    &quot;idp_id&quot;,
+    &quot;expires_at&quot;,
+    &quot;connection&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-ServiceImport"><summary>ServiceImport</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;expected_actor&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;uuid&quot;
+    },
+    &quot;operations&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;minItems&quot;: 1,
+      &quot;maxItems&quot;: 100,
+      &quot;items&quot;: {
+        &quot;oneOf&quot;: [
+          {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;properties&quot;: {
+              &quot;action&quot;: {
+                &quot;const&quot;: &quot;create&quot;
+              },
+              &quot;values&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;additionalProperties&quot;: {
+                  &quot;type&quot;: [
+                    &quot;string&quot;,
+                    &quot;number&quot;,
+                    &quot;boolean&quot;,
+                    &quot;null&quot;
+                  ]
+                },
+                &quot;maxProperties&quot;: 64
+              }
+            },
+            &quot;required&quot;: [
+              &quot;action&quot;,
+              &quot;values&quot;
+            ],
+            &quot;additionalProperties&quot;: false
+          },
+          {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;properties&quot;: {
+              &quot;action&quot;: {
+                &quot;const&quot;: &quot;update&quot;
+              },
+              &quot;id&quot;: {
+                &quot;type&quot;: &quot;string&quot;,
+                &quot;format&quot;: &quot;uuid&quot;
+              },
+              &quot;version&quot;: {
+                &quot;type&quot;: &quot;integer&quot;,
+                &quot;minimum&quot;: 1
+              },
+              &quot;values&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;additionalProperties&quot;: {
+                  &quot;type&quot;: [
+                    &quot;string&quot;,
+                    &quot;number&quot;,
+                    &quot;boolean&quot;,
+                    &quot;null&quot;
+                  ]
+                },
+                &quot;maxProperties&quot;: 64
+              }
+            },
+            &quot;required&quot;: [
+              &quot;action&quot;,
+              &quot;id&quot;,
+              &quot;version&quot;,
+              &quot;values&quot;
+            ],
+            &quot;additionalProperties&quot;: false
+          }
+        ]
+      }
+    }
+  },
+  &quot;required&quot;: [
+    &quot;schema_version&quot;,
+    &quot;expected_actor&quot;,
+    &quot;operations&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-ServiceImportResult"><summary>ServiceImportResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;rows&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;uuid&quot;
+          },
+          &quot;version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;version&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 100
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;rows&quot;,
+    &quot;schema_version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-ServicePublicKey"><summary>ServicePublicKey</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;kty&quot;: {
+      &quot;const&quot;: &quot;RSA&quot;
+    },
+    &quot;n&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 342,
+      &quot;maxLength&quot;: 1400,
+      &quot;pattern&quot;: &quot;^[A-Za-z0-9_-]+$&quot;
+    },
+    &quot;e&quot;: {
+      &quot;const&quot;: &quot;AQAB&quot;
+    },
+    &quot;kid&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;pattern&quot;: &quot;^[A-Za-z0-9_-]{1,64}$&quot;
+    },
+    &quot;alg&quot;: {
+      &quot;const&quot;: &quot;RS256&quot;
+    },
+    &quot;use&quot;: {
+      &quot;const&quot;: &quot;sig&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;kty&quot;,
+    &quot;n&quot;,
+    &quot;e&quot;,
+    &quot;kid&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-ServiceQuery"><summary>ServiceQuery</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;limit&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;maximum&quot;: 199,
+      &quot;default&quot;: 50
+    },
+    &quot;after&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;uuid&quot;
+    }
+  },
+  &quot;required&quot;: [],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-ServiceQueryResult"><summary>ServiceQueryResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;items&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;uuid&quot;
+          },
+          &quot;version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          },
+          &quot;status&quot;: {
+            &quot;enum&quot;: [
+              &quot;draft&quot;,
+              &quot;committed&quot;
+            ]
+          },
+          &quot;closed&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;values&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;additionalProperties&quot;: {
+              &quot;type&quot;: [
+                &quot;string&quot;,
+                &quot;number&quot;,
+                &quot;boolean&quot;,
+                &quot;null&quot;
+              ]
+            },
+            &quot;maxProperties&quot;: 64
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;version&quot;,
+          &quot;status&quot;,
+          &quot;closed&quot;,
+          &quot;values&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 199
+    },
+    &quot;next_after&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ],
+      &quot;format&quot;: &quot;uuid&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;schema_version&quot;,
+    &quot;items&quot;,
+    &quot;next_after&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-ServiceScope"><summary>ServiceScope</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;collection&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;read&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;
+      },
+      &quot;maxItems&quot;: 64,
+      &quot;uniqueItems&quot;: true
+    },
+    &quot;write&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;
+      },
+      &quot;maxItems&quot;: 64,
+      &quot;uniqueItems&quot;: true
+    },
+    &quot;operations&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;enum&quot;: [
+          &quot;query&quot;,
+          &quot;update&quot;,
+          &quot;create&quot;,
+          &quot;delete&quot;
+        ]
+      },
+      &quot;maxItems&quot;: 4,
+      &quot;minItems&quot;: 1,
+      &quot;uniqueItems&quot;: true
+    },
+    &quot;rows&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;properties&quot;: {
+        &quot;kind&quot;: {
+          &quot;enum&quot;: [
+            &quot;all&quot;,
+            &quot;match&quot;
+          ]
+        },
+        &quot;values&quot;: {
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;additionalProperties&quot;: {
+            &quot;type&quot;: [
+              &quot;string&quot;,
+              &quot;number&quot;,
+              &quot;boolean&quot;,
+              &quot;null&quot;
+            ]
+          },
+          &quot;maxProperties&quot;: 8
+        }
+      },
+      &quot;required&quot;: [
+        &quot;kind&quot;,
+        &quot;values&quot;
+      ],
+      &quot;additionalProperties&quot;: false
+    },
+    &quot;custodian&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ],
+      &quot;format&quot;: &quot;uuid&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;collection&quot;,
+    &quot;schema_version&quot;,
+    &quot;read&quot;,
+    &quot;write&quot;,
+    &quot;operations&quot;,
+    &quot;rows&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-ServiceTableMetadata"><summary>ServiceTableMetadata</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;label&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;custodian&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ],
+      &quot;format&quot;: &quot;uuid&quot;
+    },
+    &quot;fields&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;label&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;type&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;required&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;choices&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            }
+          },
+          &quot;readable&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;writable&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;label&quot;,
+          &quot;type&quot;,
+          &quot;required&quot;,
+          &quot;choices&quot;,
+          &quot;readable&quot;,
+          &quot;writable&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 64
+    },
+    &quot;can_import&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;can_export&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;limits&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;properties&quot;: {
+        &quot;batch&quot;: {
+          &quot;const&quot;: 100
+        },
+        &quot;page&quot;: {
+          &quot;const&quot;: 199
+        }
+      },
+      &quot;required&quot;: [
+        &quot;batch&quot;,
+        &quot;page&quot;
+      ],
+      &quot;additionalProperties&quot;: false
+    }
+  },
+  &quot;required&quot;: [
+    &quot;label&quot;,
+    &quot;schema_version&quot;,
+    &quot;custodian&quot;,
+    &quot;fields&quot;,
+    &quot;can_import&quot;,
+    &quot;can_export&quot;,
+    &quot;limits&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-Tables"><summary>Tables</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;items&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;revision&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 0
+          },
+          &quot;label&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;revision&quot;,
+          &quot;label&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      }
+    },
+    &quot;role&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [
+        &quot;designer&quot;,
+        &quot;editor&quot;,
+        &quot;viewer&quot;
+      ]
+    }
+  },
+  &quot;required&quot;: [
+    &quot;items&quot;,
+    &quot;role&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-ViewInput"><summary>ViewInput</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;id&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;columns&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;field&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;width&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 40,
+            &quot;maximum&quot;: 1000
+          }
+        },
+        &quot;required&quot;: [
+          &quot;field&quot;,
+          &quot;width&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 64
+    }
+  },
+  &quot;required&quot;: [
+    &quot;id&quot;,
+    &quot;version&quot;,
+    &quot;schema_version&quot;,
+    &quot;columns&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-ViewResult"><summary>ViewResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;revision&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この応答が表す資源・一覧の変更版。別資源へ流用しない。&quot;
+    },
+    &quot;view_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1
+    },
+    &quot;replayed&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;revision&quot;,
+    &quot;view_version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-Views"><summary>Views</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;views&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;additionalProperties&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          },
+          &quot;columns&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+              &quot;type&quot;: &quot;object&quot;,
+              &quot;properties&quot;: {
+                &quot;field&quot;: {
+                  &quot;type&quot;: &quot;string&quot;
+                },
+                &quot;width&quot;: {
+                  &quot;type&quot;: &quot;integer&quot;,
+                  &quot;minimum&quot;: 0
+                }
+              },
+              &quot;required&quot;: [
+                &quot;field&quot;,
+                &quot;width&quot;
+              ],
+              &quot;additionalProperties&quot;: false
+            },
+            &quot;maxItems&quot;: 64
+          }
+        },
+        &quot;required&quot;: [
+          &quot;version&quot;,
+          &quot;columns&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      }
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;revision&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この応答が表す資源・一覧の変更版。別資源へ流用しない。&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;views&quot;,
+    &quot;schema_version&quot;,
+    &quot;revision&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceAccess"><summary>WorkspaceAccess</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;mode&quot;: {
+      &quot;enum&quot;: [
+        &quot;table&quot;,
+        &quot;members&quot;
+      ]
+    },
+    &quot;parent_collection&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    },
+    &quot;field&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    },
+    &quot;cardinality&quot;: {
+      &quot;enum&quot;: [
+        &quot;one&quot;,
+        &quot;many&quot;
+      ]
+    }
+  },
+  &quot;required&quot;: [
+    &quot;mode&quot;,
+    &quot;parent_collection&quot;,
+    &quot;field&quot;,
+    &quot;cardinality&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceAccessResult"><summary>WorkspaceAccessResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;mode&quot;: {
+      &quot;enum&quot;: [
+        &quot;table&quot;,
+        &quot;members&quot;
+      ]
+    },
+    &quot;parent_collection&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    },
+    &quot;field&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    },
+    &quot;cardinality&quot;: {
+      &quot;enum&quot;: [
+        &quot;one&quot;,
+        &quot;many&quot;
+      ]
+    }
+  },
+  &quot;required&quot;: [
+    &quot;version&quot;,
+    &quot;mode&quot;,
+    &quot;parent_collection&quot;,
+    &quot;field&quot;,
+    &quot;cardinality&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceAggregate"><summary>WorkspaceAggregate</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;filters&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;field&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;op&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [
+              &quot;eq&quot;,
+              &quot;contains&quot;,
+              &quot;gte&quot;,
+              &quot;lte&quot;
+            ]
+          },
+          &quot;value&quot;: {
+            &quot;type&quot;: [
+              &quot;string&quot;,
+              &quot;number&quot;,
+              &quot;boolean&quot;,
+              &quot;null&quot;
+            ]
+          }
+        },
+        &quot;required&quot;: [
+          &quot;field&quot;,
+          &quot;op&quot;,
+          &quot;value&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 8
+    },
+    &quot;status&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [
+        &quot;draft&quot;,
+        &quot;committed&quot;
+      ]
+    },
+    &quot;group_by&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;,
+        &quot;not&quot;: {
+          &quot;enum&quot;: [
+            &quot;id&quot;,
+            &quot;owner_id&quot;,
+            &quot;version&quot;,
+            &quot;status&quot;,
+            &quot;closed&quot;,
+            &quot;constructor&quot;,
+            &quot;prototype&quot;,
+            &quot;__proto__&quot;
+          ]
+        },
+        &quot;x-reserved-field-ids&quot;: [
+          &quot;id&quot;,
+          &quot;owner_id&quot;,
+          &quot;version&quot;,
+          &quot;status&quot;,
+          &quot;closed&quot;
+        ]
+      },
+      &quot;maxItems&quot;: 4,
+      &quot;uniqueItems&quot;: true
+    },
+    &quot;metrics&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;oneOf&quot;: [
+          {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;properties&quot;: {
+              &quot;id&quot;: {
+                &quot;type&quot;: &quot;string&quot;,
+                &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;,
+                &quot;not&quot;: {
+                  &quot;enum&quot;: [
+                    &quot;id&quot;,
+                    &quot;owner_id&quot;,
+                    &quot;version&quot;,
+                    &quot;status&quot;,
+                    &quot;closed&quot;,
+                    &quot;constructor&quot;,
+                    &quot;prototype&quot;,
+                    &quot;__proto__&quot;
+                  ]
+                },
+                &quot;x-reserved-field-ids&quot;: [
+                  &quot;id&quot;,
+                  &quot;owner_id&quot;,
+                  &quot;version&quot;,
+                  &quot;status&quot;,
+                  &quot;closed&quot;
+                ]
+              },
+              &quot;op&quot;: {
+                &quot;const&quot;: &quot;count&quot;
+              }
+            },
+            &quot;required&quot;: [
+              &quot;id&quot;,
+              &quot;op&quot;
+            ],
+            &quot;additionalProperties&quot;: false
+          },
+          {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;properties&quot;: {
+              &quot;id&quot;: {
+                &quot;type&quot;: &quot;string&quot;,
+                &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;,
+                &quot;not&quot;: {
+                  &quot;enum&quot;: [
+                    &quot;id&quot;,
+                    &quot;owner_id&quot;,
+                    &quot;version&quot;,
+                    &quot;status&quot;,
+                    &quot;closed&quot;,
+                    &quot;constructor&quot;,
+                    &quot;prototype&quot;,
+                    &quot;__proto__&quot;
+                  ]
+                },
+                &quot;x-reserved-field-ids&quot;: [
+                  &quot;id&quot;,
+                  &quot;owner_id&quot;,
+                  &quot;version&quot;,
+                  &quot;status&quot;,
+                  &quot;closed&quot;
+                ]
+              },
+              &quot;op&quot;: {
+                &quot;enum&quot;: [
+                  &quot;sum&quot;,
+                  &quot;min&quot;,
+                  &quot;max&quot;
+                ]
+              },
+              &quot;field&quot;: {
+                &quot;type&quot;: &quot;string&quot;,
+                &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;,
+                &quot;not&quot;: {
+                  &quot;enum&quot;: [
+                    &quot;id&quot;,
+                    &quot;owner_id&quot;,
+                    &quot;version&quot;,
+                    &quot;status&quot;,
+                    &quot;closed&quot;,
+                    &quot;constructor&quot;,
+                    &quot;prototype&quot;,
+                    &quot;__proto__&quot;
+                  ]
+                },
+                &quot;x-reserved-field-ids&quot;: [
+                  &quot;id&quot;,
+                  &quot;owner_id&quot;,
+                  &quot;version&quot;,
+                  &quot;status&quot;,
+                  &quot;closed&quot;
+                ]
+              }
+            },
+            &quot;required&quot;: [
+              &quot;id&quot;,
+              &quot;op&quot;,
+              &quot;field&quot;
+            ],
+            &quot;additionalProperties&quot;: false
+          }
+        ]
+      },
+      &quot;maxItems&quot;: 8,
+      &quot;minItems&quot;: 1
+    }
+  },
+  &quot;required&quot;: [
+    &quot;metrics&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceAggregateResult"><summary>WorkspaceAggregateResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;groups&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;key&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;additionalProperties&quot;: {
+              &quot;type&quot;: [
+                &quot;string&quot;,
+                &quot;number&quot;,
+                &quot;boolean&quot;,
+                &quot;null&quot;
+              ]
+            },
+            &quot;maxProperties&quot;: 4
+          },
+          &quot;metrics&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;additionalProperties&quot;: {
+              &quot;type&quot;: [
+                &quot;number&quot;,
+                &quot;null&quot;
+              ]
+            },
+            &quot;maxProperties&quot;: 8
+          }
+        },
+        &quot;required&quot;: [
+          &quot;key&quot;,
+          &quot;metrics&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 199
+    },
+    &quot;revision&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;現在の権限で見える行集合の変更を表す不透明な文字列。同じ資源・取得条件で等値比較に使い、数値変換・加算・大小比較をしない。v1表やv2の状態変更用の整数revisionとは別契約。&quot;
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;groups&quot;,
+    &quot;revision&quot;,
+    &quot;schema_version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceBatch"><summary>WorkspaceBatch</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;expected_actor&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;uuid&quot;,
+      &quot;description&quot;: &quot;Optional compare-only precondition on the authenticated internal actor. Does not set or transfer ownership. Required by the resumable import SDK.&quot;
+    },
+    &quot;operations&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;oneOf&quot;: [
+          {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;properties&quot;: {
+              &quot;action&quot;: {
+                &quot;const&quot;: &quot;create&quot;
+              },
+              &quot;values&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;additionalProperties&quot;: {
+                  &quot;type&quot;: [
+                    &quot;string&quot;,
+                    &quot;number&quot;,
+                    &quot;boolean&quot;,
+                    &quot;null&quot;
+                  ]
+                },
+                &quot;maxProperties&quot;: 64
+              },
+              &quot;status&quot;: {
+                &quot;enum&quot;: [
+                  &quot;draft&quot;,
+                  &quot;committed&quot;
+                ]
+              }
+            },
+            &quot;required&quot;: [
+              &quot;action&quot;,
+              &quot;values&quot;
+            ],
+            &quot;additionalProperties&quot;: false
+          },
+          {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;properties&quot;: {
+              &quot;action&quot;: {
+                &quot;const&quot;: &quot;update&quot;
+              },
+              &quot;id&quot;: {
+                &quot;type&quot;: &quot;string&quot;,
+                &quot;format&quot;: &quot;uuid&quot;,
+                &quot;description&quot;: &quot;変更対象の既存行のUUID。行の取得・一覧応答のidを使用する。expected_actor（呼出本人ID）とは別。&quot;
+              },
+              &quot;version&quot;: {
+                &quot;type&quot;: &quot;integer&quot;,
+                &quot;minimum&quot;: 1
+              },
+              &quot;values&quot;: {
+                &quot;type&quot;: &quot;object&quot;,
+                &quot;additionalProperties&quot;: {
+                  &quot;type&quot;: [
+                    &quot;string&quot;,
+                    &quot;number&quot;,
+                    &quot;boolean&quot;,
+                    &quot;null&quot;
+                  ]
+                },
+                &quot;maxProperties&quot;: 64
+              },
+              &quot;status&quot;: {
+                &quot;enum&quot;: [
+                  &quot;draft&quot;,
+                  &quot;committed&quot;
+                ]
+              }
+            },
+            &quot;required&quot;: [
+              &quot;action&quot;,
+              &quot;id&quot;,
+              &quot;version&quot;,
+              &quot;values&quot;
+            ],
+            &quot;additionalProperties&quot;: false
+          },
+          {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;properties&quot;: {
+              &quot;action&quot;: {
+                &quot;const&quot;: &quot;delete&quot;
+              },
+              &quot;id&quot;: {
+                &quot;type&quot;: &quot;string&quot;,
+                &quot;format&quot;: &quot;uuid&quot;,
+                &quot;description&quot;: &quot;変更対象の既存行のUUID。行の取得・一覧応答のidを使用する。expected_actor（呼出本人ID）とは別。&quot;
+              },
+              &quot;version&quot;: {
+                &quot;type&quot;: &quot;integer&quot;,
+                &quot;minimum&quot;: 1
+              },
+              &quot;reason&quot;: {
+                &quot;type&quot;: &quot;string&quot;,
+                &quot;minLength&quot;: 1,
+                &quot;maxLength&quot;: 500
+              }
+            },
+            &quot;required&quot;: [
+              &quot;action&quot;,
+              &quot;id&quot;,
+              &quot;version&quot;
+            ],
+            &quot;additionalProperties&quot;: false
+          },
+          {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;properties&quot;: {
+              &quot;action&quot;: {
+                &quot;enum&quot;: [
+                  &quot;close&quot;,
+                  &quot;reopen&quot;
+                ]
+              },
+              &quot;id&quot;: {
+                &quot;type&quot;: &quot;string&quot;,
+                &quot;format&quot;: &quot;uuid&quot;,
+                &quot;description&quot;: &quot;変更対象の既存行のUUID。行の取得・一覧応答のidを使用する。expected_actor（呼出本人ID）とは別。&quot;
+              },
+              &quot;version&quot;: {
+                &quot;type&quot;: &quot;integer&quot;,
+                &quot;minimum&quot;: 1
+              },
+              &quot;reason&quot;: {
+                &quot;type&quot;: &quot;string&quot;,
+                &quot;minLength&quot;: 1,
+                &quot;maxLength&quot;: 500
+              }
+            },
+            &quot;required&quot;: [
+              &quot;action&quot;,
+              &quot;id&quot;,
+              &quot;version&quot;,
+              &quot;reason&quot;
+            ],
+            &quot;additionalProperties&quot;: false
+          }
+        ]
+      },
+      &quot;maxItems&quot;: 100,
+      &quot;minItems&quot;: 1
+    }
+  },
+  &quot;required&quot;: [
+    &quot;schema_version&quot;,
+    &quot;operations&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceBatchResult"><summary>WorkspaceBatchResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;rows&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;uuid&quot;
+          },
+          &quot;version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          },
+          &quot;deleted&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;version&quot;,
+          &quot;deleted&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 100
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;replayed&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;rows&quot;,
+    &quot;schema_version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceCatalog"><summary>WorkspaceCatalog</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;items&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;label&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;schema_version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;label&quot;,
+          &quot;schema_version&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 100
+    },
+    &quot;next_after&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    }
+  },
+  &quot;required&quot;: [
+    &quot;items&quot;,
+    &quot;next_after&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceChanges"><summary>WorkspaceChanges</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;revision&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;現在の権限で見える行集合の変更を表す不透明な文字列。同じ資源・取得条件で等値比較に使い、数値変換・加算・大小比較をしない。v1表やv2の状態変更用の整数revisionとは別契約。&quot;
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;revision&quot;,
+    &quot;schema_version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceDefine"><summary>WorkspaceDefine</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;label&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1,
+      &quot;maxLength&quot;: 128
+    },
+    &quot;fields&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;,
+            &quot;not&quot;: {
+              &quot;enum&quot;: [
+                &quot;id&quot;,
+                &quot;owner_id&quot;,
+                &quot;version&quot;,
+                &quot;status&quot;,
+                &quot;closed&quot;,
+                &quot;constructor&quot;,
+                &quot;prototype&quot;,
+                &quot;__proto__&quot;
+              ]
+            },
+            &quot;x-reserved-field-ids&quot;: [
+              &quot;id&quot;,
+              &quot;owner_id&quot;,
+              &quot;version&quot;,
+              &quot;status&quot;,
+              &quot;closed&quot;
+            ]
+          },
+          &quot;label&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;minLength&quot;: 1,
+            &quot;maxLength&quot;: 128
+          },
+          &quot;type&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [
+              &quot;text&quot;,
+              &quot;number&quot;,
+              &quot;boolean&quot;,
+              &quot;date&quot;,
+              &quot;choice&quot;,
+              &quot;time&quot;,
+              &quot;duration&quot;,
+              &quot;money_jpy&quot;,
+              &quot;case_ref&quot;,
+              &quot;asset_ref&quot;
+            ]
+          },
+          &quot;required&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;read&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+              &quot;type&quot;: &quot;string&quot;,
+              &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;
+            },
+            &quot;maxItems&quot;: 32,
+            &quot;uniqueItems&quot;: true
+          },
+          &quot;write&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+              &quot;type&quot;: &quot;string&quot;,
+              &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;
+            },
+            &quot;maxItems&quot;: 32,
+            &quot;uniqueItems&quot;: true
+          },
+          &quot;searchable&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;choices&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+              &quot;type&quot;: &quot;string&quot;,
+              &quot;minLength&quot;: 1,
+              &quot;maxLength&quot;: 128
+            },
+            &quot;maxItems&quot;: 300
+          },
+          &quot;computed&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;properties&quot;: {
+              &quot;start&quot;: {
+                &quot;type&quot;: &quot;string&quot;
+              },
+              &quot;end&quot;: {
+                &quot;type&quot;: &quot;string&quot;
+              },
+              &quot;overnight&quot;: {
+                &quot;type&quot;: &quot;boolean&quot;
+              }
+            },
+            &quot;required&quot;: [
+              &quot;start&quot;,
+              &quot;end&quot;,
+              &quot;overnight&quot;
+            ],
+            &quot;additionalProperties&quot;: false
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;label&quot;,
+          &quot;type&quot;,
+          &quot;required&quot;,
+          &quot;read&quot;,
+          &quot;write&quot;,
+          &quot;searchable&quot;,
+          &quot;choices&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 64,
+      &quot;minItems&quot;: 1
+    },
+    &quot;export_roles&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;string&quot;,
+        &quot;pattern&quot;: &quot;^[a-z][a-z0-9_-]{0,47}$&quot;
+      },
+      &quot;maxItems&quot;: 32,
+      &quot;uniqueItems&quot;: true
+    }
+  },
+  &quot;required&quot;: [
+    &quot;label&quot;,
+    &quot;fields&quot;,
+    &quot;export_roles&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceDefineResult"><summary>WorkspaceDefineResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;replayed&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;schema_version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceDefinition"><summary>WorkspaceDefinition</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;label&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;fields&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;label&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;type&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;required&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;choices&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+              &quot;type&quot;: &quot;string&quot;
+            }
+          },
+          &quot;readable&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;owner_readable&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;writable&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;owner_writable&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;searchable&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;computed&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;properties&quot;: {
+              &quot;start&quot;: {
+                &quot;type&quot;: &quot;string&quot;
+              },
+              &quot;end&quot;: {
+                &quot;type&quot;: &quot;string&quot;
+              },
+              &quot;overnight&quot;: {
+                &quot;type&quot;: &quot;boolean&quot;
+              }
+            },
+            &quot;required&quot;: [
+              &quot;start&quot;,
+              &quot;end&quot;,
+              &quot;overnight&quot;
+            ],
+            &quot;additionalProperties&quot;: false
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;label&quot;,
+          &quot;type&quot;,
+          &quot;required&quot;,
+          &quot;choices&quot;,
+          &quot;readable&quot;,
+          &quot;owner_readable&quot;,
+          &quot;writable&quot;,
+          &quot;owner_writable&quot;,
+          &quot;searchable&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 64
+    },
+    &quot;can_design&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;can_close&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;can_import&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;can_export&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;row_scope&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;enum&quot;: [
+        &quot;own&quot;,
+        &quot;all&quot;
+      ]
+    },
+    &quot;limits&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;properties&quot;: {
+        &quot;rows&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 0
+        },
+        &quot;fields&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 0
+        },
+        &quot;batch&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 0
+        },
+        &quot;page&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 0
+        }
+      },
+      &quot;required&quot;: [
+        &quot;rows&quot;,
+        &quot;fields&quot;,
+        &quot;batch&quot;,
+        &quot;page&quot;
+      ],
+      &quot;additionalProperties&quot;: false
+    },
+    &quot;delete_scope&quot;: {
+      &quot;enum&quot;: [
+        &quot;none&quot;,
+        &quot;own&quot;,
+        &quot;all&quot;
+      ],
+      &quot;description&quot;: &quot;Separate human deletion scope when workspace_access is installed. Existing read, field, closed-row and membership checks still apply.&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;label&quot;,
+    &quot;schema_version&quot;,
+    &quot;fields&quot;,
+    &quot;can_design&quot;,
+    &quot;can_close&quot;,
+    &quot;can_import&quot;,
+    &quot;can_export&quot;,
+    &quot;row_scope&quot;,
+    &quot;limits&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceEvents"><summary>WorkspaceEvents</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;cursor&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;maxLength&quot;: 4096
+    },
+    &quot;limit&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;maximum&quot;: 199
+    }
+  },
+  &quot;required&quot;: [],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceEventsResult"><summary>WorkspaceEventsResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;events&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;uuid&quot;
+          },
+          &quot;row_id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;uuid&quot;
+          },
+          &quot;version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          },
+          &quot;kind&quot;: {
+            &quot;enum&quot;: [
+              &quot;created&quot;,
+              &quot;updated&quot;,
+              &quot;deleted&quot;
+            ]
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;row_id&quot;,
+          &quot;version&quot;,
+          &quot;kind&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 199
+    },
+    &quot;has_more&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;cursor&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;events&quot;,
+    &quot;has_more&quot;,
+    &quot;cursor&quot;,
+    &quot;schema_version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceExport"><summary>WorkspaceExport</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;csv&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;next_cursor&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    },
+    &quot;revision&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;現在の権限で見える行集合の変更を表す不透明な文字列。同じ資源・取得条件で等値比較に使い、数値変換・加算・大小比較をしない。v1表やv2の状態変更用の整数revisionとは別契約。&quot;
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;csv&quot;,
+    &quot;next_cursor&quot;,
+    &quot;revision&quot;,
+    &quot;schema_version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceMember"><summary>WorkspaceMember</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;enabled&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;write&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;expires_at&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;date-time&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;enabled&quot;,
+    &quot;write&quot;,
+    &quot;expires_at&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceMembers"><summary>WorkspaceMembers</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;members&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;actor&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;uuid&quot;
+          },
+          &quot;version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          },
+          &quot;enabled&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;write&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;expires_at&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;date-time&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;actor&quot;,
+          &quot;version&quot;,
+          &quot;enabled&quot;,
+          &quot;write&quot;,
+          &quot;expires_at&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      }
+    }
+  },
+  &quot;required&quot;: [
+    &quot;members&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceQueryResult"><summary>WorkspaceQueryResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;items&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;uuid&quot;
+          },
+          &quot;version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          },
+          &quot;status&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;enum&quot;: [
+              &quot;draft&quot;,
+              &quot;committed&quot;
+            ]
+          },
+          &quot;closed&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;is_owner&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;values&quot;: {
+            &quot;type&quot;: &quot;object&quot;,
+            &quot;additionalProperties&quot;: {
+              &quot;type&quot;: [
+                &quot;string&quot;,
+                &quot;number&quot;,
+                &quot;boolean&quot;,
+                &quot;null&quot;
+              ]
+            },
+            &quot;maxProperties&quot;: 64
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;version&quot;,
+          &quot;status&quot;,
+          &quot;closed&quot;,
+          &quot;is_owner&quot;,
+          &quot;values&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 199
+    },
+    &quot;next_cursor&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    },
+    &quot;revision&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;description&quot;: &quot;現在の権限で見える行集合の変更を表す不透明な文字列。同じ資源・取得条件で等値比較に使い、数値変換・加算・大小比較をしない。v1表やv2の状態変更用の整数revisionとは別契約。&quot;
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;items&quot;,
+    &quot;next_cursor&quot;,
+    &quot;revision&quot;,
+    &quot;schema_version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceRestore"><summary>WorkspaceRestore</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;reason&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1,
+      &quot;maxLength&quot;: 500
+    }
+  },
+  &quot;required&quot;: [
+    &quot;version&quot;,
+    &quot;reason&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceRestoreResult"><summary>WorkspaceRestoreResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;uuid&quot;
+    },
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;trash_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;uuid&quot;
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;replayed&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;id&quot;,
+    &quot;version&quot;,
+    &quot;trash_id&quot;,
+    &quot;schema_version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceRowResult"><summary>WorkspaceRowResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;item&quot;: {
+      &quot;type&quot;: &quot;object&quot;,
+      &quot;properties&quot;: {
+        &quot;id&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;format&quot;: &quot;uuid&quot;
+        },
+        &quot;version&quot;: {
+          &quot;type&quot;: &quot;integer&quot;,
+          &quot;minimum&quot;: 1
+        },
+        &quot;status&quot;: {
+          &quot;type&quot;: &quot;string&quot;,
+          &quot;enum&quot;: [
+            &quot;draft&quot;,
+            &quot;committed&quot;
+          ]
+        },
+        &quot;closed&quot;: {
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;is_owner&quot;: {
+          &quot;type&quot;: &quot;boolean&quot;
+        },
+        &quot;values&quot;: {
+          &quot;type&quot;: &quot;object&quot;,
+          &quot;additionalProperties&quot;: {
+            &quot;type&quot;: [
+              &quot;string&quot;,
+              &quot;number&quot;,
+              &quot;boolean&quot;,
+              &quot;null&quot;
+            ]
+          },
+          &quot;maxProperties&quot;: 64
+        }
+      },
+      &quot;required&quot;: [
+        &quot;id&quot;,
+        &quot;version&quot;,
+        &quot;status&quot;,
+        &quot;closed&quot;,
+        &quot;is_owner&quot;,
+        &quot;values&quot;
+      ],
+      &quot;additionalProperties&quot;: false
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;item&quot;,
+    &quot;schema_version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceSocketVersion"><summary>WorkspaceSocketVersion</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;この資源自身の版。最新の取得結果と照合する。&quot;
+    },
+    &quot;replayed&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;version&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceTableLifecycle"><summary>WorkspaceTableLifecycle</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;id&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;label&quot;: {
+      &quot;type&quot;: &quot;string&quot;
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;state&quot;: {
+      &quot;enum&quot;: [
+        &quot;active&quot;,
+        &quot;trashed&quot;
+      ]
+    },
+    &quot;revision&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この応答が表す資源・一覧の変更版。別資源へ流用しない。&quot;
+    },
+    &quot;owner_app&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    },
+    &quot;deleted_at&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    },
+    &quot;restore_until&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    },
+    &quot;reason&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    },
+    &quot;blockers&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;kind&quot;: {
+            &quot;enum&quot;: [
+              &quot;shared_app&quot;,
+              &quot;child_table&quot;
+            ]
+          },
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;kind&quot;,
+          &quot;id&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      }
+    },
+    &quot;retention_days&quot;: {
+      &quot;type&quot;: [
+        &quot;integer&quot;,
+        &quot;null&quot;
+      ],
+      &quot;minimum&quot;: 1,
+      &quot;maximum&quot;: 3650
+    },
+    &quot;replayed&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;id&quot;,
+    &quot;label&quot;,
+    &quot;schema_version&quot;,
+    &quot;state&quot;,
+    &quot;revision&quot;,
+    &quot;owner_app&quot;,
+    &quot;deleted_at&quot;,
+    &quot;restore_until&quot;,
+    &quot;reason&quot;,
+    &quot;blockers&quot;,
+    &quot;retention_days&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceTableTransition"><summary>WorkspaceTableTransition</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;action&quot;: {
+      &quot;enum&quot;: [
+        &quot;trash&quot;,
+        &quot;restore&quot;
+      ]
+    },
+    &quot;revision&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 0,
+      &quot;description&quot;: &quot;この応答が表す資源・一覧の変更版。別資源へ流用しない。&quot;
+    },
+    &quot;schema_version&quot;: {
+      &quot;type&quot;: &quot;integer&quot;,
+      &quot;minimum&quot;: 1,
+      &quot;description&quot;: &quot;表の列定義の版。行versionとは別。&quot;
+    },
+    &quot;reason&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;minLength&quot;: 1,
+      &quot;maxLength&quot;: 500
+    }
+  },
+  &quot;required&quot;: [
+    &quot;action&quot;,
+    &quot;revision&quot;,
+    &quot;schema_version&quot;,
+    &quot;reason&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceTableTrash"><summary>WorkspaceTableTrash</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;items&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;label&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;schema_version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          },
+          &quot;state&quot;: {
+            &quot;enum&quot;: [
+              &quot;active&quot;,
+              &quot;trashed&quot;
+            ]
+          },
+          &quot;revision&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 0
+          },
+          &quot;owner_app&quot;: {
+            &quot;type&quot;: [
+              &quot;string&quot;,
+              &quot;null&quot;
+            ]
+          },
+          &quot;deleted_at&quot;: {
+            &quot;type&quot;: [
+              &quot;string&quot;,
+              &quot;null&quot;
+            ]
+          },
+          &quot;restore_until&quot;: {
+            &quot;type&quot;: [
+              &quot;string&quot;,
+              &quot;null&quot;
+            ]
+          },
+          &quot;reason&quot;: {
+            &quot;type&quot;: [
+              &quot;string&quot;,
+              &quot;null&quot;
+            ]
+          }
+        },
+        &quot;required&quot;: [
+          &quot;id&quot;,
+          &quot;label&quot;,
+          &quot;schema_version&quot;,
+          &quot;state&quot;,
+          &quot;revision&quot;,
+          &quot;owner_app&quot;,
+          &quot;deleted_at&quot;,
+          &quot;restore_until&quot;,
+          &quot;reason&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 100
+    },
+    &quot;next_after&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    }
+  },
+  &quot;required&quot;: [
+    &quot;items&quot;,
+    &quot;next_after&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceTransaction"><summary>WorkspaceTransaction</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;tables&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;collection&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;schema_version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          },
+          &quot;operations&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+              &quot;oneOf&quot;: [
+                {
+                  &quot;type&quot;: &quot;object&quot;,
+                  &quot;properties&quot;: {
+                    &quot;action&quot;: {
+                      &quot;const&quot;: &quot;create&quot;
+                    },
+                    &quot;values&quot;: {
+                      &quot;type&quot;: &quot;object&quot;,
+                      &quot;additionalProperties&quot;: {
+                        &quot;type&quot;: [
+                          &quot;string&quot;,
+                          &quot;number&quot;,
+                          &quot;boolean&quot;,
+                          &quot;null&quot;
+                        ]
+                      },
+                      &quot;maxProperties&quot;: 64
+                    },
+                    &quot;status&quot;: {
+                      &quot;enum&quot;: [
+                        &quot;draft&quot;,
+                        &quot;committed&quot;
+                      ]
+                    }
+                  },
+                  &quot;required&quot;: [
+                    &quot;action&quot;,
+                    &quot;values&quot;
+                  ],
+                  &quot;additionalProperties&quot;: false
+                },
+                {
+                  &quot;type&quot;: &quot;object&quot;,
+                  &quot;properties&quot;: {
+                    &quot;action&quot;: {
+                      &quot;const&quot;: &quot;update&quot;
+                    },
+                    &quot;id&quot;: {
+                      &quot;type&quot;: &quot;string&quot;,
+                      &quot;format&quot;: &quot;uuid&quot;,
+                      &quot;description&quot;: &quot;変更対象の既存行のUUID。行の取得・一覧応答のidを使用する。expected_actor（呼出本人ID）とは別。&quot;
+                    },
+                    &quot;version&quot;: {
+                      &quot;type&quot;: &quot;integer&quot;,
+                      &quot;minimum&quot;: 1
+                    },
+                    &quot;values&quot;: {
+                      &quot;type&quot;: &quot;object&quot;,
+                      &quot;additionalProperties&quot;: {
+                        &quot;type&quot;: [
+                          &quot;string&quot;,
+                          &quot;number&quot;,
+                          &quot;boolean&quot;,
+                          &quot;null&quot;
+                        ]
+                      },
+                      &quot;maxProperties&quot;: 64
+                    },
+                    &quot;status&quot;: {
+                      &quot;enum&quot;: [
+                        &quot;draft&quot;,
+                        &quot;committed&quot;
+                      ]
+                    }
+                  },
+                  &quot;required&quot;: [
+                    &quot;action&quot;,
+                    &quot;id&quot;,
+                    &quot;version&quot;,
+                    &quot;values&quot;
+                  ],
+                  &quot;additionalProperties&quot;: false
+                },
+                {
+                  &quot;type&quot;: &quot;object&quot;,
+                  &quot;properties&quot;: {
+                    &quot;action&quot;: {
+                      &quot;const&quot;: &quot;delete&quot;
+                    },
+                    &quot;id&quot;: {
+                      &quot;type&quot;: &quot;string&quot;,
+                      &quot;format&quot;: &quot;uuid&quot;,
+                      &quot;description&quot;: &quot;変更対象の既存行のUUID。行の取得・一覧応答のidを使用する。expected_actor（呼出本人ID）とは別。&quot;
+                    },
+                    &quot;version&quot;: {
+                      &quot;type&quot;: &quot;integer&quot;,
+                      &quot;minimum&quot;: 1
+                    },
+                    &quot;reason&quot;: {
+                      &quot;type&quot;: &quot;string&quot;,
+                      &quot;minLength&quot;: 1,
+                      &quot;maxLength&quot;: 500
+                    }
+                  },
+                  &quot;required&quot;: [
+                    &quot;action&quot;,
+                    &quot;id&quot;,
+                    &quot;version&quot;
+                  ],
+                  &quot;additionalProperties&quot;: false
+                },
+                {
+                  &quot;type&quot;: &quot;object&quot;,
+                  &quot;properties&quot;: {
+                    &quot;action&quot;: {
+                      &quot;enum&quot;: [
+                        &quot;close&quot;,
+                        &quot;reopen&quot;
+                      ]
+                    },
+                    &quot;id&quot;: {
+                      &quot;type&quot;: &quot;string&quot;,
+                      &quot;format&quot;: &quot;uuid&quot;,
+                      &quot;description&quot;: &quot;変更対象の既存行のUUID。行の取得・一覧応答のidを使用する。expected_actor（呼出本人ID）とは別。&quot;
+                    },
+                    &quot;version&quot;: {
+                      &quot;type&quot;: &quot;integer&quot;,
+                      &quot;minimum&quot;: 1
+                    },
+                    &quot;reason&quot;: {
+                      &quot;type&quot;: &quot;string&quot;,
+                      &quot;minLength&quot;: 1,
+                      &quot;maxLength&quot;: 500
+                    }
+                  },
+                  &quot;required&quot;: [
+                    &quot;action&quot;,
+                    &quot;id&quot;,
+                    &quot;version&quot;,
+                    &quot;reason&quot;
+                  ],
+                  &quot;additionalProperties&quot;: false
+                }
+              ]
+            },
+            &quot;maxItems&quot;: 100,
+            &quot;minItems&quot;: 1
+          }
+        },
+        &quot;required&quot;: [
+          &quot;collection&quot;,
+          &quot;schema_version&quot;,
+          &quot;operations&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 8,
+      &quot;minItems&quot;: 1
+    },
+    &quot;expected_actor&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;uuid&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;tables&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceTransactionResult"><summary>WorkspaceTransactionResult</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;transaction_id&quot;: {
+      &quot;type&quot;: &quot;string&quot;,
+      &quot;format&quot;: &quot;uuid&quot;
+    },
+    &quot;tables&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;collection&quot;: {
+            &quot;type&quot;: &quot;string&quot;
+          },
+          &quot;rows&quot;: {
+            &quot;type&quot;: &quot;array&quot;,
+            &quot;items&quot;: {
+              &quot;type&quot;: &quot;object&quot;,
+              &quot;properties&quot;: {
+                &quot;id&quot;: {
+                  &quot;type&quot;: &quot;string&quot;,
+                  &quot;format&quot;: &quot;uuid&quot;
+                },
+                &quot;version&quot;: {
+                  &quot;type&quot;: &quot;integer&quot;,
+                  &quot;minimum&quot;: 1
+                },
+                &quot;deleted&quot;: {
+                  &quot;type&quot;: &quot;boolean&quot;
+                }
+              },
+              &quot;required&quot;: [
+                &quot;id&quot;,
+                &quot;version&quot;,
+                &quot;deleted&quot;
+              ],
+              &quot;additionalProperties&quot;: false
+            },
+            &quot;maxItems&quot;: 100
+          },
+          &quot;schema_version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          }
+        },
+        &quot;required&quot;: [
+          &quot;collection&quot;,
+          &quot;rows&quot;,
+          &quot;schema_version&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 8
+    },
+    &quot;replayed&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    }
+  },
+  &quot;required&quot;: [
+    &quot;transaction_id&quot;,
+    &quot;tables&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceTrashList"><summary>WorkspaceTrashList</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;items&quot;: {
+      &quot;type&quot;: &quot;array&quot;,
+      &quot;items&quot;: {
+        &quot;type&quot;: &quot;object&quot;,
+        &quot;properties&quot;: {
+          &quot;trash_id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;uuid&quot;
+          },
+          &quot;id&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;uuid&quot;
+          },
+          &quot;version&quot;: {
+            &quot;type&quot;: &quot;integer&quot;,
+            &quot;minimum&quot;: 1
+          },
+          &quot;deleted_at&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;date-time&quot;
+          },
+          &quot;restore_until&quot;: {
+            &quot;type&quot;: &quot;string&quot;,
+            &quot;format&quot;: &quot;date-time&quot;
+          },
+          &quot;reason&quot;: {
+            &quot;type&quot;: [
+              &quot;string&quot;,
+              &quot;null&quot;
+            ]
+          },
+          &quot;is_owner&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          },
+          &quot;schema_unchanged&quot;: {
+            &quot;type&quot;: &quot;boolean&quot;
+          }
+        },
+        &quot;required&quot;: [
+          &quot;trash_id&quot;,
+          &quot;id&quot;,
+          &quot;version&quot;,
+          &quot;deleted_at&quot;,
+          &quot;restore_until&quot;,
+          &quot;reason&quot;,
+          &quot;is_owner&quot;,
+          &quot;schema_unchanged&quot;
+        ],
+        &quot;additionalProperties&quot;: false
+      },
+      &quot;maxItems&quot;: 100
+    },
+    &quot;next_after&quot;: {
+      &quot;type&quot;: [
+        &quot;string&quot;,
+        &quot;null&quot;
+      ]
+    }
+  },
+  &quot;required&quot;: [
+    &quot;items&quot;,
+    &quot;next_after&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details>
+<details class="schema" id="schema-WorkspaceTrashPolicy"><summary>WorkspaceTrashPolicy</summary><div class="opbody"><pre><span class="code-label">json</span><code>{
+  &quot;type&quot;: &quot;object&quot;,
+  &quot;properties&quot;: {
+    &quot;configured&quot;: {
+      &quot;type&quot;: &quot;boolean&quot;
+    },
+    &quot;retention_days&quot;: {
+      &quot;type&quot;: [
+        &quot;integer&quot;,
+        &quot;null&quot;
+      ],
+      &quot;minimum&quot;: 1,
+      &quot;maximum&quot;: 3650
+    }
+  },
+  &quot;required&quot;: [
+    &quot;configured&quot;,
+    &quot;retention_days&quot;
+  ],
+  &quot;additionalProperties&quot;: false
+}</code></pre></div></details><footer class="page-foot"><p>文書対象: <b>0.7.0-experimental</b> · 文書改訂 13 · 更新 2026-10-08</p><p>契約スナップショット 2026-10-07。全操作の実機確認は未実施。限定確認の範囲は<a href="versions.html">提供条件と制約</a>を参照してください。</p></footer></main></div><footer class="site-foot">Claudia Partner · 顧客アプリ開発者向け公開ドキュメント</footer></body></html>

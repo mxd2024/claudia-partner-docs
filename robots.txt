@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://mxd2024.github.io/claudia-partner-docs/sitemap.xml
+Sitemap: https://claudia-help.meta-xdesign.com/sitemap.xml

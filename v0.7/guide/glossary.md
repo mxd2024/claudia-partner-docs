@@ -35,20 +35,21 @@
 | client_id | 認証サービスに登録した、アプリを識別するID。環境管理者から受け取る |
 | redirect_uri | ログインの後に、認証サービスが利用者を戻すURL。登録済みのものだけが使える |
 | scope | トークンに求める、権限の種類 |
-| 接続キー | MCPアダプターが管理サイトに接続するための、個人用の資格。利用者のログインやserviceとは別 |
+| 接続キー | MCPアダプターが管理サイトに接続するための、管理サイト用の資格。利用者のログインやservice JWTとは別 |
 | provision / activate | serviceを使えるようにする手順。provisionで接続の情報を用意し、activateで有効にする |
 
 ## データ
 
 | 用語 | 意味 |
 | --- | --- |
+| ケース（case） | 業務の処理対象やまとまりを表す資源。v2は`/v2/cases`、旧互換のv1は`/v1/jobs`。表のdraft / committedとは別。APIパス・操作IDは翻訳しない |
 | 表 / collection | データを入れる表。collectionは、その識別子で、画面のラベルとは別 |
 | definition | 表の定義（列と型）。`schema_version`は、その版 |
 | version | 行や資格など、取得した対象そのものの版。更新の競合を検出するのに使う |
 | revision | アプリや表の状態の変更の版（整数）。v2の検索や変更の監視が返す`revision`は、見えている行の集合の変更を表す、不透明な文字列で、数値として扱わない（大小の比較や、増分の計算をしない） |
 | plan / fingerprint | 適用の前に作る、変更の差分と確認の対象。適用のときに、同じ計画かを照合する |
 | app | 表、依存先、版を登録した、アプリの単位。画面のプログラムの配置とは別 |
-| draft / committed | 表の保存の状態。案件の業務の進み具合とは別 |
+| draft / committed | 表の保存の状態。ケースの業務の進み具合とは別 |
 | custody | 画像の原本の保管の方式。`managed_original`（基盤が管理）と`external_reference`（外部の原本への参照） |
 | policy / store | 画像の許可条件（policy）と、参照できる保存先の名前（store）。policyは、APIで取得する |
 

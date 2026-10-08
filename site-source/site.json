@@ -1,0 +1,242 @@
+{
+  "title": "Claudia Partner 開発者ヘルプ",
+  "version": "0.7.0-experimental",
+  "version_path": "v0.7",
+  "updated": "2026-10-08",
+  "base_url": "https://claudia-help.meta-xdesign.com/",
+  "source_api_sha256": "29e0a6fcd763b3efb855ef40dd3018f06cae790a64db3b2e37c26273d333a63b",
+  "pages": [
+    {
+      "slug": "index",
+      "title": "アプリ開発の全体像",
+      "section": "理解する",
+      "summary": "顧客アプリのBFF、Core API、認証サービスと、3種類の接続。",
+      "next": [
+        "principles",
+        "quickstart",
+        "mcp"
+      ]
+    },
+    {
+      "slug": "principles",
+      "title": "基盤の考え方と責任分界",
+      "section": "理解する",
+      "summary": "基盤が約束すること・約束しないこと、基盤・アプリ・環境管理者の責任の分け方。",
+      "next": [
+        "versions",
+        "glossary",
+        "quickstart"
+      ]
+    },
+    {
+      "slug": "glossary",
+      "title": "用語集",
+      "section": "理解する",
+      "summary": "このドキュメントで使う用語の意味。",
+      "next": [
+        "quickstart"
+      ]
+    },
+    {
+      "slug": "quickstart",
+      "title": "接続準備と最初の読取",
+      "section": "接続する",
+      "summary": "対象版・有効なモジュールを確認し、OIDCログインから表の読取へ。",
+      "next": [
+        "request-access",
+        "authentication",
+        "tables"
+      ]
+    },
+    {
+      "slug": "sample-app",
+      "title": "架空の業務メモアプリ",
+      "section": "接続する",
+      "summary": "架空の例で画面・BFF・APIの役割を確認する。"
+    },
+    {
+      "slug": "request-access",
+      "title": "接続情報を依頼する",
+      "section": "接続する",
+      "summary": "接続に必要な情報、依頼の方法、受け取った後の確認。",
+      "next": [
+        "authentication",
+        "service-access"
+      ]
+    },
+    {
+      "slug": "authentication",
+      "title": "本人として接続する",
+      "section": "接続する",
+      "summary": "本人のログイン（OIDC + PKCE）から、最初の GET /v1/me が200になるまで。更新・失効の扱い。",
+      "next": [
+        "tables",
+        "reliability"
+      ]
+    },
+    {
+      "slug": "service-access",
+      "title": "service として接続する",
+      "section": "接続する",
+      "summary": "人の操作を介さない処理の接続。申請から、許可された操作の成功まで。",
+      "next": [
+        "tables",
+        "reliability"
+      ]
+    },
+    {
+      "slug": "concepts",
+      "title": "共通ルール",
+      "section": "使う",
+      "summary": "API系列（v1/v2）の選び方、検索とページング、レート、認可条件の読み方、再送方式。",
+      "next": [
+        "tables",
+        "reliability",
+        "api"
+      ]
+    },
+    {
+      "slug": "tables",
+      "title": "表とデータの更新",
+      "section": "使う",
+      "summary": "表を読み、行を追加・更新・削除するまで。版と再送キーの使い方。",
+      "next": [
+        "reliability",
+        "tutorial",
+        "api"
+      ]
+    },
+    {
+      "slug": "reliability",
+      "title": "競合・再送・復帰",
+      "section": "使う",
+      "summary": "更新の競合（412）や通信断で、結果が不明なときの確認と復帰の方法。",
+      "next": [
+        "errors",
+        "app-architecture"
+      ]
+    },
+    {
+      "slug": "media",
+      "title": "画像・添付と外部ストア",
+      "section": "使う",
+      "summary": "管理原本と外部参照を区別し、環境で有効なメディア契約を使う。",
+      "next": [
+        "errors",
+        "api"
+      ]
+    },
+    {
+      "slug": "tutorial",
+      "title": "アプリの登録と運用",
+      "section": "使う",
+      "summary": "権限の設定からアプリの登録、データ操作、停止・再開、serviceの設定まで、通しの手順。",
+      "next": [
+        "reliability",
+        "examples"
+      ]
+    },
+    {
+      "slug": "app-architecture",
+      "title": "アプリの推奨構成（参考）",
+      "section": "使う",
+      "summary": "ブラウザーで使うアプリを作るときの、サーバー側（BFF）の構成の考え方。契約ではなく参考です。",
+      "next": [
+        "authentication",
+        "reliability"
+      ]
+    },
+    {
+      "slug": "mcp",
+      "title": "取込MCPの導入",
+      "section": "AIエージェント",
+      "summary": "対象版の取込用8ツールと、Core全体のMCPを区別する。",
+      "next": [
+        "mcp-support"
+      ]
+    },
+    {
+      "slug": "mcp-support",
+      "title": "MCPの対応範囲とトラブル対応",
+      "section": "AIエージェント",
+      "summary": "MCPで今できること（8ツール）、接続できないときの原因と対処。",
+      "next": [
+        "mcp",
+        "support"
+      ]
+    },
+    {
+      "slug": "api",
+      "title": "APIリファレンス",
+      "section": "リファレンス",
+      "summary": "全操作のパス・入力・応答・認可条件。検索と絞り込みができます。"
+    },
+    {
+      "slug": "examples",
+      "title": "HTTP・実行例",
+      "section": "リファレンス",
+      "summary": "ヘッダー込みの完全な要求・応答の例と、Python・JavaScriptの実行サンプル。",
+      "next": [
+        "errors",
+        "api"
+      ]
+    },
+    {
+      "slug": "errors",
+      "title": "エラーと再試行",
+      "section": "リファレンス",
+      "summary": "HTTPステータスとエラーコードの意味、クライアントの対応。",
+      "next": [
+        "reliability",
+        "support"
+      ]
+    },
+    {
+      "slug": "specs",
+      "title": "仕様ファイル",
+      "section": "リファレンス",
+      "summary": "OpenAPIなど、機械可読な仕様の入手と、ファイルの整合の確認。",
+      "next": [
+        "api"
+      ]
+    },
+    {
+      "slug": "versions",
+      "title": "対応状況とバージョン",
+      "section": "運用・サポート",
+      "summary": "機能ごとの提供状態と、版の考え方。",
+      "next": [
+        "changelog",
+        "support"
+      ]
+    },
+    {
+      "slug": "changelog",
+      "title": "変更履歴",
+      "section": "運用・サポート",
+      "summary": "公開した内容の変更と、互換性・廃止の方針。",
+      "next": [
+        "versions"
+      ]
+    },
+    {
+      "slug": "support",
+      "title": "サポートと窓口",
+      "section": "運用・サポート",
+      "summary": "問い合わせの方法と、不具合の相談に添える情報。",
+      "next": [
+        "errors"
+      ]
+    }
+  ],
+  "redirects": {
+    "operations": "support"
+  },
+  "revision": 13,
+  "contract_snapshot_date": "2026-10-07",
+  "public_openapi_sha256": "0f58ea9cfd738c0bf19c46d08685c8f71d0f0f89ab5d5fb0e8e5ea38d796809b",
+  "expected_operations": 134,
+  "source_api_commit": "74b35558b25da7c8d7bbb0be18f74b79e8765316",
+  "mcp_adapter_version": "1.0.1",
+  "expected_mcp_tools": 8
+}
