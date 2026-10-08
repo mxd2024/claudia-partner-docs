@@ -35,24 +35,26 @@ AIエージェント ── 取込MCPアダプター ──→ 管理アプリ�
 
 | 接続の主体 | 資格と入口 | 最初に読む |
 | --- | --- | --- |
-| 人の利用者 | OIDC Authorization Code + PKCE。BFFが利用者のaccess_tokenでCore APIへ接続 | [利用者として接続](../authentication.html) |
-| 人の操作なしで動く処理 | 管理者の承認を受けたservice。登録した鍵による機械専用の資格 | [serviceとして接続](../service-access.html) |
-| AIによるCSV取込 | 取込MCPアダプターと管理アプリの接続キー。Core APIのOIDC資格とは別 | [MCPの導入と範囲](../mcp.html) |
+| 人の利用者 | OIDC Authorization Code + PKCE。BFFが利用者のaccess_tokenでCore APIへ接続 | [利用者として接続](authentication.md) |
+| 人の操作なしで動く処理 | 管理者の承認を受けたservice。登録した鍵による機械専用の資格 | [serviceとして接続](service-access.md) |
+| AIによるCSV取込 | 取込MCPアダプターと管理アプリの接続キー。Core APIのOIDC資格とは別 | [MCPの導入と範囲](mcp.md) |
 
 文書対象版のMCPは取込用8ツールです。134のCore API操作をすべてMCPで利用できるという意味ではありません。全サービスMCPは、対象版では準備中です。新しいアダプターや別版の動作を、この版の提供状況へ混ぜません。
 
 ## 機能を選ぶ
 
-- 表と行を読む・更新する: [表とデータ](../tables.html)、[共通ルール](../concepts.html)。
-- アプリ定義を登録する: [アプリの登録と運用](../tutorial.html)。
-- 画像や添付を表示する: [メディア](../media.html)。managed_originalとexternal_referenceを区別し、外部ストアは環境で使えるものだけを選びます。
-- 競合や結果不明から復帰する: [競合・再送・復帰](../reliability.html)。
-- AIからCSVを取り込む: [MCPの導入](../mcp.html)、[対応範囲](../mcp-support.html)。
+- 表と行を読む・更新する: [表とデータ](tables.md)、[共通ルール](concepts.md)。
+- アプリ定義を登録する: [アプリの登録と運用](tutorial.md)。
+- 画像や添付を表示する: [メディア](media.md)。managed_originalとexternal_referenceを区別し、外部ストアは環境で使えるものだけを選びます。
+- 競合や結果不明から復帰する: [競合・再送・復帰](reliability.md)。
+- AIからCSVを取り込む: [MCPの導入](mcp.md)、[対応範囲](mcp-support.md)。
 
 ## アプリ用BFFの提供状態
 
-アプリごとの利用者用クライアント登録・接続は [準備中] です。環境管理者が個別に案内し、自己登録画面・APIは [未提供]。開発用redirect_uriは [環境による]。接続先やクライアントを構成図から決めず、[接続依頼](../request-access.html)で確認してください。
+アプリごとの利用者用クライアント登録・接続は [準備中] です。環境管理者が個別に案内し、自己登録画面・APIは [未提供]。開発用redirect_uriは [環境による]。接続先やクライアントを構成図から決めず、[接続依頼](request-access.md)で確認してください。
+
+顧客は自社のMacで開発し、本番前にVPS等へ配置する想定です。2つの戻り先の併存登録・設定差分・TLS・Cookie・秘密保管・開発URI失効は[アプリ構成の手順](app-architecture.md)へ。これは設計要件で、併存登録・移行の提供は [準備中] です。顧客端末のSSH転送や独自CA登録を必須にしません。
 
 ## 開発を始める
 
-まず[接続準備と最初の読取](../quickstart.html)で接続情報と機能の有効化を確認します。[架空の業務メモアプリ](../sample-app.html)で画面・BFF・APIの分担を読み、実装時は[APIリファレンス](../api.html)の操作別契約を確認してください。
+まず[接続準備と最初の読取](quickstart.md)で接続情報と機能の有効化を確認します。[架空の業務メモアプリ](sample-app.md)で画面・BFF・APIの分担を読み、実装時は[APIリファレンス](../api.html)の操作別契約を確認してください。

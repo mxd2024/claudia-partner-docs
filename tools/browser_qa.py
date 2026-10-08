@@ -13,7 +13,7 @@ with sync_playwright() as p:
     page.on('console',lambda msg:report['errors'].append(msg.text) if msg.type=='error' else None)
     for width in [1440,390,320]:
         page.set_viewport_size({'width':width,'height':1000})
-        for path in ['index.html','v0.7/guides.html','v0.7/quickstart.html','v0.7/api.html','v0.7/api-media.html','v0.7/releases.html','v0.7/sample-app.html','v0.7/request-access.html','v0.7/versions.html','v0.7/mcp.html','v0.7/media.html','v0.7/api-service-access.html']:
+        for path in ['index.html','v0.7/guides.html','v0.7/quickstart.html','v0.7/api.html','v0.7/api-media.html','v0.7/releases.html','v0.7/sample-app.html','v0.7/request-access.html','v0.7/versions.html','v0.7/mcp.html','v0.7/media.html','v0.7/api-service-access.html','v0.7/app-architecture.html','v0.7/authentication.html']:
             r=page.goto('http://127.0.0.1:8765/'+path)
             assert r.status==200
             assert page.locator('h1').count()==1
@@ -25,7 +25,7 @@ with sync_playwright() as p:
     page.set_viewport_size({'width':1440,'height':1000})
     page.goto('http://127.0.0.1:8765/')
     search=page.locator('#site-search')
-    for query in ['BFF','OIDC','404','画像','Idempotency-Key','query','ＭＣＰ','service.metadata','service.import','ケース','接続相談','1.0.1']:
+    for query in ['BFF','OIDC','404','画像','Idempotency-Key','query','ＭＣＰ','service.metadata','service.import','ケース','接続相談','1.0.1','Mac','VPS','併存','戻り先','Cookie']:
         search.fill(query)
         page.wait_for_function('document.querySelectorAll("#search-results a").length > 0')
         assert page.locator('#search-results').is_visible()
@@ -65,6 +65,11 @@ with sync_playwright() as p:
     page.wait_for_url('**/api-schemas.html#schema-Problem')
     assert page.locator('#schema-Problem').get_attribute('open') is not None
     report['checks'].append({'legacy_schema_deep_link':True})
+    page.goto('http://127.0.0.1:8765/v0.7/app-architecture.html')
+    body=page.locator('main').inner_text()
+    for text in ['Macで開発し、VPSへ移す設計','併存登録','準備中','設定の差分','Cookie','SSH転送','独自の認証局','正本・実機受入の確認待ち']:
+        assert text in body,text
+    report['checks'].append({'migration_requirements_and_preparing_state_rendered':True})
     page.set_viewport_size({'width':320,'height':700})
     page.goto('http://127.0.0.1:8765/v0.7/quickstart.html')
     page.locator('.menu-toggle').click()

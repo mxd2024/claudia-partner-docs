@@ -10,7 +10,7 @@
 
 ## BFFで行うこと
 
-1. [OIDC + PKCE](../authentication.html)でログインし、stateと戻り先を検証する。
+1. [OIDC + PKCE](authentication.md)でログインし、stateと戻り先を検証する。
 2. トークンをサーバー側で預かり、ブラウザーにはセッションcookieを渡す。
 3. 表の一覧と定義を取得し、有効なcollectionとfield IDを確認する。
 4. [query操作](../api.html)で許可された列と行を読み、画面用の応答に整える。
@@ -33,7 +33,7 @@
 
 読取が成功した後で、検証用の表に更新を追加します。行のversionとschema_versionを保持し、同じ操作を再送するときは同じIdempotency-Keyと本文を使います。412なら再取得して差分を示し、利用者が操作を決め直します。通信断なら結果を確認してから復帰します。
 
-完全なCore APIの要求・応答は[HTTP・実行例](../examples.html)、仕組みは[競合・再送・復帰](../reliability.html)、アプリ定義の登録は[アプリの登録と運用](../tutorial.html)を参照してください。
+完全なCore APIの要求・応答は[HTTP・実行例](examples.md)、仕組みは[競合・再送・復帰](reliability.md)、アプリ定義の登録は[アプリの登録と運用](tutorial.md)を参照してください。
 
 ## 無人処理やAIを追加するとき
 

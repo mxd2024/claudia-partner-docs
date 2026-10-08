@@ -2,13 +2,13 @@
 
 ## 対応範囲
 
-**取込アダプター1.0.1、8ツール** [提供中]。全APIサービスのMCPは [準備中]。DB直接接続、任意のSQL、署名鍵の交付は提供範囲に含みません。導入は[MCPの導入](../mcp.html)へ。
+**取込アダプター1.0.1、8ツール** [提供中]。全APIサービスのMCPは [準備中]。DB直接接続、任意のSQL、署名鍵の交付は提供範囲に含みません。導入は[MCPの導入](mcp.md)へ。
 
-serviceの`GET /v2/service/tables/{collection}`と`POST /v2/service/tables/{collection}/import`は、公開Core APIの別契約です **[環境による]**。専用service JWTと承認範囲が必要で、MCPの接続キーを直接このAPIへ送れません。取込MCPの内部でどの実行主体・経路を使うかは環境管理者へ確認します。8ツールの存在を、134操作すべてのMCP対応とみなしません。[service接続](../service-access.html)を参照してください。
+serviceの`GET /v2/service/tables/{collection}`と`POST /v2/service/tables/{collection}/import`は、公開Core APIの別契約です **[環境による]**。専用service JWTと承認範囲が必要で、MCPの接続キーを直接このAPIへ送れません。取込MCPの内部でどの実行主体・経路を使うかは環境管理者へ確認します。8ツールの存在を、134操作すべてのMCP対応とみなしません。[service接続](service-access.md)を参照してください。
 
 ## 8ツールの契約
 
-以下は確認した配布クライアントから抽出した定義です。ツール名・入力・annotationsは一致し、説明文のHUB表記だけを基盤に一般化しています。[機械可読JSON](https://mxd2024.github.io/claudia-partner-docs/v0.7/mcp-tools.json)も配信しています。
+以下は確認した配布クライアントから抽出した定義です。ツール名・入力・annotationsは一致し、説明文のHUB表記だけを基盤に一般化しています。[機械可読JSON](../mcp-tools.json)も配信しています。
 
 ```json
 {
@@ -230,4 +230,4 @@ APIのJSON結果は`content[0].text`内のJSON文字列です。`isError`と内�
 
 2026-10-04の1.0.0では入口403・`error code: 1010`と既定証明書ストアのTLS失敗が記録されていました。1.0.1には製品固有User-Agent、固定CAバンドル、区別したエラー案内が入り、2026-10-08の[公開読取確認報告](https://github.com/mxd2024/claudia-partner-docs/issues/16)では旧入口拒否が解消しています。
 
-この確認は初期化・ツール一覧・取込先一覧・履歴・状態の読取に限ります。書込と全環境は未確認です。製品のUser-Agentは認可の代替ではなく、識別の偽装やTLS無効化で回避しません。[提供状況](../versions.html)と[サポート](../support.html)を参照してください。
+この確認は初期化・ツール一覧・取込先一覧・履歴・状態の読取に限ります。書込と全環境は未確認です。製品のUser-Agentは認可の代替ではなく、識別の偽装やTLS無効化で回避しません。[提供状況](versions.md)と[サポート](support.md)を参照してください。

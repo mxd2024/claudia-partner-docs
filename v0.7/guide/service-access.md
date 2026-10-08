@@ -1,6 +1,6 @@
 # service として接続する
 
-serviceは、人の操作なしに動く処理（バッチや連携など）が、基盤に接続するための方式です。利用者がログインする方式（[利用者として接続する](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/authentication.md)）とは、別の方式です。
+serviceは、人の操作なしに動く処理（バッチや連携など）が、基盤に接続するための方式です。利用者がログインする方式（[利用者として接続する](authentication.md)）とは、別の方式です。
 
 serviceは、組織の管理者の承認を受けて、動きます。承認された、表、列、操作、期限の範囲だけで動き、それを超えることはできません。
 
@@ -58,7 +58,7 @@ grant_type=client_credentials&client_id=<CLIENT_ID>&client_assertion_type=urn%3A
 - [GET /v2/service/tables/{collection}](../api-service-access.html#op-service-metadata): 許可された表・列のmetadataを取得します。
 - [POST /v2/service/tables/{collection}/import](../api-service-access.html#op-service-import): 承認範囲のCSV取込区間を原子的に反映します。application/jsonのServiceImportと必須Idempotency-Keyを使い、同じ内容・同じキーで再送します。入力・結果・上限はリファレンスで確認し、任意のCSVバイナリーを直接POSTしません。
 
-取込MCPの接続キーはこのAPIのBearer資格ではありません。MCPの8ツールと、これらのservice APIは別の契約です。環境の取込実行主体と許可を確認してください。[MCPの対応範囲](../mcp-support.html)を参照してください。
+取込MCPの接続キーはこのAPIのBearer資格ではありません。MCPの8ツールと、これらのservice APIは別の契約です。環境の取込実行主体と許可を確認してください。[MCPの対応範囲](mcp-support.md)を参照してください。
 
 ## 世代と再開
 
@@ -78,4 +78,4 @@ suspend（一時停止）またはrevoke（失効）の後は、古いJWTが拒�
 
 ## 次に
 
-許可された範囲での読み書きは、[表とデータの更新](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/tables.md)。通しの手順は、[アプリの登録と運用](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/tutorial.md)。
+許可された範囲での読み書きは、[表とデータの更新](tables.md)。通しの手順は、[アプリの登録と運用](tutorial.md)。

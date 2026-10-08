@@ -2,7 +2,7 @@
 
 業務行のasset_ref欄に、管理された原本、または外部の原本への参照を関連付けます。参考画像を表示するアプリも、この共通のメディアAPIを使います。
 
-業務表（v2）の行の画像欄には、`/v2/media`を使います。`/v1/assets`は、親の資源を`namespace`と`resourceType`で指定する、資産の経路です（[APIリファレンス](https://mxd2024.github.io/claudia-partner-docs/v0.7/openapi.json)の「資産」）。
+業務表（v2）の行の画像欄には、`/v2/media`を使います。`/v1/assets`は、親の資源を`namespace`と`resourceType`で指定する、資産の経路です（[APIリファレンス](../openapi.json)の「資産」）。
 
 > 文書対象は2026-10-07の固定契約です。画像機能と管理サイトでのDropbox接続・フォルダー選択は [環境による]。Dropbox接続・選択のアプリ向け公開APIは [準備中]、共有URLの解決は [未提供] です。限定認証条件での実装者確認と、通常のSSO・MFAでの独立受入を区別します。ご利用の環境で接続済みかは管理者へ確認してください。
 
@@ -30,7 +30,7 @@ GET /v2/media/{collection}/{rowId}/{field}/{assetId}/thumbnail
 GET /v2/media/{collection}/{rowId}/{field}/{assetId}/content
 ```
 
-[完全なヘッダー・要求・応答例](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/examples.md)も参照してください。以下は参照登録の本文だけの例です。storeはpolicyにある値を使い、相対パスは対象ストア内に限定します。次のヘッダーを付けます。`If-Match`は、新しい画像では`"0"`、既存の画像の更新では、取得した画像の現在の版です。`X-Parent-Version`と`X-Schema-Version`は、policyや行の取得で得た、現在の値です。適当な値を作らないでください。`Idempotency-Key`は、操作ごとに、新しく作ります。
+[完全なヘッダー・要求・応答例](examples.md)も参照してください。以下は参照登録の本文だけの例です。storeはpolicyにある値を使い、相対パスは対象ストア内に限定します。次のヘッダーを付けます。`If-Match`は、新しい画像では`"0"`、既存の画像の更新では、取得した画像の現在の版です。`X-Parent-Version`と`X-Schema-Version`は、policyや行の取得で得た、現在の値です。適当な値を作らないでください。`Idempotency-Key`は、操作ごとに、新しく作ります。
 
 ```json
 {
@@ -65,7 +65,7 @@ APIには、Dropboxの共有URLやOSの絶対パスではなく、policyの`stor
 
 Dropboxへの接続・フォルダー選択を顧客アプリから行う公開APIは **[準備中]**。この134操作のOpenAPIには追加していません。共有URLの解決は **[未提供]** です。管理サイトの操作があることを、公開APIの提供と混同しません。
 
-メディア参照のAPIは、policyが返すstoreと、その中の相対パスを使います。共有URLやOS絶対パスを渡しません。管理サイトで設定したフォルダーがどのstoreに対応するか、利用可能な読取許可と合わせて環境管理者から受け取ります。アプリが任意のパスを指定して接続する契約ではありません。[接続依頼](../request-access.html)と[提供状況](../versions.html)へ。
+メディア参照のAPIは、policyが返すstoreと、その中の相対パスを使います。共有URLやOS絶対パスを渡しません。管理サイトで設定したフォルダーがどのstoreに対応するか、利用可能な読取許可と合わせて環境管理者から受け取ります。アプリが任意のパスを指定して接続する契約ではありません。[接続依頼](request-access.md)と[提供状況](versions.md)へ。
 
 ## 原本の変更・移動・切断
 
@@ -79,4 +79,4 @@ Dropboxへの接続・フォルダー選択を顧客アプリから行う公開A
 - 1ファイル最大32MiB、同時処理は2要求、1行1欄に最大100資産です。解除済みIDも上限に含まれます。
 - SVGは対象外です。PDFはダウンロードのみ。Range、再開upload、動画変換、マルウェア検疫は未提供です。
 
-実際に利用できる媒体・容量はpolicyを優先してください。認証切れ、権限不足、版競合、媒体不適合、依存停止の扱いは[エラーと再試行](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/errors.md)にまとめています。
+実際に利用できる媒体・容量はpolicyを優先してください。認証切れ、権限不足、版競合、媒体不適合、依存停止の扱いは[エラーと再試行](errors.md)にまとめています。

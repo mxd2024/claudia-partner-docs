@@ -232,7 +232,7 @@
   "redirects": {
     "operations": "support"
   },
-  "revision": 12,
+  "revision": 13,
   "contract_snapshot_date": "2026-10-07",
   "public_openapi_sha256": "0f58ea9cfd738c0bf19c46d08685c8f71d0f0f89ab5d5fb0e8e5ea38d796809b",
   "expected_operations": 134,

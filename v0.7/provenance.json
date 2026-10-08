@@ -1,5 +1,5 @@
 {
-  "documentation_revision": 12,
+  "documentation_revision": 13,
   "reviewed_date": "2026-10-08",
   "api_version": "0.7.0-experimental",
   "contract_snapshot_date": "2026-10-07",
@@ -59,5 +59,26 @@
   "tracking_issue": "https://github.com/mxd2024/claudia-partner-docs/issues/9#issuecomment-6049080121",
   "runtime_api_retested": false,
   "infrastructure_changed": false,
-  "deployment_performed": false
+  "deployment_performed": false,
+  "bff_development": {
+    "design_source": "https://github.com/mxd2024/claudia-partner-docs/issues/17#issuecomment-6049287364",
+    "requirements": [
+      "Mac development to VPS with the same application code and authentication flow",
+      "Coexisting development loopback and production HTTPS redirect URIs",
+      "Configuration switch and protected secret references",
+      "Public CA verified Core and IdP entry; no customer SSH forwarding or custom CA installation",
+      "Retire development redirect registration and separately revoke credentials/sessions"
+    ],
+    "availability": "preparing",
+    "runtime_tested": false,
+    "canonical_dual_redirect_registration_verified": false,
+    "reference_answers_commit": "70252a7a8386af7210de12ae3130b2658806e5e4",
+    "reference_boundary": "Existing registered public-client flow is documented; not evidence of arbitrary per-app or dual-redirect registration.",
+    "remaining": [
+      "Authoritative registration process and allow-list for coexisting redirects",
+      "Mac loopback scheme, port and Cookie browser conditions",
+      "Public CA entry and development profile provision",
+      "Independent configuration-only migration and development redirect retirement acceptance"
+    ]
+  }
 }

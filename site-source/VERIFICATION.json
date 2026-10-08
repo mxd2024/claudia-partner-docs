@@ -1,5 +1,5 @@
 {
-  "documentation_revision": 12,
+  "documentation_revision": 13,
   "contract_version": "0.7.0-experimental",
   "contract_snapshot": "2026-10-07",
   "target_url": "https://claudia-help.meta-xdesign.com/",
@@ -8,7 +8,7 @@
     "passed": true,
     "public_files": 86,
     "html_pages": 43,
-    "checked_internal_links": 4698,
+    "checked_internal_links": 4740,
     "broken_links_or_anchors": 0,
     "api_operations": 134,
     "mcp_tools": 8,
@@ -84,6 +84,16 @@
         "horizontal_overflow": false
       },
       {
+        "width": 1440,
+        "page": "v0.7/app-architecture.html",
+        "horizontal_overflow": false
+      },
+      {
+        "width": 1440,
+        "page": "v0.7/authentication.html",
+        "horizontal_overflow": false
+      },
+      {
         "width": 390,
         "page": "index.html",
         "horizontal_overflow": false
@@ -144,6 +154,16 @@
         "horizontal_overflow": false
       },
       {
+        "width": 390,
+        "page": "v0.7/app-architecture.html",
+        "horizontal_overflow": false
+      },
+      {
+        "width": 390,
+        "page": "v0.7/authentication.html",
+        "horizontal_overflow": false
+      },
+      {
         "width": 320,
         "page": "index.html",
         "horizontal_overflow": false
@@ -201,6 +221,16 @@
       {
         "width": 320,
         "page": "v0.7/api-service-access.html",
+        "horizontal_overflow": false
+      },
+      {
+        "width": 320,
+        "page": "v0.7/app-architecture.html",
+        "horizontal_overflow": false
+      },
+      {
+        "width": 320,
+        "page": "v0.7/authentication.html",
         "horizontal_overflow": false
       }
     ],
@@ -254,6 +284,26 @@
         "results": 4
       },
       {
+        "search": "Mac",
+        "results": 8
+      },
+      {
+        "search": "VPS",
+        "results": 7
+      },
+      {
+        "search": "併存",
+        "results": 7
+      },
+      {
+        "search": "戻り先",
+        "results": 6
+      },
+      {
+        "search": "Cookie",
+        "results": 7
+      },
+      {
         "search_no_results": true
       },
       {
@@ -274,6 +324,9 @@
       },
       {
         "legacy_schema_deep_link": true
+      },
+      {
+        "migration_requirements_and_preparing_state_rendered": true
       },
       {
         "mobile_menu_and_search": true
@@ -627,10 +680,28 @@
     "disabled_module_response_measurement": "#12",
     "mcp_runtime": "Public read report referenced; not repeated with credentials. Writes and all deployments unverified.",
     "dropbox_runtime": "Normal MFA and independent acceptance, restart/partial failure recovery and independent provider revocation check remain.",
-    "app_bff_registration": "Preparing; administrator guidance required; self-registration not provided.",
+    "app_bff_registration": "Preparing; administrator guidance required; self-registration not provided. Dual redirect registration and configuration-only migration are requirements with canonical/acceptance confirmation pending.",
     "custom_host": "Existing host connection and document root have not been supplied; content not deployed."
   },
   "deployment_status": "awaiting_existing_host_connection_and_document_root",
   "dns_changed": false,
-  "infrastructure_changed": false
+  "infrastructure_changed": false,
+  "github_entry": {
+    "passed": true,
+    "documentation_revision": 13,
+    "readme_guide_entries": 16,
+    "markdown_files_checked": 23,
+    "github_relative_navigation": true,
+    "no_older_deployed_site_links": true,
+    "design_and_availability_distinguished": true,
+    "migration_and_development_redirect_retirement_documented": true,
+    "public_issue_instructions_present": true,
+    "no_internal_monitoring_details_or_response_time_promise": true,
+    "runtime_development_route_verified": false
+  },
+  "original_contract_files_changed": false,
+  "contract_inputs_unchanged_from_commit": "3e5f105b2eab5444fb409d4d395c08c873f005f3",
+  "github_sharing_readiness": "site-source/SHARING_READINESS.json",
+  "public_deployment_rechecked_in_revision13": false,
+  "static_deployment_optional_for_github_sharing": true
 }

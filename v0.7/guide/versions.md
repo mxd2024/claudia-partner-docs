@@ -1,6 +1,6 @@
 # 対応状況とバージョン
 
-文書対象は **API 0.7.0-experimental / 2026-10-07の固定契約 / 文書改訂12** です。experimentalは変更され得る試験提供段階を示します。API契約、文書、MCPクライアント、実配備の版は別に管理します。ブランチの先頭を稼働版とみなしません。
+文書対象は **API 0.7.0-experimental / 2026-10-07の固定契約 / 文書改訂13** です。experimentalは変更され得る試験提供段階を示します。API契約、文書、MCPクライアント、実配備の版は別に管理します。ブランチの先頭を稼働版とみなしません。
 
 ## 文書対象版の範囲
 
@@ -15,7 +15,9 @@ API 134 operations / OpenAPI 134 operations / MCP 8 import tools / MCP adapter 1
 | Core API契約・OpenAPI | [提供中／実機未確認] | 134操作の公開仕様。今回の文書改訂ではAPI全操作の実行や再配備はしていません |
 | serviceの表metadata・import | [環境による] | serviceの承認、現在の資格・表・列・行・操作許可と環境での有効化が必要 |
 | アプリごとの利用者用クライアント登録・接続（BFF） | [準備中] | 申請を受けて環境管理者が個別に案内。自己登録画面・APIは[未提供] |
-| 開発用redirect_uri（ループバック等） | [環境による] | 登録可能なURIとクライアント種別を環境管理者に確認 |
+| 開発用redirect_uri（ループバック等） | [環境による] | Macのscheme・port・Cookie条件、登録可能なURIとクライアント種別を環境管理者に確認 |
+| 開発・本番redirect_uriの併存登録とMac→VPS移行 | [準備中] | 同一クライアントに両URIを登録し、同じコード・認証方式で設定を切り替える設計。正本・実機受入未確認 |
+| 顧客BFFの公開CA入口・開発プロファイル | [準備中] | MacへSSH転送・独自CA登録を要求しない設計要件。交付とCookie成立条件の確認待ち |
 | MCP（取込） | [提供中／限定読取確認報告あり] | 1.0.1、8ツール。2026-10-08の公開入口・初期化・一覧・履歴・状態の読取確認報告。書込・全環境・全APIの保証は含みません |
 | MCP（全APIサービス） | [準備中] | 取込8ツールの成功とは別の提供範囲 |
 | 外部原本への画像参照 | [環境による] | メディアpolicy、原本への到達、現在の許可を確認 |
@@ -24,7 +26,7 @@ API 134 operations / OpenAPI 134 operations / MCP 8 import tools / MCP adapter 1
 | Dropbox共有URLの解決 | [未提供] | storeと相対パスで参照します |
 | macOSでのMCPキー保存 | [未提供] | Keychain対応の提供は未確認 |
 
-旧1.0.0で記録された入口403・`error code: 1010`は、1.0.1の公開読取確認報告では解消しています。全環境・将来の入口設定を保証するものではありません。再発時は[トラブル対応](../mcp-support.html)を参照してください。
+旧1.0.0で記録された入口403・`error code: 1010`は、1.0.1の公開読取確認報告では解消しています。全環境・将来の入口設定を保証するものではありません。再発時は[トラブル対応](mcp-support.md)を参照してください。
 
 ## 確認記録の読み方
 
@@ -32,8 +34,8 @@ API 134 operations / OpenAPI 134 operations / MCP 8 import tools / MCP adapter 1
 
 Dropboxは提供者環境での実機確認記録を読み取り、設計に沿った接続・読取・権限取消・変更・解除・再接続を確認しました。限定された認証条件で、独立した受入ではありません。障害時の復旧、通常のMFA条件、Dropbox側の失効の独立確認は残っています。個別環境名や管理経路は公開しません。
 
-出典の固定版・公開ファイルSHAは[仕様ファイル](../specs.html)と[公開来歴JSON](https://mxd2024.github.io/claudia-partner-docs/v0.7/provenance.json)、改訂の追跡は[Issue 9](https://github.com/mxd2024/claudia-partner-docs/issues/9)を参照してください。
+出典の固定版・公開ファイルSHAは[仕様ファイル](specs.md)と[公開来歴JSON](../provenance.json)、改訂の追跡は[Issue 9](https://github.com/mxd2024/claudia-partner-docs/issues/9)を参照してください。
 
 ## 版とAPI系列
 
-版別URLは`/v0.7/`です。APIパスのv1 / v2は、この文書版に含まれる系列で、旧文書の版ではありません。[共通ルール](../concepts.html)と[旧版](../archive.html)を確認します。公開サイトの更新はAPIの配備を行いません。サポート期間・廃止予告期間は未確定です。
+版別URLは`/v0.7/`です。APIパスのv1 / v2は、この文書版に含まれる系列で、旧文書の版ではありません。[共通ルール](concepts.md)と[旧版](../archive.html)を確認します。公開サイトの更新はAPIの配備を行いません。サポート期間・廃止予告期間は未確定です。

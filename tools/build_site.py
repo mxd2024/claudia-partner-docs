@@ -53,6 +53,9 @@ def local_links(text, markdown=False):
         text = text.replace(base + VP + '/', '')
         text = text.replace(base, '../')
     if not markdown:
+        # Authored Markdown is navigable on GitHub; HTML sits one directory higher.
+        text = re.sub(r'(?<=\()\.\./(?=(?:openapi\.json|api-inventory\.json|mcp-tools\.json|provenance\.json|examples/))', '', text)
+        text = re.sub(r'(?<=\()\.\./\.\./(?=(?:manifest\.json|links\.json|README\.md))', '../', text)
         text = re.sub(r'(?<=\()([a-z0-9-]+)\.md(?=[#)])', r'\1.html', text)
         text = re.sub(r'(?<=\()guide/([a-z0-9-]+)\.md(?=[#)])', r'\1.html', text)
         text = re.sub(r'(?<=\()\.\./([a-z0-9-]+\.html)(?=[#)])', r'\1', text)

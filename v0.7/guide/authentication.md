@@ -8,7 +8,9 @@
 
 アプリ用BFFの利用者用クライアント登録・接続は **[準備中]**。環境管理者が申請を受けて個別に案内します。自己登録画面・APIは **[未提供]**。以下の手順は、環境で登録が完了し接続情報を交付された場合の設計です。
 
-基盤のHTTPS origin、認証サービスのissuer、あなたのBFFのorigin・redirect_uriは別々の値です。固定ホスト名を共用しません。開発用ループバックredirect_uriは **[環境による]** ため、利用可能なURI、クライアント種別、クライアント認証方式を登録前に確認します。[接続依頼](../request-access.html)を参照してください。
+基盤のHTTPS origin、認証サービスのissuer、あなたのBFFのorigin・redirect_uriは別々の値です。固定ホスト名を共用しません。開発用ループバックredirect_uriは **[環境による]** ため、利用可能なURI、クライアント種別、クライアント認証方式を登録前に確認します。[接続依頼](request-access.md)を参照してください。
+
+開発端末（Mac）のループバックと、本番（VPS等）の固定HTTPSの戻り先を同じアプリ用クライアントへ併存登録し、同じ認証方式のまま設定で移行することが設計要件です。併存登録・移行は [準備中]、登録URIは [環境による]。現在提供済みとは確認できていません。顧客の端末へSSH転送・独自CA登録を要求しない公開CAのHTTPS入口も、交付前に確認します。[Mac→VPSの設計と確認手順](app-architecture.md)を参照してください。
 
 ## 登場するもの
 
@@ -60,7 +62,7 @@ grant_type=authorization_code&client_id=<CLIENT_ID>&redirect_uri=<REGISTERED_RED
 curl -sS -H "Authorization: Bearer $CP_ACCESS_TOKEN" -H "Accept: application/json" https://<基盤のHTTPS origin>/v1/me
 ```
 
-ヘッダー込みの完全な例は、[HTTP・実行例](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/examples.md)の「利用者を確認」にあります。TLSの検証は、無効にしません。
+ヘッダー込みの完全な例は、[HTTP・実行例](examples.md)の「利用者を確認」にあります。TLSの検証は、無効にしません。
 
 **期待する結果**: 200が返り、利用者のid、permissions（権限）、capabilities、セッションの期限が含まれます。permissionsが空でも、確認は成功です。表の操作が許可されている、という意味ではありません。
 
@@ -104,7 +106,7 @@ MFAが必要な操作では、アクセストークンが、MFAを完了した�
 
 ## OpenAPIのツールから使う
 
-公開のOpenAPIの接続先と認証のURLは、接続できない説明用の`example.invalid`です。公開ファイルに、実際の接続情報を書き込まず、[環境版の生成ツール](https://mxd2024.github.io/claudia-partner-docs/v0.7/examples/configure-openapi.py)と[接続情報の雛形](https://mxd2024.github.io/claudia-partner-docs/v0.7/examples/environment.example.json)で、手元に環境版を作ります。
+公開のOpenAPIの接続先と認証のURLは、接続できない説明用の`example.invalid`です。公開ファイルに、実際の接続情報を書き込まず、[環境版の生成ツール](../examples/configure-openapi.py)と[接続情報の雛形](../examples/environment.example.json)で、手元に環境版を作ります。
 
 ```sh
 python configure-openapi.py --source openapi.json --profile environment.json --output openapi.environment.json
@@ -114,4 +116,4 @@ python configure-openapi.py --source openapi.json --profile environment.json --o
 
 ## 権限について
 
-管理権限（`manage_access`と`service_administrator`）と、表の読み取り・書き込み・設計の権限は、別です。表、列、行、期限は、操作のたびに確認されます。利用者を助けるAIも、利用者の権限を超えられません。詳しくは、[基盤の考え方と責任分界](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/principles.md)と、[MCPの導入](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/mcp.md)。
+管理権限（`manage_access`と`service_administrator`）と、表の読み取り・書き込み・設計の権限は、別です。表、列、行、期限は、操作のたびに確認されます。利用者を助けるAIも、利用者の権限を超えられません。詳しくは、[基盤の考え方と責任分界](principles.md)と、[MCPの導入](mcp.md)。

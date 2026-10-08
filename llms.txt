@@ -1,6 +1,6 @@
 # Claudia Partner Developer Help
 
-文書対象 0.7.0-experimental。契約スナップショット2026-10-07、文書改訂12。全API操作の実機確認は未実施。限定確認報告の範囲はversionsを参照。
+文書対象 0.7.0-experimental。契約スナップショット2026-10-07、文書改訂13。全API操作の実機確認は未実施。限定確認報告の範囲はversionsを参照。
 
 - [アプリ開発の全体像](https://claudia-help.meta-xdesign.com/v0.7/guide/index.md)
 - [基盤の考え方と責任分界](https://claudia-help.meta-xdesign.com/v0.7/guide/principles.md)

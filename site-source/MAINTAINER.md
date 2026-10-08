@@ -8,7 +8,7 @@ GitHub Pages は既存の main / ルート配信を使用する。新規サー�
 4. `python -m http.server 8765 --bind 127.0.0.1` でPC／スマートフォン表示・検索・キーボードを確認する。
 5. draft PRで固定commitと検証結果を提示する。公開依頼に従いレビュー後mainへ反映し、Pagesの完了と匿名HTTPSのmanifest／版を確認する。
 
-静的ホスティングへ配備するZIPは `python tools/package_site.py --output /absolute/path/claudia-help-rev12.zip` で作る。manifestの公開ファイルだけを収録する。ZIPの中身（index.htmlとv0.7等）を指定されたdocument rootへ置く。配置先が判明するまでは既存ファイルを削除・上書きしない。
+静的ホスティングへ配備するZIPは `python tools/package_site.py --output /absolute/path/claudia-help-rev13.zip` で作る。manifestの公開ファイルだけを収録する。ZIPの中身（index.htmlとv0.7等）を指定されたdocument rootへ置く。配置先が判明するまでは既存ファイルを削除・上書きしない。
 
 ## 生成元からの移行
 
@@ -31,3 +31,11 @@ claudia-help.meta-xdesign.com は確認時、別サーバーのAレコードを�
 MCP定義は確認した配布ZIPのクライアントから抽出し、1.0.1・8ツール・入力・annotationsを照合済み。client source、ZIP、CAのSHAを来歴に残す。1.0.1表記だけで別ビルドの同一性を保証しない。公開読取の報告はIssue 16に基づき、文書改訂での再実行ではない。
 
 `verify_site.py` は個人・役割メールの未確認掲載、旧業務語、特定の画像例、根拠のない企業セキュリティ表現を検出する。メールは実提供が確認されるまで追加しない。公開受付は既存Issuesを使い、実接続先・資格・顧客情報は非公開で交付する。Dropbox限定認証条件の実装者確認を独立受入や全環境保証へ拡張しない。
+
+## GitHubでの先行共有
+
+改訂13はREADMEから版付きMarkdown・仕様・接続依頼・開発移行手順・公開Issuesへ案内する。ガイドの相互リンクはGitHub上でも同じ文書版へ留まり、HTML生成時に表示用の相対リンクへ変換する。`python tools/verify_github_entry.py` で入口・相対導線・移行要件と準備中状態・公開Issue手順を確認する。
+
+顧客へリポジトリの入口を案内する前に、最新mainへの反映、提供状態、申請・開発経路、公開情報の安全、Issue受付を確認する。改訂13作業の指示はdraft PR更新・pushまでで、mainマージや顧客への送信は行わない。静的サイト配備はGitHubでの先行共有の必須条件ではない。
+
+Mac→VPSの同一クライアント・2 URI併存・設定による移行は設計要件。確認した登録回答は既存public clientの方式で、アプリごとの登録・併存仕様の正本にはならない。ループバックscheme/portとCookie、公開CA入口の交付、URI削除と資格失効の独立受入は確認待ちとして残す。顧客端末へSSH転送・独自CA登録を要求する代替手順は作らない。
