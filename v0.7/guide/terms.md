@@ -28,7 +28,7 @@
 
 ## 商標について
 
-「Claudia Partner」は、META X Designが商標登録出願中の名称です。
+「Claudia Partner™」は、META X Designが商標登録出願中の名称です。
 
 ## ドキュメントの更新について
 

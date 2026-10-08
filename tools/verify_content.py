@@ -7,7 +7,7 @@ from build_content import ASSETS
 
 ROOT=Path(__file__).resolve().parents[1]
 BASELINE='ff6a62aecd1aed08599c04d871f114ddc54cc540'
-APPROVED_TERMS_CANONICAL_SHA256='3384f89b6e18a962c003f1432c0cfa9f32674df410b75b3af0eb463571ea703c'
+APPROVED_TERMS_CANONICAL_SHA256='ffbe6576c5768e38f8ad89b95d0223df3647d862f00d7c1297d51bc11844c16a'
 def baseline(name):return subprocess.check_output(['git','show',BASELINE+':'+name],cwd=ROOT)
 class Page(HTMLParser):
     def __init__(self,text,reader_layout=False,legal_layout=False):
@@ -15,7 +15,7 @@ class Page(HTMLParser):
         self.reader_layout=reader_layout;self.legal_layout=legal_layout;self.skip_depth=0;self.glossary_link=False;self.app_code=False;self.feed(text)
     def handle_starttag(self,tag,attrs):
         if self.skip_depth:self.skip_depth+=1;return
-        if self.legal_layout and tag in ('a','span') and dict(attrs).get('class') in ('legal','copyright'):self.skip_depth=1;return
+        if self.legal_layout and ((tag in ('a','span') and dict(attrs).get('class') in ('legal','copyright')) or (tag=='sup' and dict(attrs).get('class')=='cp-brand__trademark')):self.skip_depth=1;return
         if self.reader_layout:
             if tag=='div' and dict(attrs).get('id')=='overview-text':self.skip_depth=1;return
             if tag=='a' and dict(attrs).get('href') in ['glossary.html#section-2','glossary.html#section-3','glossary.html#section-4']:
@@ -100,6 +100,9 @@ def legal_checks(files):
             href='v0.7/terms.html' if n=='index.html' else 'terms.html'
             if f'<a class="legal" href="{href}">' not in footer:failures.append('legal footer route '+n)
         if not re.search(r'<a href="(?:v0.7/)?terms.html" class="legal"',text):failures.append('legal sidebar route '+n)
+        if text.count('class="cp-brand__trademark"')!=1:failures.append('brand trademark marker '+n)
+        main_text=re.search(r'<main.*?</main>',text,re.S)[0]
+        if main_text.count('™')!=(1 if n in ['index.html','v0.7/index.html','v0.7/terms.html'] else 0):failures.append('trademark symbol outside approved places '+n)
         checked+=1
     fixed='eb7accac48182a03dde99f9b475c5ef118079d7d'
     names=subprocess.check_output(['git','ls-tree','-r','--name-only',fixed],cwd=ROOT,text=True).splitlines()
@@ -108,7 +111,7 @@ def legal_checks(files):
     for n in protected:
         if (ROOT/n).read_bytes()!=subprocess.check_output(['git','show',fixed+':'+n],cwd=ROOT):failures.append('legal change altered licensed/distributed/sample source '+n)
     if 'v0.7/terms.html' not in (ROOT/'sitemap.xml').read_text(encoding='utf-8'):failures.append('legal sitemap route')
-    return failures,{'approved_canonical_text_sha256':source_sha,'source_markdown_and_rendered_text_match_approved_text':not any('text' in f or 'source' in f for f in failures),'primary_pages_with_legal_navigation_and_copyright':checked,'existing_license_files_preserved':licenses,'mcp_guide_and_sample_files_preserved':protected,'registered_trademark_symbol_absent':True}
+    return failures,{'approved_canonical_text_sha256':source_sha,'source_markdown_and_rendered_text_match_approved_text':not any('text' in f or 'source' in f for f in failures),'primary_pages_with_legal_navigation_and_copyright':checked,'existing_license_files_preserved':licenses,'mcp_guide_and_sample_files_preserved':protected,'registered_trademark_symbol_absent':True,'trademark_symbol_limited_to_approved_places':not any('trademark' in f for f in failures)}
 def main():
     ap=argparse.ArgumentParser();ap.add_argument('--raw-openapi');ap.add_argument('--mcp-source');ap.add_argument('--credential-source');ap.add_argument('--report');args=ap.parse_args()
     failures=[];manifest=json.loads((ROOT/'manifest.json').read_bytes());files=manifest['files'];pages={};links=0;md_links=0
@@ -211,7 +214,7 @@ def main():
     report.update(generic_wording_and_email_guard_passed=not failures,folder_limit_not_mapped_to_public_operation=True,credential_name_validation_checked_without_store_access=credential_checked,json_examples=sum('body_base64' not in q for q in samples),binary_examples=sum('body_base64' in q for q in samples))
     report['reader_review_checks']=reader_report
     report['mcp_os_support_and_cli_inspected_without_store_or_client_execution']=mcp_os_checked
-    report['home_layout_preserved_except_legal_links_and_copyright']=home_normalized
+    report['home_layout_preserved_except_legal_links_copyright_and_trademark']=home_normalized
     report['approved_documentation_terms_checks']=legal_report
     if args.report:Path(args.report).write_bytes((json.dumps(report,ensure_ascii=False,indent=2)+'\n').encode('utf-8'))
     print(json.dumps(report,ensure_ascii=False,indent=2));assert report['passed']

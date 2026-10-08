@@ -78,7 +78,7 @@ def outputs():
         out[f'{vp}/{old}.html']=('<!doctype html><html lang="ja"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ページを移動しました | Claudia Partner Docs</title><meta http-equiv="refresh" content="0; url='+new+'.html"><link rel="canonical" href="'+c['base_url']+vp+'/'+new+'.html"><body><p>このページは、<a href="'+new+'.html">'+r.e(title)+'</a>に移動しました。</p></body></html>').encode('utf-8')
     out[f'{vp}/search-index.json']=json.dumps({'format':1,'entries':search},ensure_ascii=False,separators=(',',':')).encode('utf-8')
     # The original home DOM is retained. Only its description and last link label change.
-    root_body=f'<h1>Claudia Partner Docs</h1><p>Claudia Partner基盤のAPI・MCP公開ドキュメントです。基盤の考え方、接続の手順、仕様、対応状況を確認できます。利用中のAPIに対応する版を選んでください。</p><h2>公開中のドキュメント</h2><p><a href="{vp}/index.html">{r.e(c["version"])} の利用ガイド</a></p><p><a href="{vp}/api.html">APIリファレンス</a> · <a href="{vp}/mcp.html">AIエージェント・MCP</a> · <a href="links.json">アプリ向けリンク定義</a></p>'
+    root_body=f'<h1>Claudia Partner Docs</h1><p>Claudia Partner™基盤のAPI・MCP公開ドキュメントです。基盤の考え方、接続の手順、仕様、対応状況を確認できます。利用中のAPIに対応する版を選んでください。</p><h2>公開中のドキュメント</h2><p><a href="{vp}/index.html">{r.e(c["version"])} の利用ガイド</a></p><p><a href="{vp}/api.html">APIリファレンス</a> · <a href="{vp}/mcp.html">AIエージェント・MCP</a> · <a href="links.json">アプリ向けリンク定義</a></p>'
     out['index.html']=r.wrap(c,c['pages'][0],root_body,root=True).encode('utf-8')
     for n in ['openapi.json','api-inventory.json','mcp-tools.json','examples/public-requests.json']:
         out[f'{vp}/{n}']=(ROOT/vp/n).read_bytes()
