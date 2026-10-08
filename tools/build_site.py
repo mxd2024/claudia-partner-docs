@@ -63,7 +63,7 @@ def local_links(text, markdown=False):
 
 
 def search_box(prefix):
-    return f'''<form class="site-search" role="search"><label for="site-search">ドキュメントを検索</label><div class="search-field"><span aria-hidden="true">⌕</span><input id="site-search" type="search" placeholder="例：BFF、OIDC、404、画像" autocomplete="off" data-index="{prefix}search-index.json" aria-controls="search-results"></div><div id="search-results" aria-live="polite" hidden></div></form>'''
+    return f'''<form class="site-search" role="search"><label for="site-search">サイト内を検索</label><input id="site-search" type="search" placeholder="例：BFF、OIDC、404、画像" autocomplete="off" data-index="{prefix}search-index.json" aria-controls="search-results"><div id="search-results" aria-live="polite" hidden></div></form>'''
 
 
 def sidebar(prefix, active):
@@ -83,14 +83,13 @@ def wrap(slug, title, body, root=False, landing=False):
     prefix = VP + '/' if root else ''
     home = 'index.html' if root else '../index.html'
     canonical = BASE + (slug + '.html' if root else VP + '/' + slug + '.html')
-    header = f'''<a class="brand" href="{home}"><img src="{prefix}claudia-partner-mark.svg" alt=""><span>Claudia <b>Partner</b><small>Developer Help</small></span></a><nav class="top-links" aria-label="主な分類"><a href="{prefix}guides.html">ガイド</a><a href="{prefix}api.html">API</a><a href="{prefix}releases.html">リリース情報</a></nav><button class="menu-toggle" aria-expanded="false" aria-controls="navigation">メニュー</button>'''
+    header = f'''<a class="brand cp-brand" href="{home}"><img class="cp-brand__mark" src="{prefix}claudia-partner-mark.svg" alt=""><span class="cp-brand__text"><span class="cp-brand__name">Claudia <span class="cp-brand__partner">Partner</span></span><span class="cp-brand__descriptor">Docs</span></span></a><span class="top-note">開発者ドキュメント</span><span class="version">{VERSION}</span><button class="menu-toggle" aria-expanded="false" aria-controls="navigation">メニュー</button>'''
     toc = page_toc(body) if not landing else ''
-    footer = f'''<footer class="page-foot"><p>文書対象: <b>{VERSION}</b> · 文書改訂 {CONFIG['revision']} · 更新 {CONFIG['updated']}</p><p>契約スナップショット {SNAPSHOT}。全操作の実機確認は未実施。限定確認の範囲は<a href="{prefix}versions.html">提供条件と制約</a>を参照してください。</p></footer>'''
-    nav = search_box(prefix) if root else sidebar(prefix, slug)
-    container = 'home-layout' if root else 'layout'
+    footer = f'''<footer class="page-foot"><span>文書対象 {VERSION}</span><span>改訂{CONFIG['revision']} · {SNAPSHOT}仕様</span><a href="{prefix}versions.html">提供状況</a></footer>'''
+    nav = sidebar(prefix, '' if root else slug)
     return f'''<!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{ESC(title)} | Claudia Partner 開発者ヘルプ</title><meta name="description" content="Claudia Partnerの顧客アプリ開発者向けガイド、API仕様、リリース情報。文書対象版と提供条件を確認できます。"><meta name="theme-color" content="#145c52"><link rel="canonical" href="{canonical}"><link rel="icon" href="{prefix}favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}style.css"><script src="{prefix}app.js" defer></script></head>
-<body><a class="skip" href="#main">本文へ移動</a><header class="topbar">{header}</header><div class="version-strip">文書対象 <strong>{VERSION}</strong><span>{SNAPSHOT}契約 · 改訂{CONFIG['revision']}</span><a href="{prefix}versions.html">提供状況を確認 →</a></div><div class="{container}"><nav class="sidebar" id="navigation" aria-label="ドキュメント">{nav}</nav><main id="main"><div class="breadcrumb"><a href="{home}">開発者ヘルプ</a><span aria-hidden="true"> / </span><span>{ESC(title)}</span></div>{toc}{body}{footer}</main></div><footer class="site-foot">Claudia Partner · 顧客アプリ開発者向け公開ドキュメント</footer></body></html>'''
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{ESC(title)} | Claudia Partner Docs</title><meta name="description" content="Claudia Partnerのアプリ開発者向けガイド、API仕様、リリース情報。"><meta name="theme-color" content="#004d58"><link rel="canonical" href="{canonical}"><link rel="icon" href="{prefix}favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="{prefix}style.css"><link rel="stylesheet" href="{prefix}brand.css"><script src="{prefix}app.js" defer></script></head>
+<body><a class="skip" href="#main">本文へ移動</a><header class="topbar">{header}</header><div class="layout"><nav class="sidebar" id="navigation" aria-label="ドキュメント">{nav}</nav><main id="main"><div class="breadcrumb"><a href="{home}">ドキュメント</a><span aria-hidden="true"> / </span><span>{ESC(title)}</span></div>{toc}{body}{footer}</main></div></body></html>'''
 
 
 def page(slug, title, body, root=False, landing=False):
@@ -131,13 +130,7 @@ def build():
                     body += '<h2 id="example-'+ESC(sample['id'])+'">'+ESC(sample['title'])+'</h2><p>'+ESC(sample.get('notes',''))+'</p>'+renderer.code(request,'http')+renderer.code(response,'http')
             page(p['slug'], p['title'], body)
 
-    hero = '''<section class="hero"><p class="eyebrow">CLAUDIA PARTNER / DEVELOPERS</p><h1>業務に合うアプリを、<br>共通APIから。</h1><p class="lead">全体像を知り、最初のデータを読む。<br>ガイド・API仕様・リリース情報をここから探せます。</p><div class="hero-actions"><a class="button" href="v0.7/quickstart.html">開発を始める <span aria-hidden="true">→</span></a><a href="v0.7/index.html">まず全体像を読む</a></div></section>'''
-    home = hero + cards([
-        ('01 / LEARN','ガイド','接続準備、認証、表と行、メディア、MCP。目的に沿って学びます。','guides.html'),
-        ('02 / BUILD','APIリファレンス',f'{COUNT}操作の入力・応答・認可条件。機能ごとに仕様を確認します。','api.html'),
-        ('03 / FOLLOW','リリース情報','文書対象版、提供条件、変更履歴と旧版を確認します。','releases.html')], VP + '/')
-    home += '''<section class="start-section"><p class="eyebrow">FIRST STEPS</p><h2>最初の接続までの3ステップ</h2><div class="steps"><a href="v0.7/index.html"><b>1</b><span>構成を理解する<small>顧客アプリ・BFF・共通サービス</small></span></a><a href="v0.7/request-access.html"><b>2</b><span>接続情報をそろえる<small>対象版・有効な機能・ログイン設定</small></span></a><a href="v0.7/quickstart.html"><b>3</b><span>最初のデータを読む<small>本人確認から検証用の表へ</small></span></a></div></section>'''
-    home += '''<section class="home-bottom"><div><p class="eyebrow">SAMPLE</p><h2>小さなアプリで、役割をつかむ</h2><p>架空の業務メモを例に、画面・BFF・APIのつなぎ方を確認します。</p><a href="v0.7/sample-app.html">サンプルを読む →</a></div><div class="notice"><b>この文書で確認できる範囲</b><p>API契約は提供済み。全API操作の実機確認は未実施。取込MCP 1.0.1の8ツールには限定読取の確認報告があります。全サービスMCPは準備中です。</p><a href="v0.7/versions.html">機能ごとの状態と制約 →</a></div></section>'''
+    home = '<h1>開発者ヘルプ</h1><p>アプリ開発者向けのガイド・API仕様・リリース情報です。</p><h2>ドキュメント</h2><p><a href="v0.7/guides.html">ガイド</a> · <a href="v0.7/api.html">APIリファレンス</a> · <a href="v0.7/releases.html">リリース情報</a></p><h2>開発を始める</h2><ol><li><a href="v0.7/index.html">アプリ開発の全体像</a></li><li><a href="v0.7/request-access.html">接続情報を確認する</a></li><li><a href="v0.7/quickstart.html">接続準備と最初の読取</a></li></ol><p><a href="v0.7/sample-app.html">サンプルアプリ</a> · <a href="v0.7/versions.html">提供状況と制約</a></p>'
     page('index','開発者ヘルプ',home,root=True,landing=True)
     guides = '<p class="eyebrow">GUIDES</p><h1>ガイド</h1><p class="lead">最初の接続から、機能別の実装と運用まで。</p>'
     sections = {}

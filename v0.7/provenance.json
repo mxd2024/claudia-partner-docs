@@ -1,5 +1,5 @@
 {
-  "documentation_revision": 13,
+  "documentation_revision": 14,
   "reviewed_date": "2026-10-08",
   "api_version": "0.7.0-experimental",
   "contract_snapshot_date": "2026-10-07",
@@ -11,7 +11,8 @@
     "Japanese resource wording generalized to case; protocol keys/paths unchanged",
     "Environment availability wording",
     "Private client allow-list removed from public descriptions",
-    "Synthetic media store/file labels generalized"
+    "Synthetic media store/file labels generalized",
+    "Original rev10 styles and document reading layout restored; promotional headline removed"
   ],
   "mcp": {
     "adapter_version": "1.0.1",
