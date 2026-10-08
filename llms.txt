@@ -1,6 +1,6 @@
 # Claudia Partner Docs
 
-Public documentation for API 0.7.0-experimental. Documentation revision 16, pinned contract 2026-10-07. Runtime version and enabled features depend on the environment. MCP client 1.0.1 defines 8 import tools; all-service MCP is preparing. Examples are synthetic and have not been executed against customer environments.
+Public documentation for API 0.7.0-experimental. Documentation revision 17, pinned contract 2026-10-07. Runtime version and enabled features depend on the environment. MCP client 1.0.1 defines 8 import tools; all-service MCP is preparing. Examples are synthetic and have not been executed against customer environments.
 
 - [基盤の全体像](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/index.md)
 - [基盤の考え方と責任分界](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/principles.md)
