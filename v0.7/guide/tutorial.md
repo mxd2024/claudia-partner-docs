@@ -2,11 +2,11 @@
 
 検証用の環境で、アプリを1つ登録し、データを操作し、止めて再開するまでを通しで行う手順です。既存の顧客データには、そのまま適用しないでください。
 
-先に、[利用者として接続する](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/authentication.md)と、[HTTP・実行例](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/examples.md)を確認してください。
+先に、[利用者として接続する](authentication.md)と、[HTTP・実行例](examples.md)を確認してください。
 
 ## 登場人物
 
-この手順には、次の人と処理が登場します。用語は[用語集](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/glossary.md)にもあります。
+この手順には、次の人と処理が登場します。用語は[用語集](glossary.md)にもあります。
 
 | 登場するもの | この手順での役割 | 必要な権限 |
 | --- | --- | --- |
@@ -18,7 +18,7 @@
 
 ## 管理権限について
 
-管理権限（`manage_access`と`service_administrator`）は、提供者が、承認された環境の管理者に、最初に登録します。表の権限の`role`として、付与することはできません。自分で権限を上げるAPIもありません。
+管理権限（`manage_access`と`service_administrator`）は、利用環境で事前に登録された権限です。誰が初期設定を行うかは、利用環境の取り決めによります。表の権限の`role`として、付与することはできません。自分で権限を上げるAPIもありません。
 
 `GET /v1/me`の`permissions`と`capabilities`には、これらが出るとは限りません。持っているかどうかを、自分で確かめる方法は、現在ありません。権限の付与は、環境管理者に依頼してください。権限がないのに、管理のAPIへ試しに書き込む方法で、確認しないでください。
 
@@ -80,7 +80,7 @@ manifestの`version`は、新しいアプリでは1、更新では、現在の�
 3. 検索（`query`）で取得します。
 4. `update`には、保存した`id`と`version`を指定します。
 
-作成と更新は、別の`Idempotency-Key`を使います。412が返ったときは、[競合・再送・復帰](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/reliability.md)に従い、再取得、比較、利用者への確認へ進みます。結果が不明なだけのときは、同じキーと本文を保持します。
+作成と更新は、別の`Idempotency-Key`を使います。412が返ったときは、[競合・再送・復帰](reliability.md)に従い、再取得、比較、利用者への確認へ進みます。結果が不明なだけのときは、同じキーと本文を保持します。
 
 ## 4. 関連を設定する
 
@@ -119,7 +119,7 @@ manifestの`version`は、新しいアプリでは1、更新では、現在の�
 
 実施者: 組織の管理者と開発者
 
-[serviceとして接続する](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/service-access.md)の手順で、申請、承認、provision、`private_key_jwt`、activateを行います。
+[serviceとして接続する](service-access.md)の手順で、申請、承認、provision、`private_key_jwt`、activateを行います。
 
 確認すること:
 

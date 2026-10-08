@@ -1,6 +1,6 @@
 # service として接続する
 
-serviceは、人の操作なしに動く処理（バッチや連携など）が、基盤に接続するための方式です。利用者がログインする方式（[利用者として接続する](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/authentication.md)）とは、別の方式です。
+serviceは、人の操作なしに動く処理（バッチや連携など）が、基盤に接続するための方式です。利用者がログインする方式（[利用者として接続する](authentication.md)）とは、別の方式です。
 
 serviceは、組織の管理者の承認を受けて、動きます。承認された、表、列、操作、期限の範囲だけで動き、それを超えることはできません。
 
@@ -21,7 +21,7 @@ serviceは、組織の管理者の承認を受けて、動きます。承認さ�
 
 ## 前提
 
-この手順は、`managed`方式のserviceを対象にします。申請、承認、provisionには、MFAを完了した管理者（`manage_access`と`service_administrator`の両方を持つ利用者）が必要です。申請者と承認者を分ける仕組みは、強制されません。業務の運用で分ける場合は、別に決めてください。利用者のJWTは、serviceのactivate、query、batchには、使えません。
+この手順は、`managed`方式のserviceを対象にします。申請、承認、provisionには、MFAを完了した管理者（`manage_access`と`service_administrator`の両方を持つ利用者）が必要です。申請者と承認者を分ける仕組みは、強制されません。業務の運用で分ける場合は、別に決めてください。利用者のJWTは、serviceのactivate、metadata、query、batch、importには使えません。各経路には、専用のservice JWTを使います。
 
 - 環境管理者から、接続情報を受け取っていること。
 - 組織の管理者が、MFA付きの利用者の資格で、service-clientsを操作できること。
@@ -32,7 +32,7 @@ serviceは、組織の管理者の承認を受けて、動きます。承認さ�
 1. **申請する（組織の管理者。申請の内容は、あなたが決めて、管理者に渡します）。** `POST /v2/service-clients`に、`Idempotency-Key`（UUID）を付けて、`app_id`、`purpose`、`expires_at`、`rpm`、`jwk`、`scopes`を送ります。期限は最大90日、`rpm`（1分あたりの要求の上限）は1〜120です。`scopes`には、表、`schema_version`、読む列、書く列、操作、行を明示します。`create`を許可するときは、`custodian`も設定します。
 2. **承認する（組織の管理者）。** 返ったclient idと`version`を使い、`POST /v2/service-clients/{clientId}/approve`に`{"version":現在の版}`を送ります。
 3. **provisionする（組織の管理者）。** 最新の`version`で、`/provision`を実行します。`ready`の状態と、接続の情報（issuer、`token_endpoint`、audience、`auth_method`）を取得します。
-4. **トークンを取得する（あなたのサーバー処理）。** 次のJWT（署名付きの要求）を、登録した鍵で署名し、`token_endpoint`へ送ります。JWTの本体は、記録も表示もしません。`iss`と`sub`、およびフォームの`client_id`には、応答の`client_id`（文字列）を使います。2〜3の、パスの`{clientId}`には、応答の`id`（UUID）を使います。2つは別の値です。`iss`と`sub`、およびフォームの`client_id`には、応答の`client_id`（文字列）を使います。2〜3の、パスの`{clientId}`には、応答の`id`（UUID）を使います。2つは別の値です。
+4. **トークンを取得する（あなたのサーバー処理）。** 次のJWT（署名付きの要求）を、登録した鍵で署名し、`token_endpoint`へ送ります。JWTの本体は、記録も表示もしません。`iss`と`sub`、およびフォームの`client_id`には、応答の`client_id`（文字列）を使います。2〜3の、パスの`{clientId}`には、応答の`id`（UUID）を使います。2つは別の値です。
 
 ```json
 {"iss":"<CLIENT_ID>","sub":"<CLIENT_ID>","aud":"<TOKEN_ENDPOINT>","iat":<現在のUnix秒>,"exp":<現在のUnix秒+30>,"jti":"<一回限りのUUID>"}
@@ -50,6 +50,12 @@ grant_type=client_credentials&client_id=<CLIENT_ID>&client_assertion_type=urn%3A
 6. **使う（あなたのサーバー処理）。** 許可された`POST /v2/service/tables/{collection}/query`を実行します。
 
 **期待する結果**: 許可された操作が、200で成功します。`GET /v1/me`は、人の利用者の専用なので、拒否されます。環境の認証の入口によって、401（`TOKEN_INVALID`）または403のどちらかになります。実際のHTTPとcodeを記録してください。「人として接続できた」ことを、成功の条件にしないでください。
+
+## metadataと取込の経路
+
+文書対象の固定仕様には、`GET /v2/service/tables/{collection}`（`service.metadata`）と`POST /v2/service/tables/{collection}/import`（`service.import`）が追加されています。ともにservice専用で、利用環境の対応版と有効化が必要です。
+
+取込本文は`schema_version`、`expected_actor`、`operations`に従い、`Idempotency-Key`を指定します。権限は現在のservice承認範囲で判定します。通常のbatchや人用importから、本文・認証・上限を流用しないでください。[APIリファレンス](../openapi.json)で現在の型と条件を確認します。これらの追加を、利用中の環境で実機確認済みとは扱いません。
 
 ## 世代と再開
 
@@ -69,4 +75,4 @@ suspend（一時停止）またはrevoke（失効）の後は、古いJWTが拒�
 
 ## 次に
 
-許可された範囲での読み書きは、[表とデータの更新](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/tables.md)。通しの手順は、[アプリの登録と運用](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/tutorial.md)。
+許可された範囲での読み書きは、[表とデータの更新](tables.md)。通しの手順は、[アプリの登録と運用](tutorial.md)。

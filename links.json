@@ -31,6 +31,7 @@
         "openapi": "https://mxd2024.github.io/claudia-partner-docs/v0.7/openapi.json",
         "mcp-tools": "https://mxd2024.github.io/claudia-partner-docs/v0.7/mcp-tools.json",
         "api-inventory": "https://mxd2024.github.io/claudia-partner-docs/v0.7/api-inventory.json",
+        "provenance": "https://mxd2024.github.io/claudia-partner-docs/v0.7/provenance.json",
         "examples_json": "https://mxd2024.github.io/claudia-partner-docs/v0.7/examples/public-requests.json"
       }
     }

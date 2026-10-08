@@ -2,7 +2,7 @@
 
 「利用者として接続する」とは、利用者が認証サービスでログインし、あなたのアプリが、その利用者の資格（アクセストークン）を受け取って、基盤APIを呼ぶことです。基盤は、その利用者の権限の範囲で、操作を許可します。
 
-このページでは、ログインから、最初の`GET /v1/me`が200になるまでを説明します。MCPの接続キーは、この方式とは別の資格です。
+このページでは、登録済みclient_idとredirect_uriを受け取れる環境で、ログインから最初の`GET /v1/me`が200になるまでを説明します。個別アプリのクライアント登録・BFF接続は準備中、自己登録UI/APIは未提供です。MCPの接続キーは、この方式とは別の資格です。
 
 ## 登場するもの
 
@@ -23,7 +23,7 @@
 
 ## ログインして、トークンを取得する
 
-1. 環境管理者から、issuer（認証サービスのURL）、client_id（アプリのID）、登録済みのredirect_uri（ログイン後に戻るURL）、scope（求める権限の種類）、基盤のHTTPS originを受け取ります。client_idは、自分で決めません。アプリをまだ作っていないときの、検証用のredirect_uriが必要なら、依頼の雛形の「redirect_uri」欄に、希望を書いてください。
+1. 環境管理者から、issuer（認証サービスのURL）、client_id（アプリのID）、登録済みのredirect_uri（ログイン後に戻るURL）、scope（求める権限の種類）、基盤のHTTPS originを受け取ります。client_idは、自分で決めません。検証用のredirect_uriが必要なら、利用環境で登録可能な値を確認します。loopbackの利用可否は環境によります。
 2. issuerの`/.well-known/openid-configuration`をHTTPSで読み、返るissuerが、受け取った値と一致することを確認します。`authorization_endpoint`と`token_endpoint`を控えます。
 3. 暗号学的な乱数で、`state`と`code_verifier`を作ります。`code_verifier`は、43〜128文字の、URLに安全な文字列です。`code_challenge`は、`code_verifier`のSHA-256を、base64urlにした値（末尾の`=`なし）です。`code_verifier`と`state`は、ログに出さず、1回のログインにだけ使います。
 4. 次の認可URLを、ブラウザーで開き、利用者にログインとMFAを完了してもらいます。パラメーターは、URLエンコードします。
@@ -54,7 +54,7 @@ grant_type=authorization_code&client_id=<CLIENT_ID>&redirect_uri=<REGISTERED_RED
 curl -sS -H "Authorization: Bearer $CP_ACCESS_TOKEN" -H "Accept: application/json" https://<基盤のHTTPS origin>/v1/me
 ```
 
-ヘッダー込みの完全な例は、[HTTP・実行例](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/examples.md)の「利用者を確認」にあります。TLSの検証は、無効にしません。
+ヘッダー込みの完全な例は、[HTTP・実行例](examples.md)の「利用者を確認」にあります。TLSの検証は、無効にしません。
 
 **期待する結果**: 200が返り、利用者のid、permissions（権限）、capabilities、セッションの期限が含まれます。permissionsが空でも、確認は成功です。表の操作が許可されている、という意味ではありません。
 
@@ -98,7 +98,7 @@ MFAが必要な操作では、アクセストークンが、MFAを完了した�
 
 ## OpenAPIのツールから使う
 
-公開のOpenAPIの接続先と認証のURLは、接続できない説明用の`example.invalid`です。公開ファイルに、実際の接続情報を書き込まず、[環境版の生成ツール](https://mxd2024.github.io/claudia-partner-docs/v0.7/examples/configure-openapi.py)と[接続情報の雛形](https://mxd2024.github.io/claudia-partner-docs/v0.7/examples/environment.example.json)で、手元に環境版を作ります。
+公開のOpenAPIの接続先と認証のURLは、接続できない説明用の`example.invalid`です。公開ファイルに、実際の接続情報を書き込まず、[環境版の生成ツール](../examples/configure-openapi.py)と[接続情報の雛形](../examples/environment.example.json)で、手元に環境版を作ります。
 
 ```sh
 python configure-openapi.py --source openapi.json --profile environment.json --output openapi.environment.json
@@ -108,4 +108,4 @@ python configure-openapi.py --source openapi.json --profile environment.json --o
 
 ## 権限について
 
-管理権限（`manage_access`と`service_administrator`）と、表の読み取り・書き込み・設計の権限は、別です。表、列、行、期限は、操作のたびに確認されます。利用者を助けるAIも、利用者の権限を超えられません。詳しくは、[基盤の考え方と責任分界](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/principles.md)と、[MCPの導入](https://mxd2024.github.io/claudia-partner-docs/v0.7/guide/mcp.md)。
+管理権限（`manage_access`と`service_administrator`）と、表の読み取り・書き込み・設計の権限は、別です。表、列、行、期限は、操作のたびに確認されます。利用者を助けるAIも、利用者の権限を超えられません。詳しくは、[基盤の考え方と責任分界](principles.md)と、[MCPの導入](mcp.md)。
