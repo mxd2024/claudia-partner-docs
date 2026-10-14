@@ -46,7 +46,7 @@ GET /v2/tables/work_notes/rows/{rowId}</code></pre>
 <ul><li>子の表を、親の表に結びつけます（子の表の<code>PUT /v2/tables/{collection}/access</code>）。行どうしは、子の表の<code>text</code>の列に、親の行の<code>id</code>を持ってつなぎます。1対1（<code>one</code>）か1対多（<code>many</code>）で、1段までです。親は、v2の業務表の行です。ケースではありません。</li><li>所属の方式（<code>mode</code>が<code>members</code>）では、親の行ごとに、見てよい人（所属者）を登録できます（親の表の<code>PUT /v2/tables/{collection}/members/{scopeId}/{actorId}</code>。<code>scopeId</code>は親の行の<code>id</code>）。読むだけの所属者も登録できます。所属者にしても、親と子の表の権限と、列の権限は、別に必要です。</li><li>新しい親の行と、それを指す子の行を、1つの要求で作ることはできません。親を作ってから、子を作ります。</li><li>関連、transaction、所属、行の変更のeventsは、利用環境で有効になっている場合に使えます。</li></ul>
 <h2 id="section-12">上限</h2>
 <p>表ごとの上限は、表の定義の応答（<code>GET /v2/tables/{collection}</code>）の<code>limits</code>で返ります。</p>
-<ul><li>1回の書き込み（batch）は100操作まで、1回の読み取りは199行までです。</li><li>利用者が見られる範囲の全体が、25,000行かつ32MiBを超えると、検索も集計もできなくなります。絞り込みでは避けられません。行が増え続ける表は、年度ごとに表を分けるなど、先に決めておきます。</li></ul>
+<ul><li>1回の書き込み（batch）は100操作まで、1回の読み取りは199行までです。</li><li>利用者が見られる範囲の全体が、25,000行・32MiBのどちらかを超えると、検索も集計もできなくなります。絞り込みでは避けられません。行が増え続ける表は、年度ごとに表を分けるなど、先に決めておきます。</li></ul>
 <h2 id="section-13">変更の確認と、記録</h2>
 <ul><li><code>GET /v2/tables/{collection}/changes</code>は、表が変わったかを確かめる版だけを返します。</li><li><code>POST /v2/tables/{collection}/events</code>は、どの行が、どの版で、作られた・更新された・削除されたかを返します。誰が、どの値に変えたかは返しません。行の内容は、改めて取得します。</li><li>誰が、いつ、何に、どんな操作をしたかは、管理者が<code>POST /v2/organization/activity</code>で確認できます。業務の値や、変更の前後は返しません。</li></ul>
 <h2 id="section-14">v2の業務表、関連、ごみ箱</h2>
