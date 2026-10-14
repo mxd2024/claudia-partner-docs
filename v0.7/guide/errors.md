@@ -22,11 +22,11 @@ HTTP statusだけで原因を決めず、応答のcodeとrequest_idを確認し�
 
 認証を直す場合は[利用者として接続する](authentication.md)または[serviceとして接続する](service-access.md)、競合や結果不明は[競合・再送・復帰](reliability.md)、解決しない場合の連絡方法は[サポートと窓口](support.md)を参照してください。
 
-## 401のcode（配備の版9）
+## 401のcode（新しいセッションの方式）
 
 401は、codeで対応を分けます。`TOKEN_EXPIRED`はアクセストークンの取り直し、`SESSION_EXPIRED`（無操作の時間を過ぎた）・`SESSION_REAUTHENTICATION_REQUIRED`（認証から12時間）・`SESSION_REVOKED`（ログアウトした）はログインのやり直しです。詳しくは、[利用者として接続する](authentication.md)の「ログインの直後とセッションの期限」にあります。
 
-`SESSION_EXPIRED`・`SESSION_REAUTHENTICATION_REQUIRED`・`SESSION_REVOKED`は、配備の版9で使います。下のコード表（2026-10-07の固定契約から生成）には、まだ載っていません。次の固定契約で反映します。
+`SESSION_EXPIRED`・`SESSION_REAUTHENTICATION_REQUIRED`・`SESSION_REVOKED`は、新しいセッションの方式の稼働版（2026-10以降）で使います。下のコード表（2026-10-07の固定契約から生成）と、固定OpenAPIのcodeの一覧には、まだ載っていません。反映は、次の固定契約の予定です。応答を厳密に検査するクライアントでも、一覧にないcodeを拒否しないでください。
 
 ## 通信が途切れた場合
 
