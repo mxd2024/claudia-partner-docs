@@ -8,6 +8,7 @@ from build_content import ASSETS
 ROOT=Path(__file__).resolve().parents[1]
 BASELINE='ff6a62aecd1aed08599c04d871f114ddc54cc540'
 APPROVED_TERMS_CANONICAL_SHA256='ffbe6576c5768e38f8ad89b95d0223df3647d862f00d7c1297d51bc11844c16a'
+ADDED_ASSETS={'v0.7/claudia-partner-mark-mail.png'}  # not in BASELINE; checked against ASSETS hash only
 def baseline(name):return subprocess.check_output(['git','show',BASELINE+':'+name],cwd=ROOT)
 class Page(HTMLParser):
     def __init__(self,text,reader_layout=False,legal_layout=False):
@@ -118,6 +119,10 @@ def main():
     for name,expected in files.items():
         raw=(ROOT/name).read_bytes()
         if hashlib.sha256(raw).hexdigest()!=expected:failures.append('hash '+name)
+        # Binary images (pinned in ASSETS) are checked by hash only, not read as text.
+        if name.endswith('.png'):
+            if name not in ASSETS:failures.append('unpinned image '+name)
+            continue
         text=html.unescape(raw.decode('utf-8'))
         for phrase in ['案件','morita@','伴走支援','大手企業のセキュリティ水準','design-images','design-blue.png','デザイン見本','お客様ごとの専用環境']:
             if phrase in text:failures.append('non-generic wording '+name+' '+phrase)
@@ -150,7 +155,9 @@ def main():
                 if key not in pages or unquote(p.fragment) not in pages[key].ids:failures.append('Markdown HTML anchor '+name+' '+link)
     assets={n:hashlib.sha256((ROOT/n).read_bytes()).hexdigest() for n in ASSETS}
     for n,expected in ASSETS.items():
-        if assets[n]!=expected or (ROOT/n).read_bytes()!=baseline(n):failures.append('asset changed '+n)
+        # Assets added after the baseline (e.g. the mail logo PNG) are pinned by hash only.
+        added=n in ADDED_ASSETS
+        if assets[n]!=expected or (not added and (ROOT/n).read_bytes()!=baseline(n)):failures.append('asset changed '+n)
     unchanged_structure={n:Page(baseline(n).decode('utf-8')).shape==pages[n].shape for n in ['index.html','v0.7/index.html']}
     home_normalized=Page((ROOT/'index.html').read_text(encoding='utf-8'),legal_layout=True).shape==Page(baseline('index.html').decode('utf-8')).shape
     if not home_normalized:failures.append('home visual DOM changed beyond legal links and copyright')

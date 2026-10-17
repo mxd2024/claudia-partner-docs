@@ -12,6 +12,7 @@ ASSETS={
  'v0.7/app.js':'4a39df857644a38b97b738bbd2e675dbf87143c20ba7a7ee37826cfbb0c70040',
  'v0.7/favicon.svg':'f820d227695b731ea048b1d41bde23c05cea16623257e3c4ac57fc3a58af42e1',
  'v0.7/claudia-partner-mark.svg':'f820d227695b731ea048b1d41bde23c05cea16623257e3c4ac57fc3a58af42e1',
+ 'v0.7/claudia-partner-mark-mail.png':'793305901456fbec7f6fbedab202b420642903388d6e6abdff143c3d2389a3a4',
 }
 
 def text_link(link,config):
@@ -118,7 +119,7 @@ manifest.jsonの`files`に配信ファイルのSHA-256を記載します。`sour
 '''.encode('utf-8')
     # Existing public examples, 404, robots, sitemap and visual assets remain byte-for-byte.
     previous=r.read_json(ROOT/'manifest.json')
-    for name in previous['files']:
+    for name in list(previous['files'])+[n for n in ASSETS if n not in previous['files']]:
         if name not in out:out[name]=(ROOT/name).read_bytes()
     manifest={'format':1,'kind':'public-api-documentation','version':c['version'],'version_path':vp,'updated':c['updated'],'documentation_revision':c['revision'],'public_base_url':c['base_url'],'source_openapi_sha256':c['source_api_sha256'],'files':{n:r.sha(b) for n,b in sorted(out.items())}}
     out['manifest.json']=r.json_bytes(manifest)
