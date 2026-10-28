@@ -2,7 +2,7 @@
   "title": "Claudia Partner Docs",
   "version": "0.7.0-experimental",
   "version_path": "v0.7",
-  "updated": "2026-10-28",
+  "updated": "2026-10-29",
   "base_url": "https://mxd2024.github.io/claudia-partner-docs/",
   "source_api_sha256": "29e0a6fcd763b3efb855ef40dd3018f06cae790a64db3b2e37c26273d333a63b",
   "pages": [
@@ -232,6 +232,6 @@
   "redirects": {
     "operations": "support"
   },
-  "revision": 25,
+  "revision": 26,
   "copyright": "© 2026 META X Design. All rights reserved."
 }
