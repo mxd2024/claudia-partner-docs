@@ -29,7 +29,7 @@ serviceは、組織の管理者の承認を受けて、動きます。承認さ�
 
 ## 申請から利用まで
 
-1. **申請する（組織の管理者。申請の内容は、あなたが決めて、管理者に渡します）。** `POST /v2/service-clients`に、`Idempotency-Key`（UUID）を付けて、`app_id`、`purpose`、`expires_at`、`rpm`、`jwk`、`scopes`を送ります。期限は最大90日、`rpm`（1分あたりのリクエストの上限）は1〜120です。`scopes`には、表、`schema_version`、読む列、書く列、操作、行を明示します。`create`を許可するときは、`custodian`も設定します。
+1. **申請する（組織の管理者。申請の内容は、あなたが決めて、管理者に渡します）。** `POST /v2/service-clients`に、`Idempotency-Key`（UUID）を付けて、`app_id`、`purpose`、`expires_at`、`rpm`、`jwk`、`scopes`を送ります。期限は最大90日、`rpm`（1分あたりのリクエストの上限）は1〜120です。`scopes`には、表、`schema_version`、読む列、書く列、操作、行を明示します。`create`を許可するときは、`custodian`も設定します。本文の例は、下の「申請の本文の例」にあります。
 2. **承認する（組織の管理者）。** 返ったclient idと`version`を使い、`POST /v2/service-clients/{clientId}/approve`に`{"version":現在の版}`を送ります。
 3. **provisionする（組織の管理者）。** 最新の`version`で、`/provision`を実行します。`ready`の状態と、接続の情報（issuer、`token_endpoint`、audience、`auth_method`）を取得します。
 4. **トークンを取得する（あなたのサーバー処理）。** 次のJWT（署名付きの要求）を、登録した鍵で署名し、`token_endpoint`へ送ります。JWTの本体は、記録も表示もしません。`iss`と`sub`、およびフォームの`client_id`には、応答の`client_id`（文字列）を使います。2〜3の、パスの`{clientId}`には、応答の`id`（UUID）を使います。2つは別の値です。
@@ -51,6 +51,26 @@ grant_type=client_credentials&client_id=<CLIENT_ID>&client_assertion_type=urn%3A
 
 **期待する結果**: 許可された操作が、200で成功します。`GET /v1/me`は、人の利用者の専用なので、拒否されます。利用環境の認証の入口によって、401（`TOKEN_INVALID`）または403のどちらかになります。実際のHTTPとcodeを記録してください。「人として接続できた」ことを、成功の条件にしないでください。
 
+### 申請の本文の例
+
+```json
+{
+  "app_id": "work-time-reader",
+  "purpose": "ケースごとの作業時間の集計。金額は読まない",
+  "expires_at": "<現在から90日以内のUTCの日時>",
+  "rpm": 60,
+  "jwk": {"kty":"RSA","n":"<生成したRSA公開鍵のbase64urlの値>","e":"AQAB","kid":"work-time-reader-key-1","alg":"RS256","use":"sig"},
+  "scopes": [{
+    "collection": "work_log", "schema_version": 1,
+    "read": ["department","duration","case_number"],
+    "write": [], "operations": ["query"],
+    "rows": {"kind":"match","values":{"department":"production"}}
+  }]
+}
+```
+
+`<…>`の箇所は、実際の値に置き換えます。`jwk`には公開鍵の要素だけを入れます。秘密鍵の要素（`d`・`p`・`q`・`dp`・`dq`・`qi`）を含めると、400で拒否されます。JWKのURLは受け付けません。1つのserviceに許可できる表は、16までです。
+
 ## metadataと取込の経路
 
 文書対象の固定仕様には、`GET /v2/service/tables/{collection}`（`service.metadata`）と`POST /v2/service/tables/{collection}/import`（`service.import`）が追加されています。ともにservice専用で、利用環境の対応版と有効化が必要です。
@@ -68,6 +88,45 @@ grant_type=client_credentials&client_id=<CLIENT_ID>&client_assertion_type=urn%3A
 ## 権限の変更
 
 serviceの権限（表、列、操作）は、`PUT /v2/service-clients/{clientId}/permissions`で、**全置換**で更新します。省略した表、列、操作は、許可から外れます。有効なserviceは、同じJWTのままで、次のリクエストから、新しい設定に従います。通常の設定変更で、provisionやactivateを、やり直す必要はありません。
+
+## 期限を延ばす
+
+serviceの期限（`expires_at`）は、設定する時点から90日以内です。組織の管理者の管理権限の期限と、利用環境の契約の期限・利用期間の期限も、超えられません。
+
+続けて使うときは、期限が来る前に、組織の管理者が`PUT /v2/service-clients/{clientId}/permissions`で、`GET /v2/service-clients/{clientId}`で得た最新の`version`と、新しい`expires_at`を送ります。この操作は全置換なので、今の`rpm`と`scopes`も、そのまま送ります。有効なserviceは、同じJWTのまま、次のリクエストから新しい期限に従います。provisionやactivateのやり直しは要りません。
+
+鍵の更新（rotate）では、期限は延びません。期限を過ぎると、serviceのリクエストは401（`TOKEN_INVALID`）で拒否され、鍵の更新（rotate）・provision・resumeの管理の操作も、401（`TOKEN_EXPIRED`）で拒否されます。
+
+## 定時の集計・同期
+
+基盤のAPIには、決まった時刻に処理を動かす操作はありません。毎日の集計や、ほかのシステムとの同期は、お客さまのアプリのサーバー（BFF）が、決めた時刻に、serviceとして読み書きします。
+
+- 集計の操作（`POST /v2/tables/{collection}/aggregate`）は、利用者のログインで使う操作で、serviceでは使えません。serviceでは、`query`で必要な行を読み、アプリで集計します。
+- `query`は、1回199行まで（指定しないときは50行）です。応答の`next_after`を、次の`after`に渡して、続きを読みます。行は行のIDの順で返ります。読み終えるまでの間に、ほかの更新が入ることがあります。`filter`と`sort`は使えません。
+- `batch`は、1回50操作まで、本文は64KiBまでです（人の`batch`の100操作とは違います）。取込（`import`）は、1回100操作・256KiBまでです。
+- 1分あたりのリクエストは、申請の`rpm`（1〜120）までです。超えると、429（`RATE_LIMITED`）で拒否されます。認証を通り、上限の内で受け付けたリクエストは、そのあと拒否されても、数に入ります。認証できないリクエストと、上限で断られたリクエストは、数に入りません。
+- 1行の値は、16KiBまでです。serviceで行を作るときは、表の行が25,000行に達していると、作れません（413 `PAYLOAD_TOO_LARGE`）。
+- 利用者のログインで使う検索と集計は、利用者が見られる範囲の全体が25,000行・32MiBのどちらかを超えると、使えません（[表とデータの更新](tables.html)の「上限」）。
+
+## 使い始める前に
+
+- serviceを使うには、その利用環境で、serviceの経路を有効にする必要があります。初めて使うときは、Claudia Partnerサポート（[サポートと窓口](support.html)）に知らせてください。
+- アプリのサーバーは、自分の名前と版のUser-Agent（例: `ExampleApp/1.0`）を付けて、リクエストを送ります。言語やライブラリの既定の名乗りのままだと、基盤に届く前の入口で断られることがあります（HTTP 403、`text/plain`、本文が`error code: 1010`。[MCPの対応範囲とトラブル対応](mcp-support.html)の「接続できないとき」）。ブラウザーなど、ほかのソフトウェアの名乗りをまねないでください。
+
+## 断られるときの答え
+
+| 場面 | HTTP | `code` |
+| --- | --- | --- |
+| 許可した範囲（`scopes`）にない表 | 404 | `NOT_FOUND` |
+| 行の条件（`rows`）に合わない行の更新・削除 | 404 | `NOT_FOUND` |
+| 許可していない操作（例: `query`だけを許可した表への`batch`） | 403 | `FORBIDDEN_ROLE` |
+| 許可していない列への書き込み | 403 | `FIELD_NOT_WRITABLE` |
+| 書いた結果の行が、行の条件から外れる | 403 | `SCOPE_VIOLATION` |
+| provisionの後、activateの前 | 403 | `FORBIDDEN_ROLE` |
+| provisionの前、停止（suspend）・失効（revoke）・期限の後、rotateの後の古い世代のトークン | 401 | `TOKEN_INVALID` |
+| 許可の`schema_version`と、表の今の版が違う | 409 | `STATE_CONFLICT` |
+| 行の`version`が今の版と違う | 412 | `VERSION_CONFLICT` |
+| 1分あたりの上限を超えた | 429 | `RATE_LIMITED` |
 
 ## 停止と失効
 

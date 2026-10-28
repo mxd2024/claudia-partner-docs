@@ -191,7 +191,7 @@
 <h3 id="section-6">接続の前にTLS検証が失敗する（例: certificate has expired）</h3>
 <ul><li>確認: システム時計、接続先、信頼するCAと配布物の版を確認します。エラーだけで特定の証明書を原因と断定しません。</li><li>対処: 1.0.1の同梱CAを使用します。利用環境で別の信頼CAが必要なら、確認済みPEMを<code>SSL_CERT_FILE</code>に指定します。指定値は同梱CAより優先されます。TLS検証は有効のままにします。<a href="mcp.html#section-2">配布物と同梱CAの確認</a>へ進みます。</li></ul>
 <h3 id="section-7">HTTP 403、content-typeが<code>text/plain</code>、本文が<code>error code: 1010</code></h3>
-<ul><li>原因: 管理サイトに届く前の入口で、リクエストが拒否されています。管理サイトの応答（JSONの<code>error</code>）ではありません。</li><li>対処: 現行の配布物を確認し、利用環境のサービス管理者へ時刻とエラーコードを伝えます。1.0.1にはこの拒否を<code>ENTRY_REJECTED</code>として識別する処理があります。2026-10-08の限定した公開読取検証は成功していますが、すべての利用環境で入口の拒否が解消したとは限りません。クライアントの識別を偽装したり、TLS検証を無効にしたりして回避しないでください。</li></ul>
+<ul><li>原因: 管理サイトに届く前の入口で、リクエストが拒否されています。管理サイトの応答（JSONの<code>error</code>）ではありません。</li><li>対処: 現行の配布物を確認し、利用環境のサービス管理者へ時刻とエラーコードを伝えます。1.0.1にはこの拒否を<code>ENTRY_REJECTED</code>として識別する処理があります。利用環境によっては、この拒否が続くことがあります。クライアントの識別を偽装したり、TLS検証を無効にしたりして回避しないでください。</li></ul>
 <h3 id="section-8">HTTP 401、JSONの<code>error</code>が<code>authentication_required</code></h3>
 <ul><li>原因: キーが無効、または失効している。あるいは、別の接続先で発行したキーを使っています。</li><li>対処: 管理サイトで接続キーを再発行し、同じ<code>--base</code>と<code>--credential-name</code>で、再保存します。新しいキーでも続くときは、サービス側の設定が原因の可能性があります。<a href="support.html">サポートと窓口</a>へ連絡します。</li></ul>
 <p>JSONの<code>error</code>が返るときは、アプリまで届いています。<code>text/plain</code>の本文だけが返るときは、入口で拒否されています。この違いが、連絡するときの、最初の手がかりになります。</p>
