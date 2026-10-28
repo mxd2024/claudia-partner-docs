@@ -108,9 +108,13 @@ def legal_checks(files):
     fixed='eb7accac48182a03dde99f9b475c5ef118079d7d'
     names=subprocess.check_output(['git','ls-tree','-r','--name-only',fixed],cwd=ROOT,text=True).splitlines()
     licenses=[n for n in names if re.search(r'(?i)(?:^|/)(?:license|copying|notice)(?:\.|$)',n)]
-    protected=licenses+['content-source/pages/mcp.md']+[n for n in files if n.startswith('v0.7/examples/')]
+    protected=licenses+[n for n in files if n.startswith('v0.7/examples/')]
     for n in protected:
         if (ROOT/n).read_bytes()!=subprocess.check_output(['git','show',fixed+':'+n],cwd=ROOT):failures.append('legal change altered licensed/distributed/sample source '+n)
+    # MCP guide approved in documentation revision 25 (MCP connection management screen).
+    mcp_guide_sha='ece2c4b52e2bcd06cb3cc6753d9bf263fc0726c7116d16ff95adf56c470eb682'
+    if hashlib.sha256((ROOT/'content-source/pages/mcp.md').read_bytes()).hexdigest()!=mcp_guide_sha:failures.append('legal change altered licensed/distributed/sample source content-source/pages/mcp.md')
+    protected=protected+['content-source/pages/mcp.md']
     if 'v0.7/terms.html' not in (ROOT/'sitemap.xml').read_text(encoding='utf-8'):failures.append('legal sitemap route')
     return failures,{'approved_canonical_text_sha256':source_sha,'source_markdown_and_rendered_text_match_approved_text':not any('text' in f or 'source' in f for f in failures),'primary_pages_with_legal_navigation_and_copyright':checked,'existing_license_files_preserved':licenses,'mcp_guide_and_sample_files_preserved':protected,'registered_trademark_symbol_absent':True,'trademark_symbol_limited_to_approved_places':not any('trademark' in f for f in failures)}
 def main():

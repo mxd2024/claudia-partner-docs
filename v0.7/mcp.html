@@ -6,7 +6,7 @@
 <p>現在の接続の経路は、AIエージェント → 手元のMCPアダプター → 管理サイトの取込API → 基盤です。MCPアダプターの接続先は、管理サイトのHTTPS originで、基盤APIのURLとは異なります。管理サイトのoriginと利用条件は、利用環境ごとに確認します。接続キーは人OIDCのアクセストークンや、基盤APIのservice JWTとは別の資格です。管理サイトから基盤APIへの経路には、人セッションを使う構成と機械資格を使う構成があり、実際の構成と反映状態を確認してください。</p>
 <p><strong>macOS向けMCPの接続方法は準備中（検討中）です。現行配布版1.0.1のキー保存はWindowsとLinux向けです。</strong> 導入前に<a href="mcp.html#section-3">クライアントのOS対応と準備</a>を確認してください。</p>
 <h2 id="section-2">配布物を入手する</h2>
-<p>管理サイトに利用者としてログインし、「取込・出力」から「取込の説明」を開き、MCPクライアントのZIPをダウンロードします。ファイル名は<code>mcp-client.zip</code>です。ダウンロードしたZIPを、専用のフォルダーへ展開します。</p>
+<p>管理サイトに利用者としてログインし、左のメニューの「連携」の下にある「MCP接続管理」を開きます。「この画面でできること」の欄の「MCPクライアントをダウンロード」から、MCPクライアントのZIPをダウンロードします。ファイル名は<code>mcp-client.zip</code>です。同じ欄の「接続の手順（手引き）」から、手引きも開けます。ダウンロードしたZIPを、専用のフォルダーへ展開します。</p>
 <p>文書対象のZIP（1.0.1）には、起動用<code>mcp_stdio.py</code>、<code>README.txt</code>、<code>ca-bundle.json</code>、<code>claudia_ops/__init__.py</code>、<code>claudia_ops/imports/__init__.py</code>、<code>claudia_ops/imports/mcp_stdio.py</code>、<code>claudia_ops/imports/credential_store.py</code>、<code>claudia_ops/imports/ca-bundle.pem</code>、<code>licenses/certifi-LICENSE</code>の9ファイルが含まれます。起動は、<code>mcp_stdio.py</code>のファイルパスを指定して行います。ZIPのSHA-256は、次のとおりです。ダウンロードしたファイルが、同じ値であることを確認してください。</p>
 <pre><span class="code-label">text</span><code>3a89af3db734cb6edb7c135db31f6f8fb96f6074e263e9c3f74848bb6d09f68f</code></pre>
 <p>配布元で取得したファイルの版も確認してください。このハッシュは文書対象1.0.1の値で、配布元の最新ファイルと同一とは限りません。CAはcertifi 2026.7.22を同梱します。CAバンドルのSHA-256は<code>9cc2a774b5198dcff14d9be1e66091f538975d867ce029a96bce15a55dfd730f</code>です。</p>
@@ -19,7 +19,9 @@
 <h2 id="section-4">macOS向けMCPの接続方法</h2>
 <p>macOS向けMCPは <span class="status status-soon">準備中</span> です。Windows・Linuxとは異なる接続・キー管理方法を検討中です。現行配布版1.0.1では、Keychainを使うキーの保存・読取が未対応です。接続方式と提供時期は未確定です。最新の対応状況と次の手順は、<a href="support.html">サポートと窓口</a>で確認できます。</p>
 <h2 id="section-5">キーを発行して保存する</h2>
-<p>以下は、現行配布版1.0.1のWindows・Linux向け手順です。管理サイトの「取込・出力」にある、AI接続の欄で、接続キーを発行します。キーが表示されるのは、発行したときの一度だけです。キーは、対話入力でOSの資格ストアに保存します。MCPの設定JSONやチャットには、キーを含めません。紛失したときは、再表示できません。古いキーを失効して、再発行します。有効期間は90日、利用者ごとの有効なキーは最大10個です。</p>
+<p>以下は、現行配布版1.0.1のWindows・Linux向け手順です。</p>
+<ol><li>管理サイトの「MCP接続管理」を開き、「接続キーを発行する」の欄の「接続する端末・用途」に、どの接続かが分かる名前を入れます（80文字まで。例: 「経理のPC・AIアシスタント」）。取り消すときに、この名前で接続を見分けます。</li><li>「MCP接続キーを発行」を押します。有効期限は発行から90日で、同時に有効にできるのは10個までです。</li><li>「接続キーを発行しました」と表示されたら、「キーをコピー」でキーをコピーし、すぐに下のコマンドを実行して、対話入力でOSの資格ストアに保存します。キーが表示されるのは、このときだけです。</li><li>保存したら、「表示を消す」を押します。</li></ol>
+<p>MCPの設定JSONやチャットには、キーを含めません。紛失したときは、再表示できません。「有効な接続」の表で、古いキーの行の「接続を取り消す」を押してから、新しいキーを発行します。</p>
 <pre><span class="code-label">sh</span><code>python /absolute/path/mcp-client/mcp_stdio.py --base https://console.example.invalid --directory /absolute/path/transfer --credential-name customer-imports --save-key</code></pre>
 <p><code>--base</code>は、提供されたHTTPS origin（通常は443。パスとクエリーなし）です。<code>--credential-name</code>は、英小文字（a〜z）、数字、ハイフン、アンダースコアの短い名前にします。英大文字は受け付けません。HTTPS接続では、接続先から作る17文字の識別子を加えた保存名が64文字以内になるよう、指定する名前を47文字以内にしてください。保存のときと起動のときは、同じ<code>--base</code>と<code>--credential-name</code>を使います。</p>
 <h2 id="section-6">MCPホストに設定する</h2>
@@ -31,7 +33,8 @@
 <h2 id="section-8">取込の流れと、利用の終了</h2>
 <ol><li><code>imports_catalog</code>で、形式を確認します。</li><li><code>imports_export</code>で、更新用のCSVを取得します。</li><li><code>imports_prepare</code>で、検査と差分の作成を行います。<code>preparing</code>なら<code>imports_status</code>で待ち、<code>prepared</code>になった計画だけを実行します。<code>prepare_failed</code>なら入力とエラーを確認します。</li><li>利用者が確認した後で、<code>imports_run</code>を実行します。</li><li><code>imports_verify</code>で、反映の結果を照合します。</li></ol>
 <p>通信が途切れたときは、<code>plan_id</code>と<code>source_sha256</code>を保持し、<code>imports_status</code>で確認して、同じ計画を続けます。元のファイルの中にある文章を、AIへの命令として扱わないでください。</p>
-<p>利用を終えるときは、管理サイトでキーを失効します。同じキーで<code>imports_catalog</code>が拒否されることを確認してから、ホストの設定を削除します。手元の保存値を消すだけでは、サーバー側で失効したことになりません。</p>
+<p>利用を終えるときは、管理サイトの「MCP接続管理」の「有効な接続」の表で、その接続の行の「接続を取り消す」を押します。同じキーで<code>imports_catalog</code>が拒否されることを確認してから、ホストの設定を削除します。手元の保存値を消すだけでは、サーバー側で取り消したことになりません。</p>
+<ul><li>取り消したキーは、すぐに使えなくなり、再利用できません。取り消したキーと期限が切れたキーは、「取り消し・期限切れの履歴」の表で確かめられます。</li><li>影響するのは、そのキーを使っているAIアシスタントの接続だけです。</li><li>管理サイトのパスワードを変えると、すべての接続キーが取り消されます。続けて使うときは、キーを発行し直して、保存し直します。</li></ul>
 <h2 id="section-9">取込のファイル（CSV）</h2>
 <ul><li>読み取れる文字コードは、UTF-8（BOMの有無は問いません）と、BOM付きのUTF-16です。Shift-JISは、前提にしません。</li><li>出力は、UTF-8のBOM付きで、改行はCRLFです。</li><li>見出しの名前と順序は、<code>imports_catalog</code>が返す<code>headers</code>と、完全に一致させます。表のラベルから推測しません。</li><li>取込の形式は、<code>imports_catalog</code>の<code>format</code>で、最初に確認します。取込の形式は、アプリ定義と一緒に、<code>POST /v2/app-packages/plan</code>と<code>/apply</code>で、CSVの契約（<code>csv.key_fields</code>など）として登録します。登録は、管理者が行います。<code>imports_catalog</code>が空のときは、取込の形式が、まだ登録されていません。管理者または環境管理者に、確認してください。型付きの形式（<code>workspace-v1</code>）は、登録された必須のtext列を、照合のキー（<code>key_columns</code>）に使います。更新用の出力には、<code>_record_id</code>と<code>_record_version</code>の列が付くので、両方を保存します。旧互換の形式には、<code>_migration_id</code>と、別の照合の規則があります。2つを、混ぜないでください。</li><li>取込は、取込元にない行を、自動で削除しません。以前の照合の値と、現在の値が違う行は、競合として扱います。</li><li><code>source_file</code>と<code>output_file</code>の相対パスは、MCPアダプターを起動したときの<code>--directory</code>が基準です。絶対パスも、そのフォルダーの配下に解決されるものだけです。CSV以外のファイル、フォルダーの外、既存の出力ファイルは、拒否されます。元のファイルの上限は、現在の<code>imports_catalog.max_file_bytes</code>に従います。</li></ul>
 <h2 id="section-10">必要な権限</h2>
