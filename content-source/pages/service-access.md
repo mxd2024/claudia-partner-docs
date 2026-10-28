@@ -91,11 +91,11 @@ serviceの権限（表、列、操作）は、`PUT /v2/service-clients/{clientId
 
 ## 期限を延ばす
 
-serviceの期限（`expires_at`）は、設定する時点から90日以内です。組織の管理者の管理権限の期限と、利用環境の契約の期限も、超えられません。
+serviceの期限（`expires_at`）は、設定する時点から90日以内です。組織の管理者の管理権限の期限と、利用環境の契約の期限・利用期間の期限も、超えられません。
 
-続けて使うときは、期限が来る前に、組織の管理者が`PUT /v2/service-clients/{clientId}/permissions`で、新しい`expires_at`を送ります。この操作は全置換なので、今の`rpm`と`scopes`も、そのまま送ります。有効なserviceは、同じJWTのまま、次のリクエストから新しい期限に従います。provisionやactivateのやり直しは要りません。
+続けて使うときは、期限が来る前に、組織の管理者が`PUT /v2/service-clients/{clientId}/permissions`で、`GET /v2/service-clients/{clientId}`で得た最新の`version`と、新しい`expires_at`を送ります。この操作は全置換なので、今の`rpm`と`scopes`も、そのまま送ります。有効なserviceは、同じJWTのまま、次のリクエストから新しい期限に従います。provisionやactivateのやり直しは要りません。
 
-鍵の更新（rotate）では、期限は延びません。期限を過ぎると、serviceのリクエストは401（`TOKEN_INVALID`）で拒否され、鍵の更新などの管理の操作も、401（`TOKEN_EXPIRED`）で拒否されます。
+鍵の更新（rotate）では、期限は延びません。期限を過ぎると、serviceのリクエストは401（`TOKEN_INVALID`）で拒否され、鍵の更新（rotate）・provision・resumeの管理の操作も、401（`TOKEN_EXPIRED`）で拒否されます。
 
 ## 定時の集計・同期
 
@@ -104,7 +104,7 @@ serviceの期限（`expires_at`）は、設定する時点から90日以内で�
 - 集計の操作（`POST /v2/tables/{collection}/aggregate`）は、利用者のログインで使う操作で、serviceでは使えません。serviceでは、`query`で必要な行を読み、アプリで集計します。
 - `query`は、1回199行まで（指定しないときは50行）です。応答の`next_after`を、次の`after`に渡して、続きを読みます。行は行のIDの順で返ります。読み終えるまでの間に、ほかの更新が入ることがあります。`filter`と`sort`は使えません。
 - `batch`は、1回50操作まで、本文は64KiBまでです（人の`batch`の100操作とは違います）。取込（`import`）は、1回100操作・256KiBまでです。
-- 1分あたりのリクエストは、申請の`rpm`（1〜120）までです。超えると、429（`RATE_LIMITED`）で拒否されます。拒否されたリクエストも、数に入ります。
+- 1分あたりのリクエストは、申請の`rpm`（1〜120）までです。超えると、429（`RATE_LIMITED`）で拒否されます。認証を通り、上限の内で受け付けたリクエストは、そのあと拒否されても、数に入ります。認証できないリクエストと、上限で断られたリクエストは、数に入りません。
 - 1行の値は、16KiBまでです。serviceで行を作るときは、表の行が25,000行に達していると、作れません（413 `PAYLOAD_TOO_LARGE`）。
 - 利用者のログインで使う検索と集計は、利用者が見られる範囲の全体が25,000行・32MiBのどちらかを超えると、使えません（[表とデータの更新](tables.html)の「上限」）。
 
