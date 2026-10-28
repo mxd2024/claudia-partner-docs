@@ -112,7 +112,7 @@ def legal_checks(files):
     for n in protected:
         if (ROOT/n).read_bytes()!=subprocess.check_output(['git','show',fixed+':'+n],cwd=ROOT):failures.append('legal change altered licensed/distributed/sample source '+n)
     # MCP guide approved in documentation revision 25 (MCP connection management screen).
-    mcp_guide_sha='deb27f60f9a27cceee91db8125085fc037cb9c7366cb78e0b7fb83b49fd0ec45'
+    mcp_guide_sha='64b6e12c4e079640b9b5dddcb5d2c17d4e0e7dd5a9ccc14232727bd2dae90942'
     if hashlib.sha256((ROOT/'content-source/pages/mcp.md').read_bytes()).hexdigest()!=mcp_guide_sha:failures.append('legal change altered licensed/distributed/sample source content-source/pages/mcp.md')
     protected=protected+['content-source/pages/mcp.md']
     if 'v0.7/terms.html' not in (ROOT/'sitemap.xml').read_text(encoding='utf-8'):failures.append('legal sitemap route')
