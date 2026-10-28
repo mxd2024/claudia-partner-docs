@@ -90,6 +90,8 @@ curl -sS -H "Authorization: Bearer $CP_ACCESS_TOKEN" -H "Accept: application/jso
 | `SESSION_REVOKED` | そのセッションでログアウトした | ログインからやり直す。続くときは環境管理者に確認 |
 | `TOKEN_INVALID` | 証明が正しくない、または古い | 自動で再送せず、時刻・code・`request_id`を控えて確認 |
 
+ログインし直すときは、認証サービスで、利用者に改めて認証してもらいます。基盤は、セッションが切れた後、同じログイン（同じ`sid`）では、認証の時刻（`auth_time`）が前より新しいトークンだけを受け付けます。ブラウザーに残っている認証サービスのログインの状態を使い、認証をせずに新しいトークンを受け取ると、`auth_time`が前と同じため、同じcodeで拒否され続けます。デスクトップのアプリなどで、この状態が続くときは、認可のURLに`prompt=login`を付けて、認証し直してもらいます。
+
 変更の操作は、401のあとに自動で再送しません。ログインし直したあとで、結果を確かめてから操作を決めます。
 
 `SESSION_EXPIRED`・`SESSION_REAUTHENTICATION_REQUIRED`・`SESSION_REVOKED`は、2026-10-07の固定OpenAPIのcodeの一覧に、まだありません。OpenAPIから作ったクライアントで応答を厳密に検査している場合も、一覧にないcodeを拒否せず、401として扱ってください。
