@@ -1,0 +1,22 @@
+{
+  "format": 1,
+  "kind": "chat-note-documentation",
+  "revision": 1,
+  "updated": "2026-11-25",
+  "public_base_url": "https://mxd2024.github.io/claudia-partner-docs/chat-note/",
+  "files": {
+    "chat-note/access.html": "6748995271b4c021f5c0213efd0f48d28c0e8bfbc7d6ee43927a2a799e993d36",
+    "chat-note/embed.html": "518f7c7127ace9e257cdc2bb73ddbabbfab0f70577a5e5829b559099622bdcef",
+    "chat-note/guide/access.md": "dd2d91b10aea26c61fde83386fdcab2164f8eac1a17586df1b11e2ca8715b886",
+    "chat-note/guide/embed.md": "09223da384c788239380f14ce408a53f98536a3448e11799b3ef71383e2c446c",
+    "chat-note/guide/index.md": "749f8a319a90f4e04bd27a26f38ab27ea9ee97d972ee911ad8108b0db82dcef2",
+    "chat-note/guide/server-api.md": "4737045c3126d236621dc0abb3240b3dd8463eea5e8bff4f26247dd1fff7c965",
+    "chat-note/guide/support.md": "8cfcd14521d509aa20a85c1173d3b5b1bc2504d340a246ff0f6aab4e44a75432",
+    "chat-note/guide/use.md": "ca83e6caf6d99d2f6c97f92e47b51108d0bc04a3d381a515f3c09d48632e238c",
+    "chat-note/index.html": "d9ac180d86a3dffb5c0217c399273bb9b7624b970b35eebf5e4bbdc7a7a8d582",
+    "chat-note/search-index.json": "c6285f605dc779ea979abbef4b75b2c2e183cb7e538f76f6b6b2b402ff7d58b9",
+    "chat-note/server-api.html": "77d246a55dac3f248119c9ee4a9f3e756ace529b60987ef744266e41d5ab12c7",
+    "chat-note/support.html": "f3f6f4a9509b9a18c484641f1558378fe7f7496ea6bbe2e6307c145ad12d052f",
+    "chat-note/use.html": "844bfbaed3f7ef2fd2adb71d086f9fe6d813496d2a138b9a6d332cee02727a4d"
+  }
+}
