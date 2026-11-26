@@ -14,7 +14,7 @@
 <ol><li>現在の権限で、対象を再取得します。</li><li>最新の値と、利用者が変更しようとした内容を、比べます。</li><li>利用者が解決した、新しい操作にだけ、新しい<code>Idempotency-Key</code>を付けます。</li></ol>
 <p>期待する版だけを、自動で置き換えて、上書きしないでください。行が削除されたり、見えなくなったりしているときは、404または403として扱います。</p>
 <h2 id="section-4">認証の期限切れ・失効</h2>
-<ul><li>401で、トークンの期限切れなら、更新または再サインインを行います。更新を、無制限に繰り返しません。</li><li>失効や、期限切れが続くときは、利用者の再サインインへ戻ります。</li><li>403のときは、権限を広げようとせず、必要なMFAの実施、または管理者への確認へ案内します。</li></ul>
+<ul><li>401で、トークンの期限切れなら、更新または再サインインを行います。更新を、無制限に繰り返しません。</li><li>失効や、期限切れが続くときは、利用者の再サインインへ戻ります。</li><li>403のときは、権限を広げようとせず、管理者への確認へ案内します。2026-10より前の稼働版で、<code>MFA_REQUIRED</code>・<code>REAUTH_REQUIRED</code>が返ったときは、サインインからやり直してMFAを完了するよう案内します。</li></ul>
 <h2 id="section-5">再送のときの権限</h2>
 <p>認証が切れたり、権限が変わったりしても、再送のときは、その時点の権限で評価されます。</p>
 <p>詳しい再送の方式は、<a href="concepts.html">共通ルール</a>にあります。エラーの一覧は、<a href="errors.html">エラーと再試行</a>にあります。</p><nav class="page-next" aria-label="次に読む"><h2 class="next-title">次に読む</h2><ul><li><a href="errors.html"><b>エラーと再試行</b><span>HTTPステータスとエラーコードの意味、クライアントの対応。</span></a></li><li><a href="app-architecture.html"><b>アプリの推奨構成（参考）</b><span>ブラウザーで使うアプリを作るときの、サーバー側（BFF）の構成の考え方。契約ではなく参考です。</span></a></li></ul><p class="help">困ったとき: <a href="support.html">サポートと窓口</a></p></nav><footer class="page-foot"><span>0.7.0-experimental</span><span>更新 2026-11-26</span><a href="guide/reliability.md">機械・テキスト向け</a><a href="versions.html">対応状況</a><a class="legal" href="terms.html">利用条件・免責事項</a><span class="copyright">© 2026 META X Design. All rights reserved.</span></footer></main></div></body></html>

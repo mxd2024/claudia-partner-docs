@@ -8,7 +8,7 @@
 <h2 id="section-2">登場するもの</h2>
 <ul><li><strong>利用者</strong>: サインインする人です。</li><li><strong>顧客アプリ</strong>: 利用者に代わって、基盤APIを呼びます。</li><li><strong>認証サービス</strong>: 利用者を確認し、サインインを完了させます。</li><li><strong>基盤</strong>: アクセストークンを確認し、利用者の権限で、APIを実行します。</li></ul>
 <h2 id="section-3">全体の流れ</h2>
-<ol><li>顧客アプリが、利用者を、認証サービスのサインイン画面へ案内します。</li><li>利用者が、サインインし、MFA（パスワードに加えるもう1つの確認）を完了します。</li><li>認証サービスが、利用者を顧客アプリへ戻し、一時的な「認可コード」を渡します。</li><li>顧客アプリが、認可コードを、アクセストークンに交換します。</li><li>顧客アプリが、アクセストークンを付けて、基盤APIを呼びます。</li></ol>
+<ol><li>顧客アプリが、利用者を、認証サービスのサインイン画面へ案内します。</li><li>利用者が、サインインします。2つ目の要素が決められた利用者は、MFA（パスワードに加えるもう1つの確認）も完了します。</li><li>認証サービスが、利用者を顧客アプリへ戻し、一時的な「認可コード」を渡します。</li><li>顧客アプリが、認可コードを、アクセストークンに交換します。</li><li>顧客アプリが、アクセストークンを付けて、基盤APIを呼びます。</li></ol>
 <p>この方式は、OIDC（OpenID Connect。サインインの標準の方式）の、Authorization Code + PKCEです。PKCEは、認可コードを盗まれても使えないようにする仕組みです。</p>
 <h2 id="section-4">サインインして、トークンを取得する</h2>
 <ol><li>Claudia Partnerサポートから、issuer（認証サービスのURL）、client_id（アプリのID）、登録済みのredirect_uri（サインイン後に戻るURL）、scope（求める権限の種類）、基盤のHTTPS originを受け取ります。client_idは、登録済みの値を使います。検証用のredirect_uriが必要なら、利用環境で登録可能な値を確認します。loopbackの利用可否は利用環境によります。</li><li>issuerの<code>/.well-known/openid-configuration</code>をHTTPSで読み、返るissuerが、受け取った値と一致することを確認します。<code>authorization_endpoint</code>と<code>token_endpoint</code>を控えます。</li><li>暗号学的な乱数で、<code>state</code>と<code>code_verifier</code>を作ります。<code>code_verifier</code>は、43〜128文字の、URLに安全な文字列です。<code>code_challenge</code>は、<code>code_verifier</code>のSHA-256を、base64urlにした値（末尾の<code>=</code>なし）です。<code>code_verifier</code>と<code>state</code>は、ログに出さず、1回のサインインにだけ使います。</li><li>次の認可URLを、ブラウザーで開き、利用者にサインインとMFAを完了してもらいます。パラメーターは、URLエンコードします。</li></ol>
@@ -39,11 +39,13 @@ grant_type=authorization_code&amp;client_id=&lt;CLIENT_ID&gt;&amp;redirect_uri=&
 <p>変更の操作は、401のあとに自動で再送しません。サインインし直したあとで、結果を確かめてから操作を決めます。</p>
 <p><code>SESSION_EXPIRED</code>・<code>SESSION_REAUTHENTICATION_REQUIRED</code>・<code>SESSION_REVOKED</code>は、2026-10-07の固定OpenAPIのcodeの一覧に、まだありません。OpenAPIから作ったクライアントで応答を厳密に検査している場合も、一覧にないcodeを拒否せず、401として扱ってください。</p>
 <h2 id="section-7">MFAと再認証</h2>
-<p>人のアクセスでは、MFAと再認証が要るかどうかは、認証サービスの設定で決まります。基盤は、MFAと再認証のために、トークンの<code>acr</code>と<code>auth_time</code>を判定しません。人のアクセスに、403の<code>MFA_REQUIRED</code>・<code>REAUTH_REQUIRED</code>は返りません。</p>
+<p>新しいセッションの方式の稼働版（2026-10以降）では、人のアクセスで、MFAと再認証が要るかどうかは、認証サービスの設定で決まります。基盤は、MFAと再認証のために、トークンの<code>acr</code>と<code>auth_time</code>を判定しません。人のアクセスに、403の<code>MFA_REQUIRED</code>・<code>REAUTH_REQUIRED</code>は返りません。</p>
+<p>それより前の稼働版では、人のアクセスにも、403の<code>MFA_REQUIRED</code>・<code>REAUTH_REQUIRED</code>が返ることがあります。そのときは、サインインの手順（認可コードフロー）を最初からやり直し、MFAを完了します。トークンの更新（リフレッシュ）では、代用できません。</p>
+<p>次の表は、新しいセッションの方式の稼働版（2026-10以降）の動きです。</p>
 <div class="table-wrap"><table><thead><tr><th scope="col">項目</th><th scope="col">人のアクセス</th><th scope="col">serviceのアクセス</th></tr></thead><tbody><tr><td>固定契約の<code>x-required-authority</code>の<code>mfa</code></td><td>基盤は判定しません。認証サービスの設定で決まります</td><td><code>mfa</code>が必要な操作は呼べません。403（<code>MFA_REQUIRED</code>）</td></tr><tr><td>固定契約の<code>max_authentication_age_seconds</code></td><td>基盤は判定しません</td><td>―</td></tr><tr><td>サインインのし直し</td><td>401のcodeで分かります（上の「サインインの直後とセッションの期限」）</td><td>―</td></tr></tbody></table></div>
 <h3 id="section-8">2つ目の要素</h3>
 <p>認証サービスでは、パスワードに加えて、2つ目の要素で本人を確かめます。利用者から見える動きは、次のとおりです。</p>
-<div class="table-wrap"><table><thead><tr><th scope="col">項目</th><th scope="col">動き</th></tr></thead><tbody><tr><td>方式</td><td>6桁のコード・端末の認証・キーの3つです。どれを使うかは、管理者が利用者ごとに決めます</td></tr><tr><td>端末を覚える</td><td>2つの要素を通った端末（ブラウザー）では、管理者が決めた日数（0〜180日）のあいだ、2つ目の要素を省きます。パスワードは毎回要ります。0日のときは省きません</td></tr><tr><td>共用のPC</td><td>端末を覚える機能は、共用のPCも区別しません。パスワードを知っている人が、2つ目の要素なしで入れます。共用のPCがあるときは、日数を0にします</td></tr><tr><td>キーの方式</td><td>キーを登録していない人は、パスワードだけでは通りません。登録の画面が出ます</td></tr><tr><td>シークレットウィンドウ</td><td>端末を覚えません。毎回、2つ目の要素が要ります。上の、端末コードの方式で認証し直すときも同じです</td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th scope="col">項目</th><th scope="col">動き</th></tr></thead><tbody><tr><td>方式</td><td>6桁のコード・端末の認証・キーの3つか、なしです。管理者が、利用者ごとに1つ決めます。なしの利用者は、パスワードだけで通ります。2つ目の要素を付けることを勧めます</td></tr><tr><td>端末を覚える</td><td>2つの要素を通った端末（ブラウザー）では、管理者が決めた日数（0〜180日）のあいだ、2つ目の要素を省きます。パスワードは毎回要ります。0日のときは省きません</td></tr><tr><td>共用のPC</td><td>端末を覚える機能は、共用のPCも区別しません。その端末で最後に2つの要素を通った人の、パスワードを知っている人は、2つ目の要素なしで入れます。共用のPCがあるときは、日数を0にします</td></tr><tr><td>キーの方式</td><td>キーを登録していない人は、パスワードだけでは通りません。登録の画面が出ます</td></tr><tr><td>シークレットウィンドウ</td><td>端末を覚えません。毎回、2つ目の要素が要ります。上の、端末コードの方式で認証し直すときも同じです</td></tr></tbody></table></div>
 <h2 id="section-9">トークンの更新と、サインアウト</h2>
 <p>アクセストークンには、有効期限があります。リフレッシュトークンを発行されたクライアントは、期限が切れる前に、トークンを更新できます。</p>
 <ul><li><code>token_endpoint</code>に、<code>grant_type=refresh_token</code>、<code>client_id</code>、<code>refresh_token</code>を、フォームで送ります。</li><li>新しいリフレッシュトークンが返ったときは、安全に保存してから、次の利用へ進みます。</li><li>同じ利用者のセッションの更新は、1つずつ行います。古いトークンを、再利用しません。</li><li><code>invalid_grant</code>が返ったときは、更新を繰り返さず、再サインインへ戻ります。</li></ul>

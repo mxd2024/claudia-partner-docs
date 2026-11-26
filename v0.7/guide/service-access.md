@@ -21,7 +21,7 @@ serviceは、組織の管理者の承認を受けて、動きます。承認さ�
 
 ## 前提
 
-この手順は、`managed`方式のserviceを対象にします。申請、承認、provisionには、管理者（`manage_access`と`service_administrator`の両方を持つ利用者）が必要です。申請者と承認者を分ける仕組みは、強制されません。業務の運用で分ける場合は、別に決めてください。利用者のJWTは、serviceのactivate、metadata、query、batch、importには使えません。各経路には、専用のservice JWTを使います。
+この手順は、`managed`方式のserviceを対象にします。申請、承認、provisionには、管理者（`manage_access`と`service_administrator`の両方を持つ利用者）が必要です。2026-10より前の稼働版では、管理者がMFAを完了していることも必要です。申請者と承認者を分ける仕組みは、強制されません。業務の運用で分ける場合は、別に決めてください。利用者のJWTは、serviceのactivate、metadata、query、batch、importには使えません。各経路には、専用のservice JWTを使います。
 
 - Claudia Partnerサポートから、接続情報を受け取っていること。
 - 組織の管理者が、利用者の資格で、service-clientsを操作できること。
