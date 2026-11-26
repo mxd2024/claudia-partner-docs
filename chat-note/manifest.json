@@ -1,22 +1,24 @@
 {
   "format": 1,
   "kind": "chat-note-documentation",
-  "revision": 1,
-  "updated": "2026-11-25",
+  "revision": 2,
+  "updated": "2026-11-27",
   "public_base_url": "https://mxd2024.github.io/claudia-partner-docs/chat-note/",
   "files": {
-    "chat-note/access.html": "6748995271b4c021f5c0213efd0f48d28c0e8bfbc7d6ee43927a2a799e993d36",
-    "chat-note/embed.html": "518f7c7127ace9e257cdc2bb73ddbabbfab0f70577a5e5829b559099622bdcef",
-    "chat-note/guide/access.md": "dd2d91b10aea26c61fde83386fdcab2164f8eac1a17586df1b11e2ca8715b886",
+    "chat-note/access.html": "ffdb12e481b53b695726bf7d715e93f7531acf115b5e5085b439665e47e43fce",
+    "chat-note/admin.html": "eff742c6a99258ce09e4622bfe9f6939bdb5472a30575119dbae688519180d52",
+    "chat-note/embed.html": "ce9d91870201640f3c737738518ac43f72e1612047fe85f5a5d7130769bb7b53",
+    "chat-note/guide/access.md": "79e914518667373736dc1ab7d1daf9c09f0cc8c6d9abf9f89b44c4de91b2edea",
+    "chat-note/guide/admin.md": "5cbab1b588dce409546d4d68d8f4c4bbb76503842b0227f6eb82d494d82afba3",
     "chat-note/guide/embed.md": "09223da384c788239380f14ce408a53f98536a3448e11799b3ef71383e2c446c",
-    "chat-note/guide/index.md": "749f8a319a90f4e04bd27a26f38ab27ea9ee97d972ee911ad8108b0db82dcef2",
-    "chat-note/guide/server-api.md": "4737045c3126d236621dc0abb3240b3dd8463eea5e8bff4f26247dd1fff7c965",
+    "chat-note/guide/index.md": "8d7a7f7e48a139f2dd2109f8cbce9eeee9e4ef4aba3e99a77e1bd5f2361ab100",
+    "chat-note/guide/server-api.md": "ff3717ff4026a1b04e7bfa8efab6ddbda4ed20adae5c2ca1746eed3ec8c10fa4",
     "chat-note/guide/support.md": "8cfcd14521d509aa20a85c1173d3b5b1bc2504d340a246ff0f6aab4e44a75432",
     "chat-note/guide/use.md": "ca83e6caf6d99d2f6c97f92e47b51108d0bc04a3d381a515f3c09d48632e238c",
-    "chat-note/index.html": "d9ac180d86a3dffb5c0217c399273bb9b7624b970b35eebf5e4bbdc7a7a8d582",
-    "chat-note/search-index.json": "c6285f605dc779ea979abbef4b75b2c2e183cb7e538f76f6b6b2b402ff7d58b9",
-    "chat-note/server-api.html": "77d246a55dac3f248119c9ee4a9f3e756ace529b60987ef744266e41d5ab12c7",
-    "chat-note/support.html": "f3f6f4a9509b9a18c484641f1558378fe7f7496ea6bbe2e6307c145ad12d052f",
-    "chat-note/use.html": "844bfbaed3f7ef2fd2adb71d086f9fe6d813496d2a138b9a6d332cee02727a4d"
+    "chat-note/index.html": "a3018ea36b1a9625fdfd6be66d1dc2de56146cb2855e5b8406f1e9215466c93d",
+    "chat-note/search-index.json": "8c24fb982b496b77cb5c98c7219c1694027a7e9ababf7186cc53595ff05618d7",
+    "chat-note/server-api.html": "2de412e95a7dd7cd6a98f79acfc41b617495a34af60e701b502136e168850a75",
+    "chat-note/support.html": "37c46a5e92864ece3818dac80eba5d6b47c6a7a4a88c9acf8c763e3bfff5c5f1",
+    "chat-note/use.html": "3568d7d76acc4ab373b935db5d4ea0d5a414eae30f2a19bc75de744d79e7c267"
   }
 }
