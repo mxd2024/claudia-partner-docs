@@ -1,7 +1,7 @@
 {
   "title": "Claudia Partner Chat Note Docs",
   "label": "Chat Note",
-  "revision": 2,
+  "revision": 3,
   "updated": "2026-11-27",
   "path": "chat-note",
   "base_url": "https://mxd2024.github.io/claudia-partner-docs/",
@@ -9,51 +9,51 @@
   "pages": [
     {
       "slug": "index",
-      "title": "Chat Note の全体像",
+      "title": "Chat Note の概要",
       "section": "はじめに",
-      "summary": "Chat Note でできること、しくみ、入っていないもの。",
+      "summary": "主な機能、構成、対象外の機能。",
       "next": ["use", "access", "embed"]
     },
     {
       "slug": "use",
       "title": "使い方",
-      "section": "使う人",
-      "summary": "サインイン、スレッド・チャット・ノート、添付、返信通知。",
+      "section": "利用者向け",
+      "summary": "サインイン、スレッド・チャット・ノート、ファイルの添付、返信通知。",
       "next": ["access", "support"]
     },
     {
       "slug": "access",
-      "title": "場所と、使える人",
-      "section": "管理する人",
-      "summary": "部署とケースの場所が、基盤の役割と担当から決まるしくみ。",
+      "title": "カテゴリと閲覧権限",
+      "section": "管理者向け",
+      "summary": "部署とケースのカテゴリと、閲覧権限が自動で設定されるしくみ。",
       "next": ["admin", "use", "support"]
     },
     {
       "slug": "admin",
       "title": "管理画面での設定",
-      "section": "管理する人",
-      "summary": "場所を作る、使える人を決める、名前・札の数・スレッドの移動。",
+      "section": "管理者向け",
+      "summary": "カテゴリの作成、権限の設定、カテゴリ名とタグの数の変更、スレッドの移動。",
       "next": ["access", "support"]
     },
     {
       "slug": "embed",
-      "title": "アプリの画面にはめ込む",
-      "section": "アプリと連携する",
-      "summary": "アプリの画面に Chat Note を表示する方法と、サインインの流れ。",
+      "title": "アプリの画面への埋め込み",
+      "section": "アプリ連携",
+      "summary": "アプリの画面に Chat Note を埋め込む方法と、サインインの流れ。",
       "next": ["server-api", "support"]
     },
     {
       "slug": "server-api",
-      "title": "サーバーから使う API",
-      "section": "アプリと連携する",
-      "summary": "アプリのサーバーから、社員として読み書きする API。",
+      "title": "サーバー用 API",
+      "section": "アプリ連携",
+      "summary": "アプリのサーバーから、社員として読み書きするための API。",
       "next": ["embed", "support"]
     },
     {
       "slug": "support",
-      "title": "困ったとき・お問い合わせ",
+      "title": "トラブルシューティングとお問い合わせ",
       "section": "サポート",
-      "summary": "よくあるつまずきと、問い合わせのしかた。",
+      "summary": "よくある症状と対処、お問い合わせ先。",
       "next": ["use", "access"]
     }
   ]
