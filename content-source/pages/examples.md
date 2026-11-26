@@ -14,16 +14,16 @@
 
 ### 接続と読み取り
 
-ブラウザー → アプリのサーバー側（BFF）→ 基盤APIの構成を例にします。人のログインは認証サービスのOIDC Authorization Code + PKCEとMFAを使います。登録済みclient_id等が必要で、個別アプリの登録・BFF接続は準備中です。
+ブラウザー → アプリのサーバー側（BFF）→ 基盤APIの構成を例にします。人のサインインは認証サービスのOIDC Authorization Code + PKCEとMFAを使います。登録済みclient_id等が必要で、個別アプリの登録・BFF接続は準備中です。
 
 1. [接続情報](request-access.html)と利用環境の有効機能・稼働版を確認します。
-2. [本人として接続](authentication.html)し、`GET /v1/me`を確認します。
+2. [利用者として接続する](authentication.html)の手順で接続し、`GET /v1/me`を確認します。
 3. 表のdefinitionから`schema_version`を取得します。
 4. `POST /v2/tables/{collection}/query`で、許可された作業メモを読みます。空の一覧と認証エラーを区別します。
 
 ### 作成・更新・競合
 
-[HTTP・実行例](examples.html)の`v2-create`、`v2-query`、`v2-update`を参照します。新規作成のidはサーバーが決めます。更新には取得したid・versionと現在のschema_versionを使い、操作ごとにIdempotency-Keyを作ります。
+このページの下にある`v2-create`、`v2-query`、`v2-update`の例を参照します。新規作成のidはサーバーが決めます。更新には取得したid・versionと現在のschema_versionを使い、操作ごとにIdempotency-Keyを作ります。
 
 412なら最新値と編集内容を比較して利用者に確認します。通信が途切れただけなら、同じキーと本文を保持して結果を確認し、別キーで二重に更新しません。[競合・再送・復帰](reliability.html)を参照してください。
 
@@ -42,7 +42,7 @@ python request.py --base https://api.example.invalid --request my-request.json
 node request.mjs --base https://api.example.invalid --request my-request.json
 ```
 
-資格は環境変数CP_ACCESS_TOKEN、またはPythonの非表示対話入力で渡します。スクリプトやリクエストファイルへ埋め込みません。CP_ACCESS_TOKENは[利用者として接続する](authentication.html)で取得したaccess_tokenです。baseは、環境管理者から受け取った、基盤のHTTPS originへ置き換えます。検証CAはPythonの --ca 引数、NodeのNODE_EXTRA_CA_CERTSで設定し、TLS検証を無効化しません。
+資格は環境変数CP_ACCESS_TOKEN、またはPythonの非表示対話入力で渡します。スクリプトやリクエストファイルへ埋め込みません。CP_ACCESS_TOKENは[利用者として接続する](authentication.html)で取得したaccess_tokenです。baseは、Claudia Partnerサポートから受け取った、基盤のHTTPS originへ置き換えます。検証CAはPythonの --ca 引数、NodeのNODE_EXTRA_CA_CERTSで設定し、TLS検証を無効化しません。
 
 my-request.jsonは下の共通JSONから1件を選び、headers内のAuthorizationプレースホルダー以外の値、url、bodyを実際の利用環境向けに直したものです。書込はIdempotency-Keyと期待版を確認してから実行します。
 
