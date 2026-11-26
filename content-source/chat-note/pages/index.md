@@ -38,7 +38,8 @@ Claudia Partner Chat Note（以下、Chat Note）は、社内の会話と記録�
 | もの | 受け持ち |
 |---|---|
 | Chat Note の提供・運用・更新・バックアップ | Claudia Partner |
-| Chat Note の全体の管理（設定や、場所の構成の調整） | Claudia Partner |
+| 管理画面での設定（場所を作る・使える人を決める・名前・札の数・スレッドの移動）と、その内容 | 会社の管理者（Claudia Partnerサポートが相談を受け、ご依頼があれば代わりに行います）。詳しくは[管理画面での設定](admin.html) |
+| Chat Note のしくみ（サインイン、部署とケースの場所を自動で作る決まり） | Claudia Partner |
 | 役割と担当の登録（見られる場所の元になるもの） | 基盤を使う会社の管理者 |
 | Chat Note をはめ込むアプリ（画面とサーバー） | アプリを作る側 |
 
