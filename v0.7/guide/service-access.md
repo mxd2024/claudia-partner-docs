@@ -1,6 +1,6 @@
 # service として接続する
 
-serviceは、人の操作なしに動く処理（バッチや連携など）が、基盤に接続するための方式です。利用者がログインする方式（[利用者として接続する](authentication.md)）とは、別の方式です。
+serviceは、人の操作なしに動く処理（バッチや連携など）が、基盤に接続するための方式です。利用者がサインインする方式（[利用者として接続する](authentication.md)）とは、別の方式です。
 
 serviceは、組織の管理者の承認を受けて、動きます。承認された、表、列、操作、期限の範囲だけで動き、それを超えることはできません。
 
@@ -21,10 +21,10 @@ serviceは、組織の管理者の承認を受けて、動きます。承認さ�
 
 ## 前提
 
-この手順は、`managed`方式のserviceを対象にします。申請、承認、provisionには、MFAを完了した管理者（`manage_access`と`service_administrator`の両方を持つ利用者）が必要です。申請者と承認者を分ける仕組みは、強制されません。業務の運用で分ける場合は、別に決めてください。利用者のJWTは、serviceのactivate、metadata、query、batch、importには使えません。各経路には、専用のservice JWTを使います。
+この手順は、`managed`方式のserviceを対象にします。申請、承認、provisionには、管理者（`manage_access`と`service_administrator`の両方を持つ利用者）が必要です。申請者と承認者を分ける仕組みは、強制されません。業務の運用で分ける場合は、別に決めてください。利用者のJWTは、serviceのactivate、metadata、query、batch、importには使えません。各経路には、専用のservice JWTを使います。
 
-- 環境管理者から、接続情報を受け取っていること。
-- 組織の管理者が、MFA付きの利用者の資格で、service-clientsを操作できること。
+- Claudia Partnerサポートから、接続情報を受け取っていること。
+- 組織の管理者が、利用者の資格で、service-clientsを操作できること。
 - 秘密鍵は、あなたのサーバー処理だけが持ちます。申請には、公開鍵（JWK）だけを渡します。RSA 2048〜4096ビット、RS256、`kid`付きの鍵を使います。秘密鍵を、API、MCP、チャットへ送らないでください。
 
 ## 申請から利用まで
@@ -46,7 +46,7 @@ Accept: application/json
 grant_type=client_credentials&client_id=<CLIENT_ID>&client_assertion_type=urn%3Aietf%3Aparams%3Aoauth%3Aclient-assertion-type%3Ajwt-bearer&client_assertion=<SIGNED_JWT>
 ```
 
-5. **activateする（あなたのサーバー処理）。** provisionが返す`audience`は、取得するアクセストークンの宛先（API）で、JWTの`aud`（`token_endpoint`）とは別の値です。JWTのヘッダーの`kid`は、登録した公開鍵の`kid`と一致させます（RS256）。 `access_token`で、`POST /v2/service/activate`に`{}`を送ります。serviceの`access_token`の有効期間は、最大300秒です。更新は、新しい`jti`で、`client_credentials`を取得し直します。利用者用のリフレッシュトークンは、使いません。
+5. **activateする（あなたのサーバー処理）。** provisionが返す`audience`は、取得するアクセストークンの宛先（API）で、JWTの`aud`（`token_endpoint`）とは別の値です。JWTのヘッダーの`kid`は、登録した公開鍵の`kid`と一致させます（RS256）。`access_token`で、`POST /v2/service/activate`に`{}`を送ります。serviceの`access_token`の有効期間は、最大300秒です。更新は、新しい`jti`で、`client_credentials`を取得し直します。利用者用のリフレッシュトークンは、使いません。
 6. **使う（あなたのサーバー処理）。** 許可された`POST /v2/service/tables/{collection}/query`を実行します。
 
 **期待する結果**: 許可された操作が、200で成功します。`GET /v1/me`は、人の利用者の専用なので、拒否されます。利用環境の認証の入口によって、401（`TOKEN_INVALID`）または403のどちらかになります。実際のHTTPとcodeを記録してください。「人として接続できた」ことを、成功の条件にしないでください。
@@ -101,12 +101,12 @@ serviceの期限（`expires_at`）は、設定する時点から90日以内で�
 
 基盤のAPIには、決まった時刻に処理を動かす操作はありません。毎日の集計や、ほかのシステムとの同期は、お客さまのアプリのサーバー（BFF）が、決めた時刻に、serviceとして読み書きします。
 
-- 集計の操作（`POST /v2/tables/{collection}/aggregate`）は、利用者のログインで使う操作で、serviceでは使えません。serviceでは、`query`で必要な行を読み、アプリで集計します。
+- 集計の操作（`POST /v2/tables/{collection}/aggregate`）は、利用者のサインインで使う操作で、serviceでは使えません。serviceでは、`query`で必要な行を読み、アプリで集計します。
 - `query`は、1回199行まで（指定しないときは50行）です。応答の`next_after`を、次の`after`に渡して、続きを読みます。行は行のIDの順で返ります。読み終えるまでの間に、ほかの更新が入ることがあります。`filter`と`sort`は使えません。
-- `batch`は、1回50操作まで、本文は64KiBまでです（人の`batch`の100操作とは違います）。取込（`import`）は、1回100操作・256KiBまでです。
+- `batch`は、1回50操作まで、本文は64KiBまでです（人の`batch`の100操作とは違います）。取込（`import`）は、1回100操作・256KiBまでです。`service.metadata`（`GET /v2/service/tables/{collection}`）の応答の`limits.batch`（100）は、取込の上限です。`batch`は50操作までです。
 - 1分あたりのリクエストは、申請の`rpm`（1〜120）までです。超えると、429（`RATE_LIMITED`）で拒否されます。認証を通り、上限の内で受け付けたリクエストは、そのあと拒否されても、数に入ります。認証できないリクエストと、上限で断られたリクエストは、数に入りません。
 - 1行の値は、16KiBまでです。serviceで行を作るときは、表の行が25,000行に達していると、作れません（413 `PAYLOAD_TOO_LARGE`）。
-- 利用者のログインで使う検索と集計は、利用者が見られる範囲の全体が25,000行・32MiBのどちらかを超えると、使えません（[表とデータの更新](tables.md)の「上限」）。
+- 利用者のサインインで使う検索と集計は、利用者が見られる範囲の全体が25,000行・32MiBのどちらかを超えると、使えません（[表とデータの更新](tables.md)の「上限」）。
 
 ## 使い始める前に
 
